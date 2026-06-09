@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --emerald-base: #0b2e20;
+  --emerald-section: #0f3d2a;
+  --emerald-deep: #082218;
+  --gold: #d4af37;
+  --gold-light: #e8c766;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-emerald-base text-stone-200 antialiased;
+    font-feature-settings: "ss01", "liga";
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-white;
+  }
+
+  /* Focus visibility for keyboard users */
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-emerald-base;
+  }
+}
+
+@layer components {
+  .container-luxe {
+    @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-10;
+  }
+
+  .text-gold-gradient {
+    @apply bg-gold-gradient bg-clip-text text-transparent;
+  }
+
+  /* Thin gold divider */
+  .gold-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-gold/50 to-transparent;
+  }
+
+  .gold-rule {
+    @apply inline-block h-px w-12 bg-gold;
+  }
+}
+
+/* Custom scrollbar — subtle, on-brand */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--emerald-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: #1c5440;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #246b52;
+}
