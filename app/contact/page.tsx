@@ -18,6 +18,12 @@ const details = [
     icon: <path d="M4 6h16v12H4z M4 7l8 6 8-6" />,
   },
   {
+    label: "Phone",
+    value: siteConfig.phone,
+    href: siteConfig.phoneHref,
+    icon: <path d="M4 4h4l2 5-2.5 1.5a11 11 0 005 5L20 18v2a2 2 0 01-2 2A16 16 0 014 6a2 2 0 010-2z" />,
+  },
+  {
     label: "Coverage",
     value: "Remote · Countrywide across South Africa",
     href: undefined,

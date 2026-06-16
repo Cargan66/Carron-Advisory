@@ -7,11 +7,12 @@ export const siteConfig = {
     "Carron Business Advisory provides fractional and outsourced CFO services to South African SMEs — senior financial leadership for owner-managed businesses that have outgrown a bookkeeper but can't justify a full-time CFO. Remote, countrywide.",
   url: "https://carron.co.za",
   email: "info@carron.co.za",
-  phone: "+27 21 000 0000",
+  phone: "+27 (0) 68 901 2180",
+  phoneHref: "tel:+27689012180",
   location: "Remote · Countrywide across South Africa",
   social: {
-    linkedin: "https://www.linkedin.com",
-    x: "https://x.com",
+    linkedin: "https://www.linkedin.com/in/carel-frederik-gangel-84731023/",
+    x: "https://x.com/CarelGangel",
   },
 };
 

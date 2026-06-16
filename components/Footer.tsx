@@ -72,6 +72,14 @@ export function Footer() {
                 {siteConfig.email}
               </a>
             </li>
+            <li>
+              <a
+                href={siteConfig.phoneHref}
+                className="text-bone-muted transition-colors hover:text-gold"
+              >
+                {siteConfig.phone}
+              </a>
+            </li>
             <li className="pt-2 text-bone-muted">{siteConfig.location}</li>
             <FooterLink href="/tools">Finance calculator</FooterLink>
             <FooterLink href="/diagnostic">Financial Performance Diagnostic</FooterLink>
