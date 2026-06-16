@@ -5,8 +5,8 @@ export const siteConfig = {
   tagline: "The difference between keeping books and running a business.",
   description:
     "Carron Business Advisory provides fractional and outsourced CFO services to South African SMEs — senior financial leadership for owner-managed businesses that have outgrown a bookkeeper but can't justify a full-time CFO. Remote, countrywide.",
-  url: "https://carronadvisory.co.za",
-  email: "hello@carronadvisory.co.za",
+  url: "https://carron.co.za",
+  email: "info@carron.co.za",
   phone: "+27 21 000 0000",
   location: "Remote · Countrywide across South Africa",
   social: {
