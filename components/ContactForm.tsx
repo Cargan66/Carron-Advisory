@@ -27,7 +27,7 @@ export function ContactForm() {
       next.email = "Please enter a valid email address.";
     }
     if (!data.message.trim()) {
-      next.message = "Please tell us a little about your needs.";
+      next.message = "Please tell us a little about your business.";
     } else if (data.message.trim().length < 10) {
       next.message = "Please provide a little more detail (10+ characters).";
     }
@@ -40,8 +40,8 @@ export function ContactForm() {
     const formData = new FormData(form);
     const data = {
       name: String(formData.get("name") ?? ""),
+      business: String(formData.get("business") ?? ""),
       email: String(formData.get("email") ?? ""),
-      phone: String(formData.get("phone") ?? ""),
       interest: String(formData.get("interest") ?? ""),
       message: String(formData.get("message") ?? ""),
     };
@@ -78,9 +78,9 @@ export function ContactForm() {
           </svg>
         </span>
         <h3 className="mt-6 text-2xl font-bold text-white">Thank you.</h3>
-        <p className="mt-3 max-w-sm text-stone-300">
-          Your enquiry has been received. A member of our advisory team will be
-          in touch within one business day.
+        <p className="mt-3 max-w-sm text-bone-muted">
+          Your message has been received. We&apos;ll be in touch within one
+          business day to set up your discovery call.
         </p>
         <button
           type="button"
@@ -96,62 +96,64 @@ export function ContactForm() {
   return (
     <form noValidate onSubmit={onSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Full name" htmlFor="name" error={errors.name}>
+        <Field label="Your name" htmlFor="name" error={errors.name}>
           <input
             id="name"
             name="name"
             type="text"
             autoComplete="name"
-            placeholder="Jane Harrington"
+            placeholder="Thandi Mokoena"
             aria-invalid={!!errors.name}
             className={fieldClasses}
           />
         </Field>
-        <Field label="Email" htmlFor="email" error={errors.email}>
+        <Field label="Business name" htmlFor="business">
           <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            placeholder="jane@example.com"
-            aria-invalid={!!errors.email}
+            id="business"
+            name="business"
+            type="text"
+            autoComplete="organization"
+            placeholder="Your company (Pty) Ltd"
             className={fieldClasses}
           />
         </Field>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Phone (optional)" htmlFor="phone">
+        <Field label="Email" htmlFor="email" error={errors.email}>
           <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            placeholder="+1 (212) 555-0100"
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="thandi@yourbusiness.co.za"
+            aria-invalid={!!errors.email}
             className={fieldClasses}
           />
         </Field>
-        <Field label="Area of interest" htmlFor="interest">
+        <Field label="What's the priority?" htmlFor="interest">
           <select id="interest" name="interest" className={fieldClasses} defaultValue="">
             <option value="" disabled>
-              Select a service
+              Select an area
             </option>
-            <option>Wealth Management</option>
-            <option>Investment Advisory</option>
-            <option>Retirement Planning</option>
-            <option>Estate Planning</option>
-            <option>Tax Strategy</option>
-            <option>Other</option>
+            <option>Cash flow</option>
+            <option>Profit &amp; pricing</option>
+            <option>Funding &amp; banks</option>
+            <option>Reporting &amp; systems</option>
+            <option>Risk &amp; governance</option>
+            <option>Growth &amp; strategy</option>
+            <option>Financial Performance Diagnostic</option>
+            <option>Not sure yet</option>
           </select>
         </Field>
       </div>
 
-      <Field label="How can we help?" htmlFor="message" error={errors.message}>
+      <Field label="Tell us about your business" htmlFor="message" error={errors.message}>
         <textarea
           id="message"
           name="message"
           rows={5}
-          placeholder="Tell us a little about your situation and what you're looking for…"
+          placeholder="A line or two about your business, roughly your turnover, and what's prompting you to reach out…"
           aria-invalid={!!errors.message}
           className={`${fieldClasses} resize-none`}
         />
@@ -173,9 +175,9 @@ export function ContactForm() {
 
       <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <Button type="submit" size="lg" disabled={status === "submitting"}>
-          {status === "submitting" ? "Sending…" : "Submit Enquiry"}
+          {status === "submitting" ? "Sending…" : "Book a Discovery Call"}
         </Button>
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-bone-dim">
           We respect your privacy. Your details are never shared.
         </p>
       </div>
@@ -198,7 +200,7 @@ function Field({
     <div>
       <label
         htmlFor={htmlFor}
-        className="mb-2 block text-sm font-medium text-stone-300"
+        className="mb-2 block text-sm font-medium text-bone/90"
       >
         {label}
       </label>

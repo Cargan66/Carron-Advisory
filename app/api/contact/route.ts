@@ -4,8 +4,8 @@ export const runtime = "nodejs";
 
 type ContactPayload = {
   name?: string;
+  business?: string;
   email?: string;
-  phone?: string;
   interest?: string;
   message?: string;
 };
@@ -35,8 +35,8 @@ export async function POST(request: Request) {
   // Replace this with an email service (Resend, SendGrid) or CRM integration.
   console.log("[contact] new enquiry", {
     name,
+    business: body.business?.trim() || "—",
     email,
-    phone: body.phone?.trim() || "—",
     interest: body.interest?.trim() || "—",
     message,
     receivedAt: new Date().toISOString(),

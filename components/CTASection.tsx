@@ -2,8 +2,8 @@ import { Button } from "./Button";
 import { FadeIn } from "./FadeIn";
 
 export function CTASection({
-  title = "Begin a conversation in confidence.",
-  description = "Every engagement starts with a private, no-obligation consultation to understand your goals — and whether we're the right fit.",
+  title = "Let's talk about your numbers.",
+  description = "Every engagement starts with a free, no-obligation discovery call to understand your business and where an experienced CFO would make the biggest difference.",
 }: {
   title?: string;
   description?: string;
@@ -30,10 +30,10 @@ export function CTASection({
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button href="/contact" size="lg">
-                Book a Consultation
+                Book a Discovery Call
               </Button>
-              <Button href="/about" size="lg" variant="secondary">
-                Learn About Us
+              <Button href="/engagement" size="lg" variant="secondary">
+                How It Works
               </Button>
             </div>
           </div>

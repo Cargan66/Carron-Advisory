@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Begin a confidential conversation with Aurelia Private Wealth. Book a consultation or reach our New York advisory office.",
+    "Book a free discovery call with Carron Business Advisory. Fractional CFO services for South African SMEs, delivered remotely, countrywide.",
 };
 
 const details = [
@@ -15,26 +15,27 @@ const details = [
     label: "Email",
     value: siteConfig.email,
     href: `mailto:${siteConfig.email}`,
-    icon: (
-      <path d="M4 6h16v12H4z M4 7l8 6 8-6" />
-    ),
+    icon: <path d="M4 6h16v12H4z M4 7l8 6 8-6" />,
   },
   {
-    label: "Telephone",
-    value: siteConfig.phone,
-    href: `tel:${siteConfig.phone.replace(/[^+\d]/g, "")}`,
-    icon: (
-      <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" />
-    ),
-  },
-  {
-    label: "Office",
-    value: `${siteConfig.address.line1}, ${siteConfig.address.line2}`,
+    label: "Coverage",
+    value: "Remote · Countrywide across South Africa",
     href: undefined,
     icon: (
       <>
-        <path d="M12 21s-6-5.3-6-10a6 6 0 1112 0c0 4.7-6 10-6 10z" />
-        <circle cx="12" cy="11" r="2.5" />
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" />
+      </>
+    ),
+  },
+  {
+    label: "Response time",
+    value: "Within one business day",
+    href: undefined,
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
       </>
     ),
   },
@@ -47,11 +48,11 @@ export default function ContactPage() {
         eyebrow="Contact"
         title={
           <>
-            Begin a conversation in{" "}
-            <span className="text-gold-gradient">confidence</span>.
+            Let&apos;s talk about your{" "}
+            <span className="text-gold-gradient">numbers</span>.
           </>
         }
-        description="Tell us a little about yourself and what you're looking for. A member of our advisory team will respond within one business day."
+        description="Tell us a little about your business and what's prompting the call. We'll come back within one business day to set up a free, no-obligation discovery call."
       />
 
       <section className="bg-emerald-base py-24 sm:py-32">
@@ -60,12 +61,12 @@ export default function ContactPage() {
           <FadeIn className="space-y-10">
             <div>
               <h2 className="text-2xl font-bold text-white">
-                Speak with our team
+                Start the conversation
               </h2>
-              <p className="mt-3 leading-relaxed text-stone-300/90">
-                Whether you&apos;re exploring a first relationship or seeking a
-                second opinion, we&apos;re glad to talk — discreetly and without
-                obligation.
+              <p className="mt-3 leading-relaxed text-bone/90">
+                Whether you need an ongoing financial right-hand or just a second
+                opinion on one decision, we&apos;re glad to talk — straight, and
+                without obligation.
               </p>
             </div>
 
@@ -93,37 +94,42 @@ export default function ContactPage() {
                     {d.href ? (
                       <a
                         href={d.href}
-                        className="mt-1 block text-stone-200 transition-colors hover:text-gold"
+                        className="mt-1 block text-bone transition-colors hover:text-gold"
                       >
                         {d.value}
                       </a>
                     ) : (
-                      <p className="mt-1 text-stone-200">{d.value}</p>
+                      <p className="mt-1 text-bone">{d.value}</p>
                     )}
                   </div>
                 </li>
               ))}
             </ul>
 
-            {/* Map placeholder */}
-            <div className="relative overflow-hidden rounded-2xl border border-white/10">
+            {/* Nationwide coverage graphic (no single office pin) */}
+            <div
+              className="relative overflow-hidden rounded-2xl border border-white/10"
+              role="img"
+              aria-label="Carron serves SMEs remotely across all of South Africa"
+            >
               <div
-                className="flex h-56 items-center justify-center bg-emerald-section"
+                className="flex h-56 flex-col items-center justify-center gap-3 bg-emerald-section"
                 style={{
                   backgroundImage:
-                    "linear-gradient(rgba(212,175,55,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.18) 1px, transparent 1px)",
+                    "linear-gradient(rgba(212,175,55,0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.16) 1px, transparent 1px)",
                   backgroundSize: "32px 32px",
                 }}
-                role="img"
-                aria-label="Map showing Aurelia's New York office location"
               >
                 <span className="flex items-center gap-2 rounded-full border border-gold/30 bg-emerald-deep/80 px-4 py-2 text-sm text-gold">
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden>
-                    <path d="M12 21s-6-5.3-6-10a6 6 0 1112 0c0 4.7-6 10-6 10z" strokeLinecap="round" strokeLinejoin="round" />
-                    <circle cx="12" cy="11" r="2.5" />
+                    <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  {siteConfig.address.line2}
+                  Serving SMEs across South Africa
                 </span>
+                <p className="text-xs text-bone-dim">
+                  Remote-first · every province
+                </p>
               </div>
             </div>
           </FadeIn>

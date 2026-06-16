@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "./Button";
-import { stats } from "@/lib/content";
 
 const container = {
   hidden: {},
@@ -18,9 +18,35 @@ const item = {
   },
 };
 
+const marks = [
+  "Fractional CFO leadership",
+  "Remote, countrywide",
+  "No full-time salary",
+];
+
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-emerald-radial">
+      {/* Office background — a team working together */}
+      <Image
+        src="/images/office-team.jpg"
+        alt="A team working together at their laptops in a bright office"
+        fill
+        priority
+        sizes="100vw"
+        className="pointer-events-none absolute inset-0 object-cover opacity-80"
+      />
+      {/* Left-to-right emerald wash: dark behind the text, clear over the photo */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-emerald-base via-emerald-base/80 to-emerald-base/20"
+      />
+      {/* Gentle top & bottom fade to blend the edges */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-emerald-deep/60 via-transparent to-emerald-base/70"
+      />
+
       {/* Decorative gold glow */}
       <div
         aria-hidden
@@ -52,25 +78,24 @@ export function Hero() {
           className="inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/5 px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-gold"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-          Boutique private wealth advisory
+          Fractional &amp; outsourced CFO services
         </motion.span>
 
         <motion.h1
           variants={item}
           className="mt-8 max-w-4xl text-balance text-4xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
         >
-          Quietly building{" "}
-          <span className="text-gold-gradient">enduring wealth</span> for the
-          few we serve.
+          Senior financial leadership,{" "}
+          <span className="text-gold-gradient">without the full-time salary</span>.
         </motion.h1>
 
         <motion.p
           variants={item}
-          className="mt-7 max-w-2xl text-lg leading-relaxed text-stone-300/90 sm:text-xl"
+          className="mt-7 max-w-2xl text-lg leading-relaxed text-bone/90 sm:text-xl"
         >
-          Aurelia is an independent advisory firm for high-net-worth families
-          and institutions — pairing institutional rigour with the discretion of
-          a private office.
+          You&apos;ve outgrown a bookkeeper but a full-time CFO doesn&apos;t add
+          up yet. Carron gives South African SMEs an experienced CFO on tap — the
+          difference between keeping books and running a business.
         </motion.p>
 
         <motion.div
@@ -78,7 +103,7 @@ export function Hero() {
           className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
         >
           <Button href="/contact" size="lg">
-            Book a Consultation
+            Book a Discovery Call
             <svg
               className="h-4 w-4"
               viewBox="0 0 24 24"
@@ -91,26 +116,31 @@ export function Hero() {
             </svg>
           </Button>
           <Button href="/services" size="lg" variant="secondary">
-            Explore Our Services
+            What a CFO Adds
           </Button>
         </motion.div>
 
-        {/* Stat band */}
-        <motion.dl
+        {/* Honest positioning strip — no invented stats */}
+        <motion.ul
           variants={item}
-          className="mt-20 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-8 border-t border-white/10 pt-10 sm:grid-cols-4"
+          className="mt-20 flex max-w-3xl flex-wrap gap-x-10 gap-y-4 border-t border-white/10 pt-10"
         >
-          {stats.map((s) => (
-            <div key={s.label}>
-              <dt className="text-2xl font-bold text-gold sm:text-3xl">
-                {s.value}
-              </dt>
-              <dd className="mt-1 text-xs leading-snug text-stone-400">
-                {s.label}
-              </dd>
-            </div>
+          {marks.map((m) => (
+            <li key={m} className="flex items-center gap-2.5 text-sm text-bone/80">
+              <svg
+                className="h-4 w-4 flex-none text-gold"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                aria-hidden
+              >
+                <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {m}
+            </li>
           ))}
-        </motion.dl>
+        </motion.ul>
       </motion.div>
 
       {/* Scroll cue */}

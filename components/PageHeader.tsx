@@ -22,7 +22,7 @@ export function PageHeader({
             <span className="gold-rule" aria-hidden />
             {eyebrow}
           </span>
-          <h1 className="mt-5 max-w-3xl text-balance text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-5 max-w-3xl text-balance text-4xl/[1.2] font-bold text-white sm:text-5xl/[1.15] lg:text-6xl/[1.15]">
             {title}
           </h1>
           {description && (

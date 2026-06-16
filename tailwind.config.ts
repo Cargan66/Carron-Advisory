@@ -13,7 +13,7 @@ const config: Config = {
         emerald: {
           base: "#0B2E20",
           section: "#0F3D2A",
-          deep: "#082218",
+          deep: "#08251A",
           muted: "#134A33",
         },
         // Gold accents
@@ -22,6 +22,12 @@ const config: Config = {
           primary: "#D4AF37",
           deep: "#C9A227",
           light: "#E8C766",
+        },
+        // Off-white body text
+        bone: {
+          DEFAULT: "#EFE9DA",
+          muted: "#C8C2B4",
+          dim: "#9A9686",
         },
       },
       fontFamily: {
@@ -48,7 +54,7 @@ const config: Config = {
         "gold-gradient":
           "linear-gradient(135deg, #E8C766 0%, #D4AF37 45%, #C9A227 100%)",
         "emerald-radial":
-          "radial-gradient(ellipse at top, #0F3D2A 0%, #0B2E20 55%, #082218 100%)",
+          "radial-gradient(ellipse at top, #0F3D2A 0%, #0B2E20 55%, #08251A 100%)",
       },
     },
   },

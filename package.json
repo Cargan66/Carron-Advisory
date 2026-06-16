@@ -1,8 +1,8 @@
 {
-  "name": "aurelia-wealth",
+  "name": "carron-business-advisory",
   "version": "1.0.0",
   "private": true,
-  "description": "Aurelia Private Wealth — a luxury finance advisory website built with Next.js, TypeScript and Tailwind CSS.",
+  "description": "Carron Business Advisory — a premium fractional-CFO website for South African SMEs, built with Next.js, TypeScript and Tailwind CSS.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

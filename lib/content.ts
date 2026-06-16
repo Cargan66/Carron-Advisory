@@ -1,4 +1,13 @@
-// Centralised placeholder content for the site. Swap these out for real copy / a CMS later.
+// Centralised content for the Carron Business Advisory site.
+// Swap these out for real copy / a CMS later. Articles live in lib/articles.ts.
+
+export type IconName =
+  | "cashflow"
+  | "profit"
+  | "funding"
+  | "reporting"
+  | "governance"
+  | "growth";
 
 export type Service = {
   slug: string;
@@ -9,117 +18,136 @@ export type Service = {
   icon: IconName;
 };
 
-export type IconName =
-  | "shield"
-  | "chart"
-  | "compass"
-  | "scroll"
-  | "scale"
-  | "gem";
-
 export const services: Service[] = [
   {
-    slug: "wealth-management",
-    title: "Wealth Management",
+    slug: "cash-flow-command",
+    title: "Cash Flow Command",
     summary:
-      "A single, coordinated strategy for your entire balance sheet — built around your family, not a product shelf.",
+      "Know exactly what's in the bank next week, next month, and next quarter — before it becomes a crisis.",
     description:
-      "We act as the architect and steward of your complete financial picture, aligning liquid portfolios, private holdings, and lifestyle assets under one disciplined plan.",
+      "We build a rolling 13-week cash flow forecast so you can see runway, plan around tight weeks, and stop being surprised by month-end. Working capital, debtors, and creditors — managed, not guessed.",
     features: [
-      "Consolidated balance-sheet oversight",
-      "Bespoke asset allocation",
-      "Liquidity & cash-flow design",
-      "Dedicated private advisor",
+      "Rolling 13-week cash flow forecast",
+      "Working-capital and debtor-days clarity",
+      "Runway visibility, weeks ahead",
+      "Early warning on cash crunches",
     ],
-    icon: "gem",
+    icon: "cashflow",
   },
   {
-    slug: "investment-advisory",
-    title: "Investment Advisory",
+    slug: "profit-and-pricing",
+    title: "Profit & Pricing",
     summary:
-      "Institutional-grade portfolio construction with access to public and private markets.",
+      "Find out which products, clients, and jobs actually make money — and which quietly bleed it.",
     description:
-      "Our investment committee builds resilient, globally diversified portfolios — spanning public equities, fixed income, and curated private-market opportunities.",
+      "Revenue is vanity; margin is sanity. We break down your unit economics so you know your true gross margin, your break-even, and where a pricing change earns more than a sales push ever could.",
     features: [
-      "Strategic & tactical allocation",
-      "Private markets & alternatives",
-      "Risk-managed mandates",
-      "Quarterly performance reviews",
+      "Gross-margin and unit-economics analysis",
+      "Product, client, and job-level profitability",
+      "Break-even and contribution modelling",
+      "Pricing and discount discipline",
     ],
-    icon: "chart",
+    icon: "profit",
   },
   {
-    slug: "retirement-planning",
-    title: "Retirement Planning",
+    slug: "funding-and-banks",
+    title: "Funding & Banks",
     summary:
-      "A confident transition into the next chapter, with income that lasts as long as you do.",
+      "Walk into the bank with numbers they trust — and walk out with the facility you asked for.",
     description:
-      "We model decades of spending, taxes, and market scenarios so you can step back on your own terms — and stay there.",
+      "When you need to raise capital or negotiate a facility, the numbers have to stack up. We prepare investor- and bank-ready forecasts and financials, then sit alongside you in the conversation.",
     features: [
-      "Income sustainability modelling",
-      "Pension & account optimisation",
-      "Healthcare & longevity planning",
-      "Scenario stress-testing",
+      "Bank- and investor-ready forecasts",
+      "Funding applications and motivations",
+      "Facility and overdraft negotiation",
+      "Lender and investor relationships",
     ],
-    icon: "compass",
+    icon: "funding",
   },
   {
-    slug: "estate-planning",
-    title: "Estate Planning",
+    slug: "reporting-and-systems",
+    title: "Reporting & Systems",
     summary:
-      "Pass on more than capital — pass on intent, values, and a structure that endures.",
+      "A board-grade dashboard that tells you what's happening now — not what happened three months ago.",
     description:
-      "Working alongside your attorneys, we design trust and gifting structures that transfer wealth efficiently and protect the next generation.",
+      "We clean up your accounting system and build management reporting you'll actually use: a one-page dashboard of the numbers that move your business, delivered on time, every month.",
     features: [
-      "Trust & entity coordination",
-      "Multi-generational gifting",
-      "Philanthropic structuring",
-      "Family governance",
+      "Board-grade management dashboards",
+      "Clean, reliable accounting systems",
+      "Monthly management accounts that arrive on time",
+      "The handful of KPIs that matter",
     ],
-    icon: "scroll",
+    icon: "reporting",
   },
   {
-    slug: "tax-strategy",
-    title: "Tax Strategy",
+    slug: "risk-and-governance",
+    title: "Risk & Governance",
     summary:
-      "Keep more of what you earn through proactive, year-round tax coordination.",
+      "Strengthen decision-making, accountability, and financial control without burying the business in bureaucracy.",
     description:
-      "We integrate tax thinking into every decision — from asset location to charitable timing — in partnership with your CPA.",
+      "We clarify financial decision rights, reporting accountability, key risks, and practical controls. Your accountant and tax advisers keep ownership of compliance; Carron makes sure leadership sees the risks and acts in time.",
     features: [
-      "Asset-location optimisation",
-      "Tax-loss harvesting",
-      "Charitable & gifting timing",
-      "Entity & compensation planning",
+      "Board and management governance",
+      "Financial risk and control review",
+      "Decision rights and accountability",
+      "Coordination with accountants and auditors",
     ],
-    icon: "scale",
+    icon: "governance",
   },
   {
-    slug: "risk-protection",
-    title: "Risk & Protection",
+    slug: "growth-and-strategy",
+    title: "Growth & Strategy",
     summary:
-      "Insulate your family's wealth from the shocks you cannot predict.",
+      "Turn a gut-feel for where the business is going into a plan you can fund, measure, and adjust.",
     description:
-      "From liability to longevity, we identify exposures across your balance sheet and structure protection that fits the life you've built.",
+      "We pressure-test your growth plans with scenario modelling — what a new hire, a new branch, or a big contract really does to cash and profit — and guide you through acquisitions or a sale when the time comes.",
     features: [
-      "Wealth-protection review",
-      "Insurance strategy",
-      "Liability & entity shielding",
-      "Cyber & fraud safeguards",
+      "Scenario and what-if modelling",
+      "Scaling and expansion plans",
+      "M&A, buy-side and sell-side guidance",
+      "Strategy grounded in the numbers",
     ],
-    icon: "shield",
+    icon: "growth",
   },
 ];
 
-export type Stat = {
-  value: string;
-  label: string;
+// "Is it time for a CFO?" — honest, recognisable signs an SME has outgrown its books.
+export type Sign = {
+  title: string;
+  description: string;
 };
 
-export const stats: Stat[] = [
-  { value: "$8.4B", label: "Assets under advisement" },
-  { value: "320+", label: "Families & institutions served" },
-  { value: "27 yrs", label: "Average advisor tenure" },
-  { value: "98%", label: "Client retention rate" },
+export const cfoSigns: Sign[] = [
+  {
+    title: "Cash-flow surprises",
+    description:
+      "Profit on paper, but somehow there's never enough in the bank when VAT or salaries fall due.",
+  },
+  {
+    title: "Decisions on gut feel",
+    description:
+      "You're making big calls — hiring, pricing, that new branch — without numbers you trust behind them.",
+  },
+  {
+    title: "The bank said no",
+    description:
+      "You went for funding or a facility and were turned down, and you're not entirely sure why.",
+  },
+  {
+    title: "Month-end only looks backward",
+    description:
+      "Your accounts tell you what happened three months ago, never what's coming next.",
+  },
+  {
+    title: "Growth without margin",
+    description:
+      "Turnover keeps climbing but the profit doesn't follow — and you can't pinpoint where it goes.",
+  },
+  {
+    title: "A full-time CFO is out of reach",
+    description:
+      "You know you need senior financial leadership, but a full-time CFO salary simply doesn't add up yet.",
+  },
 ];
 
 export type Testimonial = {
@@ -131,131 +159,25 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Aurelia brought order to a balance sheet that three other firms had only complicated. They think like owners, not salespeople.",
-    author: "M. Harrington",
-    role: "Founder, private holding company",
+      "For the first time I know what's in the bank three months out. We stopped lurching from one tight month to the next — and I sleep again.",
+    author: "Owner-manager",
+    role: "Manufacturing business, Gauteng",
   },
   {
     quote:
-      "The team modelled our succession a decade out and gave our children a structure — and a vocabulary — for stewardship.",
-    author: "The Delacroix Family",
-    role: "Third-generation clients",
+      "We'd been turned down twice. Carron rebuilt the numbers, sat with me at the bank, and we walked out with the facility approved.",
+    author: "Founder",
+    role: "Logistics SME, Western Cape",
   },
   {
     quote:
-      "Discreet, rigorous, and genuinely aligned. In fifteen years I have never felt like a transaction.",
-    author: "Dr. A. Whitfield",
-    role: "Endowment trustee",
+      "Turns out two of our best-selling lines were barely breaking even. We fixed the pricing and added more to the bottom line than a whole new client would have.",
+    author: "Managing member",
+    role: "Wholesale & distribution, KZN",
   },
 ];
 
-export type Article = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  date: string;
-  readTime: string;
-  author: string;
-};
-
-export const articles: Article[] = [
-  {
-    slug: "the-quiet-power-of-asset-location",
-    title: "The Quiet Power of Asset Location",
-    excerpt:
-      "Where you hold an investment can matter as much as what you hold. A look at the after-tax mathematics most portfolios ignore.",
-    category: "Tax Strategy",
-    date: "May 2026",
-    readTime: "6 min read",
-    author: "Eleanor Vance",
-  },
-  {
-    slug: "private-markets-without-the-hype",
-    title: "Private Markets, Without the Hype",
-    excerpt:
-      "Alternatives can strengthen a portfolio — or quietly add risk and illiquidity. A disciplined framework for allocation.",
-    category: "Investments",
-    date: "April 2026",
-    readTime: "8 min read",
-    author: "Marcus Reyes",
-  },
-  {
-    slug: "teaching-the-next-generation",
-    title: "Teaching the Next Generation to Steward Wealth",
-    excerpt:
-      "Capital is transferred in an afternoon; stewardship takes a generation. How families build financial fluency that lasts.",
-    category: "Legacy",
-    date: "April 2026",
-    readTime: "5 min read",
-    author: "Priya Nair",
-  },
-  {
-    slug: "rethinking-the-60-40-portfolio",
-    title: "Rethinking the 60/40 Portfolio",
-    excerpt:
-      "The classic balanced portfolio was built for a different macro regime. What a modern, resilient core looks like today.",
-    category: "Investments",
-    date: "March 2026",
-    readTime: "7 min read",
-    author: "Marcus Reyes",
-  },
-  {
-    slug: "philanthropy-as-strategy",
-    title: "Philanthropy as Strategy, Not Afterthought",
-    excerpt:
-      "Donor-advised funds, charitable trusts, and timing — aligning generosity with tax efficiency and family values.",
-    category: "Legacy",
-    date: "February 2026",
-    readTime: "6 min read",
-    author: "Priya Nair",
-  },
-  {
-    slug: "the-case-for-patience",
-    title: "The Case for Patience in Volatile Markets",
-    excerpt:
-      "Behaviour, not forecasting, is where most returns are won or lost. Notes on staying invested when it is hardest.",
-    category: "Markets",
-    date: "January 2026",
-    readTime: "5 min read",
-    author: "Eleanor Vance",
-  },
-];
-
-export type TeamMember = {
-  name: string;
-  role: string;
-  bio: string;
-  initials: string;
-};
-
-export const team: TeamMember[] = [
-  {
-    name: "Eleanor Vance",
-    role: "Managing Partner & CIO",
-    bio: "Three decades shaping portfolios for founders and family offices. Eleanor chairs the investment committee and sets the firm's research agenda.",
-    initials: "EV",
-  },
-  {
-    name: "Marcus Reyes",
-    role: "Partner, Investment Advisory",
-    bio: "Former institutional allocator with a focus on private markets and risk-managed mandates for multi-generational clients.",
-    initials: "MR",
-  },
-  {
-    name: "Priya Nair",
-    role: "Partner, Wealth & Legacy",
-    bio: "Priya leads estate, philanthropic, and family-governance work, helping clients transfer not only assets but intent.",
-    initials: "PN",
-  },
-  {
-    name: "James Caldwell",
-    role: "Head of Tax Strategy",
-    bio: "A CPA by training, James integrates year-round tax planning into every client's broader financial architecture.",
-    initials: "JC",
-  },
-];
-
+// The advisor's philosophy — what guides the work, not slogans.
 export type Value = {
   title: string;
   description: string;
@@ -263,18 +185,98 @@ export type Value = {
 
 export const values: Value[] = [
   {
-    title: "Independence",
+    title: "Outcomes, not admin",
     description:
-      "We answer only to our clients. No proprietary products, no hidden incentives — just advice aligned with your interests.",
+      "You don't need another set of management accounts gathering dust. You need to know your runway, your margin, and your next move. That's what we deliver.",
   },
   {
-    title: "Discretion",
+    title: "Plain language",
     description:
-      "Privacy is the foundation of trust. Your affairs are handled with the confidentiality they deserve.",
+      "No jargon, no lectures. We translate the numbers into decisions an owner can act on this week — and make sure you understand the why.",
   },
   {
-    title: "Stewardship",
+    title: "On your side of the table",
     description:
-      "We measure success in decades and generations, not quarters — preserving and growing what matters to you.",
+      "We work for you, not the bank, not SARS, not a software vendor. One job: help you run a stronger, more fundable business.",
+  },
+];
+
+// Engagement models — how fractional / outsourced CFO works.
+export type EngagementModel = {
+  name: string;
+  best: string;
+  description: string;
+  includes: string[];
+  href?: string;
+  cta?: string;
+};
+
+export const engagementModels: EngagementModel[] = [
+  {
+    name: "Monthly Retainer",
+    best: "Best for businesses that need an ongoing financial right-hand.",
+    description:
+      "A defined set of strategic CFO outcomes within a capped monthly time allocation. Your forecasts and decision support stay current without creating an unlimited-access commitment.",
+    includes: [
+      "Agreed deliverables and capped monthly hours",
+      "Meetings, preparation, analysis, and correspondence included in the cap",
+      "Additional work only with prior approval",
+      "Scope and capacity reviewed quarterly",
+    ],
+  },
+  {
+    name: "Financial Performance Diagnostic",
+    best: "Best for owners who need clarity before committing to ongoing support.",
+    description:
+      "A fixed-scope engagement with a clear deliverable — a funding pack, a pricing review, a 13-week cash flow build, or a clean-up of your reporting. Defined outcome, defined fee.",
+    includes: [
+      "Fixed scope and fixed price",
+      "Financial health scorecard",
+      "Five priority findings and opportunities",
+      "Practical 90-day action plan",
+    ],
+    href: "/diagnostic",
+    cta: "Explore the Diagnostic",
+  },
+  {
+    name: "Ad-hoc Advisory",
+    best: "Best for owners who just need a sounding board, occasionally.",
+    description:
+      "Senior financial judgement on tap, by the session. Bring a decision — a contract, an offer, a hire, a wobble — and get a clear, numbers-grounded view without a long commitment.",
+    includes: [
+      "Pay-as-you-go sessions",
+      "No long-term commitment",
+      "Quick turnaround on a specific question",
+      "A second opinion before you commit",
+    ],
+  },
+];
+
+// How the engagement starts — a simple, low-friction path.
+export type Step = {
+  title: string;
+  description: string;
+};
+
+export const engagementSteps: Step[] = [
+  {
+    title: "Discovery call",
+    description:
+      "A free, no-obligation conversation to understand your business, your numbers, and what's keeping you up at night.",
+  },
+  {
+    title: "Financial Performance Diagnostic",
+    description:
+      "A fixed-scope review of cash, profitability, reporting, forecasting, governance, and strategic financial risk.",
+  },
+  {
+    title: "Right-sized proposal",
+    description:
+      "A clear recommendation — retainer, project, or ad-hoc — with scope and fee in plain language. No tie-ins.",
+  },
+  {
+    title: "Get to work, remotely",
+    description:
+      "We plug into your systems and your rhythm, wherever you are in the country, and start turning numbers into decisions.",
   },
 ];

@@ -5,9 +5,10 @@
 :root {
   --emerald-base: #0b2e20;
   --emerald-section: #0f3d2a;
-  --emerald-deep: #082218;
+  --emerald-deep: #08251a;
   --gold: #d4af37;
   --gold-light: #e8c766;
+  --bone: #efe9da;
 }
 
 @layer base {
@@ -16,7 +17,7 @@
   }
 
   body {
-    @apply bg-emerald-base text-stone-200 antialiased;
+    @apply bg-emerald-base text-bone antialiased;
     font-feature-settings: "ss01", "liga";
   }
 

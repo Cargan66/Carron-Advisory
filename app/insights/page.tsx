@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
-import { articles } from "@/lib/content";
+import { getAllArticles, formatArticleDate } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "Insights",
   description:
-    "Perspectives on investing, tax, legacy, and markets from the Aurelia advisory team — written for the long view.",
+    "Practical writing on cash flow, funding, profitability, and tax for South African SME owners — grounded in how a fractional CFO actually works.",
 };
 
 export default function InsightsPage() {
-  const [featured, ...rest] = articles;
+  const [featured, ...rest] = getAllArticles();
 
   return (
     <>
@@ -20,11 +21,11 @@ export default function InsightsPage() {
         eyebrow="Insights"
         title={
           <>
-            Perspectives for the{" "}
-            <span className="text-gold-gradient">long view</span>.
+            Practical reading for{" "}
+            <span className="text-gold-gradient">SME owners</span>.
           </>
         }
-        description="Considered writing on investing, tax, and legacy — none of it noise, all of it grounded in how we actually advise."
+        description="No filler and no jargon — just useful thinking on the financial decisions that actually move an owner-managed business."
       />
 
       <section className="bg-emerald-base py-24 sm:py-32">
@@ -32,18 +33,25 @@ export default function InsightsPage() {
           {/* Featured article */}
           <FadeIn>
             <Link
-              href="/insights"
+              href={`/insights/${featured.slug}`}
               className="group grid overflow-hidden rounded-3xl border border-white/10 bg-emerald-section/60 transition-colors duration-500 hover:border-gold/40 lg:grid-cols-2"
             >
-              <div className="relative min-h-[260px] overflow-hidden bg-emerald-radial p-10">
+              <div className="relative min-h-[260px] overflow-hidden">
+                <Image
+                  src={featured.cover}
+                  alt={featured.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-gold/15 blur-3xl"
+                  className="absolute inset-0 bg-gradient-to-t from-emerald-section/80 via-emerald-base/20 to-transparent"
                 />
-                <span className="relative inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                  Featured
+                <span className="absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-emerald-deep/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold backdrop-blur-sm">
+                  Latest
                 </span>
-                <p className="relative mt-auto" />
               </div>
               <div className="flex flex-col justify-center p-10">
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
@@ -52,13 +60,11 @@ export default function InsightsPage() {
                 <h2 className="mt-4 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-gold-light sm:text-3xl">
                   {featured.title}
                 </h2>
-                <p className="mt-4 leading-relaxed text-stone-300/90">
+                <p className="mt-4 leading-relaxed text-bone/90">
                   {featured.excerpt}
                 </p>
-                <div className="mt-6 flex items-center gap-3 text-sm text-stone-500">
-                  <span className="text-stone-300">{featured.author}</span>
-                  <span aria-hidden>·</span>
-                  <span>{featured.date}</span>
+                <div className="mt-6 flex items-center gap-3 text-sm text-bone-dim">
+                  <span>{formatArticleDate(featured.date)}</span>
                   <span aria-hidden>·</span>
                   <span>{featured.readTime}</span>
                 </div>
@@ -71,57 +77,38 @@ export default function InsightsPage() {
             {rest.map((a) => (
               <FadeInItem key={a.slug} className="h-full">
                 <Link
-                  href="/insights"
-                  className="group flex h-full flex-col rounded-2xl border border-white/10 bg-emerald-section/60 p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold/40"
+                  href={`/insights/${a.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-emerald-section/60 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold/40"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                    {a.category}
-                  </span>
-                  <h3 className="mt-4 text-lg font-semibold leading-snug text-white transition-colors group-hover:text-gold-light">
-                    {a.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-400">
-                    {a.excerpt}
-                  </p>
-                  <div className="mt-6 flex items-center gap-2 text-xs text-stone-500">
-                    <span>{a.date}</span>
-                    <span aria-hidden>·</span>
-                    <span>{a.readTime}</span>
+                  <div className="relative h-44 overflow-hidden">
+                    <Image
+                      src={a.cover}
+                      alt={a.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-7">
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                      {a.category}
+                    </span>
+                    <h3 className="mt-3 text-lg font-semibold leading-snug text-white transition-colors group-hover:text-gold-light">
+                      {a.title}
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-bone-muted">
+                      {a.excerpt}
+                    </p>
+                    <div className="mt-6 flex items-center gap-2 text-xs text-bone-dim">
+                      <span>{formatArticleDate(a.date)}</span>
+                      <span aria-hidden>·</span>
+                      <span>{a.readTime}</span>
+                    </div>
                   </div>
                 </Link>
               </FadeInItem>
             ))}
           </FadeInStagger>
-
-          {/* Newsletter */}
-          <FadeIn className="mt-20">
-            <div className="rounded-3xl border border-gold/20 bg-emerald-section px-8 py-12 text-center sm:px-16">
-              <h2 className="text-2xl font-bold text-white sm:text-3xl">
-                The Aurelia Quarterly
-              </h2>
-              <p className="mx-auto mt-3 max-w-xl text-stone-300/90">
-                Our considered perspective on markets and planning, delivered
-                four times a year. No noise, no selling.
-              </p>
-              <form className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
-                <label htmlFor="newsletter-email" className="sr-only">
-                  Email address
-                </label>
-                <input
-                  id="newsletter-email"
-                  type="email"
-                  placeholder="Your email address"
-                  className="w-full rounded-full border border-white/10 bg-emerald-deep/60 px-5 py-3 text-white placeholder:text-stone-500 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40"
-                />
-                <button
-                  type="submit"
-                  className="rounded-full bg-gold-gradient px-6 py-3 text-sm font-medium text-emerald-deep transition-transform duration-300 hover:-translate-y-0.5"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </FadeIn>
         </div>
       </section>
 

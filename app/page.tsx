@@ -1,12 +1,19 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Hero } from "@/components/Hero";
+import { CFOSigns } from "@/components/CFOSigns";
+import { DashboardArt } from "@/components/DashboardArt";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { Testimonials } from "@/components/Testimonials";
+import { CalculatorSection } from "@/components/CalculatorSection";
 import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/Button";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
-import { articles, services, values } from "@/lib/content";
+import { services, values } from "@/lib/content";
+import { getRecentArticles, formatArticleDate } from "@/lib/articles";
+
+const recent = getRecentArticles(3);
 
 export default function HomePage() {
   return (
@@ -18,14 +25,14 @@ export default function HomePage() {
         <div className="container-luxe grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
           <SectionHeading
             align="left"
-            eyebrow="Why Aurelia"
+            eyebrow="Why Carron"
             title={
               <>
-                Independent advice, held to a higher standard of{" "}
-                <span className="text-gold-gradient">care</span>.
+                The difference between keeping books and{" "}
+                <span className="text-gold-gradient">running a business</span>.
               </>
             }
-            description="We are not a bank, a brokerage, or a product factory. We are an independent fiduciary partner — paid by our clients, accountable only to them, and built to serve a deliberately small number of families exceptionally well."
+            description="A bookkeeper tells you what happened. An auditor checks it after the fact. A CFO looks forward — at cash, margin, funding, and the next big decision. Carron gives owner-managed businesses that financial leadership, sized and priced for an SME."
           />
 
           <FadeInStagger className="grid gap-5">
@@ -37,7 +44,7 @@ export default function HomePage() {
                     <h3 className="text-lg font-semibold text-white">
                       {v.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-stone-300/90">
+                    <p className="mt-2 text-sm leading-relaxed text-bone-muted">
                       {v.description}
                     </p>
                   </div>
@@ -48,73 +55,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="container-luxe">
-        <div className="gold-divider" />
-      </div>
+      {/* Is it time for a CFO? */}
+      <CFOSigns />
 
       {/* Services overview */}
       <section className="bg-emerald-base py-24 sm:py-32">
         <div className="container-luxe">
           <SectionHeading
-            eyebrow="What We Do"
-            title="A complete advisory practice, under one roof"
-            description="From day-to-day portfolio management to multi-generational legacy planning, our services are designed to work together as a single, coherent strategy."
+            eyebrow="What an Experienced CFO Adds"
+            title="Six places senior financial leadership pays for itself"
+            description="The CFO role flexes to what your business needs most right now — and shifts as you grow. You don't buy a fixed product; you get judgement applied where it counts."
           />
 
           <FadeInStagger className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <FadeInItem key={service.slug} className="h-full">
-                <ServiceCard service={service} />
+                <ServiceCard service={service} href={`/services#${service.slug}`} />
               </FadeInItem>
             ))}
           </FadeInStagger>
 
           <FadeIn className="mt-12 flex justify-center">
             <Button href="/services" variant="secondary" size="lg">
-              View All Services
+              See What a CFO Adds
             </Button>
           </FadeIn>
         </div>
       </section>
 
-      {/* Credibility / approach band */}
-      <section className="relative overflow-hidden bg-emerald-section py-24 sm:py-32">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-gold/5 to-transparent"
-        />
-        <div className="container-luxe relative z-10">
-          <SectionHeading
-            align="left"
-            eyebrow="Our Approach"
-            title="Disciplined, transparent, and built around you"
-          />
-          <FadeInStagger className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {approach.map((step, i) => (
-              <FadeInItem key={step.title}>
-                <div className="border-t border-gold/30 pt-6">
-                  <span className="text-sm font-semibold text-gold">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-3 text-lg font-semibold text-white">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-stone-300/90">
-                    {step.description}
-                  </p>
-                </div>
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
+      {/* See your numbers clearly — dashboard + growth */}
+      <section className="bg-emerald-section py-24 sm:py-32">
+        <div className="container-luxe grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <FadeIn>
+            <DashboardArt className="w-full drop-shadow-[0_40px_70px_-35px_rgba(0,0,0,0.7)]" />
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+              <span className="gold-rule" aria-hidden />
+              See Your Numbers Clearly
+            </span>
+            <h2 className="mt-5 text-balance text-3xl font-bold leading-tight text-white sm:text-4xl">
+              Board-grade clarity, every month
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-bone/90">
+              You get a one-page view of the numbers that actually move your
+              business — cash in the bank, where your margin really sits, and how
+              many months of runway you have. No twenty-page pack you&apos;ll
+              never read; just the figures you need to make the next decision and
+              turn effort into profit.
+            </p>
+
+            <div className="mt-8 overflow-hidden rounded-2xl border border-white/10">
+              <Image
+                src="/images/coins-growth.jpg"
+                alt="A small green plant growing from a pile of coins"
+                width={1400}
+                height={933}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="h-52 w-full object-cover object-[center_72%]"
+              />
+            </div>
+          </FadeIn>
         </div>
       </section>
+
+      {/* Finance calculator */}
+      <CalculatorSection />
 
       {/* Testimonials */}
       <section className="bg-emerald-base py-24 sm:py-32">
         <div className="container-luxe">
           <SectionHeading
             eyebrow="In Their Words"
-            title="Trusted across generations"
+            title="What changes when the numbers get clear"
             className="mb-16"
           />
           <Testimonials />
@@ -128,14 +142,15 @@ export default function HomePage() {
             <SectionHeading
               align="left"
               eyebrow="Insights"
-              title="Perspectives for the long view"
+              title="Recent articles"
+              description="Short, practical reads for SME owners — click any one to read it in full."
             />
             <FadeIn>
               <Link
                 href="/insights"
                 className="inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-light"
               >
-                All insights
+                View all articles
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
                   <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -144,24 +159,41 @@ export default function HomePage() {
           </div>
 
           <FadeInStagger className="mt-14 grid gap-6 md:grid-cols-3">
-            {homeArticles.map((a) => (
-              <FadeInItem key={a.title} className="h-full">
+            {recent.map((a) => (
+              <FadeInItem key={a.slug} className="h-full">
                 <Link
-                  href="/insights"
-                  className="group flex h-full flex-col rounded-2xl border border-white/10 bg-emerald-base/60 p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold/40"
+                  href={`/insights/${a.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-emerald-base/60 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold/40"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                    {a.category}
-                  </span>
-                  <h3 className="mt-4 text-lg font-semibold leading-snug text-white transition-colors group-hover:text-gold-light">
-                    {a.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-400">
-                    {a.excerpt}
-                  </p>
-                  <span className="mt-5 text-xs text-stone-500">
-                    {a.date} · {a.readTime}
-                  </span>
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={a.cover}
+                      alt={a.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-7">
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                      {a.category}
+                    </span>
+                    <h3 className="mt-3 text-lg font-semibold leading-snug text-white transition-colors group-hover:text-gold-light">
+                      {a.title}
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-bone-muted">
+                      {a.excerpt}
+                    </p>
+                    <span className="mt-5 text-xs text-bone-dim">
+                      {formatArticleDate(a.date)} · {a.readTime}
+                    </span>
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold transition-colors group-hover:text-gold-light">
+                      Read article
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+                        <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </div>
                 </Link>
               </FadeInItem>
             ))}
@@ -173,28 +205,3 @@ export default function HomePage() {
     </>
   );
 }
-
-const approach = [
-  {
-    title: "Discover",
-    description:
-      "We begin by listening — to your goals, your family, and the life you want your wealth to support.",
-  },
-  {
-    title: "Design",
-    description:
-      "A bespoke strategy across investments, tax, and legacy, modelled across decades and scenarios.",
-  },
-  {
-    title: "Implement",
-    description:
-      "We put the plan to work with institutional execution and coordination across your advisors.",
-  },
-  {
-    title: "Steward",
-    description:
-      "Ongoing oversight, transparent reporting, and proactive adjustments as your life evolves.",
-  },
-];
-
-const homeArticles = articles.slice(0, 3);

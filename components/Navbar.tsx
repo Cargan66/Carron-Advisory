@@ -36,7 +36,7 @@ export function Navbar() {
       <nav className="container-luxe flex h-20 items-center justify-between">
         <Logo />
 
-        <ul className="hidden items-center gap-9 lg:flex">
+        <ul className="hidden items-center gap-5 md:flex lg:gap-8">
           {navLinks.map((link) => {
             const active =
               link.href === "/"
@@ -65,14 +65,14 @@ export function Navbar() {
 
         <div className="hidden lg:block">
           <Button href="/contact" size="md">
-            Book a Consultation
+            Book a Discovery Call
           </Button>
         </div>
 
         {/* Mobile toggle */}
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-md text-gold lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-md text-gold md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -105,7 +105,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden lg:hidden"
+            className="overflow-hidden md:hidden"
           >
             <ul className="container-luxe flex flex-col gap-1 pb-6 pt-2">
               {navLinks.map((link) => {
@@ -130,7 +130,7 @@ export function Navbar() {
               })}
               <li className="px-4 pt-3">
                 <Button href="/contact" size="md" className="w-full">
-                  Book a Consultation
+                  Book a Discovery Call
                 </Button>
               </li>
             </ul>

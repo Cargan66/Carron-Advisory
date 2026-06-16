@@ -1,27 +1,25 @@
 export const siteConfig = {
-  name: "Aurelia Private Wealth",
-  shortName: "Aurelia",
-  tagline: "Stewardship of significant wealth, across generations.",
+  name: "Carron Business Advisory",
+  shortName: "Carron",
+  descriptor: "Business Advisory",
+  tagline: "The difference between keeping books and running a business.",
   description:
-    "Aurelia Private Wealth is a boutique advisory firm serving high-net-worth families and institutions with discreet, bespoke wealth management, investment advisory, and legacy planning.",
-  url: "https://aurelia-wealth.example.com",
-  email: "advisory@aurelia-wealth.example.com",
-  phone: "+1 (212) 555-0147",
-  address: {
-    line1: "One Rockefeller Plaza, Suite 2200",
-    line2: "New York, NY 10020",
-  },
+    "Carron Business Advisory provides fractional and outsourced CFO services to South African SMEs — senior financial leadership for owner-managed businesses that have outgrown a bookkeeper but can't justify a full-time CFO. Remote, countrywide.",
+  url: "https://carronadvisory.co.za",
+  email: "hello@carronadvisory.co.za",
+  phone: "+27 21 000 0000",
+  location: "Remote · Countrywide across South Africa",
   social: {
     linkedin: "https://www.linkedin.com",
     x: "https://x.com",
-    instagram: "https://www.instagram.com",
   },
 };
 
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
+  { label: "What a CFO Adds", href: "/services" },
+  { label: "Engagement", href: "/engagement" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
 ] as const;

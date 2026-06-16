@@ -12,33 +12,37 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const titleline = `${siteConfig.name} — Fractional CFO Services for SA SMEs`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — Private Wealth Management`,
+    default: titleline,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "private wealth management",
-    "investment advisory",
-    "estate planning",
-    "family office",
-    "high net worth",
-    "tax strategy",
+    "fractional CFO South Africa",
+    "outsourced CFO",
+    "part-time CFO",
+    "CFO services SME",
+    "cash flow forecasting",
+    "business advisory South Africa",
+    "SME funding",
+    "financial governance SME",
   ],
   authors: [{ name: siteConfig.name }],
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_ZA",
     url: siteConfig.url,
-    title: `${siteConfig.name} — Private Wealth Management`,
+    title: titleline,
     description: siteConfig.description,
     siteName: siteConfig.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — Private Wealth Management`,
+    title: titleline,
     description: siteConfig.description,
   },
   robots: {
@@ -51,7 +55,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={poppins.variable}>
+    <html lang="en-ZA" className={poppins.variable}>
       <body className="min-h-screen font-sans">
         <a
           href="#main"
