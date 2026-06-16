@@ -1,0 +1,16 @@
+{
+  // Cloudflare Workers config for serving the Carron site as static assets.
+  // `npx next build` emits the static site to ./out (see next.config.mjs
+  // `output: "export"`), and `npx wrangler deploy` uploads that folder.
+  // No Worker script is needed — this is a pure static-assets deployment.
+  //
+  // NOTE: "name" must match the Worker's name shown at the top of your
+  // Cloudflare project. If your Worker is named differently, change it here.
+  "name": "carron-advisory",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": "./out",
+    // Serve out/404.html for unknown paths (Next.js export produces it).
+    "not_found_handling": "404-page"
+  }
+}
