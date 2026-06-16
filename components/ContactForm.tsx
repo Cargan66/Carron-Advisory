@@ -7,6 +7,11 @@ import { Button } from "./Button";
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
 
+// Web3Forms access key — get a free one in seconds at https://web3forms.com
+// (enter the inbox address where enquiries should land; they email you the key).
+// Paste it here to start receiving contact-form submissions.
+const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+
 const fieldClasses =
   "w-full rounded-xl border border-white/10 bg-emerald-deep/60 px-4 py-3 text-white placeholder:text-stone-500 transition-colors duration-200 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40";
 
@@ -52,12 +57,25 @@ export function ContactForm() {
 
     setStatus("submitting");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: "New enquiry — Carron Business Advisory",
+          from_name: "Carron website",
+          name: data.name,
+          business: data.business || "—",
+          email: data.email,
+          interest: data.interest || "—",
+          message: data.message,
+        }),
       });
-      if (!res.ok) throw new Error("Request failed");
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error("Request failed");
       setStatus("success");
       form.reset();
     } catch {
