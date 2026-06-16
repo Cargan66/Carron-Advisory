@@ -10,7 +10,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 // Web3Forms access key — get a free one in seconds at https://web3forms.com
 // (enter the inbox address where enquiries should land; they email you the key).
 // Paste it here to start receiving contact-form submissions.
-const WEB3FORMS_ACCESS_KEY = "1ae34173-4ecc-42ae-b621-f5d53506026b";
+const WEB3FORMS_ACCESS_KEY = "dc0870f4-27e1-4787-8fb0-ab76fdcc861f";
 
 const fieldClasses =
   "w-full rounded-xl border border-white/10 bg-emerald-deep/60 px-4 py-3 text-white placeholder:text-stone-500 transition-colors duration-200 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40";
