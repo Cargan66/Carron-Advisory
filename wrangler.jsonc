@@ -12,5 +12,12 @@
     "directory": "./out",
     // Serve out/404.html for unknown paths (Next.js export produces it).
     "not_found_handling": "404-page"
-  }
+  },
+  // Attach the live domain. `custom_domain: true` makes Cloudflare create the
+  // routing DNS record + SSL automatically on deploy. (Static-asset Workers
+  // can't add domains via the dashboard Triggers screen, so we do it here.)
+  "routes": [
+    { "pattern": "carron.co.za", "custom_domain": true },
+    { "pattern": "www.carron.co.za", "custom_domain": true }
+  ]
 }
