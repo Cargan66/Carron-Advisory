@@ -8,7 +8,8 @@ export type ArticleCategory =
   | "Funding"
   | "Profitability"
   | "Tax"
-  | "Strategy";
+  | "Strategy"
+  | "Hiring";
 
 export type Article = {
   slug: string;
@@ -27,6 +28,33 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  {
+    slug: "5-signs-your-sme-is-ready-to-hire",
+    cover: "/images/hiring-team.jpg",
+    pdf: "/articles/Carron_Hiring_Article_2026_SME.pdf",
+    title: "5 Signs Your SME Is Ready to Hire — And How to Do It Right",
+    category: "Hiring",
+    excerpt:
+      "Our 2026 special report: the five concrete signs an SME is ready to hire, what South African labour law requires from day one, and how to get your first or next hire right.",
+    date: "2026-06-30",
+    readTime: "PDF report",
+    author: "Carron Business Advisory",
+    body: `For most South African SME owners, the decision to hire is one of the most consequential calls they'll make. Hire too early — before revenue and workflow justify it — and payroll becomes the line item that sinks an otherwise healthy business. Hire too late, and the owner becomes the bottleneck: turning away work, missing growth windows, and burning out under a workload no single person should carry alone.
+
+This special report removes the guesswork. It identifies five concrete, observable signs that a business has crossed from "we're managing" to "we need another set of hands" — then walks through exactly what South African labour law requires the moment that first employee starts.
+
+The context matters too. With unemployment at 32.7% and SMEs employing roughly 60% of the country's workforce, getting hiring right is both a real responsibility and a genuine competitive advantage.
+
+## What's inside
+
+- Why hiring decisions matter more than ever
+- The five signs you're ready — observable, not gut-feel
+- What the law requires from day one: UIF, PAYE, contracts, and the R30.23/hour minimum wage from 1 March 2026
+- A simple, structured hiring process that improves your odds
+- The common hiring mistakes SMEs make — and how to avoid them
+
+Open the full report in your browser, or download the PDF to read at your leisure.`,
+  },
   {
     slug: "ai-is-no-longer-optional",
     cover: "/images/ai-report.jpg",
