@@ -38,7 +38,7 @@ export const articles: Article[] = [
       "Our 2026 special report: the five concrete signs an SME is ready to hire, what South African labour law requires from day one, and how to get your first or next hire right.",
     date: "2026-06-30",
     readTime: "PDF report",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `For most South African SME owners, the decision to hire is one of the most consequential calls they'll make. Hire too early — before revenue and workflow justify it — and payroll becomes the line item that sinks an otherwise healthy business. Hire too late, and the owner becomes the bottleneck: turning away work, missing growth windows, and burning out under a workload no single person should carry alone.
 
 This special report removes the guesswork. It identifies five concrete, observable signs that a business has crossed from "we're managing" to "we need another set of hands" — then walks through exactly what South African labour law requires the moment that first employee starts.
@@ -65,7 +65,7 @@ Open the full report in your browser, or download the PDF to read at your leisur
       "Our 2026 special report: a practical, evidence-based look at AI adoption for South African SMEs — the tools that earn their keep, the barriers, and a 90-day starter roadmap.",
     date: "2026-06-15",
     readTime: "PDF report",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `South Africa's small and medium enterprises are at a genuine inflection point. After a decade defined by load-shedding, constrained credit, and rising costs, the next challenge is quieter but just as consequential: keeping pace with the AI revolution reshaping how competitive businesses operate.
 
 This special report is written for owners who know the conversation is happening but haven't yet found a clear, practical way into it. It sets out where South African SMEs stand in the global AI landscape, why the window to act is narrowing, which tools offer genuine value at accessible price points, and exactly how to begin.
@@ -91,7 +91,7 @@ Open the full report in your browser, or download the PDF to read at your leisur
       "Profit doesn't pay salaries — cash does. Here's the single most useful report a growing business can keep, and how to build it.",
     date: "2026-06-02",
     readTime: "6 min read",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `Most owner-managed businesses run on a bank balance and a gut feel. That works until it doesn't — usually the week a big VAT payment, a payroll run, and a slow-paying debtor all land at once.
 
 The fix isn't a fancier accounting package. It's a rolling 13-week cash flow forecast: a simple, weekly view of the cash you expect in and the cash you expect out, thirteen weeks ahead.
@@ -121,7 +121,7 @@ This is exactly the kind of discipline a fractional CFO brings: not a one-off sp
       "A declined facility is rarely about the business itself. More often it's about how the numbers were presented. Here's what lenders actually look for.",
     date: "2026-05-18",
     readTime: "7 min read",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `Being turned down for funding stings — especially when you know the business is sound. But lenders aren't rejecting your business so much as the case you put in front of them. Fix the case, and the answer often changes.
 
 ## They're buying certainty, not optimism
@@ -147,7 +147,7 @@ That's the work a fractional CFO does before the meeting — and the reason it's
       "Chasing turnover can quietly make a business poorer. A look at why margin — not sales — is the number that keeps you solvent.",
     date: "2026-05-04",
     readTime: "5 min read",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `"We're growing!" is one of the most dangerous things an owner can believe without checking the margin behind it. Plenty of businesses have grown their way into a cash crisis by selling more of something that barely makes money.
 
 ## Know your true gross margin
@@ -173,7 +173,7 @@ A fractional CFO's first job is usually exactly this: turning a fog of turnover 
       "Two deadlines a year catch out countless SA business owners. A calmer, planned approach to provisional tax — and staying square with SARS.",
     date: "2026-04-20",
     readTime: "6 min read",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `For many South African business owners, provisional tax arrives like bad weather — twice a year, always sooner than expected, and often bigger than the bank balance can comfortably handle. It doesn't have to be that way.
 
 ## The problem is timing, not tax
@@ -203,7 +203,7 @@ Handled this way, tax becomes another planned line in the cash flow rather than 
       "If your monthly accounts get filed and forgotten, they're costing you money. What board-grade reporting looks like for an SME.",
     date: "2026-04-06",
     readTime: "5 min read",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `Plenty of businesses produce management accounts. Far fewer use them. If yours arrive late, run to twenty pages, and get filed without a decision attached, they're an expense rather than a tool.
 
 ## One page, on time
@@ -229,7 +229,7 @@ This is the rhythm a fractional CFO installs — reporting you read because it t
       "Not a bookkeeper, not an auditor, not a full-time hire. A plain explanation of the role — and when an SME is ready for one.",
     date: "2026-03-23",
     readTime: "6 min read",
-    author: "Carron Business Advisory",
+    author: "Carel Gangel",
     body: `"Fractional CFO" is a tidy phrase for a simple idea: senior financial leadership, for a fraction of the time and cost of a full-time hire. But it's often misunderstood, so here's the plain version.
 
 ## Not the bookkeeper, not the auditor

@@ -55,7 +55,7 @@ export const services: Service[] = [
     summary:
       "Walk into the bank with numbers they trust — and walk out with the facility you asked for.",
     description:
-      "When you need to raise capital or negotiate a facility, the numbers have to stack up. We prepare investor- and bank-ready forecasts and financials, then sit alongside you in the conversation.",
+      "When you need to raise capital or negotiate a facility, the numbers have to stack up. We prepare investor- and bank-ready forecasts and financials, then sit alongside you in the conversation — drawing on funding and bank negotiations led across South African and international businesses.",
     features: [
       "Bank- and investor-ready forecasts",
       "Funding applications and motivations",
@@ -85,7 +85,7 @@ export const services: Service[] = [
     summary:
       "Strengthen decision-making, accountability, and financial control without burying the business in bureaucracy.",
     description:
-      "We clarify financial decision rights, reporting accountability, key risks, and practical controls. Your accountant and tax advisers keep ownership of compliance; Carron makes sure leadership sees the risks and acts in time.",
+      "We clarify financial decision rights, reporting accountability, key risks, and practical controls. Your accountant and tax advisers keep ownership of compliance; Carron makes sure leadership sees the risks and acts in time — drawing on real governance credentials and first-hand exposure to SARS audits, tax and transfer pricing.",
     features: [
       "Board and management governance",
       "Financial risk and control review",
@@ -100,7 +100,7 @@ export const services: Service[] = [
     summary:
       "Turn a gut-feel for where the business is going into a plan you can fund, measure, and adjust.",
     description:
-      "We pressure-test your growth plans with scenario modelling — what a new hire, a new branch, or a big contract really does to cash and profit — and guide you through acquisitions or a sale when the time comes.",
+      "We pressure-test your growth plans with scenario modelling — what a new hire, a new branch, or a big contract really does to cash and profit — and guide you through acquisitions or a sale when the time comes, backed by corporate-finance and cross-border experience.",
     features: [
       "Scenario and what-if modelling",
       "Scaling and expansion plans",
@@ -279,4 +279,43 @@ export const engagementSteps: Step[] = [
     description:
       "We plug into your systems and your rhythm, wherever you are in the country, and start turning numbers into decisions.",
   },
+];
+
+// The person behind Carron.
+export const founder = {
+  name: "Carel Gangel",
+  initials: "CG",
+  role: "Founder & Fractional CFO",
+  short:
+    "Carron is led by Carel Gangel — a finance executive with more than 30 years' experience across South Africa, Germany and the United Kingdom.",
+  bio: [
+    "Carron Business Advisory is led by Carel Gangel, a finance executive with more than 30 years' experience across South Africa, Germany and the United Kingdom. Carel has held senior finance and CFO roles in international businesses, with hands-on experience in cash-flow management, strategic planning, financial control, governance, tax, funding discussions, commercial decision-making and growth strategy.",
+    "That background spans corporate-finance leadership, SARS-audit exposure, tax and transfer-pricing knowledge, governance credentials, and real experience dealing with banks, management teams and cross-border operations. Carron brings that level of financial leadership to owner-managed businesses that have outgrown bookkeeping — but don't yet need, or can't yet justify, a full-time CFO.",
+  ],
+  credentials: [
+    "30+ years' experience",
+    "South Africa · Germany · UK",
+    "CFO & corporate finance",
+    "SARS-audit, tax & transfer-pricing exposure",
+    "Governance & financial control",
+    "Banks, funding & M&A",
+  ],
+};
+
+// Who Carron works best with — sectors and situations. Qualifies leads and
+// mirrors how owners actually describe the problem (no public turnover figure).
+export const clientSectors: string[] = [
+  "Distribution, wholesale & imports",
+  "Product & manufacturing businesses",
+  "Professional & business services",
+  "Multi-site, hospitality & property",
+  "Cross-border or complex-tax operations",
+];
+
+export const clientSituations: string[] = [
+  "Profitable, but always short of cash",
+  "Turnover is up, but margins aren't",
+  "The bank wants forecasts you don't have",
+  "Weighing a hire, a branch or new equipment",
+  "Funding, expansion, succession or a sale ahead",
 ];

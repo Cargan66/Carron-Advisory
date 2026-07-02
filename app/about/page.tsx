@@ -4,12 +4,13 @@ import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
-import { values } from "@/lib/content";
+import { founder, values } from "@/lib/content";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Carron Business Advisory brings CFO-level financial leadership to South African SMEs — fractional, outsourced, and delivered remotely across the country. Meet the philosophy behind the firm.",
+    "Carron Business Advisory is led by Carel Gangel — a finance executive with 30+ years across South Africa, Germany and the UK. CFO-level financial leadership for owner-managed SMEs, delivered remotely, countrywide.",
 };
 
 const fractionalReasons = [
@@ -43,6 +44,67 @@ export default function AboutPage() {
         }
         description="Carron exists for the business that has outgrown a bookkeeper but can't yet justify a full-time finance chief — and shouldn't have to wait until it can."
       />
+
+      {/* Founder */}
+      <section className="border-b border-white/10 bg-emerald-base py-24 sm:py-32">
+        <div className="container-luxe grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-20">
+          <FadeIn>
+            <div className="flex flex-col items-center gap-6 rounded-3xl border border-gold/20 bg-emerald-section/50 p-10 text-center">
+              <span className="relative h-36 w-36 overflow-hidden rounded-full border-2 border-gold/50">
+                <Image
+                  src="/images/carel-gangel.png"
+                  alt={`${founder.name}, ${founder.role} at Carron Business Advisory`}
+                  fill
+                  sizes="144px"
+                  priority
+                  className="object-cover object-[center_28%]"
+                />
+              </span>
+              <div>
+                <p className="text-xl font-bold text-white">{founder.name}</p>
+                <p className="mt-1 text-sm font-medium text-gold">
+                  {founder.role}
+                </p>
+              </div>
+              <a
+                href={siteConfig.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/50 px-5 py-2 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+              >
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+                  <path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.6c0-1.34-.03-3.06-1.9-3.06-1.9 0-2.2 1.46-2.2 2.97V21h-4z" />
+                </svg>
+                Connect on LinkedIn
+              </a>
+            </div>
+          </FadeIn>
+
+          <div>
+            <SectionHeading
+              align="left"
+              eyebrow="Who Leads Carron"
+              title="Led by Carel Gangel"
+              className="mb-8"
+            />
+            <FadeIn className="space-y-5 text-base leading-relaxed text-bone/90 sm:text-lg">
+              {founder.bio.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </FadeIn>
+            <FadeIn className="mt-8 flex flex-wrap gap-2.5">
+              {founder.credentials.map((c) => (
+                <span
+                  key={c}
+                  className="rounded-full border border-gold/25 bg-gold/5 px-4 py-1.5 text-xs font-medium text-bone"
+                >
+                  {c}
+                </span>
+              ))}
+            </FadeIn>
+          </div>
+        </div>
+      </section>
 
       {/* Story */}
       <section className="bg-emerald-base py-24 sm:py-32">

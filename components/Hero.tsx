@@ -78,7 +78,7 @@ export function Hero() {
           className="inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/5 px-5 py-2 text-xs font-medium uppercase tracking-[0.25em] text-gold"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-          Fractional &amp; outsourced CFO services
+          Cash flow · Margins · Funding · Growth
         </motion.span>
 
         <motion.h1

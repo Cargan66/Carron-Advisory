@@ -80,6 +80,11 @@ export function Testimonials() {
           </svg>
         </button>
       </div>
+
+      <p className="mt-8 text-xs leading-relaxed text-bone-dim">
+        Illustrative of the outcomes owners engage Carron for. Named client
+        stories will appear here as they&apos;re published.
+      </p>
     </div>
   );
 }

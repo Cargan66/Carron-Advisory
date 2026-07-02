@@ -10,7 +10,13 @@ import { CalculatorSection } from "@/components/CalculatorSection";
 import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/Button";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
-import { services, values } from "@/lib/content";
+import {
+  services,
+  values,
+  founder,
+  clientSectors,
+  clientSituations,
+} from "@/lib/content";
 import { getRecentArticles, formatArticleDate } from "@/lib/articles";
 
 const recent = getRecentArticles(3);
@@ -55,8 +61,81 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Founder strip */}
+      <section className="border-y border-white/10 bg-emerald-section py-16 sm:py-20">
+        <div className="container-luxe">
+          <FadeIn className="flex flex-col items-center gap-8 text-center sm:flex-row sm:text-left">
+            <span className="relative h-24 w-24 flex-none overflow-hidden rounded-full border-2 border-gold/50">
+              <Image
+                src="/images/carel-gangel.png"
+                alt={`${founder.name}, ${founder.role}`}
+                fill
+                sizes="96px"
+                className="object-cover object-[center_28%]"
+              />
+            </span>
+            <div className="flex-1">
+              <p className="text-lg leading-relaxed text-bone/90 sm:text-xl">
+                {founder.short}
+              </p>
+              <p className="mt-3 text-sm font-medium text-gold">
+                {founder.name} · {founder.role}
+              </p>
+            </div>
+            <Button href="/about" variant="secondary" size="md" className="flex-none">
+              Meet Carel
+            </Button>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* Is it time for a CFO? */}
       <CFOSigns />
+
+      {/* Who we work best with */}
+      <section className="bg-emerald-base py-24 sm:py-32">
+        <div className="container-luxe">
+          <SectionHeading
+            eyebrow="Who We Work Best With"
+            title="Built for established, owner-managed businesses"
+            description="Carron adds the most value where the numbers have outgrown a bookkeeper — typically owner-managed businesses with a bookkeeper, accountant or finance manager, but no strategic finance leader."
+          />
+          <div className="mt-16 grid gap-6 lg:grid-cols-2">
+            <FadeIn>
+              <div className="h-full rounded-2xl border border-white/10 bg-emerald-section/50 p-8">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  Sectors we know well
+                </h3>
+                <ul className="mt-6 space-y-3.5">
+                  {clientSectors.map((s) => (
+                    <li key={s} className="flex items-start gap-3 text-bone/90">
+                      <svg className="mt-1 h-4 w-4 flex-none text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+                        <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <div className="h-full rounded-2xl border border-white/10 bg-emerald-section/50 p-8">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  When owners call us
+                </h3>
+                <ul className="mt-6 space-y-3.5">
+                  {clientSituations.map((s) => (
+                    <li key={s} className="flex items-start gap-3 text-bone/90">
+                      <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-gold-gradient" />
+                      &ldquo;{s}&rdquo;
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
 
       {/* Services overview */}
       <section className="bg-emerald-base py-24 sm:py-32">
@@ -127,7 +206,7 @@ export default function HomePage() {
       <section className="bg-emerald-base py-24 sm:py-32">
         <div className="container-luxe">
           <SectionHeading
-            eyebrow="In Their Words"
+            eyebrow="Illustrative Outcomes"
             title="What changes when the numbers get clear"
             className="mb-16"
           />
