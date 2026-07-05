@@ -29,6 +29,32 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "profitable-but-no-money-in-the-bank",
+    cover: "/images/cash-counting.jpg",
+    pdf: "/articles/Carron_Profitable_But_No_Cash.pdf",
+    title: "Profitable But No Money in the Bank",
+    category: "Cash Flow",
+    excerpt:
+      "Our 2026 special report on the gap between profit and cash: seven reasons profitable South African SMEs still run out of money — and the weekly habit that catches it early.",
+    date: "2026-07-05",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `Your income statement can show a healthy profit while your bank account tells a very different story. Profit measures performance over a period; cash is what's actually available to pay salaries, suppliers and SARS when they fall due — and the two are rarely the same number.
+
+This special report explains the bridge between profit and cash in plain English, then walks through the seven most common reasons profitable South African businesses still run out of money: cash tied up in debtors and stock, tax and loan repayments that never touch the profit line, and growth that quietly swallows working capital.
+
+## What's inside
+
+- Profit vs cash, defined in plain English
+- Where the cash actually goes — reason by reason
+- The warning signs to watch for in each case
+- Tools that support the discipline
+- How to build the 13-week cash-flow habit
+- A quick-reference checklist you can keep
+
+Open the full report in your browser, or download the PDF to read at your leisure.`,
+  },
+  {
     slug: "5-signs-your-sme-is-ready-to-hire",
     cover: "/images/hiring-team.jpg",
     pdf: "/articles/Carron_Hiring_Article_2026_SME.pdf",
