@@ -29,6 +29,33 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "the-customer-you-cannot-afford-to-lose",
+    cover: "/images/customer-risk.jpg",
+    pdf: "/articles/Carron_The_Customer_You_Cannot_Afford_to_Lose.pdf",
+    title: "The Customer You Cannot Afford to Lose",
+    category: "Strategy",
+    excerpt:
+      "Our July 2026 special report: when one big customer both carries and endangers your business — a customer-concentration and cash-flow framework for weighing margin, timing and exposure before you commit.",
+    date: "2026-07-14",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `Your biggest customer can look like the strongest part of the business and be its single biggest risk. The danger is rarely one unpaid invoice — it's that too much of your sales, profit, capacity and cash now sit with one relationship. A late payment, a squeeze on price, or losing the contract then hurts far more than the order book suggests.
+
+That dependence bites both ways. The customer is too big to lose — so you tolerate longer terms, discounts and disputes you'd never accept from anyone else. And they're too big to carry — so one late payment can drag your whole bank balance to its lowest point. In a country where most SMEs are already paid late, a big customer piles the risk all in one place.
+
+This special report gives you a simple framework to weigh a big customer up — before you commit margin, cash or a credit limit.
+
+## What's inside
+
+- Why your biggest customer is the one you can least afford to misread
+- The concentration lens: margin, timing, exposure and concentration
+- The cash gap, cash low-point and buffer — what one customer really costs
+- The decision: serve, renegotiate, re-price, cap, pause or turn away
+- Where AI genuinely helps — and where your own judgement still rules
+
+Open the full report in your browser, or download the PDF to read at your leisure.`,
+  },
+  {
     slug: "profitable-but-no-money-in-the-bank",
     cover: "/images/cash-counting.jpg",
     pdf: "/articles/Carron_Profitable_But_No_Cash.pdf",
