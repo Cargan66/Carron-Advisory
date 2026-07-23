@@ -143,15 +143,22 @@ export function Hero() {
         </motion.ul>
       </motion.div>
 
-      {/* Scroll cue */}
+      {/* Scroll cue — click to smooth-scroll to the next section */}
       <div className="absolute inset-x-0 bottom-8 flex justify-center">
-        <motion.div
+        <motion.button
+          type="button"
+          aria-label="Scroll down to see more"
+          onClick={(e) =>
+            e.currentTarget
+              .closest("section")
+              ?.nextElementSibling?.scrollIntoView({ behavior: "smooth" })
+          }
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex h-9 w-5 items-start justify-center rounded-full border border-gold/40 p-1.5"
+          className="flex h-12 w-7 cursor-pointer items-start justify-center rounded-full border border-gold/40 p-2 transition-colors duration-300 hover:border-gold hover:bg-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-base"
         >
-          <span className="h-1.5 w-1 rounded-full bg-gold" />
-        </motion.div>
+          <span className="h-2 w-1.5 rounded-full bg-gold" />
+        </motion.button>
       </div>
     </section>
   );
