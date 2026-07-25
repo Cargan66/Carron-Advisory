@@ -53,15 +53,15 @@ export default function ArticlePage({ params }: Params) {
       <article className="bg-emerald-base py-20 sm:py-28">
         <div className="container-luxe max-w-3xl">
           <FadeIn>
-            <div className="mb-8 overflow-hidden rounded-3xl border border-white/10">
+            <div className="mb-8 aspect-[16/9] overflow-hidden rounded-3xl border border-white/10">
               <Image
                 src={article.cover}
                 alt={article.title}
-                width={1500}
-                height={1000}
+                width={1600}
+                height={900}
                 sizes="(max-width: 768px) 100vw, 768px"
                 priority
-                className="h-60 w-full object-cover sm:h-80"
+                className="h-full w-full object-cover"
               />
             </div>
             <div className="flex items-center gap-3 text-sm text-bone-dim">

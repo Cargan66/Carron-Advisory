@@ -9,7 +9,8 @@ export type ArticleCategory =
   | "Profitability"
   | "Tax"
   | "Strategy"
-  | "Hiring";
+  | "Hiring"
+  | "Growth";
 
 export type Article = {
   slug: string;
@@ -28,6 +29,34 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  {
+    slug: "can-your-business-afford-to-grow",
+    cover: "/images/afford-to-grow.png",
+    pdf: "/articles/Carron_Can_Your_Business_Afford_to_Grow.pdf",
+    title: "Can Your Business Afford to Grow?",
+    category: "Growth",
+    excerpt:
+      "Our July 2026 special report: a financial decision framework for growth. A big order, a hire, new equipment or a second site can be compelling — the real question is whether the business can carry the cash, margin, capacity and timing it demands.",
+    date: "2026-07-20",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `A large order, an extra hire, new equipment or a second site can be commercially compelling. But the financial question isn't whether growth is desirable — it's whether the business can carry the cash, margin, capacity and timing the commitment demands.
+
+Growth almost always costs cash before it earns it: funding the new order, employee or asset, and the working capital tied up in stock, deposits and unpaid invoices before customers pay. Get the timing wrong and expansion can quietly drain the very business it was meant to strengthen.
+
+This special report gives you a clear, plain-language framework to decide with discipline — before you commit.
+
+## What's inside
+
+- Growth in financial language: growth funding, working capital, contribution, cash low point
+- The commit → spend → deliver → collect sequence, and why timing is everything
+- How to size the cash gap before you commit
+- The six financial tests to run on any growth decision
+- Managing the downside case and uncertainty
+- Where AI-assisted review helps — and where the final call stays yours
+
+Open the full report in your browser, or download the PDF to read at your leisure.`,
+  },
   {
     slug: "the-customer-you-cannot-afford-to-lose",
     cover: "/images/customer-risk.jpg",
