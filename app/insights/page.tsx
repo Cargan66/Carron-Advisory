@@ -34,33 +34,30 @@ export default function InsightsPage() {
           <FadeIn>
             <Link
               href={`/insights/${featured.slug}`}
-              className="group grid overflow-hidden rounded-3xl border border-white/10 bg-emerald-section/60 transition-colors duration-500 hover:border-gold/40 lg:grid-cols-2"
+              className="group block overflow-hidden rounded-3xl border border-white/10 bg-emerald-section/60 transition-colors duration-500 hover:border-gold/40"
             >
-              <div className="relative min-h-[260px] overflow-hidden">
+              {/* Full 16:9 cover — shown uncropped */}
+              <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image
                   src={featured.cover}
                   alt={featured.title}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 1200px) 100vw, 1152px"
                   priority
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-emerald-section/80 via-emerald-base/20 to-transparent"
+                  className="object-cover"
                 />
                 <span className="absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-emerald-deep/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold backdrop-blur-sm">
                   Latest
                 </span>
               </div>
-              <div className="flex flex-col justify-center p-10">
+              <div className="p-8 sm:p-10">
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
                   {featured.category}
                 </span>
-                <h2 className="mt-4 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-gold-light sm:text-3xl">
+                <h2 className="mt-3 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-gold-light sm:text-3xl">
                   {featured.title}
                 </h2>
-                <p className="mt-4 leading-relaxed text-bone/90">
+                <p className="mt-4 max-w-3xl leading-relaxed text-bone/90">
                   {featured.excerpt}
                 </p>
                 <div className="mt-6 flex items-center gap-3 text-sm text-bone-dim">
