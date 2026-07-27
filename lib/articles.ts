@@ -30,6 +30,34 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "below-the-new-vat-threshold",
+    cover: "/images/vat-registration.png",
+    pdf: "/articles/Carron_Should_You_Review_Your_VAT_Registration.pdf",
+    title: "Below the New VAT Threshold? Do Not Change Anything Yet",
+    category: "Tax",
+    excerpt:
+      "Our July 2026 special report: from 1 April 2026 the compulsory VAT threshold rose to R2.3 million. Being below it is a review trigger, not an instruction to deregister — six commercial questions to work through with a registered tax practitioner first.",
+    date: "2026-07-26",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `From 1 April 2026, the compulsory VAT-registration threshold rose to R2.3 million (voluntary registration stays at R120,000). That gives many existing VAT vendors a reason to review their position — but it does not mean they should stop charging VAT.
+
+Being below the new threshold is a review trigger, not an instruction to deregister. The administrative saving is rarely the whole decision: what really matters is the effect on your customers, prices, costs, cash and future growth — and what a registered tax practitioner confirms about your specific position.
+
+This educational report sets out the six commercial questions to work through before management changes anything.
+
+## What's inside
+
+- Why "how much will we save on admin?" is the wrong opening question
+- B2B vs consumer-facing customers — who actually benefits from a change
+- The pricing and true-margin effect once input costs are included
+- The cash question: stock, equipment, property and prior-period items
+- Testing growth, contracts and seasonality over the next 18–24 months
+- Where management decides, where the practitioner confirms, and where SARS decides
+
+General business and financial education only — obtain advice from a SARS-registered tax practitioner before acting. Open the full report in your browser, or download the PDF to read at your leisure.`,
+  },
+  {
     slug: "can-your-business-afford-to-grow",
     cover: "/images/afford-to-grow.png",
     pdf: "/articles/Carron_Can_Your_Business_Afford_to_Grow.pdf",
