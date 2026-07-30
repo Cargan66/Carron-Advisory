@@ -1,12 +1,18 @@
 import { Button } from "./Button";
 import { FadeIn } from "./FadeIn";
 
+type CtaButton = { href: string; label: string };
+
 export function CTASection({
   title = "Let's talk about your numbers.",
   description = "Every engagement starts with a free, no-obligation discovery call to understand your business and where an experienced CFO would make the biggest difference.",
+  primary = { href: "/contact", label: "Book a Discovery Call" },
+  secondary = { href: "/engagement", label: "How It Works" },
 }: {
   title?: string;
   description?: string;
+  primary?: CtaButton;
+  secondary?: CtaButton;
 }) {
   return (
     <section className="container-luxe py-24 sm:py-32">
@@ -29,11 +35,11 @@ export function CTASection({
               {description}
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href="/contact" size="lg">
-                Book a Discovery Call
+              <Button href={primary.href} size="lg">
+                {primary.label}
               </Button>
-              <Button href="/engagement" size="lg" variant="secondary">
-                How It Works
+              <Button href={secondary.href} size="lg" variant="secondary">
+                {secondary.label}
               </Button>
             </div>
           </div>

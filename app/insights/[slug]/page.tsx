@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -73,7 +74,8 @@ export default function ArticlePage({ params }: Params) {
             </div>
             <div className="gold-divider my-8" />
 
-            {article.pdf && (
+            {/* PDF-primary report: prominent open/download card above a teaser body */}
+            {article.pdf && article.pdfPrimary && (
               <div className="mb-10 flex flex-col items-start gap-5 rounded-2xl border border-gold/30 bg-emerald-section/60 p-6 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-4">
                   <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl border border-gold/30 bg-gold/5 text-gold">
@@ -84,9 +86,7 @@ export default function ArticlePage({ params }: Params) {
                   </span>
                   <div>
                     <p className="font-semibold text-white">Full report (PDF)</p>
-                    <p className="text-sm text-bone-muted">
-                      Open it in your browser or download it to read.
-                    </p>
+                    <p className="text-sm text-bone-muted">Open it in your browser or download it to read.</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -116,6 +116,33 @@ export default function ArticlePage({ params }: Params) {
             )}
 
             <Prose body={article.body} />
+
+            {/* Full text is on the page: PDF is a secondary offline download */}
+            {article.pdf && !article.pdfPrimary && (
+              <div className="mt-10 flex flex-col items-start gap-4 rounded-2xl border border-white/10 bg-emerald-section/40 p-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-gold/30 bg-gold/5 text-gold">
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden>
+                      <path d="M14 3v5h5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <p className="text-sm text-bone-muted">
+                    Prefer it offline? Download this report as a formatted PDF.
+                  </p>
+                </div>
+                <a
+                  href={article.pdf}
+                  download
+                  className="inline-flex flex-none items-center gap-2 rounded-full border border-gold/60 px-6 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+                >
+                  Download as PDF
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+                    <path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            )}
           </FadeIn>
 
           <FadeIn className="mt-12 border-t border-white/10 pt-8">
@@ -162,39 +189,141 @@ export default function ArticlePage({ params }: Params) {
         </section>
       )}
 
-      <CTASection />
+      <CTASection
+        title="See where your business stands."
+        description="Start with a free financial health check on your own numbers, or book a no-obligation discovery call — whichever suits you."
+        primary={{ href: "/diagnostic#notify", label: "Run your free check" }}
+        secondary={{ href: "/contact", label: "Book a Discovery Call" }}
+      />
     </>
   );
 }
 
 /**
- * Minimal prose renderer for the article body. Blank lines separate
- * paragraphs; a line starting with "## " becomes a subheading.
+ * On-page article renderer. Supports the markdown subset used in article
+ * bodies: `##` / `###` headings, `-` bullet and `1.` numbered lists,
+ * `| pipe |` tables, `**bold**` / `*italic*` inline, and blank-line-separated
+ * paragraphs (with soft line breaks preserved inside a paragraph block).
  */
 function Prose({ body }: { body: string }) {
-  const blocks = body.trim().split(/\n\n+/);
+  const blocks = body.trim().split(/\n{2,}/);
   return (
     <div className="space-y-6">
-      {blocks.map((block, i) => {
-        if (block.startsWith("## ")) {
-          return (
-            <h2
-              key={i}
-              className="pt-2 text-xl font-bold text-white sm:text-2xl"
-            >
-              {block.replace(/^##\s+/, "")}
-            </h2>
-          );
-        }
-        return (
-          <p
-            key={i}
-            className="text-base leading-relaxed text-bone/90 sm:text-lg"
-          >
-            {block}
-          </p>
-        );
-      })}
+      {blocks.map((block, i) => renderBlock(block, i))}
     </div>
   );
+}
+
+const isTableSeparator = (line: string) =>
+  /^\s*\|?[-:\s|]+\|?\s*$/.test(line) && line.includes("-");
+
+function renderBlock(block: string, key: number): ReactNode {
+  const trimmed = block.trimStart();
+  const lines = block.split("\n");
+
+  if (trimmed.startsWith("### ")) {
+    return (
+      <h3 key={key} className="pt-1 text-lg font-bold text-white sm:text-xl">
+        {inline(trimmed.slice(4))}
+      </h3>
+    );
+  }
+  if (trimmed.startsWith("## ")) {
+    return (
+      <h2 key={key} className="pt-2 text-2xl font-bold text-white sm:text-[1.75rem]">
+        {inline(trimmed.slice(3))}
+      </h2>
+    );
+  }
+
+  // Markdown pipe table
+  if (lines.length >= 2 && lines[0].includes("|") && isTableSeparator(lines[1])) {
+    const cells = (row: string) =>
+      row.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+    const header = cells(lines[0]);
+    const rows = lines.slice(2).filter((l) => l.includes("|")).map(cells);
+    return (
+      <div key={key} className="overflow-x-auto rounded-2xl border border-white/10">
+        <table className="w-full border-collapse text-left text-sm">
+          <thead>
+            <tr className="bg-emerald-section/60">
+              {header.map((h, hi) => (
+                <th key={hi} className="border-b border-white/10 px-4 py-3 font-semibold text-gold">
+                  {inline(h)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, ri) => (
+              <tr key={ri} className={ri % 2 ? "bg-white/[0.02]" : ""}>
+                {row.map((c, ci) => (
+                  <td key={ci} className="border-b border-white/10 px-4 py-3 align-top text-bone/90">
+                    {inline(c)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  // Unordered list
+  if (lines.every((l) => l.trimStart().startsWith("- "))) {
+    return (
+      <ul key={key} className="space-y-2.5">
+        {lines.map((l, li) => (
+          <li key={li} className="flex gap-3 text-base leading-relaxed text-bone/90 sm:text-lg">
+            <span className="mt-[0.6rem] h-1.5 w-1.5 flex-none rounded-full bg-gold" aria-hidden />
+            <span>{inline(l.trimStart().slice(2))}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  // Ordered list
+  if (lines.every((l) => /^\s*\d+\.\s/.test(l))) {
+    return (
+      <ol key={key} className="space-y-2.5">
+        {lines.map((l, li) => (
+          <li key={li} className="flex gap-3 text-base leading-relaxed text-bone/90 sm:text-lg">
+            <span className="flex-none font-semibold text-gold">{li + 1}.</span>
+            <span>{inline(l.replace(/^\s*\d+\.\s/, ""))}</span>
+          </li>
+        ))}
+      </ol>
+    );
+  }
+
+  // Paragraph (preserve soft line breaks inside a block)
+  return (
+    <p key={key} className="text-base leading-relaxed text-bone/90 sm:text-lg">
+      {lines.map((l, li) => (
+        <Fragment key={li}>
+          {li > 0 && <br />}
+          {inline(l)}
+        </Fragment>
+      ))}
+    </p>
+  );
+}
+
+/** Inline **bold** and *italic* into <strong>/<em>. */
+function inline(text: string): ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-semibold text-white">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    if (part.length > 1 && part.startsWith("*") && part.endsWith("*")) {
+      return <em key={i}>{part.slice(1, -1)}</em>;
+    }
+    return part;
+  });
 }

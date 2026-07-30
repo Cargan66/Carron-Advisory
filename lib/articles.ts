@@ -25,6 +25,12 @@ export type Article = {
   cover: string;
   /** Optional downloadable PDF (path under /public) — for report-style posts. */
   pdf?: string;
+  /**
+   * When true, the PDF is the primary read: the article page shows a prominent
+   * "Open report / Download" card above a short teaser body. When false/absent,
+   * the full text on the page is primary and the PDF is a secondary download.
+   */
+  pdfPrimary?: boolean;
   body: string;
 };
 
@@ -40,22 +46,83 @@ export const articles: Article[] = [
     date: "2026-07-26",
     readTime: "PDF report",
     author: "Carel Gangel",
-    body: `From 1 April 2026, the compulsory VAT-registration threshold rose to R2.3 million (voluntary registration stays at R120,000). That gives many existing VAT vendors a reason to review their position — but it does not mean they should stop charging VAT.
+    body: `## Executive summary
 
-Being below the new threshold is a review trigger, not an instruction to deregister. The administrative saving is rarely the whole decision: what really matters is the effect on your customers, prices, costs, cash and future growth — and what a registered tax practitioner confirms about your specific position.
+The administrative saving is rarely the whole decision. From 1 April 2026, the compulsory threshold is R2.3 million and the voluntary threshold is R120,000, subject to the applicable requirements. A business below the new compulsory threshold may have a choice. The value of that choice depends on customers, pricing, VAT-bearing costs, cash consequences and how likely the business is to grow back into compulsory registration.
 
-This educational report sets out the six commercial questions to work through before management changes anything.
+The central decision question is not "how much will we save on VAT administration?" It is "what will change for customers, true margin, cash and the growth path — and what has the practitioner confirmed?"
 
-## What's inside
+- Being below R2.3 million is a review trigger, not an instruction to deregister.
+- B2B customers that recover VAT may receive little or no price benefit from a change.
+- Consumer-facing businesses may have a stronger pricing case, but only after input costs are included.
+- Stock, equipment, property and unresolved prior-period items can create a cash question that requires professional calculation.
+- Growth, contracts and seasonality should be tested over at least the next 18 to 24 months before management decides.
 
-- Why "how much will we save on admin?" is the wrong opening question
-- B2B vs consumer-facing customers — who actually benefits from a change
-- The pricing and true-margin effect once input costs are included
-- The cash question: stock, equipment, property and prior-period items
-- Testing growth, contracts and seasonality over the next 18–24 months
-- Where management decides, where the practitioner confirms, and where SARS decides
+Management owns the customer, pricing, margin, cash and growth analysis. A SARS-registered tax practitioner confirms eligibility, historic compliance, tax treatment, process and timing. SARS determines the cancellation and effective date. A change in threshold creates a choice — it does not create an automatic answer.
 
-General business and financial education only — obtain advice from a SARS-registered tax practitioner before acting. Open the full report in your browser, or download the PDF to read at your leisure.`,
+## Read the threshold in the correct context
+
+The new threshold changes when compulsory registration may apply. It does not cancel an existing registration, settle historic compliance, determine the treatment of assets, or authorise a business to alter invoices and returns.
+
+- **Taxable supplies** — the supplies included when the registration requirements are tested. Your practitioner should confirm what belongs in the calculation.
+- **Compulsory threshold** — SARS states R2.3 million in any consecutive 12-month period from 1 April 2026.
+- **Voluntary registration** — from R120,000, remains possible below the compulsory threshold, subject to the applicable requirements.
+- **Cancellation** — an application and formal SARS process. It is not automatic when turnover falls below the threshold.
+- **Input VAT exposure** — VAT currently recovered on operating and capital purchases that may become part of business cost if registration ends.
+- **Final tax period** — the period and adjustments SARS and the practitioner must confirm before the registration is closed.
+
+The safe review sequence: **measure** turnover, customers, costs and assets; **model** price, margin, cash and growth; **confirm** the tax position with the practitioner; **implement** only after the formal outcome.
+
+This report does not determine eligibility, classify transactions or assets, calculate a VAT liability, complete a return or represent a taxpayer. AI may organise records and flag missing information, but it should not reach the tax conclusion or replace a registered practitioner.
+
+## Build the fact base before you form an opinion
+
+A year-end turnover figure is not enough. Prepare: monthly taxable-supply information for at least the current and prior 12 months; the revenue outlook (signed contracts, recurring revenue, price increases, pipeline, known losses); the customer mix (VAT-registered businesses, final consumers, exempt bodies, tenders, onboarding rules); and a cost-and-asset map (VAT-bearing operating costs, stock, equipment, property and other material items).
+
+Signals that a quick decision would be weak: turnover close to R2.3 million (a single contract, price change or strong month may move the position); seasonal or project-based revenue (a low year-end number may hide a higher consecutive 12-month period); an asset- or stock-heavy business (the possible final-period cash effect may be material and fact-specific); and management focused only on compliance cost (customer pricing, lost input VAT and future growth may matter more than filing effort). The higher threshold does not cure an earlier registration, return, invoice, payment or supporting-document problem — include prior-period questions in the professional review.
+
+### The six commercial questions
+
+1. **Customer** — who recovers VAT, who pays the full VAT-inclusive price, and which customers or tenders expect a VAT vendor?
+2. **Price** — would prices remain unchanged, reduce or be renegotiated? Do not assume that removing VAT automatically creates extra margin.
+3. **Margin** — how much VAT-bearing expenditure sits in rent, stock, equipment, software, professional fees and other costs that may become unrecoverable?
+4. **Cash** — what stock, assets, property, rights or prior-period matters must the practitioner quantify before management can fund the transition?
+5. **Growth** — could signed work, pipeline, price increases or seasonality move the business back toward compulsory registration?
+6. **Control** — what must change in quotations, contracts, invoices, systems, customer communication, cash forecasts and monthly monitoring?
+
+### Two illustrative profiles
+
+**Profile A — B2B installer with stock and a strong pipeline.** Most customers are VAT-registered and may focus on net cost rather than a lower gross price. Stock, subcontractors, vehicles and equipment carry VAT, so lost input VAT may materially weaken margin. A signed project could move turnover back above the threshold. Commercial reading: the apparent administrative saving may be small relative to margin, tender, working-capital and growth effects.
+
+**Profile B — consumer-facing service business with limited inputs.** Most customers are final consumers, so the VAT-inclusive price is directly visible and may affect demand. VAT-bearing inputs are modest. Revenue is stable and comfortably below the threshold. Commercial reading: the pricing case may be stronger, but management should still test costs, cash, growth and implementation before acting.
+
+## Potential VAT and cash consequences
+
+Cancellation can bring retained enterprise stock, assets, property and rights into the final VAT calculation. Certain goods or rights retained when a vendor deregisters are deemed supplied immediately before the person ceases to be a vendor, subject to exceptions — the actual treatment, value and timing depend on the records and current law.
+
+Management should prepare a fixed-asset register, stock listing, purchase documents, property and lease information, major creditors and debtors, and details of mixed, private or exempt use. The practitioner should determine what belongs in the final period, valuation and adjustments, restrictions or deductions, filing treatment and payment timing.
+
+Keep a provisional reserve in the cash forecast until the practitioner has completed a documented calculation. Do not use a generic online calculator or a percentage of assets as the decision amount.
+
+## Decision pack and formal control
+
+Prepare monthly turnover and source reports, customer segmentation and pricing options, a VAT-bearing cost map, stock/asset/property/contract records, and an 18- to 24-month forecast with a cash reserve. The practitioner confirms eligibility, historic compliance, final-period and asset treatment, required documents, and the effective date and continuing obligations. Management then compares the credible commercial scenarios, inserts confirmed cash effects, selects the funding and transition plan, and records the decision.
+
+**Non-negotiable control:** continue the current VAT treatment until SARS has confirmed the cancellation, effective date and final tax period. Do not alter quotations, invoices, returns or customer documents merely because management has decided to investigate.
+
+Three credible management outcomes: **remain registered** (the commercial value of registration or growth path outweighs the administrative saving); **apply after advice** (a durable commercial case, confirmed tax treatment, adequate cash and a controlled implementation plan); or **defer and review** (the position is too close to the threshold, the cash effect is unclear, growth is likely, or records need correction).
+
+## Closing perspective
+
+The strongest commercial case is usually found where final consumers carry the VAT-inclusive price, VAT-bearing inputs are modest, the transition cash is manageable and turnover is likely to remain below the threshold. Neither pattern is a tax conclusion — it is the management case to place before a registered practitioner.
+
+Do not start with the cost of VAT returns. Start with customers, true margin, cash and the growth horizon. Then obtain a written professional conclusion and wait for the formal SARS outcome before changing anything.
+
+*This report provides general business and financial education. It does not constitute tax or legal advice and does not consider the circumstances of a particular taxpayer. Obtain advice from a SARS-registered tax practitioner before applying or acting.*
+
+**Related reading:** Can Your Business Afford to Grow? · The 13-Week Cash Flow Forecast Every SME Should Run.
+
+The full VAT Registration Review Record (a one-page working document for the decision) remains available in the downloadable PDF.`,
   },
   {
     slug: "can-your-business-afford-to-grow",
@@ -68,22 +135,77 @@ General business and financial education only — obtain advice from a SARS-regi
     date: "2026-07-20",
     readTime: "PDF report",
     author: "Carel Gangel",
-    body: `A large order, an extra hire, new equipment or a second site can be commercially compelling. But the financial question isn't whether growth is desirable — it's whether the business can carry the cash, margin, capacity and timing the commitment demands.
+    body: `## Executive view
 
-Growth almost always costs cash before it earns it: funding the new order, employee or asset, and the working capital tied up in stock, deposits and unpaid invoices before customers pay. Get the timing wrong and expansion can quietly drain the very business it was meant to strengthen.
+A large order, an additional employee, new equipment or a second site can be commercially compelling. The financial issue is not whether growth is desirable in principle — it is whether the business can carry the cash, margin, capacity and timing consequences of the commitment.
 
-This special report gives you a clear, plain-language framework to decide with discipline — before you commit.
+The financial sequence: **commit** (commercial terms agreed) → **fund** (cash and capacity committed) → **deliver** (costs and operating effort incurred) → **collect** (customer cash received).
 
-## What's inside
+A growth decision should be evaluated on four linked dimensions: commercial value, cash timing, capacity and risk, and funding structure. Establish the **cash gap** (maximum cumulative cash required before meaningful collections), the **cash low point** (lowest forecast bank balance after the commitment is included), and the **cash buffer** (room remaining if collections are later or costs exceed plan).
 
-- Growth in financial language: growth funding, working capital, contribution, cash low point
-- The commit → spend → deliver → collect sequence, and why timing is everything
-- How to size the cash gap before you commit
-- The six financial tests to run on any growth decision
-- Managing the downside case and uncertainty
-- Where AI-assisted review helps — and where the final call stays yours
+The review should establish whether customer terms, supplier terms and VAT timing create a material cash gap; whether margin remains adequate after incremental delivery costs, discounts, finance charges and rework; whether recurring commitments and capacity remain affordable if revenue arrives late; and whether the funding source, duration and repayment pattern match the underlying cash cycle. A forecast does not make the decision for management — it makes the financial consequences visible early enough for the commercial terms, timing or structure to be changed.
 
-Open the full report in your browser, or download the PDF to read at your leisure.`,
+**South African context, July 2026:** SARB held the policy rate at 7.0% and Absa listed prime at 10.5%. At the end of December 2025, national and provincial departments reported 90,856 invoices older than 30 days, totalling R15.5 billion. Growth plans should therefore price both the cost of finance and the risk of late receipts. (Sources: SARB MPC statement, 23 July 2026; Absa financial indices; National Treasury Q3 2025/26 supplier-payment report.)
+
+## Where the cash gap begins
+
+Revenue, profit and cash do not necessarily arise at the same point. The gap matters most where the business funds stock, labour, deposits, VAT or fixed costs before the customer pays. Commit (order, hire or asset approved) → spend (inputs and setup paid) → deliver (work completed, invoice raised) → collect (customer receipt reaches bank).
+
+Customer terms set the funding need: the interval between paying suppliers and labour and collecting from the customer. The cash gap is often larger than the expected profit for the period before final collection. Recurring commitments — a salary, lease or subscription — start immediately, while matching revenue may arrive late or not materialise as planned, reducing the room available to absorb late receipts, weaker sales or a cost overrun.
+
+**Worked illustration — a profitable order with a cash requirement:** sale value excluding VAT R600,000; deposit received at order R180,000; materials, labour and delivery paid before final collection (R405,000); cash movement before final collection (R225,000); expected gross contribution once the final collection arrives R195,000. The order is profitable, but it requires R225,000 before final collection — before overheads, finance costs and VAT timing. The decision is whether the forecast can carry that low point without breaching the minimum cash reserve.
+
+## The six financial tests
+
+Use these before a major order, an additional hire, a new product line, equipment, a stock build or a new site. The purpose is not to eliminate risk — it is to size it before the commitment becomes difficult to reverse.
+
+1. **True margin** — calculate contribution from the specific opportunity, including materials, freight, overtime, commission, discounts, finance, warranty and rework. Historic margin is a reference, not a substitute.
+2. **Cash conversion cycle** — map deposits, supplier terms, payroll, tax dates, milestone billings and final collection by week, using cash dates, not invoice dates.
+3. **Fixed-cost burden** — separate once-off implementation costs from recurring commitments. The established business carries recurring costs when revenue is late, lower or absent.
+4. **Capacity and control** — test people, production, systems, quality control and management attention. Growth that weakens delivery to existing customers can destroy margin and cash elsewhere.
+5. **Combined downside case** — test later collection, lower volume and higher direct cost together. The combined case often exposes a funding gap that each single sensitivity misses.
+6. **Funding match** — match purpose, duration and repayment pattern to the underlying cash cycle. A short collection gap and a long-life asset require different funding structures.
+
+## Managing uncertainty
+
+Growth plans rarely fail because every original assumption was wrong. They become difficult when collection, cost, volume or capacity move together. A minimum downside case should combine a 30-day collection delay, a 10% cost increase and 20% lower early volume, and be tested together, not just individually — the combined case often exposes a funding gap that no single sensitivity shows.
+
+Watch for: sales rising while the bank balance remains flat (the sales and cash forecasts describing different realities); the next customer receipt being required to meet payroll or core suppliers (the working-capital requirement is structural, not incidental); a profitable order relying on long payment terms (the customer may be shifting its funding burden onto the supplier); new commitments not appearing in the forecast until after approval; and management being unable to identify the maximum cash gap or the week it occurs.
+
+The response is commercial: renegotiate a deposit, use milestone billing, stage delivery, phase the commitment, fund it properly, or decline. Agree the trigger before the cash buffer is exhausted.
+
+## Decision materials
+
+A compact set of current materials connects the opportunity to cash, margin, capacity and funding:
+
+- **13-week forecast** — the base case into which the opportunity must fit.
+- **Opportunity cash map** — the timing of deposits, stock, labour, delivery, invoicing and collections attributable to the decision.
+- **Margin model** — the incremental economics of the opportunity after direct delivery costs and concessions.
+- **Downside case** — the effect of slower collections, lower volume or higher direct cost on cash and funding.
+- **Funding note** — amount, purpose, duration, responsible owner and contingency for any funding requirement.
+- **Decision record** — the commercial rationale, cash low point, capacity conditions, funding route, decision owner and review date.
+
+Match the funding to the use: customer deposits and milestone billings can fund order-specific work; working-capital facilities or invoice finance may suit short collection gaps; asset or term finance better matches long-life equipment; owner capital or equity is more appropriate where timing and repayment are uncertain. The cheapest facility is not the right facility if its repayment profile creates the next cash crisis.
+
+## The management routine
+
+**Before the commitment:** establish the minimum cash reserve, map inflows and outflows by expected payment date, confirm the commercial terms, funding route and decision owner.
+
+**In the weekly review:** replace estimates with actual receipts and payments, reconfirm material collections and supplier commitments, refresh the cash low point and downside case.
+
+**When assumptions move:** identify the assumption that moved and quantify the effect, consider commercial, timing or funding alternatives, record the decision, owner and next review date.
+
+At 30, 60 and 90 days post-commitment, compare actual cash usage, contribution, collection timing and capacity impact with the approved case. Escalate when the cash buffer, margin or service condition is breached — growth should remain subject to review after approval; signing the commitment does not end the decision process.
+
+## Conclusion
+
+Growth may be worth accepting, renegotiating, staging, deferring or declining. None of those outcomes is a failure of ambition. The financially sound outcome is the one the business can carry without weakening cash, service or the established operation. When management can see the maximum cash gap, the week it occurs, the downside position and the funding requirement, the commercial decision becomes more deliberate and more negotiable.
+
+**Related reading:** Profitable But No Money in the Bank · The 13-Week Cash Flow Forecast Every SME Should Run.
+
+**Key external sources:** South African Reserve Bank, Statement of the Monetary Policy Committee, 23 July 2026; Absa, Financial indices and rates; National Treasury, Third Quarter Report on payment of supplier invoices, 2025/26; SARS, VAT 404 Guide for Vendors; Neil C. Churchill and John Mullins, "How Fast Can Your Company Afford to Grow?", Harvard Business Review, May 2001.
+
+The full Growth Decision Record (a one-page working document) remains available in the downloadable PDF.`,
   },
   {
     slug: "the-customer-you-cannot-afford-to-lose",
@@ -96,21 +218,98 @@ Open the full report in your browser, or download the PDF to read at your leisur
     date: "2026-07-14",
     readTime: "PDF report",
     author: "Carel Gangel",
-    body: `Your biggest customer can look like the strongest part of the business and be its single biggest risk. The danger is rarely one unpaid invoice — it's that too much of your sales, profit, capacity and cash now sit with one relationship. A late payment, a squeeze on price, or losing the contract then hurts far more than the order book suggests.
+    body: `## Executive view
 
-That dependence bites both ways. The customer is too big to lose — so you tolerate longer terms, discounts and disputes you'd never accept from anyone else. And they're too big to carry — so one late payment can drag your whole bank balance to its lowest point. In a country where most SMEs are already paid late, a big customer piles the risk all in one place.
+One big customer can carry your business and quietly run it at the same time. Your biggest customer can look like the strongest part of the business and be its biggest single risk. The danger is rarely one unpaid bill — it is that too much of your sales, profit, capacity and cash now sit with one relationship, so a late payment, a squeeze on price, or losing the contract hurts far more than the order book suggests.
 
-This special report gives you a simple framework to weigh a big customer up — before you commit margin, cash or a credit limit.
+The dependence bites two ways: the customer is too big to lose, so you put up with longer terms, discounts and arguments you would never accept from anyone else; and they are too big to carry, so one late payment drags your whole bank balance to its lowest point. In a country where most SMEs are already paid late, a big customer does not just add risk in line with its size — it piles it all in one place.
 
-## What's inside
+The decision: serve, renegotiate, reprice, cap, pause or turn down the exposure. The review should establish whether the terms you agreed match how the customer actually pays; whether the customer is still worth it once you count finance costs, admin time, credit notes, rework and discounts; whether leaning on one customer or group uses up capacity you need elsewhere; and whether you've made a real decision about the payment risk — charged for it, capped it, insured it, secured it, or knowingly accepted it — rather than just carrying it by default.
 
-- Why your biggest customer is the one you can least afford to misread
-- The concentration lens: margin, timing, exposure and concentration
-- The cash gap, cash low-point and buffer — what one customer really costs
-- The decision: serve, renegotiate, re-price, cap, pause or turn away
-- Where AI genuinely helps — and where your own judgement still rules
+One overdue invoice is a chasing problem. A customer too big to lose and too slow to pay is a dependence problem, and it belongs in your management and cash review, not just on the overdue list at month-end.
 
-Open the full report in your browser, or download the PDF to read at your leisure.`,
+## Concentration: the financial language
+
+Do not guess how dependent you are — work it out. For each customer, look at three things: what slice of your sales they are, what slice of your profit they are once you've covered the cost of serving them, and how much they owe you right now. If one customer is more than about a tenth of your sales, keep an eye on them. If they are a fifth or more — or your five biggest together are more than half the business — that is a built-in risk to check every month, not carry around in your head.
+
+- **Stated terms** — the payment terms on the invoice or contract.
+- **Actual days to pay** — how many days they really take, from invoice to money in the bank, going on past history.
+- **Customer exposure** — everything they owe you: current, overdue, plus committed but not yet invoiced work.
+- **Funding cost** — what it costs you to carry that money, through the overdraft, your suppliers, paying late, or your own cash.
+- **Dispute drag** — invoices held up by paperwork, price arguments, missing delivery proof, credit notes or sign-off chains.
+- **Concentration risk** — leaning on one customer, group or sector for a big share of your sales or profit.
+
+It comes down to timing: when your cash goes out, when the customer's cash comes back, and how much uncertainty you can carry while their balance is still owing.
+
+## Where concentration hits cash
+
+Your overdue list shows what is unpaid. It does not show how much of the whole business is riding on one account, what you have already spent to serve them, or how often that customer misses the date it promised while everyone waits.
+
+Size shifts the power too. A customer that knows it is central can dictate terms, stretch payment from 30 days out towards the 90 to 150 days common with big buyers, and use a small dispute as an excuse to hold the whole balance. You fund that gap from your own overdraft and your suppliers, so the cost of the relationship hits your bank balance long before it shows up as a bad debt.
+
+You can still be making a profit on paper while the cash in the bank gets tight. A big customer can crowd out smaller ones that pay faster, spread your risk and tie up less cash. Supplier credit can hide the problem until a key supplier shortens your terms. The cash you need to fund one customer can be more than a month's profit, even when they eventually pay in full.
+
+## Worked illustration — a profitable customer that is also half the business
+
+Figures below are illustrative and exclude VAT to keep it simple. Say total sales are about R1,500,000 a month, so this one customer is roughly half of everything sold.
+
+| Item | Example amount / timing |
+|---|---|
+| Monthly sales to one customer | R750,000 |
+| Direct cost at 76% | (R570,000) |
+| Profit before finance and rework costs | R180,000 |
+| When you pay your suppliers | 30 days |
+| Terms the customer agreed | 60 days |
+| How they actually pay | 85 days |
+| Roughly what they owe you at 85 days | R2,125,000 |
+| Less what your suppliers fund for 30 days | (R570,000) |
+| Roughly the cash you have to find | R1,555,000 |
+
+One customer that is half the business can tie up more than eight months of the profit they bring in, before overheads, VAT, tax dates and the rest of the business are even considered. Another 30 days' delay adds roughly R750,000 more tied up in a single customer — a decision about dependence and cash, not just a chat about collections.
+
+Split the same sales across five customers on the same terms and the dip is shallower: one late payment will not sink you, and losing any single client is a knock rather than a threat to the whole business.
+
+## The concentration review that matters
+
+A good review ties the who-owes-what list to your profit, your operations and your cash forecast. Do it every month: rank customers by their share of sales and profit, show how much your top one and top five owe you and the worst case for cash, and set a signed-off limit that supply is not allowed to quietly blow through.
+
+| Review area | Question to answer |
+|---|---|
+| Actual days to pay | Does the customer normally pay as agreed, or only after repeated follow-up? |
+| Open exposure by week | What amount is at risk before the next payroll, VAT, supplier or funding date? |
+| Margin by customer | Is the customer still worth it once delivery, rework, discounts and admin time are counted? |
+| Dispute pattern | Are delays down to missing order numbers, delivery proof, price arguments or sign-offs? |
+| Credit limit discipline | Are you still supplying because the customer matters, or because nobody actually stopped it? |
+| Concentration | How much of your sales, profit and money owed sits with one customer or group? |
+
+## Actions before the problem becomes normal
+
+Match the action to the size of the customer. For a big one: put a price on the terms and cap what they can owe you, deliver in stages so you're never carrying the full cost at once, and treat winning other customers as the real fix.
+
+- **Deposit or milestone billing** — get cash in before you've paid to deliver the whole job.
+- **Credit limits** — cap what a customer can owe you, based on how they actually pay, not just how big they are.
+- **Pricing for terms** — long terms, extra admin and constant delays shouldn't be priced the same as a cash sale.
+- **Dispute prevention** — sort out the order number, delivery proof and sign-offs before you invoice, not after.
+- **Supply discipline** — when a customer goes over their limit, stop treating "keep supplying" as automatic.
+- **Customer mix** — keep room for other customers and work to depend less on any single one.
+
+## AI-assisted concentration review
+
+AI can prepare the questions. It cannot make the credit decision. It helps most when your books are already reasonable — invoice dates, customer names, due dates, payments, credit notes, delivery records. Used well, it turns messy records into a clear picture in minutes: how much of your sales and profit each customer is, who is slowly taking longer to pay, and how low your cash would go if your biggest customer slips or leaves. Keep the data to a minimum, mask anything sensitive, and check everything against your own records — the answer is a starting point for the conversation, never a substitute for it.
+
+## The management routine
+
+Make how much rides on one customer a fixed item in the weekly review, with a name against it. Before the review, update what's come in, promised dates, disputes, credit limits and the 13-week cash forecast. In the review, focus on the biggest exposures, missed promises, how low the cash goes, and what to do before the next payroll or supplier run. After the review, write down who owns it, the action, the deadline, and any change to supply terms or limits.
+
+The five questions: what cash is due this week (name the customers and amounts, not just the total)? Which promises were missed? Which invoices are disputed, and why? What is the cash low point if receipts move? What decision is needed — keep supplying, limit, renegotiate, escalate, pause or stop?
+
+## Conclusion
+
+A good customer is not just one that orders often and pays in the end — when it's a big customer, it's one whose profit, payment habits and share of your business still add up for you. The customer you cannot afford to lose deserves the most careful decision, not the least attention. Work out what they really bring in, cap what they can tie up, and keep building the rest of your customer base, so the business is carried by its customers, not held hostage by one of them.
+
+**Related reading:** Profitable But No Money in the Bank · The 13-Week Cash Flow Forecast Every SME Should Run · Can Your Business Afford to Grow? · Revenue Is Vanity, Margin Is Sanity · Management Accounts That Actually Earn Their Keep.
+
+The full Customer Concentration Risk Record (a one-page working document) remains available in the downloadable PDF.`,
   },
   {
     slug: "profitable-but-no-money-in-the-bank",
@@ -123,25 +322,122 @@ Open the full report in your browser, or download the PDF to read at your leisur
     date: "2026-07-05",
     readTime: "PDF report",
     author: "Carel Gangel",
-    body: `Your income statement can show a healthy profit while your bank account tells a very different story. Profit measures performance over a period; cash is what's actually available to pay salaries, suppliers and SARS when they fall due — and the two are rarely the same number.
+    body: `## Read: profit vs cash, in plain English
 
-This special report explains the bridge between profit and cash in plain English, then walks through the seven most common reasons profitable South African businesses still run out of money: cash tied up in debtors and stock, tax and loan repayments that never touch the profit line, and growth that quietly swallows working capital.
+Six terms, defined once, used throughout this report. Profit and cash measure different things: profit explains performance over a period; cash explains what is available to pay today.
 
-## What's inside
+**P&L (profit and loss statement)** — shows income less expenses for a period. It is not a bank statement.
+**Profit** — what remains after income less expenses for the period, using the accounting basis adopted by the business.
+**Cash** — money actually available to meet payments when they fall due.
+**Debtors** — customers who owe the business money.
+**Working capital** — cash tied up in debtors, stock, work-in-progress and other operating balances.
+**Cash-flow forecast** — a time-based estimate of expected receipts and known payments.
 
-- Profit vs cash, defined in plain English
-- Where the cash actually goes — reason by reason
-- The warning signs to watch for in each case
-- Tools that support the discipline
-- How to build the 13-week cash-flow habit
-- A quick-reference checklist you can keep
+Profit can be earned before the customer pays. Cash can leave the bank without passing through the profit line. This report is about the gap between those two statements.
 
-Open the full report in your browser, or download the PDF to read at your leisure.`,
+**Simplified management bridge — not a formal cash-flow statement:** reported profit, less cash tied up in unpaid invoices, less additional stock and unfinished jobs, less tax paid, less loan capital repayments, less equipment purchases, less owner withdrawals, equals movement in the bank account.
+
+## Where the cash actually goes
+
+Profit is an accounting event. Cash is a banking event. Revenue recognition and cash collection do not have to happen on the same date — an income statement can include a sale that has not yet produced a receipt in the bank. Sale made, invoice sent, wait for receipt, cash received.
+
+**Reason 1 — debtors: profit recorded before cash arrives.** Once goods or services have been delivered, the customer may still take time to pay. The invoice can be included in revenue while the business must continue paying payroll, rent and suppliers. The practical control is a weekly debtor-age report and a credible expected receipt date for each material invoice.
+
+**Reason 2 — VAT, PAYE and provisional tax falling due.** Tax cash dates are real commitments. PAYE is payable within seven days after the end of the month in which the tax was deducted; provisional-tax dates depend on the business year of assessment. VAT timing depends on the vendor tax period. Keep these dates in the cash forecast and reserve for known statutory liabilities.
+
+**Worked illustration, not a benchmark:** a business invoices a customer R100,000. It has already paid R70,000 in labour, rent and suppliers to perform the work. Until the R100,000 is collected, the business needs to fund that R70,000 cash-timing gap, even though profit may have been recorded.
+
+IFRS 15 explains why revenue can be recognised when goods or services are transferred, while cash may be received later. The specific timing depends on the contract, invoice terms and collection behaviour.
+
+## Five more ways cash gets tied up
+
+The remaining five causes are structural — they arise from how the business carries stock, grows, borrows and spends. They are normal mechanics of business and become dangerous only when they are not visible in cash terms.
+
+**Reason 3 — stock and WIP.** Stock and unfinished jobs represent cash already spent. Review slow-moving stock, age work-in-progress by job, and use deposits or milestone billing where the cash risk is material. Owner test: is stock or WIP growing faster than sales?
+
+**Reason 4 — growth and working capital.** Every additional order can require supplier and staffing cash before the customer receipt arrives. Model the dates of material costs and customer payments before committing. Owner test: did the best sales month create the tightest cash month?
+
+**Reason 5 — loan capital repayments.** Only interest is normally reported as a finance cost. The capital part of a loan instalment still leaves the bank. Forecast the full instalment. Owner test: is the bank instalment bigger than the interest in the P&L?
+
+**Reason 6 — equipment and withdrawals.** Equipment is paid for when bought but recognised in profit over time through depreciation. Depending on the legal structure, drawings, dividends or owner-loan repayments can also leave cash without being operating costs. Owner test: is every planned withdrawal dated in the forecast?
+
+**Reason 7 — low margin or poor pricing concealed by turnover growth.** Rising turnover does not automatically release cash. If gross margin is too thin, each additional sale can consume more working capital than it releases. Review margin by customer, product or job and test whether deposits, payment terms or pricing need to change before pursuing further volume.
+
+**Cash timing test, before you accept a large order (illustration only):** a R1m order may require R300,000 of supplier deposits and R250,000 of labour or delivery cost before the first customer receipt. The R550,000 gap must be funded first. Ask: when does cash arrive, and can we carry the gap?
+
+## The warning signs, reason by reason
+
+| Warning sign | Practical response |
+|---|---|
+| Debtor days are rising, or the 60-, 90- or 120-day columns are growing | Review the age report weekly. Contact material overdue accounts before month-end. |
+| A VAT, PAYE or provisional payment falls in the same week as payroll | Enter the expected statutory debit early and fund the reserve progressively. |
+| Stock levels or incomplete jobs are growing faster than revenue | Track stock turn and aged WIP. Stop buying slow-moving items and close completed work promptly. |
+| A new order needs supplier or staffing cash before the customer will pay | Model dates before accepting it. Seek a deposit, milestone billing or supplier timing that matches the risk. |
+| The full bank instalment is materially larger than the interest in the P&L | Forecast the full instalment, including capital. Check whether the facility term suits the asset or cash cycle. |
+| A vehicle, machine, dividend, drawing or withdrawal is planned but absent from the forecast | Do not commit until the post-payment balance remains above the agreed minimum cash level. |
+| Sales are rising while gross margin is falling, or cash is tighter despite revenue growth | Review pricing, discounting, customer terms and supplier terms before pursuing more volume. |
+
+Decision rule: a forecast is not there to produce a perfect number. It is there to expose a likely low point early enough to collect, delay, negotiate, reprice or arrange funding before the bank balance becomes the crisis.
+
+## Tools that support the discipline
+
+The forecast and debtor-ageing report form the minimum cash-control stack:
+
+- **13-week cash-flow forecast** — shows the lowest projected cash point and the receipts or payments driving it. Finance and owner, every Monday.
+- **Debtor age profile** — prioritises who must be contacted before the tightest cash week arrives. Collections lead, weekly.
+- **SARS reserve and payment calendar** — separates tax cash from operating cash and makes statutory dates visible. Finance, weekly update.
+- **Loan, capex and withdrawals schedule** — captures full bank outflows that may not sit in the profit report. Owner and finance, when committed.
+- **Stock/WIP and gross-margin review** — tests whether stock, growth or pricing is consuming more cash than it releases. Operational lead, monthly.
+
+Start with the 13-week forecast and one debtor-age report. Add the next tool only after the first two are updated every week without fail.
+
+## Building the 13-week habit
+
+A forecast does not create cash. It creates time — time to collect, negotiate or arrange funding before the bank balance becomes the problem.
+
+**Week 1 — build the baseline.** List every confirmed cash inflow by its expected receipt date, not its invoice date. Enter every known outflow: salaries, suppliers, rent, loan instalments, VAT, PAYE and owner commitments. Net receipts and payments by week, then identify the lowest projected balance.
+
+**Every Monday — update, don't rebuild.** Replace last week's forecast column with actuals and roll the 13-week window forward. Confirm the next two to three weeks of material receipts directly with customers. Agree one action, owner and deadline before the week begins.
+
+**When a gap appears — act on what it shows.** Collect: chase the debtors driving the tightest week before that week arrives. Delay or negotiate: move discretionary spend, request deposits or renegotiate supplier timing. Reprice or fund: correct poor terms, or approach the bank early with the forecast.
+
+A forecast built once and forgotten is a document. Updated every week, it becomes a management habit: a known low point, a named action and less surprise.
+
+## Conclusion
+
+None of the seven reasons a business can run out of cash while profitable is automatically a sign of poor management. Debtors can pay later than expected. Tax dates do not move. Growth needs funding before it releases cash. Loan capital, equipment and owner withdrawals can affect cash differently from profit.
+
+What separates businesses that get caught out from those that do not is visibility. A rolling 13-week cash-flow forecast turns multiple risks into one visible number: the lowest projected cash point and the receipts or commitments that cause it.
+
+Profit tells you the business worked last quarter. Cash tells you whether it can meet commitments this quarter.
+
+**What changes on Monday morning:** open the bank balance, debtor-age report and current 13-week forecast together. Confirm the receipts that will decide the tightest two weeks. Enter every known payment, including tax, loan capital, equipment and withdrawals. Agree one action: collect, delay, negotiate, reprice or arrange funding. Record the owner of that action and the date it must be completed.
+
+**When to escalate:** early, when a projected balance falls below the business's agreed minimum safe level, when a debtor receipt becomes doubtful, or when a new order needs funding before it can generate cash. A bank or funder conversation is usually stronger when it happens with a forecast in hand, before the gap becomes an emergency.
+
+*This report avoids unverified payment statistics. Its factual tax and accounting references were checked against: IFRS Foundation, IFRS 15 Revenue from Contracts with Customers; SARS, Pay As You Earn; SARS, Provisional Tax; and SARS, Value-Added Tax (all accessed July 2026). Current tax dates, categories and treatment must be confirmed with SARS or a qualified adviser before action is taken.*
+
+## Quick-reference checklist
+
+Tick these against your own business. Any one "yes" is a cash risk worth tracking in the 13-week forecast.
+
+- **Debtors** — are customers taking longer than your stated terms to pay?
+- **SARS deadlines** — has a VAT, PAYE or provisional-tax payment ever clashed with payroll?
+- **Stock/WIP** — is money tied up in stock or unfinished jobs not yet invoiced?
+- **Growth** — did your busiest month coincide with your tightest cash month?
+- **Loan repayments** — are loan capital repayments leaving the bank with no matching P&L expense?
+- **Equipment and withdrawals** — has a purchase or withdrawal reduced cash without warning?
+- **Margin** — is turnover rising while the amount left after direct costs is shrinking?
+
+Cash-discipline score: 0–2 ticks, establish the weekly forecast. 3–4 ticks, cash pressure is active, assign actions now. 5 or more ticks, treat cash management as an immediate management priority.
+
+**What I do every Monday:** check the actual bank balance and replace the prior week in the forecast with actuals. Confirm material customer receipts expected in the next two weeks. Enter every known payment: salaries, suppliers, loan instalments, SARS and owner commitments. Identify the lowest projected bank balance in the 13-week period. Decide and assign one action before the week starts.`,
   },
   {
     slug: "5-signs-your-sme-is-ready-to-hire",
     cover: "/images/hiring-team.jpg",
     pdf: "/articles/Carron_Hiring_Article_2026_SME.pdf",
+    pdfPrimary: true,
     title: "5 Signs Your SME Is Ready to Hire — And How to Do It Right",
     category: "Hiring",
     excerpt:
@@ -169,6 +465,7 @@ Open the full report in your browser, or download the PDF to read at your leisur
     slug: "ai-is-no-longer-optional",
     cover: "/images/ai-report.jpg",
     pdf: "/articles/Carron_AI_Article_2026.pdf",
+    pdfPrimary: true,
     title: "AI Is No Longer Optional — For South African SMEs",
     category: "Strategy",
     excerpt:

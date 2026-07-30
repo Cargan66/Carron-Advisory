@@ -7,10 +7,73 @@ import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "Financial Performance Diagnostic",
+  title: "Diagnostic",
   description:
-    "A fixed-scope CFO diagnostic for established South African SMEs, covering cash, profitability, reporting, forecasting, and financial risk, with a practical 90-day action plan.",
+    "Start free: an instant financial health check and valuation, a R795 top-five diagnostic, or a full CFO-level review. Fixed-scope financial clarity for established South African SMEs.",
 };
+
+// The three-tier ladder. Tier 1 and Tier 2 tools are not live yet — their
+// CTAs point to the #notify sign-up section further down this page.
+type Tier = {
+  tag: string;
+  name: string;
+  fee: string;
+  feeNote?: string;
+  soon: boolean;
+  description: string;
+  disclosure?: string;
+  includes: string[];
+  cta: { label: string; href: string; variant: "primary" | "secondary" };
+};
+
+const tiers: Tier[] = [
+  {
+    tag: "Tier 1 · Free",
+    name: "Free Health Check & Valuation",
+    fee: "Free",
+    soon: true,
+    description:
+      "Enter about nine numbers from your management accounts — around two minutes — and get an instant read on where you stand.",
+    includes: [
+      "A financial health score out of 100",
+      "Your key financial ratios",
+      "An estimated business-value range, from two methods",
+    ],
+    cta: { label: "Run your free check", href: "/diagnostic#notify", variant: "secondary" },
+  },
+  {
+    tag: "Tier 2 · R795",
+    name: "R795 Diagnostic",
+    fee: "R795",
+    feeNote: "once-off",
+    soon: true,
+    description:
+      "Your top five priorities ranked by potential impact, each with a first action — generated instantly from the same numbers you have already entered.",
+    disclosure:
+      "An automated result with an AI-written explanation. Not advisor-reviewed at this tier.",
+    includes: [
+      "Top five priorities, ranked by impact",
+      "A clear first action for each priority",
+      "Generated instantly from your entered numbers",
+    ],
+    cta: { label: "Unlock your Top 5", href: "/diagnostic#notify", variant: "secondary" },
+  },
+  {
+    tag: "Tier 3 · CFO Review",
+    name: "CFO Review",
+    fee: "From R4,500",
+    feeNote: "plus VAT · your R795 diagnostic fee credited in full",
+    soon: false,
+    description:
+      "A senior, advisor-verified review of your numbers — the priorities checked by a person and turned into a practical 90-day plan. Full detail below.",
+    includes: [
+      "Everything in the diagnostic, verified by an advisor",
+      "Executive scorecard and 90-day action plan",
+      "A 90-minute findings session with management",
+    ],
+    cta: { label: "Book a CFO Review", href: "/contact", variant: "primary" },
+  },
+];
 
 const reviewAreas = [
   {
@@ -60,7 +123,7 @@ const process = [
 
 const deliverables = [
   "Executive financial health scorecard",
-  "Five highest-priority findings",
+  "Five highest-priority findings — advisor-verified",
   "Immediate financial risks requiring attention",
   "Cash and profit improvement opportunities",
   "Reporting, forecasting, and governance gaps",
@@ -70,70 +133,131 @@ const deliverables = [
 ];
 
 const fitSignals = [
+  "You want a free, instant read on your numbers before spending anything",
   "Turnover is growing, but cash or profit is not keeping pace",
   "Management accounts look backward and arrive too late",
   "Major decisions rely more on instinct than reliable forecasts",
   "The business has an accountant or finance manager, but no strategic CFO",
   "Funding, expansion, succession, or a transaction is approaching",
-  "The owner wants an independent view before committing to a retainer",
 ];
 
 export default function DiagnosticPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Financial Performance Diagnostic"
+        eyebrow="Diagnostic"
         title={
           <>
-            See what the numbers are really saying, then decide{" "}
-            <span className="text-gold-gradient">what to do next</span>.
+            See where you stand. <span className="text-gold-gradient">Free.</span>{" "}
+            Then go as deep as you need.
           </>
         }
-        description="A focused, fixed-scope review for established SMEs that need independent CFO-level insight without committing to an ongoing engagement."
+        description="A free instant read on your numbers, a fast paid diagnostic with your top priorities, or a full CFO-level review — start free and choose how far to take it."
       />
 
+      {/* Three-tier ladder */}
       <section className="bg-emerald-base py-20 sm:py-28">
-        <div className="container-luxe grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-          <FadeIn>
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
-              The outcome
-            </span>
-            <h2 className="mt-4 max-w-2xl text-3xl font-bold leading-tight text-white sm:text-4xl">
-              Clarity on the few financial issues that matter most now.
-            </h2>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-bone-muted">
-              This is not an audit, a bookkeeping clean-up, or a generic report.
-              It is a senior financial review designed to show management where
-              value is being lost, where risk is building, and which actions
-              deserve attention first.
-            </p>
-          </FadeIn>
+        <div className="container-luxe">
+          <FadeInStagger className="grid gap-6 lg:grid-cols-3">
+            {tiers.map((tier) => (
+              <FadeInItem key={tier.name} className="h-full">
+                <div
+                  className={`flex h-full flex-col rounded-2xl border bg-emerald-section/60 p-8 transition-colors duration-300 ${
+                    tier.soon
+                      ? "border-white/10 hover:border-gold/30"
+                      : "border-gold/40"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                      {tier.tag}
+                    </p>
+                    {tier.soon && (
+                      <span className="rounded-full border border-white/15 px-2.5 py-0.5 text-[0.6rem] font-medium uppercase tracking-wider text-bone-dim">
+                        Launching soon
+                      </span>
+                    )}
+                  </div>
 
-          <FadeIn delay={0.1}>
-            <div className="rounded-2xl border border-gold/25 bg-emerald-section p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                Typical engagement
-              </p>
-              <dl className="mt-6 space-y-5">
-                <Fact label="Time frame" value="Two to three weeks" />
-                <Fact label="Fixed fee" value="From R25,000 plus VAT" />
-                <Fact label="Management time" value="Two focused sessions" />
-                <Fact label="Commitment" value="No ongoing retainer required" />
-              </dl>
-              <Button href="/contact" size="lg" className="mt-8 w-full">
-                Discuss a Diagnostic
-              </Button>
-            </div>
+                  <h2 className="mt-4 text-xl font-bold text-white">
+                    {tier.name}
+                  </h2>
+
+                  <p className="mt-4 flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-gold-gradient">
+                      {tier.fee}
+                    </span>
+                    {tier.feeNote && (
+                      <span className="text-sm text-bone-dim">{tier.feeNote}</span>
+                    )}
+                  </p>
+
+                  <p className="mt-4 text-sm leading-relaxed text-bone-muted">
+                    {tier.description}
+                  </p>
+
+                  <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-6">
+                    {tier.includes.map((inc) => (
+                      <li
+                        key={inc}
+                        className="flex items-start gap-2.5 text-sm text-bone/90"
+                      >
+                        <svg
+                          className="mt-0.5 h-4 w-4 flex-none text-gold"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          aria-hidden
+                        >
+                          <path
+                            d="M5 13l4 4L19 7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        {inc}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {tier.disclosure && (
+                    <p className="mt-5 text-xs leading-relaxed text-bone-dim">
+                      {tier.disclosure}
+                    </p>
+                  )}
+
+                  <div className="mt-auto pt-7">
+                    <Button
+                      href={tier.cta.href}
+                      variant={tier.cta.variant}
+                      className="w-full"
+                    >
+                      {tier.cta.label}
+                    </Button>
+                  </div>
+                </div>
+              </FadeInItem>
+            ))}
+          </FadeInStagger>
+
+          <FadeIn className="mt-10">
+            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-bone-dim">
+              Start with the free check. If it surfaces something worth acting on,
+              step up to the R795 Top 5 or a full CFO Review — and your R795 is
+              credited in full against the review.
+            </p>
           </FadeIn>
         </div>
       </section>
 
+      {/* Inside the CFO Review — what we review */}
       <section className="border-y border-white/10 bg-emerald-section py-20 sm:py-28">
         <div className="container-luxe">
           <SectionHeading
-            eyebrow="What We Review"
+            eyebrow="Inside the CFO Review"
             title="A commercial view of financial performance"
-            description="The work stays focused on information that affects decisions. Poor records may be identified as a risk, but repairing them is outside the diagnostic scope."
+            description="The top tier is a senior review focused on information that affects decisions. Poor records may be identified as a risk, but repairing them is outside the review scope."
           />
           <FadeInStagger className="mt-14 grid gap-6 sm:grid-cols-2">
             {reviewAreas.map((area, index) => (
@@ -155,6 +279,7 @@ export default function DiagnosticPage() {
         </div>
       </section>
 
+      {/* The process */}
       <section className="bg-emerald-base py-20 sm:py-28">
         <div className="container-luxe">
           <SectionHeading
@@ -181,6 +306,7 @@ export default function DiagnosticPage() {
         </div>
       </section>
 
+      {/* What you receive + strong fit */}
       <section className="bg-emerald-section py-20 sm:py-28">
         <div className="container-luxe grid gap-12 lg:grid-cols-2 lg:gap-20">
           <FadeIn>
@@ -202,7 +328,7 @@ export default function DiagnosticPage() {
               A strong fit when
             </p>
             <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">
-              The business has outgrown financial hindsight
+              You want clarity before financial hindsight costs you
             </h2>
             <ul className="mt-8 space-y-3">
               {fitSignals.map((item) => (
@@ -213,6 +339,7 @@ export default function DiagnosticPage() {
         </div>
       </section>
 
+      {/* Clear boundaries + typical engagement / fee */}
       <section className="border-t border-white/10 bg-emerald-base py-20 sm:py-28">
         <div className="container-luxe">
           <FadeIn className="rounded-3xl border border-gold/20 bg-emerald-section/60 px-8 py-12 sm:px-12">
@@ -225,29 +352,71 @@ export default function DiagnosticPage() {
                   Insight and direction, without an open-ended assignment.
                 </h2>
                 <p className="mt-4 leading-relaxed text-bone-muted">
-                  The fixed fee covers the agreed information review, one
-                  leadership interview, analysis, a concise diagnostic report,
+                  The Free Health Check and R795 Diagnostic are automated tools —
+                  useful starting points, not advice. The CFO Review is
+                  advisor-led: its fixed fee covers the agreed information review,
+                  one leadership interview, analysis, a concise diagnostic report,
                   and one findings session. Bookkeeping, tax returns, audit or
                   assurance, detailed valuations, due diligence, and
                   implementation are separately scoped if required.
                 </p>
               </div>
-              <div className="lg:text-right">
-                <Button href="/contact" size="lg">
-                  Start the Conversation
-                </Button>
-                <p className="mt-4 text-sm text-bone-dim">
-                  A short discovery call confirms fit before any work begins.
+
+              <div className="rounded-2xl border border-gold/25 bg-emerald-base/60 p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  CFO Review — typical engagement
                 </p>
+                <dl className="mt-6 space-y-5">
+                  <Fact label="Time frame" value="Two to three weeks" />
+                  <Fact
+                    label="Fee"
+                    value="From R4,500 plus VAT — your R795 diagnostic fee credited in full"
+                  />
+                  <Fact label="Management time" value="Two focused sessions" />
+                  <Fact label="Commitment" value="No ongoing retainer required" />
+                </dl>
+                <Button href="/contact" size="lg" className="mt-8 w-full">
+                  Book a CFO Review
+                </Button>
               </div>
             </div>
           </FadeIn>
         </div>
       </section>
 
+      {/* Get notified — Tier 1 & Tier 2 tools coming soon */}
+      <section
+        id="notify"
+        className="scroll-mt-28 border-t border-white/10 bg-emerald-section py-20 sm:py-28"
+      >
+        <div className="container-luxe">
+          <FadeIn className="mx-auto max-w-2xl rounded-3xl border border-gold/25 bg-emerald-base/60 px-8 py-12 text-center sm:px-12">
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              Launching soon
+            </span>
+            <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl">
+              The Free Health Check and R795 Diagnostic are on their way
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-bone-muted">
+              The self-service tools aren&apos;t live yet. Leave your email and
+              we&apos;ll tell you the moment they open — or book a CFO Review now
+              if you&apos;d rather not wait.
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Button href="mailto:info@carron.co.za?subject=Notify%20me%20when%20the%20Carron%20financial%20tools%20launch">
+                Notify me when it&apos;s live
+              </Button>
+              <Button href="/contact" variant="secondary">
+                Book a CFO Review
+              </Button>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       <CTASection
-        title="Not sure whether you need a diagnostic or ongoing CFO support?"
-        description="Start with the business issue. We'll recommend the smallest useful engagement, with scope and fee agreed before work begins."
+        title="Not sure whether you need the free check or a full CFO Review?"
+        description="Start with the business issue. We'll recommend the smallest useful step, with scope and fee agreed before any work begins."
       />
     </>
   );
