@@ -36,6 +36,193 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "could-you-actually-sell-your-business",
+    cover: "/images/sell-your-business.png",
+    pdf: "/articles/Carron_Could_You_Actually_Sell_Your_Business.pdf",
+    title: "Could You Actually Sell Your Business?",
+    category: "Strategy",
+    excerpt:
+      "Our August 2026 special report: a profitable business is not automatically a saleable one. If customers, pricing, knowledge and decisions still sit mainly with the owner, a buyer sees an income stream that leaves when the owner does — what an owner-dependent SME is really worth, and how to close the gap.",
+    date: "2026-08-04",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `## Executive summary — a buyer pays for future performance that can transfer
+
+A profitable business is not automatically a saleable business. If the customers, pricing decisions, supplier relationships, operating knowledge and management authority still sit mainly with the owner, a buyer may see an income stream that leaves when the owner does.
+
+The central issue is not how hard the owner has worked, or what the business earned while the owner was present. It is what earnings, relationships and operating capability are likely to remain *after* ownership changes.
+
+- Start with maintainable earnings after a fair cost for replacing the owner's operational roles.
+- Test whether customers, staff, suppliers, knowledge and decision authority sit in the business rather than in one person.
+- Expect weak transferability to affect price, payment terms, handover requirements — or whether a buyer proceeds at all.
+- Prepare early enough to prove management depth, customer continuity and reliable evidence across several reporting periods.
+
+**The report in one sentence:** a buyer pays for future performance that can transfer — not for the owner's past effort, sacrifice or personal presence.
+
+*Important tax boundary: the 2026 CGT change is context only. This report does not give tax advice, calculate tax, assess eligibility or recommend a structure. Obtain transaction-specific advice from a SARS-registered tax practitioner.*
+
+## The tax change is topical — saleability is the real issue
+
+With effect from 1 March 2026, the lifetime exclusion for qualifying small-business capital gains increased from R1.8 million to R2.7 million, and the small-business asset-value ceiling increased from R10 million to R15 million. These are conditional statutory limits — not a tax rebate, and not a promise that a sale will be tax-efficient. The commercial question remains whether the business can be sold on acceptable terms.
+
+The value gap often begins with one calculation: sustainable earnings after the owner's operational roles have been replaced at a fair market cost.
+
+How buyer concern usually appears in the deal:
+
+| Buyer concern | Likely deal effect |
+| --- | --- |
+| Lower sustainable earnings | The buyer deducts the cost of replacing roles the owner performed. |
+| Higher perceived risk | The valuation multiple may be lower, even where reported profit is unchanged. |
+| Deferred consideration | More of the price may depend on an earn-out, retention or customer continuity. |
+| Longer handover | The owner may be required to remain for longer than intended. |
+
+## 1. The business a buyer can actually buy
+
+A strong income for the owner may still be a weak transferable asset. Many owner-managed businesses work because the owner is the chief salesperson, negotiator, credit controller, problem-solver and final approver. That is efficient while the owner is present — but during a sale, the same concentration becomes a single point of failure.
+
+A buyer is not purchasing the years already worked. The buyer is purchasing the right to future cash flows, together with the people, systems, contracts, assets and working capital required to produce them. If that package is incomplete, the price or deal terms will change.
+
+| Position | What a buyer sees |
+| --- | --- |
+| Transferable business | Customers, decisions and delivery sit in the organisation. The owner can leave after a planned handover. |
+| Transferable with conditions | The business has value, but a buyer needs a longer handover, retention terms or an earn-out. |
+| Owner-dependent income | A material part of revenue, knowledge or daily control may leave with the owner. |
+
+**The 90-day absence test.** Assume the owner is unexpectedly unavailable for 90 days. Ask whether the business can still:
+
+- win and renew material customer work without relying on the owner's personal promise;
+- set prices, approve exceptions and protect gross margin;
+- schedule work, manage quality, resolve staff issues and meet delivery commitments;
+- collect debtors, manage suppliers and maintain a credible cash forecast; and
+- explain performance to a lender or buyer using records rather than the owner's memory.
+
+If the honest answer is "the owner would handle it by phone", the business has not yet passed the test.
+
+## 2. Start with transferable earnings
+
+Reported profit must be converted into a defensible view of maintainable performance. A buyer will normally reconstruct the economic performance of the business — not to produce the highest possible adjusted profit, but to establish what the business can reasonably earn under new ownership, on normal commercial terms.
+
+| Step | Buyer question |
+| --- | --- |
+| 1. Reported result | Start with a consistent operating-profit or EBITDA measure that reconciles to the accounts. |
+| 2. Genuine adjustments | Add back documented once-off or personal costs; remove non-operating or exceptional income. |
+| 3. Commercial normalisation | Restate owner pay, related-party rent and other terms to realistic market levels. |
+| 4. Owner replacement | Deduct the fair cost of the sales, management, technical or finance roles the owner performs. |
+| 5. Sustainability test | Challenge temporary margin, unusual orders, fragile contracts and unrepeatable cost savings. |
+
+Adjustments that often fail under scrutiny: a once-off cost that appears every year under a different description; personal expenses with no invoices or clear separation from business costs; an owner salary added back without deducting the cost of the person who must replace the owner; a forecast that assumes growth but excludes the working capital, people or capital expenditure needed to deliver it; and a margin improvement supported by one exceptional customer, price increase or supplier concession.
+
+Enterprise value is not the cash the seller receives. Debt, surplus cash, normal working capital, tax, transaction costs and deal-specific adjustments still have to be considered. A buyer's financial review may test monthly bank reconciliations, debtor and creditor ageing, tax filing and payment status, related-party balances, shareholder loans, deferred income and unfulfilled customer prepayments.
+
+## 3. The owner-dependency test
+
+Test evidence, not confidence. Owners often believe the business can function without them because staff handle many daily tasks. A buyer will look further: who holds the authority, relationships, judgement and knowledge when something important goes wrong?
+
+| Area | Evidence question |
+| --- | --- |
+| Customers | Who can win, price, renew and recover the top customer relationships without the owner? |
+| Decisions | Which commercial, credit, purchasing and hiring decisions still require personal approval? |
+| Delivery | Can managers plan capacity, resolve quality problems and protect margin independently? |
+| Cash | Who owns debtor collection, supplier terms, banking controls and the cash forecast? |
+| Knowledge | Are critical processes, pricing logic, supplier alternatives and obligations documented? |
+| Leadership | Can the management team explain results, forecasts, risks and action plans to a buyer? |
+| Continuity | Has the business completed a real owner-absence test without performance deteriorating? |
+
+**Build an owner role and replacement-cost map.** List every recurring role the owner performs, the hours or decision load involved, the capability required and who could take it over — then estimate a realistic annual replacement cost. Several part-time owner roles may require two full-time hires, or a stronger manager plus specialist support.
+
+Do not confuse delegation with transfer: a task is not transferred while the employee still depends on the owner for the judgement, relationship or final decision behind it. The objective is not to make the owner irrelevant, but to ensure the business can keep performing while the owner moves from daily operator to a governed handover role. The effect on value is transaction-specific; there is no defensible automatic 20–50% valuation uplift.
+
+## 4. Seven risks a buyer will price
+
+Weakness does not always stop a sale; it changes who carries the risk.
+
+| Risk | What the buyer sees |
+| --- | --- |
+| 1. Owner-held relationships | Customers and suppliers deal with the owner personally; the team has limited independent standing. |
+| 2. Customer concentration | The loss of one customer would materially reduce profit, cash flow or debt-service capacity. |
+| 3. Thin management | Key roles have no capable deputy, retention plan or documented authority. |
+| 4. Unreliable numbers | Late closes, changing classifications and unsupported add-backs weaken confidence in earnings. |
+| 5. Low revenue repeatability | Sales depend on once-off projects, informal renewals or an unpredictable pipeline. |
+| 6. Transfer restrictions | Contracts, leases, licences, IP or distribution rights may not survive the transaction. |
+| 7. Hidden cash claims | Tax, debtors, creditors, leave, capex and normal working capital can reduce the amount ultimately received. |
+
+How risk moves into the transaction: a lower view of maintainable earnings or a lower multiple; an earn-out linked to customer retention, revenue or profit after transfer; a holdback, escrow, warranty or indemnity for identified exposures; a longer owner employment, consulting or restraint period; or a decision not to proceed if the risk cannot be verified or transferred.
+
+There is no universal safe percentage for customer concentration. Treat concentration as a quantified scenario — model the profit, cash and replacement-time effect if a material customer is lost — not a universal 15% trigger or an automatic 20–40% discount. Popular international claims (that 70% of small businesses never sell, or that half of M&A deals fail in due diligence) are not reliable South African SME benchmarks. The defensible lesson is to prove saleability and evidence readiness.
+
+## 5. Worked example — same profit, different value
+
+Business A and Business B each report annual revenue of R12.0 million and EBITDA of R2.2 million, with similar industries and growth prospects. The difference is what a buyer must replace, and what is likely to transfer.
+
+| Measure | Business A: owner-dependent | Business B: management-run |
+| --- | --- | --- |
+| Reported revenue | R12.0m | R12.0m |
+| Reported EBITDA | R2.2m | R2.2m |
+| Owner salary included | R0.6m | Owner is not operational |
+| Fair cost to replace owner role | R1.2m | Already included in costs |
+| Maintainable EBITDA after replacement | R1.6m | R2.2m |
+| Largest customer | 32% of revenue; owner-held | 9% of revenue; team-held |
+| Recurring or contracted revenue | 25% | 65% |
+| Management continuity | Owner approves key decisions | Management runs within clear limits |
+
+At the same purely illustrative multiple of 3.0 times maintainable EBITDA, Business A indicates R4.8 million and Business B R6.6 million — a **R1.8 million gap created by the owner-replacement cost alone**. The buyer may still apply a lower multiple to Business A, or defer part of the price, because of customer concentration and transition risk.
+
+*The 3.0 times multiple is an illustration, not a South African market benchmark or a valuation. The indicated figures are enterprise values before debt, cash, normal working-capital adjustments, tax, transaction costs and deal-specific terms.*
+
+## 6. A 24-month sale-readiness plan
+
+The slowest weaknesses to repair are management depth, customer transfer and reliable evidence.
+
+**First 90 days — establish the real position:** map the owner's roles, decision rights, relationships and annual replacement cost; prepare a three-year monthly earnings bridge with documented adjustments and gross-margin analysis; measure customer concentration, repeat revenue, contract coverage, debtor quality and pipeline reliability; and create a register of tax, CIPC, employment, lease, licence, IP and material-contract matters.
+
+**Months 4 to 12 — transfer capability:** delegate pricing, credit, purchasing and people decisions within written limits; move key customer and supplier relationships from one-to-one owner contact to team-based ownership; document the few processes whose failure would stop sales, delivery, quality or cash collection; strengthen monthly management accounts, the 13-week cash forecast and operational KPIs; and resolve known tax, employment, corporate-record and contract gaps while time is still available.
+
+**Months 13 to 24 — prove transferability:** run a planned owner-absence test and record what failed, slowed or still returned to the owner; require management to lead customer reviews, forecasts, budget decisions and performance explanations; confirm that important contracts, leases, licences and IP are documented and transferable; build a controlled due-diligence file and obtain an independent valuation or range; and decide the preferred exit route, buyer profile, handover period, minimum terms and walk-away conditions.
+
+The same work that improves saleability also reduces key-person risk, strengthens control and gives the owner more freedom before any sale occurs. The 24-month horizon is a practical preparation period, not a guarantee of a sale, a higher multiple or a faster close.
+
+## 7. The 2026 tax context and buyer due diligence
+
+Treat tax as a specialist workstream, not as the reason to sell.
+
+| Measure | Previous | 2026 |
+| --- | --- | --- |
+| Lifetime small-business capital-gain exclusion | R1.8 million | R2.7 million |
+| Market-value ceiling for all business assets | R10 million | R15 million |
+
+The R2.7 million is a lifetime exclusion of *qualifying capital gains* — not R2.7 million of sale proceeds, and not a tax rebate. The R15 million ceiling concerns the market value of business assets, not the owner's equity value; liabilities do not reduce the asset-value test. The relief applies to a natural person and contains detailed requirements relating to qualifying assets or interests, holding period, substantial involvement and the circumstances of disposal. A shareholder sale and a company sale of business assets can produce materially different tax and legal outcomes.
+
+The buyer's evidence pack should be ready across four areas:
+
+- **Financial** — annual and monthly results, normalisation schedule, bank reconciliations, forecasts, aged debtors and creditors, cash, debt, capex, deferred income and customer prepayments.
+- **Commercial** — sales and margin by customer, contracts, pipeline, retention, pricing, suppliers and concentration risks.
+- **Corporate and tax** — CIPC records, share register, beneficial ownership, related-party balances, shareholder loans, tax compliance, returns, assessments and disputes.
+- **People and legal** — organisation, employment terms, restraints, leave, licences, IP, leases, claims and change-of-control clauses.
+
+Weak evidence can delay, reprice or stop a transaction. AI can help index the file and flag gaps; it cannot verify undisclosed liabilities, determine a defensible valuation or replace legal, tax and transaction judgement. *(Tax amounts checked 3 August 2026 against SARS CGT guidance and National Treasury's Budget 2026 Tax Guide. This is not an eligibility checklist.)*
+
+## 8. Conclusion — start while there is still time to change the business
+
+A saleable SME is not one that merely shows a profit. It is one where the profit can be explained, repeated and transferred; where the operating capability sits in a team and systems; and where a buyer can verify the claims without depending on the owner's assurances.
+
+The owner-dependency question can be uncomfortable, because the dependence often reflects years of responsible involvement. The objective is not to diminish that contribution — it is to convert it into processes, relationships, authority and evidence that another owner can rely on.
+
+**Six questions to answer this quarter:**
+
+1. What annual cost would a buyer incur to replace everything I currently do?
+2. Which customers, suppliers and employees remain dependent on me personally?
+3. Can three years of monthly results support a defensible maintainable-earnings figure?
+4. What would fail during a 90-day absence, and who owns the corrective action?
+5. Which tax, legal, contract or working-capital matters could reduce the price or delay completion?
+6. What must be measurably different 24 months from now?
+
+*This report provides general business and financial education only. It is not tax advice, a tax calculation, an eligibility assessment, transaction structuring, a business valuation, legal advice or a recommendation to sell. A proposed sale should be assessed by a SARS-registered tax practitioner and suitably qualified valuation, legal and transaction advisers.*
+
+**Related reading:** Can Your Business Afford to Grow? · Profitable But No Money in the Bank · The Customer You Cannot Afford to Lose.
+
+The full report includes a one-page Sale-Readiness Decision Record — a management working document for an owner, board or advisory review — available in the downloadable PDF.`,
+  },
+  {
     slug: "below-the-new-vat-threshold",
     cover: "/images/vat-registration.png",
     pdf: "/articles/Carron_Should_You_Review_Your_VAT_Registration.pdf",
