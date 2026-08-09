@@ -5,27 +5,33 @@ import { articles } from "@/lib/articles";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  const staticRoutes = [
-    "",
-    "/about",
-    "/services",
-    "/engagement",
-    "/diagnostic",
-    "/insights",
-    "/tools",
-    "/contact",
-  ].map((route) => ({
-    url: `${siteConfig.url}${route}`,
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: route === "" ? 1 : 0.8,
-  }));
+  // Priority reflects commercial importance: the homepage first, then the
+  // services and conversion pages, then supporting and index pages.
+  const priorityByRoute: Record<string, number> = {
+    "": 1.0,
+    "/services": 0.9,
+    "/diagnostic": 0.9,
+    "/engagement": 0.9,
+    "/contact": 0.8,
+    "/about": 0.8,
+    "/insights": 0.8,
+    "/tools": 0.7,
+  };
+
+  const staticRoutes = Object.entries(priorityByRoute).map(
+    ([route, priority]) => ({
+      url: `${siteConfig.url}${route}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority,
+    }),
+  );
 
   const articleRoutes = articles.map((a) => ({
     url: `${siteConfig.url}/insights/${a.slug}`,
     lastModified: new Date(a.date),
-    changeFrequency: "yearly" as const,
-    priority: 0.6,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
   }));
 
   return [...staticRoutes, ...articleRoutes];

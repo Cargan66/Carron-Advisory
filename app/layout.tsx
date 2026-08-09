@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { OrganizationJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site";
 
 const poppins = Poppins({
@@ -13,7 +14,8 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const titleline = `${siteConfig.name} — Fractional CFO Services for SA SMEs`;
+// Kept ≤ 60 chars so it isn't truncated in search results.
+const titleline = `${siteConfig.name} — Fractional CFO for SA SMEs`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -44,11 +46,20 @@ export const metadata: Metadata = {
     title: titleline,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — Fractional CFO services for South African SMEs`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: titleline,
     description: siteConfig.description,
+    images: ["/images/og-image.png"],
   },
   robots: {
     index: true,
@@ -62,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en-ZA" className={poppins.variable}>
       <body className="min-h-screen font-sans">
+        <OrganizationJsonLd />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-gold focus:px-4 focus:py-2 focus:text-emerald-deep"

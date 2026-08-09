@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn } from "@/components/FadeIn";
+import { ArticleJsonLd } from "@/components/JsonLd";
 import {
   articles,
   getAllArticles,
@@ -22,14 +23,33 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: Params): Metadata {
   const article = getArticle(params.slug);
   if (!article) return { title: "Article not found" };
+
+  // Keep the <title> ≤ 60 chars: append the brand only when it still fits,
+  // otherwise use the bare headline (every article title is < 60 on its own).
+  const brand = " — Carron";
+  const metaTitle =
+    article.title.length + brand.length <= 60
+      ? article.title + brand
+      : article.title;
+
   return {
-    title: article.title,
+    title: { absolute: metaTitle },
     description: article.excerpt,
+    alternates: { canonical: `/insights/${article.slug}` },
     openGraph: {
       type: "article",
       title: article.title,
       description: article.excerpt,
+      url: `/insights/${article.slug}`,
       publishedTime: article.date,
+      authors: [article.author],
+      images: [{ url: article.cover, alt: article.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.cover],
     },
   };
 }
@@ -45,6 +65,14 @@ export default function ArticlePage({ params }: Params) {
 
   return (
     <>
+      <ArticleJsonLd
+        title={article.title}
+        description={article.excerpt}
+        slug={article.slug}
+        date={article.date}
+        author={article.author}
+        image={article.cover}
+      />
       <PageHeader
         eyebrow={article.category}
         title={article.title}

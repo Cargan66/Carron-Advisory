@@ -17,7 +17,14 @@ import {
   clientSectors,
   clientSituations,
 } from "@/lib/content";
+import type { Metadata } from "next";
 import { getRecentArticles, formatArticleDate } from "@/lib/articles";
+
+export const metadata: Metadata = {
+  description:
+    "Fractional CFO advisory for SMEs in South Africa. Strategic financial leadership, cash flow forecasting, margin and pricing, funding and KPI dashboards — remote, countrywide.",
+  alternates: { canonical: "/" },
+};
 
 const recent = getRecentArticles(3);
 
