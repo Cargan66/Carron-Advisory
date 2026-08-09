@@ -860,6 +860,44 @@ export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
 }
 
+/** Turn a category label into a URL-safe slug, e.g. "Cash Flow" → "cash-flow". */
+export function categorySlug(category: ArticleCategory): string {
+  return category.toLowerCase().replace(/\s+/g, "-");
+}
+
+/** Every category that has at least one article, with its post count. */
+export function getCategories(): {
+  category: ArticleCategory;
+  slug: string;
+  count: number;
+}[] {
+  const counts = new Map<ArticleCategory, number>();
+  for (const a of articles) counts.set(a.category, (counts.get(a.category) ?? 0) + 1);
+  return Array.from(counts.entries())
+    .map(([category, count]) => ({ category, slug: categorySlug(category), count }))
+    .sort((a, b) => a.category.localeCompare(b.category));
+}
+
+/** Articles in a given category slug, newest first. */
+export function getArticlesByCategory(slug: string): Article[] {
+  return getAllArticles().filter((a) => categorySlug(a.category) === slug);
+}
+
+/** Resolve a category slug back to its display label. */
+export function categoryFromSlug(slug: string): ArticleCategory | undefined {
+  return articles.find((a) => categorySlug(a.category) === slug)?.category;
+}
+
+/** Up to `count` related articles — same category first, then newest others. */
+export function getRelatedArticles(slug: string, count = 2): Article[] {
+  const current = getArticle(slug);
+  if (!current) return [];
+  const others = getAllArticles().filter((a) => a.slug !== slug);
+  const sameCategory = others.filter((a) => a.category === current.category);
+  const rest = others.filter((a) => a.category !== current.category);
+  return [...sameCategory, ...rest].slice(0, count);
+}
+
 /** Format an ISO date as e.g. "2 June 2026" for South African readers. */
 export function formatArticleDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-ZA", {

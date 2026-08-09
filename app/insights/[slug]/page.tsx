@@ -9,8 +9,8 @@ import { FadeIn } from "@/components/FadeIn";
 import { ArticleJsonLd } from "@/components/JsonLd";
 import {
   articles,
-  getAllArticles,
   getArticle,
+  getRelatedArticles,
   formatArticleDate,
 } from "@/lib/articles";
 
@@ -58,10 +58,8 @@ export default function ArticlePage({ params }: Params) {
   const article = getArticle(params.slug);
   if (!article) notFound();
 
-  // Up to two further reads, newest first, excluding this one.
-  const more = getAllArticles()
-    .filter((a) => a.slug !== article.slug)
-    .slice(0, 2);
+  // Up to two related reads — same category first, then newest others.
+  const more = getRelatedArticles(article.slug, 2);
 
   return (
     <>
@@ -173,7 +171,25 @@ export default function ArticlePage({ params }: Params) {
             )}
           </FadeIn>
 
-          <FadeIn className="mt-12 border-t border-white/10 pt-8">
+          <FadeIn className="mt-12 rounded-2xl border border-white/10 bg-emerald-section/40 p-6">
+            <p className="text-sm leading-relaxed text-bone-muted">
+              This is the kind of decision a{" "}
+              <Link href="/services/fractional-cfo" className="font-medium text-gold hover:text-gold-light">
+                fractional CFO
+              </Link>{" "}
+              helps owner-managed businesses work through. Explore{" "}
+              <Link href="/services" className="font-medium text-gold hover:text-gold-light">
+                what a CFO adds
+              </Link>
+              , or see{" "}
+              <Link href="/testimonials-case-studies" className="font-medium text-gold hover:text-gold-light">
+                how we&apos;ve helped other owners
+              </Link>
+              .
+            </p>
+          </FadeIn>
+
+          <FadeIn className="mt-8 border-t border-white/10 pt-8">
             <Link
               href="/insights"
               className="inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-light"
@@ -220,7 +236,7 @@ export default function ArticlePage({ params }: Params) {
       <CTASection
         title="See where your business stands."
         description="Start with a free financial health check on your own numbers, or book a no-obligation discovery call — whichever suits you."
-        primary={{ href: "/diagnostic#notify", label: "Run your free check" }}
+        primary={{ href: "/resources/financial-health-check", label: "Run your free check" }}
         secondary={{ href: "/contact", label: "Book a Discovery Call" }}
       />
     </>

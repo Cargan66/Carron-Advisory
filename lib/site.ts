@@ -21,6 +21,7 @@ export const navLinks = [
   { label: "About", href: "/about" },
   { label: "What a CFO Adds", href: "/services" },
   { label: "Engagement", href: "/engagement" },
+  { label: "Case Studies", href: "/testimonials-case-studies" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
 ] as const;

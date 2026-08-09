@@ -4,7 +4,7 @@ import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
-import { getAllArticles, formatArticleDate } from "@/lib/articles";
+import { getAllArticles, getCategories, formatArticleDate } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "Insights",
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 export default function InsightsPage() {
   const [featured, ...rest] = getAllArticles();
+  const categories = getCategories();
 
   return (
     <>
@@ -69,8 +70,24 @@ export default function InsightsPage() {
             </Link>
           </FadeIn>
 
+          {/* Category filter */}
+          <FadeIn className="mt-10 flex flex-wrap gap-3">
+            <span className="rounded-full border border-gold/50 bg-gold/10 px-4 py-1.5 text-sm font-medium text-gold">
+              All
+            </span>
+            {categories.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/insights/category/${c.slug}`}
+                className="rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-bone-muted transition-colors hover:border-gold/40 hover:text-gold"
+              >
+                {c.category} ({c.count})
+              </Link>
+            ))}
+          </FadeIn>
+
           {/* Article grid */}
-          <FadeInStagger className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <FadeInStagger className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map((a) => (
               <FadeInItem key={a.slug} className="h-full">
                 <Link

@@ -13,6 +13,7 @@ import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
 import {
   services,
   values,
+  whyCarron,
   founder,
   clientSectors,
   clientSituations,
@@ -202,6 +203,37 @@ export default function HomePage() {
                 className="h-52 w-full object-cover object-[center_72%]"
               />
             </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Why choose Carron — 3-column value prop */}
+      <section className="border-y border-white/10 bg-emerald-section py-24 sm:py-32">
+        <div className="container-luxe">
+          <SectionHeading
+            eyebrow="Why Choose Carron"
+            title="Senior financial leadership, without the full-time cost"
+            description="Three reasons owner-managed businesses bring Carron in — and stay."
+          />
+          <FadeInStagger className="mt-16 grid gap-6 lg:grid-cols-3">
+            {whyCarron.map((w, i) => (
+              <FadeInItem key={w.title} className="h-full">
+                <div className="h-full rounded-2xl border border-white/10 bg-emerald-base/60 p-8">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-gold/5 text-lg font-bold text-gold">
+                    {i + 1}
+                  </span>
+                  <h3 className="mt-5 text-lg font-semibold text-white">{w.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-bone-muted">
+                    {w.description}
+                  </p>
+                </div>
+              </FadeInItem>
+            ))}
+          </FadeInStagger>
+          <FadeIn className="mt-12 flex justify-center">
+            <Button href="/services/fractional-cfo" variant="secondary" size="lg">
+              Explore Fractional CFO Services
+            </Button>
           </FadeIn>
         </div>
       </section>

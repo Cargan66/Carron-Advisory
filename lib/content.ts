@@ -201,6 +201,62 @@ export const values: Value[] = [
   },
 ];
 
+// Why owners choose Carron — three concise differentiators for the homepage band.
+export type WhyPoint = {
+  title: string;
+  description: string;
+  icon: IconName;
+};
+
+export const whyCarron: WhyPoint[] = [
+  {
+    title: "CFO-level experience",
+    description:
+      "30+ years in senior finance and CFO roles across South Africa, Germany and the UK — not a bookkeeper stepping up, but a seasoned finance executive.",
+    icon: "governance",
+  },
+  {
+    title: "Sized and priced for an SME",
+    description:
+      "The judgement of a full-time CFO, on a fractional basis — a retainer, a project, or ad-hoc, with scope and fee in plain language and no tie-ins.",
+    icon: "profit",
+  },
+  {
+    title: "Remote, right across SA",
+    description:
+      "We plug into your systems and your rhythm wherever you are in the country, and focus on the decisions that move cash, margin and growth.",
+    icon: "growth",
+  },
+];
+
+// Client success stories. Real, named case studies are added here as they're
+// published; `status: "in-development"` renders an honest placeholder card.
+export type CaseStudy = {
+  client: string;
+  sector: string;
+  status: "published" | "in-development";
+  summary: string;
+  quote?: string;
+  attribution?: string;
+  /** Headline outcomes — shown as a metric grid. */
+  results: { label: string; value: string }[];
+};
+
+export const caseStudies: CaseStudy[] = [
+  {
+    client: "Energise Business Solutions",
+    sector: "Business services",
+    status: "in-development",
+    summary:
+      "An ongoing fractional-CFO engagement — building the cash-flow forecasting, margin visibility and management reporting that turn a growing services business into a fundable, decision-ready one. The full story, with the owner's own words and the numbers behind it, will be published here as the engagement matures.",
+    results: [
+      { label: "13-week cash flow", value: "In place" },
+      { label: "Management reporting", value: "Monthly" },
+      { label: "Full case study", value: "In progress" },
+    ],
+  },
+];
+
 // Engagement models — how fractional / outsourced CFO works.
 export type EngagementModel = {
   name: string;
