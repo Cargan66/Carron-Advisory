@@ -36,7 +36,7 @@ export function Navbar() {
       <nav className="container-luxe flex h-20 items-center justify-between">
         <Logo />
 
-        <ul className="hidden items-center gap-5 md:flex lg:gap-8">
+        <ul className="hidden items-center gap-5 lg:flex xl:gap-7">
           {navLinks.map((link) => {
             const active =
               link.href === "/"
@@ -46,7 +46,7 @@ export function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`relative text-sm font-medium tracking-wide transition-colors duration-300 ${
+                  className={`relative whitespace-nowrap text-sm font-medium tracking-wide transition-colors duration-300 ${
                     active ? "text-gold" : "text-stone-200 hover:text-gold"
                   }`}
                 >
@@ -63,7 +63,7 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Button href="/contact" size="md">
             Book a Discovery Call
           </Button>
@@ -72,7 +72,7 @@ export function Navbar() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-md text-gold md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-md text-gold lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -105,7 +105,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden md:hidden"
+            className="overflow-hidden lg:hidden"
           >
             <ul className="container-luxe flex flex-col gap-1 pb-6 pt-2">
               {navLinks.map((link) => {
