@@ -23,6 +23,8 @@ export type Article = {
   author: string;
   /** Cover image path under /public. */
   cover: string;
+  /** Optional dedicated 1200×630 social-share image; falls back to `cover`. */
+  ogImage?: string;
   /** Optional downloadable PDF (path under /public) — for report-style posts. */
   pdf?: string;
   /**
@@ -35,6 +37,349 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  {
+    slug: "fractional-cfo-services-south-africa",
+    cover: "/images/boardroom.jpg",
+    ogImage: "/images/og-fractional-cfo.png",
+    title: "Fractional CFO Services in South Africa: Complete Guide",
+    category: "Strategy",
+    excerpt:
+      "What fractional CFO services do, how they differ from accountants, and why owner-managed South African businesses need one. Pricing: R2,500/hour based on scope.",
+    date: "2026-08-09",
+    readTime: "10 min read",
+    author: "Carel Gangel",
+    body: `Your business is growing. Revenue is up. But you can't shake the feeling that you're flying blind on your finances.
+
+You're not alone. Most owner-managed businesses in South Africa face the same problem: they're good at what they do — running operations, selling products, building teams — but translating their numbers into decisions is another story.
+
+That's where fractional CFO services come in.
+
+## What Is a Fractional CFO?
+
+A fractional CFO is a senior financial strategist who works with your business on a part-time, flexible basis — without the full-time salary or long-term commitment.
+
+A fractional CFO doesn't do data entry. They don't file tax returns. What they do:
+
+- **Translate numbers into decisions** — your P&L is a roadmap, not just a report
+- **Forecast cash flow** — so you know what's coming and can plan accordingly
+- **Build financial strategy** — aligned with your growth goals
+- **Manage KPIs** — the metrics that actually matter to your business
+- **Guide capital allocation** — where to invest, what to cut, when to push harder
+- **Support funding or exit plans** — if you're raising capital or planning to sell
+
+## Fractional CFO vs. Accountant: The Critical Difference
+
+Accountants look backward. They close your books, file your returns, and tell you what happened last month.
+
+Fractional CFOs look forward. They use historical data to predict cash needs, identify profitability leaks, and build scenarios for growth.
+
+Both matter — they just answer different questions. Your accountant tells you what happened; a fractional CFO helps you decide what to do next. The two work best side by side, which is why a good fractional CFO works alongside your accountant, not instead of them.
+
+## Why Owner-Managed Businesses Need This Now
+
+You're bootstrapped or lightly funded. You have finite resources. Every capital decision matters.
+
+A fractional CFO helps you avoid cash crunches, improve margins, scale smartly, make faster decisions, and prepare for the next phase — all without carrying a full-time executive salary.
+
+## What a Fractional CFO Engagement Looks Like
+
+- **Month 1 — Assessment.** Review historical financials. Identify gaps. Establish baseline KPIs.
+- **Months 2–3 — Build & implement.** Install the cash flow model. Build KPI dashboards. Create a financial policy framework.
+- **Ongoing — Strategy & execution.** Monthly or quarterly reviews. Forecasting. Capital-allocation guidance.
+
+Time commitment is typically **10–20 hours a month at R2,500/hour**, depending on the scope of the engagement and the resources needed.
+
+## Fractional CFO vs. Full-Time CFO: When Each Makes Sense
+
+Hire a **fractional CFO** if you don't need daily oversight, you want expert guidance without the full-time cost, you're in a growth or transition phase, and you already have accounting covered.
+
+Hire a **full-time CFO** if you have complex multi-division operations, daily decisions are mission-critical, or you're preparing for an IPO or an institutional sale.
+
+For the fuller breakdown, see [fractional CFO vs full-time CFO](/insights/fractional-vs-full-time-cfo).
+
+## How to Choose the Right Fractional CFO
+
+**Red flags:**
+
+- They focus on compliance over strategy
+- They only work with one fixed package
+- They can't explain your model in plain English
+- They're reactive rather than forward-looking
+
+**Green flags:**
+
+- They ask the hard questions first
+- They build custom models for your business
+- They speak your language
+- They have owner-managed business experience
+- They work alongside your accountant, not against them
+
+## The South African Angle
+
+Your strategy has to account for local realities: exchange-rate volatility, the funding environment, regulatory shifts, sector dynamics, and seasonal cash-flow patterns.
+
+A CFO who understands these dynamics navigates them, instead of reacting to them.
+
+## The Bottom Line
+
+A fractional CFO isn't a luxury. It's insurance against flying blind.
+
+Start with a [financial diagnostic call](/contact), explore [what a fractional CFO adds](/services/fractional-cfo), [check your cash health](/resources/financial-health-check), or see [how we've helped other owners](/testimonials-case-studies).`,
+  },
+  {
+    slug: "cash-flow-framework",
+    cover: "/images/reporting-dashboard.jpg",
+    ogImage: "/images/og-cash-flow.png",
+    title: "A 7-Step Cash Flow Framework for Owner-Managed Businesses",
+    category: "Cash Flow",
+    excerpt:
+      "Why profitable businesses run out of cash — and a 7-step framework to forecast cash flow 90 days out, with scenarios, action plans, and a calculator you can use.",
+    date: "2026-08-08",
+    readTime: "9 min read",
+    author: "Carel Gangel",
+    body: `Cash flow kills more profitable businesses than bad products ever do.
+
+You know the feeling: your P&L says 30% growth year on year. Your bank account says something different.
+
+## Why Cash Flow Is Different from Profit
+
+Profit is revenue minus expenses. Cash flow is money in minus money out. They differ because of **timing**:
+
+- You invoice on day 1, but the terms are Net 30 EOM (a 28 January invoice is only due 28 February — about 31 days later)
+- You pay salaries on the 25th, but the revenue arrives on the 28th
+- You bought inventory three months ago with cash you didn't have
+- Your biggest customer extended their payment terms
+
+The result: profitable on paper, broke in practice.
+
+## The 7-Step Framework
+
+### Step 1 — Map your cash cycle
+
+How long is it between paying for something and getting cash from the customer? Buy inventory on day 1 (cash out), it sits for 30 days, the customer buys on day 31, and Net 30 EOM terms mean payment lands roughly 31 days after month-end — about 92 days of cash trapped.
+
+Calculate it: **Days receivable + Days inventory − Days payable = your cash cycle.**
+
+### Step 2 — Forecast receivables & payables
+
+List your top 10 customers: how long do they take to pay? List your top suppliers: what are your terms? Project 90 days out — how much in AR, how much in AP? That gap is cash stuck in operations.
+
+### Step 3 — Account for seasonal swings
+
+Which months are cash crunches? Which carry excess cash? When do you need to borrow? Plot it, and you'll see crises three months ahead.
+
+### Step 4 — Build a 13-week rolling forecast
+
+Include fixed costs (salaries, rent, insurance), variable costs (COGS, packaging), and one-off expenses (equipment, marketing). Use our [cash flow calculator](/tools) or a spreadsheet. Update it monthly and rebuild from the prior month's actual closing balance.
+
+### Step 5 — Identify your minimum cash balance
+
+A healthy buffer is 3–6 months of operating expenses plus the ability to meet all creditor obligations. If the forecast drops below this, act.
+
+### Step 6 — Build scenarios
+
+Model a best case (on time, hit target), a base case (realistic delays and drops), and a stress case (revenue down 20%, a big customer extends terms). See which one keeps you up at night.
+
+### Step 7 — Create an action plan
+
+- **Immediate (0–4 weeks):** chase overdue AR, look at renegotiating terms, negotiate AP, pause discretionary spend.
+- **Medium-term (1–3 months):** refinance debt, review pricing, reduce inventory.
+- **Strategic (3+ months):** change the business model, rebalance the customer mix, invest in automation.
+
+## Common Patterns & Fixes
+
+- **Invoicing too late.** Invoice the same day; move to retainers or deposits.
+- **AR aging is a mess.** Automate reminders; call the moment an invoice is overdue, or when terms can be renegotiated.
+- **Too much inventory.** Tighter ordering, dropshipping, or consignment.
+- **Suppliers eating your cash.** Negotiate extended terms.
+- **Buying assets too freely.** Buy an asset only if its conservative annual cash benefit exceeds its annual ownership cost — and only if the business keeps at least three months of operating cash afterward.
+
+## The Bottom Line
+
+Cash flow is predictable. Spend four hours building this framework, update it monthly, and use it to decide when to hire, spend, or grow.
+
+Want a second read on your numbers? [Check the financial health check](/resources/financial-health-check), learn about [fractional CFO services](/services/fractional-cfo), or [book a call](/contact).`,
+  },
+  {
+    slug: "fractional-vs-full-time-cfo",
+    cover: "/images/partnership.jpg",
+    ogImage: "/images/og-fractional-vs-fulltime.png",
+    title: "Fractional CFO vs Full-Time CFO: Which Do You Need?",
+    category: "Strategy",
+    excerpt:
+      "An honest comparison of fractional vs full-time CFO — cost, commitment and ramp-up time, when each makes sense, and the hiring mistake we see most.",
+    date: "2026-08-07",
+    readTime: "8 min read",
+    author: "Carel Gangel",
+    body: `At some point, every growing owner-managed business asks the same question: *should I hire a full-time CFO?*
+
+It feels like a mark of maturity — like you're graduating to enterprise-level financial leadership. But here's what most founders don't realise: a full-time CFO is the wrong move for most owner-managed businesses.
+
+Not because full-time CFOs aren't valuable. They are — in the right context. But for most scaling businesses, a fractional CFO is the better answer. Here's when each model makes sense, and the hiring mistake we see most.
+
+## The Honest Comparison
+
+| Factor | Full-Time CFO | Fractional CFO |
+| --- | --- | --- |
+| Cost | Significantly higher annual investment | R2,500/hour, typically 10–20 hours/month |
+| Commitment | 40 hours/week, ongoing | Flexible hours, scalable scope |
+| Ramp-up | 3–6 months to be effective | 2–4 weeks |
+| Flexibility | Hard to scale down or exit | Easy to adjust or pause |
+| Scope | Manages the entire finance function | Strategy + decision-making |
+| When to exit | Expensive and disruptive | Clean, retainer-based |
+| Oversight needed | Yes, from you | Minimal (strategic review only) |
+
+## The Cost Question: Why Full-Time Is Expensive
+
+A full-time CFO costs significantly more than most owners expect — because a CFO is a senior executive, not a data-entry accountant. They bring deep financial acumen, industry experience, board-level communication, and years of managing complexity. That talent is expensive, full-time.
+
+Beyond salary, add benefits, training and development, the systems and tools they'll need, and the recruitment cost when a hire doesn't work out. With a fractional engagement, you pay for expertise only when you need it — no overhead, no idle time, no ramp-down cost.
+
+## The Ramp-Up Problem Nobody Talks About
+
+A new full-time CFO is largely unproductive for three to six months. They have to understand your business model, meet your team, learn your accounting, build trust with you, and establish authority — all while you pay a full salary.
+
+A fractional CFO ramps up in two to four weeks, because they've seen dozens of businesses like yours, they know what to look for, they start delivering value immediately, and there's no politics or empire-building — they're not staying.
+
+## When You Actually Need a Full-Time CFO
+
+1. **Complex multi-division operations** — three or more business units with different models and critical daily coordination.
+2. **Institutional investors or boards** — investor relations, board reporting and audit committees that need daily interaction.
+3. **Preparing for an IPO or institutional sale** — building compliance, audit infrastructure and governance frameworks.
+4. **Mission-critical daily decisions** — capital decisions every day that hinge on the financials.
+
+Even then, ask: do I need full-time, or a fractional CFO plus a strong controller? Most of the time, it's the latter.
+
+## When Fractional CFO Makes More Sense (And It's Most of the Time)
+
+1. **You don't need daily oversight** — decisions are weekly or monthly, not hourly.
+2. **You want expert guidance without full-time cost** — strategic input, not operational management.
+3. **You're in a growth or transition phase** — your needs will change, and fractional scales with you.
+4. **Your accounting is handled** — you have a controller or accountant and need a strategic layer on top.
+5. **You're bootstrapped or lightly funded** — every rand matters; fractional is R2,500/hour for 10–20 hours a month, versus significantly more (and far harder to adjust) for full-time.
+
+## The Hybrid Model: The Best of Both
+
+A third option most founders miss: a **fractional CFO plus a strong controller**.
+
+- **Fractional CFO (10–20 hours/month):** strategy, forecasting, capital allocation, KPI frameworks, decision support.
+- **Controller (full-time):** daily execution, close, reconciliation, compliance, systems.
+
+It tends to deliver most of a full-time CFO's results at a fraction of the cost, and it fits scaling SaaS companies, growing services agencies, multi-location retail, and businesses with complex operations that aren't yet institutional.
+
+## The Hiring Mistake We See Most
+
+Owner-managed businesses often hire a full-time CFO too early — out of peer pressure ("real companies have CFOs"), fear ("we're too big not to"), or misdiagnosis (thinking the problem is "no financial leadership" when it's really "no basic accounting infrastructure").
+
+What usually happens: months 1–3 the CFO learns the business and delivers little; months 4–6 they start to add value; months 9–12 a personality clash emerges, or they want to build a team, or they discover the accounting is messier than expected; by month 13 the owner realises they've built a finance function rather than solved their problem. Many of these hires don't last 18 months.
+
+The real need was often a diagnostic, a financial model, monthly review and guidance, and someone to coach the accountant. That's fractional.
+
+## How to Decide: Three Questions
+
+1. **Do you make financial decisions daily?** Yes → full-time might make sense (though the hybrid is usually better). No → fractional.
+2. **Can the business absorb the cost if it doesn't work out?** Yes → full-time is affordable. No → fractional.
+3. **Do you have a strong controller or accountant in place?** Yes → a fractional CFO on top. No → hire the controller first, then add fractional.
+
+## The Timeline
+
+- **Years 1–3 (bootstrapped):** an accountant handles tax and books; you plan manually.
+- **Years 3–5 (early growth):** accountant plus a fractional CFO (5–10 hours/month) for forecasts, KPIs and guidance.
+- **Years 5–8 (fast growth):** a full-time controller plus a fractional CFO (10–20 hours/month).
+- **Years 8+ (institutional or plateau):** a full-time CFO if you're going institutional; otherwise stay with controller plus fractional.
+
+Most businesses never need a full-time CFO — and that's okay.
+
+## The Bottom Line
+
+Hiring a full-time CFO feels like progress. It isn't always. A fractional CFO is faster, cheaper, easier to adjust, and delivers value immediately. If you're not yet at eight-figure revenue with complex multi-division operations or institutional investors, you probably need fractional, not full-time.
+
+Not sure which fits? Explore [our fractional CFO services](/services/fractional-cfo), see [client stories](/testimonials-case-studies), or [contact us to discuss](/contact) — no pressure, just clarity.`,
+  },
+  {
+    slug: "profitable-no-cash-why",
+    cover: "/images/cash-counting.jpg",
+    ogImage: "/images/og-profitable-nocash.png",
+    title: "Profitable Business, No Money? Here's Why",
+    category: "Cash Flow",
+    excerpt:
+      "Five reasons profitable businesses run out of cash — receivables, inventory, fixed assets, debt and tax — plus the one number (operating cash flow) that explains it.",
+    date: "2026-08-06",
+    readTime: "9 min read",
+    author: "Carel Gangel",
+    body: `Your P&L says you made R200,000 in profit last month. Your bank account says you have R15,000. Which one is lying?
+
+Neither — and that's the problem. It's the number-one financial frustration we hear from owner-managed businesses: revenue is up, profit is up, but every month you're stressed about cash. The reason is simple: **profit and cash are not the same thing.**
+
+## The Core Problem: Why Profit ≠ Cash
+
+Think about your last transaction. You invoice a customer R50,000 on day 1. You've booked R50,000 in revenue, and profit goes up. Cash? It hasn't moved yet.
+
+Profit is a point-in-time calculation — revenue minus expenses, recorded when earned or incurred. Cash is the actual money in your bank account right now. In a growing business, the two diverge, often dramatically.
+
+## The 5 Biggest Reasons Profitable Businesses Have No Cash
+
+### 1. Your receivables are too old
+
+You invoice on 28 January on Net 30 EOM terms, so payment is due 28 February and lands around 1 March — revenue booked on 28 January, cash more than a month later. Invoice R100,000 a week and by month-end you've booked R400,000 in revenue but may hold only R50,000 in cash while last month's invoices slowly pay.
+
+**The fix:** invoice the same day, offer a small early-payment discount, move to retainers or deposits, and call overdue invoices the day they're due.
+
+### 2. You're carrying too much inventory
+
+You pay R100,000 for stock upfront (cash out now), it sits for six weeks, and customers buy it over the following eight. Revenue and profit are booked as it sells — but the cash left fourteen weeks earlier. If you're adding inventory every month as you grow, cash gets trapped fast.
+
+**The fix:** tighten your ordering cadence (order weekly, not monthly), use dropshipping or consignment, and negotiate vendor terms so you pay after receipt rather than upfront.
+
+### 3. You invested in fixed assets
+
+You buy an R80,000 machine: R80,000 leaves today, but the accounts depreciate it over five years (R16,000 a year). The P&L shows a R16,000 expense; your bank shows R80,000 gone. You can grow profitably while haemorrhaging cash on asset purchases — R150,000 of profit alongside R200,000 of capital spend is a R50,000 cash *decline*.
+
+**The fix:** before buying, ask what annual cash benefit the asset will generate; buy only if that exceeds its annual ownership cost, keep three months of operating cash afterward, and finance the purchase to spread the cash impact where it's reasonable.
+
+### 4. You paid down debt
+
+On an R150,000 loan you might pay R5,000 principal plus R2,000 interest a month. The P&L only shows the R2,000 interest; your cash account shows the full R7,000. That R5,000 of principal never touches the P&L — so aggressive debt paydown can show profit while cash falls.
+
+**The fix:** include debt repayment in your cash forecast (not just the P&L), don't prioritise paydown over your cash buffer, and extend loan terms to lower the monthly payment if cash is tight.
+
+### 5. You have a tax bill coming
+
+Year-end profit of R400,000 carries roughly R112,000 of tax — accrued at year-end, but due three to four months later. The P&L reflects profit; your cash doesn't reflect the liability until the bill arrives and R112,000 leaves the account.
+
+**The fix:** set the provision aside monthly. In this example, R112,000 ÷ 12 ≈ R9,333 a month into a tax reserve, so the cash is already segregated when the bill lands.
+
+## The One Number That Fixes Everything
+
+Most P&Ls don't separate profit from cash. **Operating cash flow** does: net profit, plus non-cash charges (depreciation, amortisation), minus increases in working capital, minus capital expenditure, minus debt principal repaid, minus tax paid.
+
+| Item | Amount |
+| --- | --- |
+| Net profit | R150,000 |
+| + Depreciation | R20,000 |
+| − AR increase | (R40,000) |
+| − Inventory increase | (R30,000) |
+| + AP increase | R15,000 |
+| − Capex | (R50,000) |
+| − Debt repayment | (R20,000) |
+| − Tax paid | (R25,000) |
+| **Operating cash flow** | **(R5,000)** |
+
+Despite R150,000 in profit, cash *declined* by R5,000 — because of growth investment and debt. Your P&L says you're winning; your cash flow says pause and reassess. That's the difference between looking good on paper and being able to pay your bills.
+
+## How to Use This Information
+
+1. **Calculate operating cash flow, not just profit.** If you use QuickBooks, your accountant can pull this in about 15 minutes — it's a real report, not an estimate.
+2. **Review the variances.** Cash declining despite profit? AR growing → renegotiate terms. Inventory growing → tighten ordering. Buying assets → slow down. Tax biting → set aside monthly.
+3. **Build a 13-week cash forecast.** Profit doesn't predict cash; timing does. Use the [7-step cash flow framework](/insights/cash-flow-framework) to see which weeks are tight.
+4. **Focus on what matters.** Improving AR aging from 45 days to 35 can free up R50,000–R100,000 immediately; trimming inventory 10% another R30,000–R50,000. These moves don't touch the P&L — they transform the cash position.
+
+## The Bottom Line
+
+Your business isn't as profitable as your P&L says, and it's not as cash-strapped as your bank account says. The truth is operating cash flow — start tracking it, forecast it, and use it to make decisions. At month-end, your bills don't care about your P&L; they care about the money in the bank.
+
+**Next steps:** download the full special report, [Profitable But No Money in the Bank](/insights/profitable-but-no-money-in-the-bank), [check your financial health](/resources/financial-health-check), or [book a financial diagnostic call](/contact) and we'll show you exactly where your cash is going.`,
+  },
   {
     slug: "could-you-actually-sell-your-business",
     cover: "/images/sell-your-business.png",

@@ -43,13 +43,13 @@ export function generateMetadata({ params }: Params): Metadata {
       url: `/insights/${article.slug}`,
       publishedTime: article.date,
       authors: [article.author],
-      images: [{ url: article.cover, alt: article.title }],
+      images: [{ url: article.ogImage ?? article.cover, alt: article.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: article.title,
       description: article.excerpt,
-      images: [article.cover],
+      images: [article.ogImage ?? article.cover],
     },
   };
 }
@@ -355,19 +355,36 @@ function renderBlock(block: string, key: number): ReactNode {
   );
 }
 
-/** Inline **bold** and *italic* into <strong>/<em>. */
+/** Inline [links](/url), **bold** and *italic* into elements. */
 function inline(text: string): ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={i} className="font-semibold text-white">
-          {part.slice(2, -2)}
-        </strong>
-      );
-    }
-    if (part.length > 1 && part.startsWith("*") && part.endsWith("*")) {
-      return <em key={i}>{part.slice(1, -1)}</em>;
-    }
-    return part;
-  });
+  return text
+    .split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g)
+    .map((part, i) => {
+      const link = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(part);
+      if (link) {
+        const [, label, href] = link;
+        const cls =
+          "font-medium text-gold underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold-light";
+        return href.startsWith("/") ? (
+          <Link key={i} href={href} className={cls}>
+            {label}
+          </Link>
+        ) : (
+          <a key={i} href={href} className={cls} target="_blank" rel="noopener noreferrer">
+            {label}
+          </a>
+        );
+      }
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <strong key={i} className="font-semibold text-white">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      if (part.length > 1 && part.startsWith("*") && part.endsWith("*")) {
+        return <em key={i}>{part.slice(1, -1)}</em>;
+      }
+      return part;
+    });
 }
