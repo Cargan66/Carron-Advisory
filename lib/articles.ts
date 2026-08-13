@@ -38,6 +38,179 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "management-accounts-arrived-now-what",
+    cover: "/images/management-accounts-now-what.png",
+    pdf: "/articles/Carron_Your_Management_Accounts_Arrived_Now_What.pdf",
+    title: "Your Management Accounts Arrived. Now What?",
+    category: "Strategy",
+    excerpt:
+      "Our August 2026 special report: receiving management accounts isn't the same as using them. How an SME owner turns the monthly pack into explanation, forward-looking judgement and action — with a worked example, a 30-minute review, and a one-page decision sheet.",
+    date: "2026-08-13",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `Receiving management accounts is not the same as using them. The real value starts when the numbers are turned into explanation, forward-looking judgement and management action.
+
+**The four questions:** What changed? · Why did it change? · What does it mean for the next few months? · What are we going to do about it?
+
+A profit and loss statement, balance sheet, debtor age analysis and cash-flow report can all be technically correct and still make very little difference to the way a business is managed. Many monthly finance meetings start on page one, work through individual expense lines, explain a few variances and conclude that the month was "good", "difficult" or "about on budget". That is reporting — it is not yet financial management.
+
+The purpose of management accounts is to help management make better decisions while there is still time to change the outcome.
+
+## 1. The report is not the meeting
+
+Monthly accounts describe what has already happened. Management's job is to determine what those results say about what should happen next. A business can produce increasingly sophisticated reporting without improving decision-making; more pages, dashboards and graphs do not automatically create better management information.
+
+For an SME this does not require a 50-page board pack. It requires a small number of reliable reports, produced soon enough after month-end, and a disciplined review process. At a minimum, management usually wants visibility over:
+
+- revenue and gross margin;
+- operating expenses and operating profit;
+- cash and near-term liquidity;
+- debtors and overdue collections;
+- stock or work in progress, where relevant;
+- creditors and major upcoming payments;
+- actual results against budget, forecast or another sensible comparator; and
+- the forward outlook.
+
+**The principle:** management accounts should contain enough information to explain performance and support a decision — but not so much that the important issues disappear inside the report.
+
+## 2. Start with what changed
+
+One of the least effective ways to review management accounts is to read every line in sequence. Start instead with the significant movements. The first question is: *what is materially different from what we expected?* For example:
+
+- revenue is 12% above forecast;
+- gross margin has fallen from 34% to 29%;
+- one expense category is substantially higher;
+- debtor days have increased;
+- stock is growing faster than sales;
+- overtime has become recurring;
+- cash is lower despite a profitable month; or
+- one customer now represents an unusually large share of sales or debtors.
+
+Not every variance deserves equal attention. An office expense R3,000 above budget may be irrelevant; a two-percentage-point deterioration in gross margin on a large revenue base may be very important. Materiality needs both rand value and business context. A useful meeting begins with perhaps three to five significant issues — if there are twenty, the pack needs better prioritisation.
+
+Before discussing the detail, everyone reviewing the numbers should be able to answer one question: **"What surprised us this month?"** If the answer is "nothing", either the business is exceptionally predictable, or the reports are not being challenged hard enough.
+
+## 3. Are sales producing the expected margin?
+
+Revenue is often the first number an owner notices, and it should rarely be considered on its own. Suppose monthly sales rise from R2.0 million to R2.3 million — but gross margin falls from 32% to 27%:
+
+| | Previous month | Current month |
+| --- | --- | --- |
+| Revenue | R2,000,000 | R2,300,000 |
+| Gross margin | 32% | 27% |
+| Gross profit | R640,000 | R621,000 |
+
+Sales increased by R300,000, yet gross profit *fell* by R19,000. The business is doing more work but generating less gross profit — and that requires explanation. Possible causes include lower selling prices, increased discounts, product or customer mix, supplier cost increases, exchange-rate effects, excessive freight, overtime, subcontractor costs, waste or rework, stock losses, commission, unbilled work, or incorrect cost allocation.
+
+**Management test:** a business should not congratulate itself on growing revenue until it understands the margin attached to that growth.
+
+## 4. Where did the cash go?
+
+A profitable month can still end with less money in the bank. That does not necessarily mean anything is wrong — but the movement must be understood. Cash may have gone because customers have not yet paid, stock increased, suppliers were paid faster, VAT or provisional tax was paid, equipment was purchased, a loan was repaid, drawings or dividends were paid, deposits were paid, or cash has simply been absorbed by growth.
+
+**The owner's question:** "We made a profit — why is the bank balance lower?" The answer is usually somewhere in the balance sheet and cash movements.
+
+- **Debtors** — don't look only at the total. Consider overdue balances, ageing by 30/60/90+ days, large individual exposures, disputed invoices, and whether collections are improving or deteriorating. A growing debtor balance can be fine if sales are growing — but if debtors grow substantially faster than revenue, understand why.
+- **Stock** — higher stock may be deliberate (seasonal demand, a major order, longer lead times, a bulk deal) or a warning (slow-moving or obsolete items, poor purchasing discipline, cash trapped in inventory). The report cannot tell the difference; management must.
+- **Creditors** — an improving bank balance can be misleading. Cash may look stronger simply because suppliers haven't been paid. That is delayed outflow, not cash generation.
+
+Review debtors, stock and creditors together, not as unrelated balance-sheet numbers.
+
+## 5. Which costs are becoming permanent?
+
+A single month's expense variance often matters less than a change in the underlying cost structure. A business that adds two employees, another vehicle, new software subscriptions, more warehouse space and R40,000 a month of outsourced support may find each commitment sensible on its own — but together they permanently raise the monthly break-even point.
+
+**Once-off vs recurring:** a R100,000 once-off implementation cost hurts one month. A R30,000 recurring monthly commitment costs R360,000 every year before escalation — and is often the more significant of the two.
+
+Look for the new run rate: which costs have risen three months in succession? Was it planned? Temporary or permanent? What revenue or efficiency was expected in return — and did it materialise? If sales weaken, can the cost be reduced? Has break-even moved? This matters most after a period of growth, when resources are added in small increments and the fixed-cost base changes before anyone notices.
+
+## 6. Compare actual performance with something meaningful
+
+"Marketing cost was R82,000" is a fact, not yet management information. Was it above or below budget? Higher than last month, or the same month last year? Driven by a planned campaign? Producing measurable sales?
+
+| Comparison | Question | What it tells management |
+| --- | --- | --- |
+| Budget | What did we originally expect? | Accountability, and testing the assumptions behind the annual plan. |
+| Latest forecast | What did we most recently expect? | Often more useful than an old budget once circumstances have changed. |
+| Prior month | What is changing now? | Emerging trends — with care in seasonal businesses. |
+| Prior year | How are we doing vs the comparable period? | Particularly useful where seasonality matters. |
+| Operational driver | Does the result make sense operationally? | Revenue per salesperson, billable hours, average selling price, units, jobs completed. |
+
+The strongest packs connect financial outcomes to operational causes — moving the conversation from "the number changed" to "we understand *why* the number changed."
+
+## 7. Look forward before closing the report
+
+A common weakness in monthly reporting is spending all the time on the month that has already ended. The final part of the meeting should be forward-looking: what do the current results change about the next three months? Which sales assumptions need updating? Have customer payment dates moved? Are supplier prices changing, or payroll about to increase? Are tax payments approaching? Does the cash forecast still make sense, and has the minimum expected cash balance changed?
+
+A business can wait until next month's accounts to discover that profit was lower. It cannot wait comfortably until next month to discover that *next Friday's payroll* cannot be funded. For that reason, monthly management accounts and a short-term cash forecast serve different purposes and should complement one another.
+
+## 8. Turn exceptions into decisions
+
+This is where many meetings lose value: management identifies a problem, someone explains it, everyone accepts the explanation, and nothing changes. A meaningful exception should end in one of three outcomes:
+
+| Outcome | Meaning |
+| --- | --- |
+| Accept | The movement is understood and management is comfortable with it. No action required. |
+| Investigate | Not enough information yet. Someone establishes the facts by a specified date. |
+| Act | Management knows what must change. An owner and deadline are assigned. |
+
+| What changed | Explanation | Decision |
+| --- | --- | --- |
+| Gross margin fell from 31% to 27% | Supplier increase not recovered on three major products | Pricing review before next sales cycle |
+| Debtor days increased | Two large customers paid late | Account managers to confirm collection dates |
+| Overtime increased 35% | Production bottleneck | Review staffing and shift structure |
+| Software cost increased | New licences added across departments | Confirm active users, cancel redundant licences |
+
+Without the final decision column, management accounts risk becoming a history lesson.
+
+## 9. Worked example: a good month, a weaker business
+
+Consider a fictional South African distribution and service SME:
+
+| | Previous month | Current month |
+| --- | --- | --- |
+| Revenue | R3,200,000 | R3,520,000 |
+| Gross profit | R960,000 | R985,600 |
+| Operating profit | R235,000 | R248,000 |
+| Closing bank balance | R610,000 | R390,000 |
+
+At first glance the month looks good — revenue, gross profit and operating profit are all up. But cash fell by R220,000. The weak conclusion ("good trading month, cash a little tight") would miss most of the useful information. The review reveals four issues:
+
+1. **Gross margin deteriorated** — from 30.0% (R960,000 ÷ R3,200,000) to 28.0% (R985,600 ÷ R3,520,000). A major customer received additional discounts while freight costs increased, so the growth is less valuable than it appeared.
+2. **Debtors increased by R310,000** — mostly two large customers, both beyond terms. The revenue is recognised; the cash has not arrived.
+3. **Stock increased by R180,000** — purchasing ran ahead of a sales campaign now delayed six weeks. The business is funding it in the meantime.
+4. **Fixed monthly costs increased** — a salesperson, a leased vehicle and warehouse staff added over three months total R94,000 a month. Approved individually; their combined effect on the cost base only now shows.
+
+**Better conclusion:** sales are growing, but margin quality has weakened, more cash is tied up in debtors and stock, and the fixed-cost base has risen. The business needs to improve pricing discipline, confirm collection dates and reconsider near-term purchasing before adding further cost. The accounting numbers didn't change — the quality of the interpretation did.
+
+## 10. A 30-minute monthly finance review
+
+A disciplined SME review can be completed quickly if the pack is prepared properly:
+
+| Time | Focus | What to cover |
+| --- | --- | --- |
+| 0–5 min | Headline position | Revenue, gross margin, operating profit, cash, debtors, stock, forecast. Identify the 3–5 issues to discuss. |
+| 5–15 min | Understand the movements | For each exception: what changed, why, temporary or structural, the rand effect, likely to continue? |
+| 15–22 min | Look forward | Major collections, supplier payments, payroll, tax dates, stock purchases, major orders, capex, forecast cash low point. |
+| 22–30 min | Decide | For every significant issue record Action — Owner — Due date. Then close. |
+
+The purpose is not to discuss finance for 30 minutes; it is to leave with clearer decisions than when the meeting started.
+
+**On AI:** used well, AI can summarise material variances, compare commentary between periods, flag unanswered questions, prepare an agenda, and turn a long report into a short list of management questions. But an AI-generated explanation is not evidence — if AI suggests margin fell because of discounts, freight or mix, management must still establish which explanation the records actually support. AI can help identify the question; it should not invent the answer.
+
+## 11. Conclusion
+
+A monthly pack does not need to predict every problem. It should make important changes visible early enough for management to respond — telling you where performance changed, why, whether sales are producing acceptable margin, where cash is being absorbed, whether the fixed-cost base is changing, what the results imply for the next few months, and which decisions now need to be taken.
+
+South African small-business research in 2026 indicates owners are already paying close attention to cash — 66% report monitoring cash flow, and 63% check their bank balance daily or weekly. The next step is to turn that attention into forward-looking management information rather than relying on the bank balance alone.
+
+The most useful question at the end of a monthly finance meeting is not "Have we reviewed the accounts?" It is **"What are we going to do differently because of what the accounts told us?"**
+
+*This article is a general management framework and does not replace accounting, tax, legal or other professional advice appropriate to a particular business.*
+
+The full report includes a one-page **Monthly Management Accounts Decision Sheet** — a working record for the headline position, the eight owner questions, the decision log and the forward view — available in the downloadable PDF.`,
+  },
+  {
     slug: "fractional-cfo-services-south-africa",
     cover: "/images/boardroom.jpg",
     ogImage: "/images/og-fractional-cfo.png",
