@@ -28,7 +28,7 @@ export default function ToolsPage() {
         <div className="container-luxe">
           <FadeIn>
             <a
-              href="/90-day-test"
+              href="/90-day-test/"
               className="group block overflow-hidden rounded-3xl border border-gold/25 bg-emerald-section/60 p-8 transition-all duration-500 hover:-translate-y-1 hover:border-gold/50 sm:p-12"
             >
               <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">

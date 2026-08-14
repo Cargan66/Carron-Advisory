@@ -83,7 +83,7 @@ export function Footer() {
             <li className="pt-2 text-bone-muted">{siteConfig.location}</li>
             <li>
               <a
-                href="/90-day-test"
+                href="/90-day-test/"
                 className="text-bone-muted transition-colors duration-300 hover:text-gold"
               >
                 The 90-Day Test
