@@ -58,8 +58,8 @@
   }
   header.masthead .spacer{flex:1}
   header.masthead .stamp{font-size:11px;letter-spacing:.16em;color:var(--sage);text-transform:uppercase}
-  header.masthead .logo{height:58px;width:auto;flex:none}
-  @media(max-width:520px){ header.masthead .logo{height:44px} header.masthead .sub{display:none} }
+  header.masthead .logo{height:76px;width:auto;flex:none}
+  @media(max-width:520px){ header.masthead .logo{height:52px} header.masthead .sub{display:none} }
 
   /* ---- panels ---- */
   .panel{padding-top:clamp(24px,5vw,44px)}
@@ -213,13 +213,11 @@
     body{background:#fff!important;color:#172e26!important;padding:0!important}
     .wrap>*{display:none!important}
     #print-sheet{display:block!important;color:#172e26}
-    .ps-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #c8a84b;padding-bottom:14px}
-    .ps-mark{width:34px;height:34px;flex:none}
-    .ps-mark circle{fill:none;stroke:#c8a84b;stroke-width:1.4}
-    .ps-mark path{fill:none;stroke:#c8a84b;stroke-width:1.4;stroke-linecap:round}
-    .ps-name{font-family:'Fraunces',serif;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#1e4035}
-    .ps-sub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6c7f74;margin-top:3px}
-    .ps-date{margin-left:auto;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6c7f74}
+    .ps-head{text-align:center;border-bottom:2px solid #c8a84b;padding-bottom:16px}
+    .ps-logo{height:56px;width:auto;margin:0 auto 10px;display:block}
+    .ps-tag{font-family:'Fraunces',serif;font-size:20px;color:#b8952f;letter-spacing:.01em}
+    .ps-meta{display:flex;justify-content:space-between;margin-top:14px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#6c7f74}
+    .ps-date{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6c7f74}
     .ps-scorerow{display:flex;align-items:center;gap:26px;margin:26px 0 8px}
     .ps-scorebig{font-family:'Fraunces',serif;font-size:88px;line-height:.9;color:#1e4035}
     .ps-of{font-size:11px;letter-spacing:.2em;color:#8a7a3e}
@@ -332,7 +330,7 @@
 
     <div class="cta">
       <h3>Get the full 90-day action plan</h3>
-      <p>We'll send the complete owner-independence checklist for every area you scored low — the exact authorities, limits, and hand-overs to put in place, in priority order.</p>
+      <p>Emailed to you only: the complete owner-independence plan — including the <strong style="color:var(--gold-light)">full 40-question assessment</strong> (twice the depth of the 20 you just did), plus the authorities, limits and hand-overs to put in place for every area you scored low, in priority order.</p>
       <div class="form">
         <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
         <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
@@ -356,12 +354,12 @@
   <!-- ============ PRINT-ONLY RESULT SHEET (light, one page) ============ -->
   <section id="print-sheet" aria-hidden="true">
     <div class="ps-head">
-      <svg class="ps-mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><path d="M27 13 A11 11 0 1 0 27 27"/></svg>
-      <div>
-        <div class="ps-name">Carron Business Advisory</div>
-        <div class="ps-sub">The 90-Day Test · Owner-Independence Result</div>
+      <img class="ps-logo" src="/images/carron-logo-horizontal-dark.png" alt="Carron Business Advisory">
+      <div class="ps-tag">Carron Creates Clarity</div>
+      <div class="ps-meta">
+        <span>The 90-Day Test · Owner-Independence Result</span>
+        <span class="ps-date" id="ps-date"></span>
       </div>
-      <div class="ps-date" id="ps-date"></div>
     </div>
 
     <div class="ps-scorerow">
