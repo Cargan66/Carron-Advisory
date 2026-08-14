@@ -81,6 +81,14 @@ export function Footer() {
               </a>
             </li>
             <li className="pt-2 text-bone-muted">{siteConfig.location}</li>
+            <li>
+              <a
+                href="/90-day-test"
+                className="text-bone-muted transition-colors duration-300 hover:text-gold"
+              >
+                The 90-Day Test
+              </a>
+            </li>
             <FooterLink href="/tools">Finance calculator</FooterLink>
             <FooterLink href="/diagnostic">Financial Performance Diagnostic</FooterLink>
           </FooterColumn>

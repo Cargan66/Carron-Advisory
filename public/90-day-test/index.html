@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 90-Day Test · Carron Business Advisory</title>
+<meta name="description" content="The 90-Day Owner-Independence Test: a free 2-minute diagnostic scoring how much of your business can run without you, across 10 areas, with a prioritised action plan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0f2218;
+    --green-900:#122b22;
+    --green-800:#172e26;
+    --green-700:#1e4035;
+    --green-600:#2a5244;
+    --gold:#c8a84b;
+    --gold-light:#e8d49a;
+    --cream:#f5efe0;
+    --sage:#9dc4b0;
+    --sage-bright:#5ba58a;
+    --clay:#c46a54;
+    --line:rgba(200,168,75,0.22);
+    --line-soft:rgba(245,239,224,0.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #1c3a2f 0%, transparent 60%),
+      var(--green-900);
+    color:var(--cream);
+    line-height:1.55;
+    min-height:100vh;
+    padding:clamp(16px,4vw,48px);
+  }
+  .wrap{max-width:760px;margin:0 auto}
+
+  /* ---- shared instrument ring (brand mark) ---- */
+  .brandmark{width:34px;height:34px;flex:none}
+  .brandmark circle{fill:none;stroke:var(--gold);stroke-width:1.4}
+  .brandmark path{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round}
+
+  header.masthead{
+    display:flex;align-items:center;gap:14px;
+    padding-bottom:20px;margin-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  header.masthead .name{
+    font-family:'Fraunces',serif;font-weight:500;font-size:15px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);
+  }
+  header.masthead .sub{
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--sage);margin-top:2px;
+  }
+  header.masthead .spacer{flex:1}
+  header.masthead .stamp{font-size:11px;letter-spacing:.16em;color:var(--sage);text-transform:uppercase}
+  header.masthead .logo{height:58px;width:auto;flex:none}
+  @media(max-width:520px){ header.masthead .logo{height:44px} header.masthead .sub{display:none} }
+
+  /* ---- panels ---- */
+  .panel{padding-top:clamp(24px,5vw,44px)}
+  .eyebrow{
+    font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:18px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:400;
+    font-size:clamp(34px,7vw,58px);line-height:1.02;
+    letter-spacing:-.01em;margin-bottom:22px;
+  }
+  h1 em{font-style:italic;color:var(--gold-light)}
+  .lede{font-size:clamp(16px,2.4vw,19px);color:var(--sage);max-width:56ch;margin-bottom:14px}
+  .lede.tight{color:var(--cream);opacity:.92}
+
+  .meta-row{display:flex;flex-wrap:wrap;gap:24px;margin:34px 0 40px}
+  .meta{border-left:1px solid var(--line);padding-left:14px}
+  .meta .k{font-family:'Fraunces',serif;font-size:26px;color:var(--gold-light);line-height:1}
+  .meta .v{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-top:6px}
+
+  .btn{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:15px;
+    letter-spacing:.02em;cursor:pointer;border:none;border-radius:2px;
+    padding:15px 30px;transition:transform .12s ease,background .2s ease,color .2s ease;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .btn.primary{background:var(--gold);color:var(--green-950)}
+  .btn.primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold-light)}
+  .btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+  .btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+
+  /* ---- question flow ---- */
+  .qhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
+  .qhead .domain{
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+  }
+  .qhead .count{font-size:12px;color:var(--sage);letter-spacing:.08em}
+
+  .progress-track{height:2px;background:var(--line-soft);margin:14px 0 34px;position:relative;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0;transition:width .4s cubic-bezier(.4,0,.2,1)}
+
+  .qtitle{
+    font-family:'Fraunces',serif;font-weight:400;font-size:clamp(22px,4vw,30px);
+    line-height:1.18;margin-bottom:8px;
+  }
+  .qtest{font-size:14px;color:var(--sage);margin-bottom:26px}
+  .qtest .flag{color:var(--gold-light);font-weight:600}
+
+  .options{display:flex;flex-direction:column;gap:10px}
+  .opt{
+    text-align:left;width:100%;cursor:pointer;
+    background:rgba(245,239,224,.03);
+    border:1px solid var(--line-soft);border-radius:3px;
+    padding:16px 18px;color:var(--cream);
+    font-family:'Inter',sans-serif;font-size:15px;
+    transition:border-color .18s ease,background .18s ease;
+    display:flex;align-items:center;gap:14px;
+  }
+  .opt:hover{border-color:var(--line);background:rgba(245,239,224,.055)}
+  .opt.sel{border-color:var(--gold);background:rgba(200,168,75,.10)}
+  .opt .dot{
+    width:16px;height:16px;border-radius:50%;flex:none;
+    border:1.5px solid var(--sage);position:relative;transition:border-color .18s;
+  }
+  .opt.sel .dot{border-color:var(--gold)}
+  .opt.sel .dot::after{
+    content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold);
+  }
+  .opt .lab{flex:1}
+  .opt .hint{font-size:11px;color:var(--sage);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+
+  .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px}
+
+  /* ---- live mini dial in question view ---- */
+  .minidial{display:flex;align-items:center;gap:12px;color:var(--sage);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .minidial b{font-family:'Fraunces',serif;font-size:20px;color:var(--gold-light);letter-spacing:0}
+
+  /* ---- results ---- */
+  .gauge-wrap{display:flex;flex-direction:column;align-items:center;margin:8px 0 10px}
+  .gauge{width:min(340px,88vw);height:auto}
+  .gtrack{fill:none;stroke:var(--line-soft);stroke-width:14;stroke-linecap:round}
+  .gval{fill:none;stroke:var(--gold);stroke-width:14;stroke-linecap:round;
+        transition:stroke-dasharray 1.1s cubic-bezier(.34,1.2,.4,1),stroke 1.1s ease}
+  .needle{stroke:var(--cream);stroke-width:3;stroke-linecap:round;
+          transform-origin:160px 160px;transition:transform 1.1s cubic-bezier(.34,1.2,.4,1)}
+  .hub{fill:var(--gold)}
+  .scoretext{font-family:'Fraunces',serif;fill:var(--cream);font-size:52px;text-anchor:middle}
+  .scoreof{font-family:'Inter',sans-serif;fill:var(--sage);font-size:13px;letter-spacing:.2em;text-anchor:middle}
+
+  .band{text-align:center;margin:4px 0 8px}
+  .band .label{font-family:'Fraunces',serif;font-size:clamp(24px,5vw,34px);color:var(--gold-light)}
+  .band .desc{color:var(--sage);max-width:52ch;margin:10px auto 0;font-size:15px}
+
+  .divider{border:0;border-top:1px solid var(--line);margin:34px 0}
+
+  .sec-title{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+
+  .critical{
+    border:1px solid rgba(196,106,84,.5);background:rgba(196,106,84,.08);
+    border-radius:3px;padding:16px 18px;margin-bottom:12px;
+  }
+  .critical .ct{font-weight:600;color:var(--clay);font-size:14px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .critical .cd{font-size:14px;color:var(--cream);opacity:.9}
+
+  /* ---- per-dimension RAG rows ---- */
+  .dimrow{margin-bottom:15px}
+  .dimrow .dh{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}
+  .dimrow .dn{display:flex;align-items:center;gap:11px;font-size:15px}
+  .dimrow .rag{width:10px;height:10px;border-radius:50%;flex:none}
+  .dimrow .dl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);white-space:nowrap}
+
+  .bottleneck{margin-bottom:22px}
+  .bottleneck .bh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .bottleneck .bname{font-family:'Fraunces',serif;font-size:19px}
+  .bottleneck .bscore{font-size:12px;letter-spacing:.1em;color:var(--sage);text-transform:uppercase;white-space:nowrap}
+  .bar{height:4px;background:var(--line-soft);border-radius:2px;overflow:hidden;margin-bottom:12px}
+  .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--clay),var(--gold))}
+  .bottleneck ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .bottleneck li{font-size:14px;color:var(--cream);opacity:.88;padding-left:20px;position:relative}
+  .bottleneck li::before{content:"→";position:absolute;left:0;color:var(--gold)}
+
+  .cta{
+    margin-top:36px;padding:clamp(22px,4vw,32px);
+    background:linear-gradient(180deg,rgba(200,168,75,.08),rgba(200,168,75,.02));
+    border:1px solid var(--line);border-radius:4px;
+  }
+  .cta h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,3.5vw,26px);margin-bottom:10px}
+  .cta p{color:var(--sage);font-size:15px;margin-bottom:20px;max-width:54ch}
+  .form{display:flex;flex-wrap:wrap;gap:10px}
+  .form input{
+    flex:1;min-width:180px;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);
+    border-radius:2px;padding:14px 16px;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px;
+  }
+  .form input::placeholder{color:rgba(157,196,176,.6)}
+  .form input:focus{outline:none;border-color:var(--gold)}
+  .note{font-size:12px;color:var(--sage);margin-top:14px;opacity:.8}
+
+  .footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
+          font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);
+          display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  .hidden{display:none}
+
+  /* ---- print-only result sheet ---- */
+  #print-sheet{display:none}
+  @media print{
+    @page{margin:16mm}
+    body{background:#fff!important;color:#172e26!important;padding:0!important}
+    .wrap>*{display:none!important}
+    #print-sheet{display:block!important;color:#172e26}
+    .ps-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid #c8a84b;padding-bottom:14px}
+    .ps-mark{width:34px;height:34px;flex:none}
+    .ps-mark circle{fill:none;stroke:#c8a84b;stroke-width:1.4}
+    .ps-mark path{fill:none;stroke:#c8a84b;stroke-width:1.4;stroke-linecap:round}
+    .ps-name{font-family:'Fraunces',serif;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#1e4035}
+    .ps-sub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6c7f74;margin-top:3px}
+    .ps-date{margin-left:auto;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6c7f74}
+    .ps-scorerow{display:flex;align-items:center;gap:26px;margin:26px 0 8px}
+    .ps-scorebig{font-family:'Fraunces',serif;font-size:88px;line-height:.9;color:#1e4035}
+    .ps-of{font-size:11px;letter-spacing:.2em;color:#8a7a3e}
+    .ps-band{font-family:'Fraunces',serif;font-size:30px;color:#b8952f;margin-top:4px}
+    .ps-banddesc{font-size:13px;color:#3a4a42;max-width:52ch;margin-top:6px;line-height:1.5}
+    .ps-secttitle{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b8952f;margin:24px 0 12px;border-top:1px solid #d9cfa8;padding-top:16px}
+    .ps-crit{border:1px solid #d8a08f;background:#faf1ee;border-radius:3px;padding:12px 14px;margin-bottom:8px}
+    .ps-crit .h{font-weight:600;color:#b3452e;font-size:13px;margin-bottom:3px}
+    .ps-crit .d{font-size:13px;color:#2a3830}
+    .ps-dim{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #ece5cf;padding:6px 0;font-size:13px;color:#2a3830}
+    .ps-dim .lvl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a3e}
+    .ps-bn{margin-bottom:16px}
+    .ps-bn .r{display:flex;justify-content:space-between;font-size:15px;margin-bottom:4px}
+    .ps-bn .r b{font-family:'Fraunces',serif;font-weight:500}
+    .ps-bn .r span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a3e}
+    .ps-bn ul{margin:6px 0 0 0;padding-left:16px}
+    .ps-bn li{font-size:13px;color:#2a3830;margin-bottom:3px}
+    .ps-foot{display:flex;justify-content:space-between;border-top:1px solid #d9cfa8;margin-top:24px;padding-top:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a9a90}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+  @media(max-width:520px){
+    .meta-row{gap:16px}
+    .navrow{flex-direction:row}
+    .btn{padding:14px 20px;font-size:14px}
+    .opt .hint{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <div class="name">The 90-Day Test</div>
+      <div class="sub">Owner-Independence Diagnostic</div>
+    </div>
+    <div class="spacer"></div>
+    <img class="logo" src="/images/carron-logo-horizontal-white.png" alt="Carron Business Advisory" width="1320" height="510">
+  </header>
+
+  <!-- ============ INTRO ============ -->
+  <section id="intro" class="panel">
+    <div class="eyebrow">A two-minute diagnostic</div>
+    <h1>Could your business run for <em>90 days</em> without you?</h1>
+    <p class="lede">Most owners aren't running a business — they're <em>self-employed</em>, and every decision waits for them. This test measures one thing: how much can happen while you're unreachable — across cash, decisions, customers, people and risk.</p>
+    <p class="lede tight">Twenty questions across ten areas. For each, don't ask <em>"do I do this?"</em> — ask <strong>"can this happen without me?"</strong> and score how far it has really travelled from you: on paper, delegated, or <em>proven</em>.</p>
+
+    <div class="meta-row">
+      <div class="meta"><div class="k">20</div><div class="v">Questions</div></div>
+      <div class="meta"><div class="k">10</div><div class="v">Areas of the business</div></div>
+      <div class="meta"><div class="k">~2 min</div><div class="v">To complete</div></div>
+    </div>
+
+    <button class="btn primary" onclick="start()">Start the test →</button>
+  </section>
+
+  <!-- ============ QUESTIONS ============ -->
+  <section id="quiz" class="panel hidden">
+    <div class="qhead">
+      <span class="domain" id="q-domain"></span>
+      <span class="count" id="q-count"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="q-progress"></div></div>
+
+    <div class="qtitle" id="q-title"></div>
+    <div class="qtest" id="q-test"></div>
+
+    <div class="options" id="q-options"></div>
+
+    <div class="navrow">
+      <button class="btn ghost" id="q-back" onclick="back()">← Back</button>
+      <div class="minidial"><span>Live score</span> <b id="q-live">0</b></div>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="results" class="panel hidden">
+    <div class="eyebrow" style="text-align:center">Your result</div>
+
+    <div class="gauge-wrap">
+      <svg class="gauge" viewBox="0 0 320 210" role="img" aria-label="Owner-independence score">
+        <path class="gtrack" d="M 20 180 A 140 140 0 0 1 300 180" pathLength="100"/>
+        <path class="gval" id="gval" d="M 20 180 A 140 140 0 0 1 300 180" pathLength="100" stroke-dasharray="0 100"/>
+        <line class="needle" id="needle" x1="160" y1="180" x2="160" y2="58"/>
+        <circle class="hub" cx="160" cy="180" r="7"/>
+        <text class="scoretext" id="score-num" x="160" y="150">0</text>
+        <text class="scoreof" x="160" y="172">OUT OF 100</text>
+      </svg>
+    </div>
+
+    <div class="band">
+      <div class="label" id="band-label"></div>
+      <div class="desc" id="band-desc"></div>
+    </div>
+
+    <div id="scale"></div>
+
+    <div id="critical-block"></div>
+
+    <hr class="divider">
+    <div class="sec-title">Where you stand, area by area</div>
+    <div id="dimensions"></div>
+
+    <hr class="divider">
+    <div class="sec-title">Fix these first — your biggest bottlenecks</div>
+    <div id="bottlenecks"></div>
+
+    <div class="cta">
+      <h3>Get the full 90-day action plan</h3>
+      <p>We'll send the complete owner-independence checklist for every area you scored low — the exact authorities, limits, and hand-overs to put in place, in priority order.</p>
+      <div class="form">
+        <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
+        <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
+        <button class="btn primary" onclick="submitLead()">Send my plan</button>
+      </div>
+      <div class="note" id="lead-note">Your answers stay private. We'll only use your email to send the plan. Prefer to talk? Email <a href="mailto:info@carron.co.za" style="color:var(--gold-light)">info@carron.co.za</a>.</div>
+    </div>
+
+    <div class="navrow" style="justify-content:center;margin-top:28px;gap:12px;flex-wrap:wrap">
+      <button class="btn primary" onclick="downloadResult()">↓ Download your result (PDF)</button>
+      <button class="btn ghost" onclick="restart()">↺ Retake the test</button>
+    </div>
+    <p class="note" style="text-align:center;margin-top:12px">Tip: in the print window that opens, choose <strong>"Save as PDF"</strong> as the destination.</p>
+
+    <div class="footer">
+      <span>Carron Business Advisory · info@carron.co.za</span>
+      <span>Practical intelligence for SA business owners</span>
+    </div>
+  </section>
+
+  <!-- ============ PRINT-ONLY RESULT SHEET (light, one page) ============ -->
+  <section id="print-sheet" aria-hidden="true">
+    <div class="ps-head">
+      <svg class="ps-mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><path d="M27 13 A11 11 0 1 0 27 27"/></svg>
+      <div>
+        <div class="ps-name">Carron Business Advisory</div>
+        <div class="ps-sub">The 90-Day Test · Owner-Independence Result</div>
+      </div>
+      <div class="ps-date" id="ps-date"></div>
+    </div>
+
+    <div class="ps-scorerow">
+      <div class="ps-scorebig" id="ps-score">0</div>
+      <div class="ps-scoremeta">
+        <div class="ps-of">OUT OF 100</div>
+        <div class="ps-band" id="ps-band"></div>
+        <div class="ps-banddesc" id="ps-banddesc"></div>
+      </div>
+    </div>
+
+    <div id="ps-critical"></div>
+
+    <div class="ps-secttitle">Area by area</div>
+    <div id="ps-dimensions"></div>
+
+    <div class="ps-secttitle">Fix these first — your biggest bottlenecks</div>
+    <div id="ps-bottlenecks"></div>
+
+    <div class="ps-foot">
+      <span>Carron Business Advisory · info@carron.co.za</span>
+      <span>Practical intelligence for South African business owners</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ---------- question bank: 20 items across 10 dimensions ----------
+   survival:true  -> weighted x2 and eligible to surface as a critical bottleneck
+   action         -> what to put in place if scored low (used on results) */
+const QUESTIONS = [
+  { domain:"Decision rights & authority", survival:true,
+    title:"An authority matrix says who can approve what — spend, discount, refund, credit, hire — up to what Rand limit, and which decisions stay reserved for you.",
+    action:"Write a one-page authority matrix: for each area, the limit each role can approve without you, what must be logged, when to escalate, and which matters are reserved (major debt, big contracts, senior hires)." },
+  { domain:"Decision rights & authority", survival:false,
+    title:"A named deputy holds authority when you're away — and the deputy has a capable backup, so you don't just swap owner-dependence for deputy-dependence.",
+    action:"Name a deputy with written authority to act in your absence, and a backup for the deputy so a single absence doesn't recreate the bottleneck." },
+
+  { domain:"Sales, quoting & pricing", survival:true,
+    title:"Someone can quote, apply a discount within set rules, and close a sale without checking with you.",
+    action:"Document the price list and discount rules so staff quote and close without a 'let me ask the boss'." },
+  { domain:"Sales, quoting & pricing", survival:false,
+    title:"Pre-approved quote, contract and terms templates exist, and someone owns following up leads while you're away.",
+    action:"Create pre-approved quote/contract/T&C templates and assign lead follow-up to someone other than you." },
+
+  { domain:"Customer service & resolution", survival:true,
+    title:"Someone can resolve a complaint and issue a refund or credit up to a limit without you.",
+    action:"Set a refund/credit authority limit and a documented complaints policy your team can act on." },
+  { domain:"Customer service & resolution", survival:false,
+    title:"Key customer relationships — and the external ones at the bank, insurer, landlord and key suppliers — aren't known only to you.",
+    action:"Make sure each key customer and external relationship (bank, accountant, insurer, landlord, key suppliers) is held by more than one person." },
+
+  { domain:"Collections & credit control", survival:true,
+    title:"Someone owns debtor follow-up — can enforce terms, place an account on stop, and escalate material overdue debt — without you.",
+    action:"Give a named person authority to chase overdue debt, place accounts on stop, and escalate at a set amount/age." },
+  { domain:"Collections & credit control", survival:false,
+    title:"Credit limits, changes to payment terms and repayment arrangements can be approved to clear rules without you.",
+    action:"Set who approves credit limits, who can change terms, and who can agree a repayment arrangement — each with a limit." },
+
+  { domain:"Money & payments", survival:true,
+    title:"Someone can approve and release payroll and supplier payments up to a limit without you.",
+    action:"Delegate payment approval up to a set limit, and confirm payroll can run and be approved without you." },
+  { domain:"Money & payments", survival:false,
+    title:"A second person holds a banking mandate and can tell you the cash position at any time.",
+    action:"Add a second bank signatory/mandate and make the cash position visible to someone other than you." },
+
+  { domain:"Purchasing & suppliers", survival:true,
+    title:"Staff can reorder stock, raise a purchase order and approve a supplier invoice up to a limit.",
+    action:"Set reorder rules and a PO/invoice approval limit so buying doesn't wait for you." },
+  { domain:"Purchasing & suppliers", survival:false,
+    title:"A preferred-supplier list, terms and contacts are known to more than one person.",
+    action:"Document preferred suppliers, terms and contacts so a supplier problem can be handled without you." },
+
+  { domain:"People, operations & delivery", survival:true,
+    title:"A manager can approve leave, cover a shift gap and handle first-line discipline without you.",
+    action:"Give a manager written authority over leave, rosters and first-line discipline." },
+  { domain:"People, operations & delivery", survival:false,
+    title:"The core work is documented in simple SOPs with quality standards, and every key role has a cross-trained backup.",
+    action:"Write simple SOPs and quality standards for the work only you know, and cross-train a backup for each key role." },
+
+  { domain:"Access, IT & cyber resilience", survival:true,
+    title:"No critical system depends on your personal login, device or MFA — access is via named accounts, banking mandates and a password manager with emergency access.",
+    action:"Move to named accounts and role-based access; put logins in a password manager with emergency access for the deputy; add backup MFA and proper banking mandates." },
+  { domain:"Access, IT & cyber resilience", survival:false,
+    title:"There's a written plan for an IT or cyber incident — outage, ransomware, lost phone, failed backup, payment fraud — covering who acts and who authorises spend.",
+    action:"Write an incident plan: who calls the IT provider, who authorises spend, where backups are, who decides to shut systems down, and who tells customers." },
+
+  { domain:"Compliance & obligations", survival:false,
+    title:"Tax, statutory, insurance, licence and contract-renewal dates are diarised and owned — with a backup — not sitting in your head.",
+    action:"Put every tax, statutory, insurance, licence and renewal date on an owned calendar with a named backup owner." },
+  { domain:"Compliance & obligations", survival:false,
+    title:"Someone knows which events must be reported to insurers, regulators, lenders or partners — and can act without you.",
+    action:"List reportable events and who handles each, so nothing legally or contractually important depends on your diary." },
+
+  { domain:"Rhythm, escalation & continuity", survival:true,
+    title:"A short weekly exception scorecard — cash, sales, margin, delivery, people, risk — runs, led by the team, not by you.",
+    action:"Set up a one-glance weekly scorecard (cash, sales, margin, delivery, people, risk) the deputy runs without you." },
+  { domain:"Rhythm, escalation & continuity", survival:false,
+    title:"There's a clear escalation path — including a predefined emergency authority if you're unreachable — plus written steps for the few most likely crises.",
+    action:"Define the escalation path, name an emergency authority for when you can't be reached, and write 'if this happens, do this' steps for your top crises." },
+];
+
+const CHOICES = [
+  { label:"No — this waits for me",        hint:"Owner-dependent", pts:0 },
+  { label:"On paper only",                 hint:"Documented",      pts:1 },
+  { label:"Someone else is authorised",    hint:"Delegated",       pts:2 },
+  { label:"Proven — done without me",      hint:"Proven",          pts:3 },
+];
+const MAXPTS = 3;
+
+let idx = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+
+const maxScore = QUESTIONS.reduce((s,q)=> s + MAXPTS*(q.survival?2:1), 0);
+
+function el(id){return document.getElementById(id)}
+function show(id){['intro','quiz','results'].forEach(s=>el(s).classList.add('hidden'));el(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
+
+function start(){ idx=0; show('quiz'); render(); }
+function restart(){ answers.fill(null); idx=0; leadBusy=false; show('intro'); }
+
+function currentScore(){
+  let s=0;
+  QUESTIONS.forEach((q,i)=>{ if(answers[i]!==null) s += CHOICES[answers[i]].pts*(q.survival?2:1); });
+  return Math.round(s/maxScore*100);
+}
+
+function render(){
+  const q = QUESTIONS[idx];
+  el('q-domain').textContent = q.domain;
+  el('q-count').textContent = `Question ${idx+1} of ${QUESTIONS.length}`;
+  el('q-progress').style.width = ((idx)/(QUESTIONS.length))*100 + '%';
+  el('q-title').textContent = q.title;
+  el('q-test').innerHTML = q.survival
+    ? '<span class="flag">Critical:</span> if this still needs you, the business stalls within days. Score honestly — "Proven" means it has actually happened without you.'
+    : 'Ask: can this happen without me? "Proven" means it has actually happened without you.';
+
+  const box = el('q-options'); box.innerHTML='';
+  CHOICES.forEach((c,ci)=>{
+    const b=document.createElement('button');
+    b.className='opt'+(answers[idx]===ci?' sel':'');
+    b.innerHTML=`<span class="dot"></span><span class="lab">${c.label}</span><span class="hint">${c.hint}</span>`;
+    b.onclick=()=>choose(ci);
+    box.appendChild(b);
+  });
+
+  el('q-back').style.visibility = idx===0 ? 'hidden':'visible';
+  el('q-live').textContent = currentScore();
+}
+
+function choose(ci){
+  answers[idx]=ci;
+  el('q-live').textContent = currentScore();
+  render();
+  setTimeout(()=>{
+    if(idx < QUESTIONS.length-1){ idx++; render(); }
+    else finish();
+  }, 220);
+}
+
+function back(){ if(idx>0){ idx--; render(); } }
+
+/* ---------- results helpers ---------- */
+// Per-dimension stats, in question order.
+function dimStats(){
+  const order=[]; const map={};
+  QUESTIONS.forEach((q,i)=>{
+    if(!map[q.domain]){ map[q.domain]={sum:0,n:0,gaps:[]}; order.push(q.domain); }
+    const pts = answers[i]===null?0:CHOICES[answers[i]].pts;
+    map[q.domain].sum += pts;
+    map[q.domain].n++;
+    if(answers[i]!==null && answers[i]<2) map[q.domain].gaps.push(q.action); // owner-dependent or on-paper-only
+  });
+  return order.map(name=>{
+    const o=map[name]; const avg=o.sum/o.n;
+    return { name, avg, pct:avg/MAXPTS, gaps:o.gaps };
+  });
+}
+function ragColor(avg){ return avg<1?'var(--clay)':avg<2?'var(--gold)':'var(--sage-bright)'; }
+function ragLabel(avg){ return avg<1?'Owner-dependent':avg<2?'Documented':avg<2.75?'Delegated':'Proven'; }
+function criticals(){ return QUESTIONS.map((q,i)=>({q,i})).filter(o=>o.q.survival && answers[o.i]===0); }
+
+/* ---------- results ---------- */
+function finish(){
+  const score = currentScore();
+  show('results');
+  drawGauge(score);
+  drawBands(score);
+  drawScale(score);
+  drawCritical();
+  drawDimensions();
+  drawBottlenecks();
+  buildPrintSheet(score);
+}
+
+function downloadResult(){ window.print(); }
+
+function drawGauge(score){
+  const val = el('gval');
+  const needle = el('needle');
+  const num = el('score-num');
+  const col = score<40?'var(--clay)':score<65?'var(--gold)':score<85?'var(--gold-light)':'var(--sage-bright)';
+  val.setAttribute('stroke-dasharray','0 100');
+  val.style.stroke=col;
+  needle.style.transform='rotate(-90deg)';
+  requestAnimationFrame(()=>{
+    val.setAttribute('stroke-dasharray', score+' 100');
+    needle.style.transform='rotate('+((score-50)*1.8)+'deg)';
+  });
+  const t0=performance.now(), dur=1100;
+  function tick(t){
+    const p=Math.min(1,(t-t0)/dur);
+    num.textContent=Math.round(p*score);
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const BANDS=[
+  {lo:0,  hi:39,  label:"Self-Employed",    desc:"The business is you — an unplanned week away would already cause problems."},
+  {lo:40, hi:64,  label:"Owner-Reliant",    desc:"It runs, but leans on you for approvals; it could cope for a few days, not 90."},
+  {lo:65, hi:84,  label:"Owner-Light",      desc:"Strong foundations — could hold for a few weeks. Close the remaining gaps."},
+  {lo:85, hi:100, label:"Owner-Independent",desc:"A business, not a job. Decisions happen without you, up to clear limits."},
+];
+function bandFor(score){ return BANDS.find(b=>score>=b.lo && score<=b.hi) || BANDS[BANDS.length-1]; }
+
+function drawBands(score){
+  const b=bandFor(score);
+  el('band-label').textContent=b.label;
+  el('band-desc').textContent=b.desc;
+}
+
+function drawScale(score){
+  const cur=bandFor(score);
+  const rows=BANDS.map(b=>{
+    const on=b.label===cur.label;
+    return `<div style="display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;padding:11px 14px;border-radius:3px;margin-bottom:8px;`
+      +(on?`background:rgba(200,168,75,.12);border:1px solid var(--gold)`:`border:1px solid var(--line-soft)`)+`">`
+      +`<span style="font-family:'Fraunces',serif;font-size:14px;color:var(--sage);min-width:52px">${b.lo}–${b.hi}</span>`
+      +`<span style="font-weight:600;min-width:132px;color:${on?'var(--gold-light)':'var(--cream)'}">${b.label}</span>`
+      +`<span style="font-size:13px;color:var(--sage);flex:1;min-width:180px">${b.desc}</span></div>`;
+  }).join('');
+  el('scale').innerHTML='<div class="sec-title" style="margin-top:30px">The owner-independence scale</div>'+rows;
+}
+
+function drawCritical(){
+  const block=el('critical-block'); block.innerHTML='';
+  const failed = criticals();
+  if(!failed.length) return;
+  const head=document.createElement('div');
+  head.className='sec-title';
+  head.style.marginTop='30px';
+  head.textContent='Critical bottlenecks — these break the 90 days on their own';
+  block.appendChild(head);
+  failed.forEach(({q})=>{
+    const d=document.createElement('div');
+    d.className='critical';
+    d.innerHTML=`<div class="ct">⚠ ${q.domain}</div><div class="cd">${q.action}</div>`;
+    block.appendChild(d);
+  });
+}
+
+function drawDimensions(){
+  const wrap=el('dimensions'); wrap.innerHTML='';
+  dimStats().forEach(d=>{
+    const col=ragColor(d.avg);
+    const row=document.createElement('div');
+    row.className='dimrow';
+    row.innerHTML=`
+      <div class="dh">
+        <span class="dn"><span class="rag" style="background:${col}"></span>${d.name}</span>
+        <span class="dl">${ragLabel(d.avg)}</span>
+      </div>
+      <div class="bar"><span style="width:${Math.round(d.pct*100)}%;background:${col}"></span></div>`;
+    wrap.appendChild(row);
+  });
+}
+
+function drawBottlenecks(){
+  const ranked=dimStats().filter(d=>d.pct<0.67).sort((a,b)=>a.pct-b.pct).slice(0,3);
+  const wrap=el('bottlenecks'); wrap.innerHTML='';
+  if(!ranked.length){
+    wrap.innerHTML='<p class="lede" style="color:var(--sage)">No material gaps — every area is at least delegated. Confirm it for real with the one-week phone-off test: whatever stops, waits, or comes back to you is your remaining bottleneck.</p>';
+    return;
+  }
+  ranked.forEach(o=>{
+    const d=document.createElement('div');
+    d.className='bottleneck';
+    const items=(o.gaps.length?o.gaps:['Move this area from documented to delegated, then prove it without you.']).slice(0,2).map(t=>`<li>${t}</li>`).join('');
+    d.innerHTML=`
+      <div class="bh"><span class="bname">${o.name}</span>
+        <span class="bscore">${Math.round(o.pct*100)}% in place</span></div>
+      <div class="bar"><span style="width:${Math.round(o.pct*100)}%"></span></div>
+      <ul>${items}</ul>`;
+    wrap.appendChild(d);
+  });
+}
+
+function buildPrintSheet(score){
+  el('ps-date').textContent = new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
+  el('ps-score').textContent = score;
+  el('ps-band').textContent = el('band-label').textContent;
+  el('ps-banddesc').textContent = el('band-desc').textContent;
+
+  // critical
+  const failed = criticals();
+  const cbox = el('ps-critical'); cbox.innerHTML='';
+  if(failed.length){
+    const t=document.createElement('div');
+    t.className='ps-secttitle';
+    t.textContent='Critical bottlenecks — these break the 90 days on their own';
+    cbox.appendChild(t);
+    failed.forEach(({q})=>{
+      const d=document.createElement('div'); d.className='ps-crit';
+      d.innerHTML=`<div class="h">${q.domain}</div><div class="d">${q.action}</div>`;
+      cbox.appendChild(d);
+    });
+  }
+
+  // area-by-area
+  const dbox=el('ps-dimensions'); dbox.innerHTML='';
+  dimStats().forEach(d=>{
+    const row=document.createElement('div'); row.className='ps-dim';
+    row.innerHTML=`<span>${d.name}</span><span class="lvl">${ragLabel(d.avg)} · ${Math.round(d.pct*100)}%</span>`;
+    dbox.appendChild(row);
+  });
+
+  // bottlenecks
+  const ranked=dimStats().filter(d=>d.pct<0.67).sort((a,b)=>a.pct-b.pct).slice(0,3);
+  const bbox=el('ps-bottlenecks'); bbox.innerHTML='';
+  if(!ranked.length){
+    bbox.innerHTML='<p style="font-size:13px;color:#3a4a42">No material gaps — every area is at least delegated. Confirm with the one-week phone-off test.</p>';
+  } else {
+    ranked.forEach(o=>{
+      const items=(o.gaps.length?o.gaps:['Move from documented to delegated, then prove it without you.']).slice(0,2).map(t=>`<li>${t}</li>`).join('');
+      const d=document.createElement('div'); d.className='ps-bn';
+      d.innerHTML=`<div class="r"><b>${o.name}</b><span>${Math.round(o.pct*100)}% in place</span></div><ul>${items}</ul>`;
+      bbox.appendChild(d);
+    });
+  }
+}
+
+/* ---------- lead capture ---------- */
+let leadBusy=false;
+
+function resultSummary(){
+  const score=currentScore();
+  const band=el('band-label').textContent||'';
+  const crit=criticals().map(o=>'• '+o.q.domain);
+  const lows=dimStats().slice().sort((a,b)=>a.pct-b.pct).slice(0,3)
+    .map(d=>d.name+' — '+ragLabel(d.avg)+' ('+Math.round(d.pct*100)+'%)');
+  let s='Score: '+score+'/100 — '+band+'\n';
+  if(crit.length) s+='\nCritical (owner-dependent survival items):\n'+crit.join('\n')+'\n';
+  s+='\nLowest areas:\n'+lows.join('\n');
+  return s;
+}
+
+function submitLead(){
+  const name=el('lead-name').value.trim();
+  const email=el('lead-email').value.trim();
+  const note=el('lead-note');
+  if(!email || !/.+@.+\..+/.test(email)){
+    note.textContent='Please enter a valid email so we can send your plan.';
+    note.style.color='var(--clay)';return;
+  }
+  if(leadBusy) return;
+  leadBusy=true;
+  const btn=document.querySelector('.cta .btn.primary');
+  if(btn) btn.disabled=true;
+  note.textContent='Sending…'; note.style.color='var(--sage)';
+
+  const score=currentScore();
+  const band=el('band-label').textContent||'';
+  const ts=new Date().toISOString();
+
+  /* ---- INTEGRATION POINT ----
+     Lead capture posts to Web3Forms (same pipeline as the site contact form),
+     which emails the submission to info@carron.co.za. To switch providers,
+     replace the fetch target/body below; the UI stays the same. */
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({
+      access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',
+      subject:'New 90-Day Test lead — '+(name||email),
+      from_name:'Carron 90-Day Test',
+      name:name||'—',
+      email:email,
+      score:score+'/100',
+      band:band,
+      summary:resultSummary(),
+      answers:JSON.stringify(answers),
+      submitted:ts
+    })
+  }).then(r=>r.json()).then(res=>{
+    if(!res || !res.success) throw new Error('fail');
+    note.textContent='Thanks'+(name?', '+name:'')+' — we’ve got your results and will send your full 90-day plan to '+email+' shortly.';
+    note.style.color='var(--sage-bright)';
+  }).catch(()=>{
+    note.textContent='Something went wrong sending that. Please email info@carron.co.za and we’ll send your plan.';
+    note.style.color='var(--clay)';
+    leadBusy=false;
+    if(btn) btn.disabled=false;
+  });
+}
+</script>
+</body>
+</html>
