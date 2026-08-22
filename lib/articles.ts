@@ -38,6 +38,206 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "when-shareholders-contribute-unequally",
+    cover: "/images/shareholders-contribute-unequally.png",
+    pdf: "/articles/Carron_When_Shareholders_Contribute_Unequally.pdf",
+    title: "When Shareholders Contribute Unequally",
+    category: "Strategy",
+    excerpt:
+      "Our August 2026 special report: equal ownership answers who owns the shares — not who must fund more, who should earn what, or who carries the greater personal risk. A framework for separating the six shareholder accounts — ownership, funding, capacity, work, benefits and risk — in an owner-managed SME.",
+    date: "2026-08-22",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `Equal ownership answers who owns the shares. It does not, by itself, determine who must provide more money, who should earn what, or who should carry the greater personal risk when the business needs support.
+
+## Executive summary
+
+Two shareholders can own a business equally while contributing very differently. One may provide more cash, sign larger sureties, work full-time or defer remuneration. The other may bring customers, technical capability or operational leadership, but have limited personal capacity because of other commitments.
+
+Those differences need to be identified and treated explicitly. Otherwise a payment becomes "money I put in", a reduced salary becomes "sacrifice", a personal guarantee stays invisible until the company fails, and a loan repayment is mistaken for preferential remuneration.
+
+- Separate ownership, funding, work, remuneration, benefits and personal risk.
+- Acknowledge genuine limits on personal funding capacity without transferring unlimited risk to another shareholder.
+- Agree the rules before the company needs emergency funding.
+
+**Decision principle:** every material difference should be disclosed, classified, agreed and recorded before it is relied upon.
+
+## Equal ownership does not settle every question
+
+A 50/50 shareholding often creates an expectation that everything else will also be equal: capital, monthly funding, hours, salaries, dividends and exposure to debt. That expectation rarely survives contact with a real business.
+
+A shareholder's legal obligation to provide more money cannot safely be inferred from the ownership percentage alone. The memorandum of incorporation, shareholders' agreement, subscription terms, loan agreements and later resolutions matter. If those documents are silent, the company may have a commercial need for cash without a clear mechanism compelling either owner to provide it.
+
+Equal shares can coexist with unequal roles — one shareholder running the business daily, another contributing oversight, intellectual property, customer access or years of under-remunerated work. These contributions are real, but not automatically equivalent, and should not be converted into values retrospectively during a dispute. Commitment and capacity are also different questions: a shareholder may be committed yet unable to provide more money, or have liquidity yet reasonably refuse to fund an unapproved strategy.
+
+**Management test:** can each shareholder explain, in the same terms, what 50/50 ownership does — and does not — require when the company needs more cash?
+
+## The six shareholder accounts
+
+A shareholder can have several relationships with the same company at once: owner, lender, employee, director, supplier, guarantor and recipient of distributions. A single payment can be misunderstood unless its purpose is recorded when it occurs. Keep separate records for separate relationships:
+
+| Account | What it answers |
+| --- | --- |
+| Ownership | Who holds the shares, voting rights and rights attached to that class of share? |
+| Funding | Who subscribed for equity, advanced loans or paid company costs personally? |
+| Personal capacity | What can each shareholder realistically fund or guarantee, and for how long? |
+| Work and sacrifice | Who performs which role, carries which accountability or defers agreed remuneration? |
+| Benefits received | What was paid as remuneration, reimbursement, dividend, loan repayment or another benefit? |
+| Risk carried | Who signed surety, pledged assets or accepted exposure beyond the amount invested? |
+
+These accounts interact, but should not be netted informally. A shareholder loan is not salary; a dividend is not repayment of a loan; long hours are not automatically additional equity; personal surety is not cash, but it is genuine contingent risk. Retrospective valuation is especially dangerous — the better time to agree the treatment is before the money, work or guarantee is provided.
+
+## Personal finances affect business capacity
+
+Shareholders do not enter a business with identical personal balance sheets. One may have liquidity and unused borrowing capacity; another significant debt, high household commitments, dependants or existing guarantees. Personal debt does not prove a lack of commitment — but it constrains choices. A shareholder with no borrowing capacity cannot be treated as a dependable source of emergency finance merely because the shares are held equally.
+
+The company does not need unrestricted access to every personal transaction. But if the plan assumes future shareholder funding or guarantees, there should be enough honest disclosure to establish capacity and limits:
+
+- Existing debt and significant monthly commitments that affect funding capacity.
+- Available liquidity and realistic borrowing capacity — not the theoretical value of an asset.
+- Existing personal guarantees and sureties, including obligations to other businesses.
+- The maximum additional amount and period each shareholder is willing and able to support.
+- Foreseeable events that could materially reduce that capacity.
+
+Capacity should be reviewed, not presumed forever. **Capacity principle:** a genuine capacity constraint should be recorded, together with agreed measures addressing any funding and risk carried by another shareholder.
+
+## Money into the company
+
+When a shareholder transfers money to the company, the first question is not who was more generous — it is what the transaction legally and commercially represents.
+
+| Treatment | Commercial effect | Questions to settle |
+| --- | --- | --- |
+| Additional equity | Permanent risk capital; may affect ownership or rights if new shares are issued. | Valuation, share class, dilution, approvals and exit treatment. |
+| Shareholder loan | Company owes the shareholder under agreed terms. | Interest, security, ranking, repayment dates and subordination. |
+| Expense paid personally | Shareholder settles a company cost. | Evidence, approval, reimbursement and VAT/tax treatment. |
+| Informal advance | Cash moves without agreed terms. | High risk of later disagreement; document and classify promptly. |
+
+Unequal funding should not automatically change ownership. Dilution is one mechanism, not the default answer — the contributing shareholder might instead receive a documented loan, interest, repayment priority or another negotiated protection. Even emergency funding needs governance: record the amount, purpose, classification, authority, and repayment or conversion terms. And test whether the funding solves the underlying problem — more shareholder money can bridge timing, but cannot indefinitely repair an uneconomic margin or a model that keeps losing cash.
+
+## Money and value taken out
+
+A shareholder who works in the company may be paid for the role performed; that payment need not be "market related" to be defensible. In a start-up or wealth-building phase, remuneration may be deliberately modest, deferred or linked to affordability. Equal shareholders performing different roles may reasonably receive different remuneration. Accepting less cash can be a meaningful sacrifice — but a lower agreed salary is not automatically a debt or capital contribution unless it is genuinely owed and recorded as such.
+
+Do not mix the payment categories:
+
+| Payment | What it represents |
+| --- | --- |
+| Salary or fee | Payment for an agreed role or service, subject to the applicable tax and legal treatment. |
+| Reimbursement | Repayment of a properly supported company expense paid personally. |
+| Shareholder-loan repayment | Settlement of an existing company debt; not remuneration or a dividend. |
+| Interest | Return under a loan agreement, with tax consequences requiring confirmation. |
+| Dividend or distribution | Return linked to share rights, subject to company-law and tax requirements. |
+| Drawings / unexplained payment | A warning label, not a satisfactory classification for a company transaction. |
+
+South African distributions require more than available bank cash — board authority, the governing documents, the statutory solvency and liquidity requirements and the tax treatment all need to be considered.
+
+## Personal surety and unequal exposure
+
+A loan belongs to the company, but a shareholder who signs surety accepts a separate personal exposure. Depending on the wording, the lender may pursue one or more sureties for amounts the company cannot pay — and the ownership percentage does not necessarily cap that exposure. Where shareholders sign different levels of surety, or only one has assets acceptable to the lender, or the documents impose joint and several liability, a 50% shareholder may carry far more than 50% of the practical downside.
+
+No cash enters the company merely because a shareholder signs, so surety should not be added to the shareholder-loan balance — but the risk should be acknowledged, limited where possible, and considered when future funding or distributions are discussed:
+
+- Record which facilities and amounts each shareholder guarantees.
+- Understand whether liability is limited, proportional, joint, or joint and several.
+- Agree whether guarantees will be reduced or released as company debt declines.
+- Prevent new debt or increased facilities being accepted without the required authority.
+- Consider what happens to the surety if a shareholder exits, dies, becomes disabled or leaves the business.
+
+Independent legal advice is appropriate before material personal security is given, varied or relied upon in an exit arrangement. **Risk principle:** ownership measures the interest in the company; a surety measures personal exposure to a creditor. Do not assume the two are equal.
+
+## Worked example: equal owners face a funding shortfall
+
+Consider a fictional owner-managed company with two equal shareholders. The business has a credible order pipeline but needs temporary working capital before customers pay. One can fund the full shortfall; the other cannot contribute cash at present.
+
+| Factor | Shareholder A | Shareholder B |
+| --- | --- | --- |
+| Shareholding | Equal interest | Equal interest |
+| Operating role | Finance and commercial oversight | Managing director and sales |
+| Current funding capacity | Can fund the shortfall | Cannot contribute cash now |
+| Personal position | Has available liquidity | Debt and household commitments constrain capacity |
+| Personal guarantees | Has accepted greater contingent exposure | Has accepted less contingent exposure |
+| Current remuneration | Reduced by agreement | Reduced by agreement |
+
+**What needs to be agreed:** whether either shareholder is obliged to contribute (and the amount, period and limit); how one-sided funding will be classified, capped, protected and repaid; Shareholder B's realistic capacity constraint and the alternatives; and Shareholder A's express agreement before relying on personal liquidity, with the cost and risk quantified.
+
+**A possible negotiated solution:** document Shareholder A's contribution as a shareholder loan with defined interest, repayment triggers and information rights; preserve equal ownership; suspend dividends until the loan reaches an agreed level; cap further funding unless both approve; and require disclosure of any material change in capacity. That is one solution — not a universal rule. If the company cannot support the loan terms, or repeated funding is likely, the parties may need new equity, an external investor, reduced spending, a revised strategy, dilution or an orderly exit.
+
+## Solutions: funding and personal capacity
+
+Match the solution to the underlying problem:
+
+- **No agreed obligation to fund** — adopt a written funding-call procedure: who may request funding, the information required, whether participation is optional or compulsory, each shareholder's cap, the response period, and what happens when a shareholder declines. Support each call with a purpose, a 13-week cash forecast, alternatives and the expected repayment.
+- **Only one shareholder can fund** — a documented shareholder loan, staged contributions, external debt, a new investor, temporary cost reductions or a negotiated equity issue. A loan preserves ownership while recognising unequal cash; new equity changes ownership where permanent capital and risk have genuinely changed.
+- **Repeated rescue** — stop treating each shortfall as an isolated emergency. Set a cumulative funding limit and a review trigger; once reached, revisit margins, working capital, fixed costs, strategy and viability before more personal money is requested.
+- **Protecting the contributor** — agree interest or another lawful return, repayment triggers, information rights, restrictions on further borrowing, possible security, treatment on exit, and whether distributions are restricted while the loan is outstanding.
+
+**Decision test:** does the proposed funding solve a timing problem, or merely postpone a structural loss?
+
+## Solutions: work, remuneration and money out
+
+- **Unequal operating roles** — use written role descriptions, decision rights, time commitments and measurable accountabilities. Equal ownership does not require equal remuneration where the work differs, but pay should follow an agreed role and the company's affordability, not an informal "I do more".
+- **Can't afford full remuneration** — agree a start-up remuneration policy: the cash payable now, any triggers, the review date, and whether any unpaid amount is genuinely owed. A lower agreed salary is not automatically a debt; contractually deferred remuneration is recorded separately.
+- **Poorly classified owner payments** — every payment coded and supported when made (remuneration, reimbursement, interest, loan repayment, dividend). Unexplained "drawings" trigger review, not a permanent suspense account.
+- **Capacity without destroying privacy** — a confidential capacity declaration limited to what the business needs: funding range, material guarantees, borrowing constraints, maximum exposure and foreseeable changes. Confirm annually.
+- **Distributions that worsen imbalance** — before dividends, review solvency and liquidity, outstanding shareholder loans, unpaid approved remuneration and unequal exposure.
+
+**Classification rule:** no amount should leave the company until its purpose, authority, supporting evidence and accounting treatment are clear.
+
+## Solutions: creditor recovery, surety and exit
+
+- **The shareholder with assets is the easier target** — where the finance documents allow it, a creditor may pursue whoever is easiest; internal percentages do not restrict the creditor. Discuss capped or proportionate sureties, consent for new facilities and the effect of each waiver — and reflect any limit in terms the creditor accepts.
+- **One co-surety pays more than their share** — co-sureties may have contribution rights, but wording and facts matter. Record intended proportions in a contribution agreement or cross-indemnity, recognising a claim has little value against someone with no recoverable assets.
+- **Only one shareholder signed** — equal shares do not make the other personally responsible; any intended sharing needs a cross-indemnity, borrowing and distribution restrictions, information and veto rights, or a commercial adjustment.
+- **Exit while the creditor still holds the surety** — a share sale does not release a surety. Seek creditor release, accepted replacement security or refinancing; where release is unavailable, an exit agreement should set out who pursues it, the steps and a deadline.
+- **Deadlock** — a staged process: direct discussion, mediation, expert determination, and a carefully drafted buy-sell mechanism as a last resort. Avoid formulas that reward the deepest pockets or force a distressed sale.
+
+**Protection principle:** an indemnity is only as useful as the other party's ability to honour it — test legal rights against practical recoverability.
+
+## What shareholders should agree in advance
+
+A useful shareholders' agreement is not merely a record of percentages; it explains how the company responds when additional capital, temporary liquidity or personal guarantees are required. Settle, in advance: who may request funding and what must support it; whether any obligation to contribute exists and how it is capped; what happens when a shareholder cannot or will not participate; whether funding is equity, loan or third-party debt; how interest, repayment, security, priority and conversion are determined; whether new debt or sureties need unanimous approval; how roles, remuneration, deferrals and reimbursements are approved; when dividends may be considered while loans are outstanding; what information shareholders receive and how often; and how deadlock, incapacity, exit, death and default are handled.
+
+Use practical triggers rather than vague promises — the cash forecast falling below a reserve, borrowing exceeding a limit, a funding request requiring a 13-week forecast, further exposure needing written consent. Review personal capacity respectfully: an annual confidential confirmation and immediate disclosure of material changes, not supervision of household spending.
+
+**CFO test:** if the company needed urgent funding, could the shareholders predict the process, the classification of the money and the protection of each person — without first having an argument?
+
+## Conclusion
+
+Equal ownership can remain entirely appropriate when shareholders contribute different amounts of cash, time, expertise and personal risk. Clear treatment does not require perfect symmetry — it requires the differences to be known, classified and addressed consistently.
+
+The financially constrained shareholder should not be judged simply for being unable to contribute. But that constraint cannot become an automatic obligation for another shareholder to fund every shortfall, sign every surety or defer repayment indefinitely. The discipline is to keep the six accounts separate — ownership, funding, personal capacity, work and sacrifice, benefits received, and risk carried. Once those are clear, the shareholders can choose among loans, equity, external funding, reduced costs, deferred remuneration or changed ownership with far less ambiguity. The best time to agree the rules is while the shareholders can still discuss the matter as partners rather than opponents.
+
+## Problem-to-solution matrix
+
+A starting point, not a prescription — select, adapt or combine options after considering the company's agreements, finance documents, tax position, affordability and the practical recoverability of each protection, with qualified advisers.
+
+| Problem identified | Possible discussion options |
+| --- | --- |
+| Equal ownership assumed to require equal funding | State whether further funding is compulsory, optional or capped; establish a funding-call procedure. |
+| One shareholder can't contribute (debt/commitments) | Disclose realistic capacity; use shareholder loans, external funding, staged contributions, cost reductions or agreed dilution. |
+| One shareholder provides all the additional funding | Record it as equity or a loan; agree interest, repayment priority, information rights, security and dividend restrictions. |
+| Personal circumstances treated as entirely private | Require limited confidential disclosure of capacity, sureties and material constraints — not unrestricted access. |
+| A shareholder accepts lower remuneration | Agree affordable remuneration; distinguish reduced from contractually deferred pay; record any amount actually owed. |
+| Unequal operating roles | Use written roles, responsibilities, time commitments, decision rights and agreed remuneration principles. |
+| Money out is poorly classified | Separate salary, reimbursement, dividends, interest and loan repayments; require approval and records. |
+| One shareholder signs greater surety | Negotiate caps, proportional exposure, cross-indemnities, security, information and approval rights over new borrowing. |
+| The wealthier shareholder is the creditor's easiest target | Negotiate limitations in the original surety; consider contribution and indemnity arrangements and separate security. |
+| The other shareholder has no recoverable assets | Recognise an indemnity may be worthless; consider security over shares, distribution restrictions or alternative funding. |
+| The company can't repay the shareholder who settled the debt | Record the claim; restrict distributions; establish repayment priority; consider restructuring or external capital. |
+| Disagreement about whether more funding is sensible | Require a request supported by a 13-week forecast, purpose, repayment plan, alternatives and downside scenario. |
+| Urgent funding bypasses governance | Adopt an emergency-funding procedure with authority limits and written ratification. |
+| One shareholder repeatedly funds shortfalls | Establish cumulative funding limits and triggers for restructuring, dilution, external investment or exit. |
+| Dividends paid while one shareholder remains exposed | Confirm solvency and liquidity first; consider reducing shareholder loans or unequal exposure before distributing. |
+| A shareholder exits while still liable under surety | Seek written creditor release or accepted replacement security; don't assume a private agreement releases the surety. |
+| A 50/50 deadlock | Use escalation, mediation, independent advice, reserved matters and a carefully drafted buy-sell or exit mechanism. |
+
+*This report provides general business and financial education only. It is not legal, tax, employment, credit, valuation or investment advice. The Companies Act, the memorandum of incorporation, shareholders' agreement, employment, loan and surety documents, resolutions, applicable tax law and the particular facts must be reviewed by appropriately qualified South African legal and tax advisers.*
+
+**Related reading:** Can Your Business Afford to Grow? · Why the Bank Said No · The 7-Step Cash Flow Framework.
+
+The full report includes a one-page **Shareholder Contribution and Decision Review** — a working record to complete before the next funding, guarantee or remuneration decision — available in the downloadable PDF.`,
+  },
+  {
     slug: "management-accounts-arrived-now-what",
     cover: "/images/management-accounts-now-what.png",
     pdf: "/articles/Carron_Your_Management_Accounts_Arrived_Now_What.pdf",
