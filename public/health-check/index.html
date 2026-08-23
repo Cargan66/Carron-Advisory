@@ -253,7 +253,7 @@ function calculate(){
   let head = (earn ? earn : rev).slice();
   // a going concern with real net assets is worth at least its net worth — floor the range at NAV
   if(nav>0){ head = [Math.max(head[0], nav), Math.max(head[1], nav)]; }
-  RESULT = { revenue, score, R, sde, earn, rev, nav, head };
+  RESULT = { revenue, score, R, op, ownerpay, sde, earn, rev, nav, head };
   renderResult();
 }
 
@@ -276,7 +276,7 @@ function renderResult(){
   const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
   el('val-range').textContent = lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi);
   let m = '<strong style="color:var(--cream)">How we got there</strong><br>';
-  if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
+  if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+' + owner’s pay '+fmtR(r.ownerpay)+' added back) × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
   m += 'Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
   m += 'Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.');
   if(!r.earn){ m += '<br>(Earnings method skipped — operating profit is not positive.)'; }
