@@ -13,19 +13,40 @@ const tiers: Tier[] = [
     name: "Advisory",
     time: "~2–4 hrs / month",
     pct: "32%",
-    items: ["Monthly management review", "KPI dashboard", "Cash-flow monitoring"],
+    items: [
+      "Monthly management review",
+      "KPI dashboard",
+      "Cash-flow monitoring",
+      "Budget vs actual",
+      "Margin check-in",
+      "A sounding board on the big calls",
+    ],
   },
   {
     name: "Growth",
     time: "~2–4 days / month",
     pct: "66%",
-    items: ["Budgeting & forecasting", "Board & bank reporting", "Pricing & margin strategy"],
+    items: [
+      "Budgeting & forecasting",
+      "13-week cash-flow forecast",
+      "Board & bank reporting",
+      "Pricing & margin strategy",
+      "Working-capital management",
+      "Scenario & what-if modelling",
+    ],
   },
   {
     name: "Strategic",
     time: "Full fractional CFO seat",
     pct: "100%",
-    items: ["Funding & bank negotiations", "M&A & due-diligence support", "Finance function build-out"],
+    items: [
+      "Funding & bank negotiations",
+      "M&A & due-diligence support",
+      "Finance function build-out",
+      "Governance, risk & controls",
+      "Capital allocation",
+      "Growth / exit strategy",
+    ],
   },
 ];
 
@@ -84,13 +105,19 @@ export function EngagementTiers() {
           ))}
         </FadeInStagger>
 
-        <FadeIn className="mt-10 flex justify-start border-t border-white/10 pt-8 lg:justify-end">
+        <FadeIn className="mt-10 flex flex-col items-start gap-5 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <a
+            href="/find-your-fit/"
+            className="inline-flex items-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-emerald-deep shadow-[0_8px_30px_-12px_rgba(212,175,55,0.6)] transition-transform duration-300 hover:-translate-y-0.5"
+          >
+            Not sure which tier? Find your fit — 90-second quiz
+            <span aria-hidden>→</span>
+          </a>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold transition-colors hover:text-gold-light"
+            className="text-xs font-semibold uppercase tracking-[0.18em] text-gold transition-colors hover:text-gold-light"
           >
-            Book a discovery call to find your fit
-            <span aria-hidden>→</span>
+            Or book a discovery call →
           </Link>
         </FadeIn>
       </div>

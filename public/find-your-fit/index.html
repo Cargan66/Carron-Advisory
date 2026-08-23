@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Fit · Carron Business Advisory</title>
+<meta name="description" content="A 90-second quiz: answer 10 questions and find out which level of fractional-CFO support — Advisory, Growth or Strategic — fits your business.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0f2218; --green-900:#122b22; --green-800:#172e26; --green-700:#1e4035;
+    --gold:#c8a84b; --gold-light:#e8d49a; --cream:#f5efe0; --sage:#9dc4b0; --sage-bright:#5ba58a;
+    --line:rgba(200,168,75,0.22); --line-soft:rgba(245,239,224,0.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%, #1c3a2f 0%, transparent 60%), var(--green-900);
+    color:var(--cream);line-height:1.55;min-height:100vh;padding:clamp(16px,4vw,48px);
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  header.masthead{display:flex;align-items:center;gap:14px;padding-bottom:20px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+  header.masthead .name{font-family:'Fraunces',serif;font-weight:500;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light)}
+  header.masthead .sub{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-top:2px}
+  header.masthead .spacer{flex:1}
+  header.masthead .logo{height:58px;width:auto;flex:none}
+  @media(max-width:520px){ header.masthead .logo{height:44px} header.masthead .sub{display:none} }
+
+  .panel{padding-top:clamp(24px,5vw,44px)}
+  .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(34px,7vw,58px);line-height:1.02;letter-spacing:-.01em;margin-bottom:22px}
+  h1 em{font-style:italic;color:var(--gold-light)}
+  .lede{font-size:clamp(16px,2.4vw,19px);color:var(--sage);max-width:56ch;margin-bottom:14px}
+  .lede.tight{color:var(--cream);opacity:.92}
+  .meta-row{display:flex;flex-wrap:wrap;gap:24px;margin:34px 0 40px}
+  .meta{border-left:1px solid var(--line);padding-left:14px}
+  .meta .k{font-family:'Fraunces',serif;font-size:26px;color:var(--gold-light);line-height:1}
+  .meta .v{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-top:6px}
+
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:15px;letter-spacing:.02em;cursor:pointer;border:none;border-radius:2px;padding:15px 30px;transition:transform .12s ease,background .2s ease,color .2s ease;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+  .btn.primary{background:var(--gold);color:var(--green-950)}
+  .btn.primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold-light)}
+  .btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+
+  .qhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
+  .qhead .domain{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+  .qhead .count{font-size:12px;color:var(--sage);letter-spacing:.08em}
+  .progress-track{height:2px;background:var(--line-soft);margin:14px 0 34px;position:relative;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0;transition:width .4s cubic-bezier(.4,0,.2,1)}
+  .qtitle{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(22px,4vw,30px);line-height:1.18;margin-bottom:26px}
+
+  .options{display:flex;flex-direction:column;gap:10px}
+  .opt{text-align:left;width:100%;cursor:pointer;background:rgba(245,239,224,.03);border:1px solid var(--line-soft);border-radius:3px;padding:16px 18px;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px;transition:border-color .18s ease,background .18s ease;display:flex;align-items:center;gap:14px}
+  .opt:hover{border-color:var(--line);background:rgba(245,239,224,.055)}
+  .opt.sel{border-color:var(--gold);background:rgba(200,168,75,.10)}
+  .opt .dot{width:16px;height:16px;border-radius:50%;flex:none;border:1.5px solid var(--sage);position:relative;transition:border-color .18s}
+  .opt.sel .dot{border-color:var(--gold)}
+  .opt.sel .dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold)}
+  .opt .lab{flex:1}
+  .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px;flex-wrap:wrap}
+
+  /* result */
+  .rlead{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:14px}
+  .tierbig{font-family:'Fraunces',serif;font-size:clamp(34px,7vw,52px);color:var(--gold-light);text-align:center;line-height:1.02}
+  .tiertime{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);text-align:center;margin-top:12px}
+  .tierbar{height:4px;background:var(--line-soft);border-radius:2px;overflow:hidden;margin:16px auto 0;max-width:280px}
+  .tierbar span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light))}
+  .tierdesc{color:var(--sage);max-width:54ch;margin:18px auto 0;text-align:center;font-size:15px}
+  .divider{border:0;border-top:1px solid var(--line);margin:34px 0}
+  .sec-title{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  .delivs{list-style:none;display:grid;grid-template-columns:1fr;gap:11px}
+  @media(min-width:560px){.delivs{grid-template-columns:1fr 1fr}}
+  .delivs li{display:flex;align-items:center;gap:11px;font-size:15px;color:var(--cream)}
+  .delivs .d{width:6px;height:6px;border-radius:50%;background:var(--gold);flex:none}
+  .scale{display:flex;flex-direction:column;gap:10px}
+  .scale .row{border:1px solid var(--line-soft);border-radius:3px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+  .scale .row.on{border-color:var(--gold);background:rgba(200,168,75,.10)}
+  .scale .rn{font-family:'Fraunces',serif;font-size:18px;color:var(--cream);min-width:104px}
+  .scale .row.on .rn{color:var(--gold-light)}
+  .scale .rt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+  .scale .rd{font-size:13.5px;color:var(--sage);flex:1;min-width:210px}
+
+  .cta{margin-top:36px;padding:clamp(22px,4vw,32px);background:linear-gradient(180deg,rgba(200,168,75,.08),rgba(200,168,75,.02));border:1px solid var(--line);border-radius:4px;text-align:center}
+  .cta h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,3.5vw,26px);margin-bottom:10px}
+  .cta p{color:var(--sage);font-size:15px;margin-bottom:20px;max-width:54ch;margin-left:auto;margin-right:auto}
+  .footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .hidden{display:none}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <div class="name">Find Your Fit</div>
+      <div class="sub">Fractional CFO · Engagement Options</div>
+    </div>
+    <div class="spacer"></div>
+    <img class="logo" src="/images/carron-logo-horizontal-white.png" alt="Carron Business Advisory" width="1320" height="510">
+  </header>
+
+  <!-- INTRO -->
+  <section id="intro" class="panel">
+    <div class="eyebrow">A 90-second quiz</div>
+    <h1>Which level of finance support does your business <em>actually</em> need?</h1>
+    <p class="lede">Advisory, Growth or Strategic — the right fit depends on your stage, your decisions and how much of the numbers you want off your plate.</p>
+    <p class="lede tight">Answer ten quick questions and we'll point you to the tier that fits — and what it includes.</p>
+    <div class="meta-row">
+      <div class="meta"><div class="k">10</div><div class="v">Questions</div></div>
+      <div class="meta"><div class="k">3</div><div class="v">Tiers</div></div>
+      <div class="meta"><div class="k">~90 sec</div><div class="v">To complete</div></div>
+    </div>
+    <button class="btn primary" onclick="start()">Find my fit →</button>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="panel hidden">
+    <div class="qhead">
+      <span class="domain">Find Your Fit</span>
+      <span class="count" id="q-count"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="q-progress"></div></div>
+    <div class="qtitle" id="q-title"></div>
+    <div class="options" id="q-options"></div>
+    <div class="navrow">
+      <button class="btn ghost" id="q-back" onclick="back()">← Back</button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="panel hidden">
+    <div class="rlead">Your recommended starting point</div>
+    <div class="tierbig" id="tier-name"></div>
+    <div class="tiertime" id="tier-time"></div>
+    <div class="tierbar"><span id="tier-bar" style="width:0"></span></div>
+    <p class="tierdesc" id="tier-desc"></p>
+
+    <hr class="divider">
+    <div class="sec-title">What this tier includes</div>
+    <ul class="delivs" id="tier-delivs"></ul>
+
+    <hr class="divider">
+    <div class="sec-title">Where you land</div>
+    <div class="scale" id="scale"></div>
+
+    <div class="cta">
+      <h3 id="cta-head">Let's confirm your fit.</h3>
+      <p>A free, no-obligation discovery call is the quickest way to confirm the right level — and there's no pressure to commit to anything ongoing.</p>
+      <a class="btn primary" href="/contact">Book a discovery call</a>
+    </div>
+
+    <div class="navrow" style="justify-content:center;margin-top:24px">
+      <button class="btn ghost" onclick="restart()">↺ Retake the quiz</button>
+    </div>
+
+    <div class="footer">
+      <span>Carron Business Advisory · info@carron.co.za</span>
+      <span>Fractional CFO for SA SMEs</span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  { q:"How often does your business face a big financial decision — pricing, a key hire, funding, a large order?",
+    opts:[["Rarely; things run steadily",0],["Every so often",1],["Most months",2],["Constantly — they're make-or-break",3]] },
+  { q:"Your financial reporting today is…",
+    opts:[["A bookkeeper handling the basics",0],["Monthly management accounts, after the fact",1],["I want forward-looking forecasts and KPIs",2],["I need board- or investor-grade reporting",3]] },
+  { q:"How's your cash flow?",
+    opts:[["Comfortable, rarely tight",0],["Occasionally tight",1],["Often tight — I need to see weeks ahead",2],["Funding growth; cash is a constant juggle",3]] },
+  { q:"Funding plans in the next 12 months?",
+    opts:[["None",0],["Maybe a bank facility or overdraft",1],["Actively raising debt or capital",2],["A raise, acquisition or sale",3]] },
+  { q:"Your pricing and margins…",
+    opts:[["I'm confident they're right",0],["Could use a check",1],["Need a proper pricing and margin review",2],["Complex across many products or customers",3]] },
+  { q:"Your finance team is…",
+    opts:[["Just me, or a bookkeeper",0],["Bookkeeper plus an external accountant",1],["Some finance staff, but no leader",2],["Being built out — and needs direction",3]] },
+  { q:"Your growth ambition for the next few years?",
+    opts:[["Steady as she goes",0],["Grow carefully",1],["Scale aggressively",2],["Transform, acquire or exit",3]] },
+  { q:"How complex is the business?",
+    opts:[["One product or service, one location",0],["A few lines or sites",1],["Multi-product or multi-site",2],["Cross-border, or complex tax and structure",3]] },
+  { q:"How much of your own time goes into the numbers?",
+    opts:[["Very little — I just want a check now and then",0],["A bit each month",1],["Too much — I need a financial right-hand",2],["It's a full-time gap I can't fill",3]] },
+  { q:"What do you most want right now?",
+    opts:[["An occasional expert sounding board",0],["Regular forecasting and reporting",1],["Hands-on financial leadership",2],["A full CFO seat, without the full-time cost",3]] },
+];
+
+const TIERS = [
+  { key:"Advisory", time:"~2–4 hrs / month", pct:32,
+    desc:"A light-touch, occasional CFO — a few hours a month to keep the numbers clear and give you a sounding board on the big calls.",
+    line:"Light-touch, a few hours a month.",
+    items:["Monthly management review","KPI dashboard","Cash-flow monitoring","Budget vs actual","Margin check-in","A sounding board on the big calls"] },
+  { key:"Growth", time:"~2–4 days / month", pct:66,
+    desc:"Hands-on financial leadership a few days a month — forecasting, reporting, pricing and the decisions that come with scaling.",
+    line:"Hands-on, a few days a month.",
+    items:["Budgeting & forecasting","13-week cash-flow forecast","Board & bank reporting","Pricing & margin strategy","Working-capital management","Scenario & what-if modelling"] },
+  { key:"Strategic", time:"Full fractional CFO seat", pct:100,
+    desc:"A full fractional CFO seat — funding, deals, governance and building the finance function, without the full-time salary.",
+    line:"A full fractional CFO seat.",
+    items:["Funding & bank negotiations","M&A & due-diligence support","Finance function build-out","Governance, risk & controls","Capital allocation","Growth / exit strategy"] },
+];
+
+let idx = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+const el = id => document.getElementById(id);
+function show(id){ ['intro','quiz','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+function start(){ idx=0; show('quiz'); render(); }
+function restart(){ answers.fill(null); idx=0; show('intro'); }
+
+function render(){
+  const q = QUESTIONS[idx];
+  el('q-count').textContent = `Question ${idx+1} of ${QUESTIONS.length}`;
+  el('q-progress').style.width = (idx/QUESTIONS.length)*100 + '%';
+  el('q-title').textContent = q.q;
+  const box = el('q-options'); box.innerHTML='';
+  q.opts.forEach((o,oi)=>{
+    const b=document.createElement('button');
+    b.className='opt'+(answers[idx]===oi?' sel':'');
+    b.innerHTML=`<span class="dot"></span><span class="lab">${o[0]}</span>`;
+    b.onclick=()=>choose(oi);
+    box.appendChild(b);
+  });
+  el('q-back').style.visibility = idx===0 ? 'hidden':'visible';
+}
+function choose(oi){
+  answers[idx]=oi; render();
+  setTimeout(()=>{ if(idx<QUESTIONS.length-1){ idx++; render(); } else finish(); }, 200);
+}
+function back(){ if(idx>0){ idx--; render(); } }
+
+function tierFor(total){
+  if(total<=10) return 0;
+  if(total<=20) return 1;
+  return 2;
+}
+function finish(){
+  const total = answers.reduce((s,a,i)=> s + (a===null?0:QUESTIONS[i].opts[a][1]), 0);
+  const t = TIERS[tierFor(total)];
+  show('result');
+  el('tier-name').textContent = t.key;
+  el('tier-time').textContent = t.time;
+  el('tier-desc').textContent = t.desc;
+  requestAnimationFrame(()=>{ el('tier-bar').style.transition='width 1s cubic-bezier(.34,1.2,.4,1)'; el('tier-bar').style.width = t.pct+'%'; });
+  el('cta-head').textContent = `${t.key} looks like your fit.`;
+  // deliverables
+  el('tier-delivs').innerHTML = t.items.map(i=>`<li><span class="d"></span>${i}</li>`).join('');
+  // scale
+  el('scale').innerHTML = TIERS.map(x=>`
+    <div class="row${x.key===t.key?' on':''}">
+      <span class="rn">${x.key}</span>
+      <span class="rt">${x.time}</span>
+      <span class="rd">${x.line}</span>
+    </div>`).join('');
+}
+</script>
+</body>
+</html>
