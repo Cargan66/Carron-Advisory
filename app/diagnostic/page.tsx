@@ -23,7 +23,12 @@ type Tier = {
   description: string;
   disclosure?: string;
   includes: string[];
-  cta: { label: string; href: string; variant: "primary" | "secondary" };
+  cta: {
+    label: string;
+    href: string;
+    variant: "primary" | "secondary";
+    raw?: boolean;
+  };
 };
 
 const tiers: Tier[] = [
@@ -31,7 +36,7 @@ const tiers: Tier[] = [
     tag: "Tier 1 · Free",
     name: "Free Health Check & Valuation",
     fee: "Free",
-    soon: true,
+    soon: false,
     description:
       "Enter about nine numbers from your management accounts — around two minutes — and get an instant read on where you stand.",
     includes: [
@@ -39,7 +44,7 @@ const tiers: Tier[] = [
       "Your key financial ratios",
       "An estimated business-value range, from two methods",
     ],
-    cta: { label: "Run your free check", href: "/diagnostic#notify", variant: "secondary" },
+    cta: { label: "Run your free check", href: "/health-check/", variant: "primary", raw: true },
   },
   {
     tag: "Tier 2 · R795",
@@ -228,13 +233,22 @@ export default function DiagnosticPage() {
                   )}
 
                   <div className="mt-auto pt-7">
-                    <Button
-                      href={tier.cta.href}
-                      variant={tier.cta.variant}
-                      className="w-full"
-                    >
-                      {tier.cta.label}
-                    </Button>
+                    {tier.cta.raw ? (
+                      <a
+                        href={tier.cta.href}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-2.5 text-sm font-medium tracking-wide text-emerald-deep shadow-[0_8px_30px_-12px_rgba(212,175,55,0.6)] transition-all duration-300 hover:-translate-y-0.5"
+                      >
+                        {tier.cta.label}
+                      </a>
+                    ) : (
+                      <Button
+                        href={tier.cta.href}
+                        variant={tier.cta.variant}
+                        className="w-full"
+                      >
+                        {tier.cta.label}
+                      </Button>
+                    )}
                   </div>
                 </div>
               </FadeInItem>
@@ -395,12 +409,19 @@ export default function DiagnosticPage() {
               Launching soon
             </span>
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl">
-              The Free Health Check and R795 Diagnostic are on their way
+              The R795 Diagnostic is on its way
             </h2>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-bone-muted">
-              The self-service tools aren&apos;t live yet. Leave your email and
-              we&apos;ll tell you the moment they open — or book a CFO Review now
-              if you&apos;d rather not wait.
+              Your{" "}
+              <a
+                href="/health-check/"
+                className="font-medium text-gold hover:text-gold-light"
+              >
+                Free Health Check &amp; Valuation
+              </a>{" "}
+              is live now. The paid R795 Top-5 Diagnostic — instant priorities ranked
+              from your numbers — is coming next. Leave your email and we&apos;ll tell
+              you the moment it opens, or book a CFO Review now.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button href="mailto:info@carron.co.za?subject=Notify%20me%20when%20the%20Carron%20financial%20tools%20launch">

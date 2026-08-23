@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Financial Health Check · Carron Business Advisory</title>
-<meta name="description" content="A free 3-minute financial health check: rate your business across 10 areas — cash, margins, debtors, growth — and get a health score, a red/amber/green read, and what to fix first.">
+<title>Financial Health Check & Valuation · Carron Business Advisory</title>
+<meta name="description" content="A free 2-minute financial health check and indicative business valuation. Enter about nine numbers from your management accounts and get a health score, your key ratios, and an estimated value range.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
 
   .panel{padding-top:clamp(24px,5vw,44px)}
   .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
-  h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(34px,7vw,58px);line-height:1.02;letter-spacing:-.01em;margin-bottom:22px}
+  h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,6.5vw,54px);line-height:1.03;letter-spacing:-.01em;margin-bottom:22px}
   h1 em{font-style:italic;color:var(--gold-light)}
   .lede{font-size:clamp(16px,2.4vw,19px);color:var(--sage);max-width:56ch;margin-bottom:14px}
   .lede.tight{color:var(--cream);opacity:.92}
@@ -44,40 +44,34 @@
   .btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
   .btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
 
-  .qhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
-  .qhead .domain{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
-  .qhead .count{font-size:12px;color:var(--sage);letter-spacing:.08em}
-  .progress-track{height:2px;background:var(--line-soft);margin:14px 0 34px;position:relative;overflow:hidden}
-  .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0;transition:width .4s cubic-bezier(.4,0,.2,1)}
-  .qtitle{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(22px,4vw,30px);line-height:1.18;margin-bottom:26px}
-
-  .options{display:flex;flex-direction:column;gap:10px}
-  .opt{text-align:left;width:100%;cursor:pointer;background:rgba(245,239,224,.03);border:1px solid var(--line-soft);border-radius:3px;padding:16px 18px;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px;transition:border-color .18s ease,background .18s ease;display:flex;align-items:center;gap:14px}
-  .opt:hover{border-color:var(--line);background:rgba(245,239,224,.055)}
-  .opt.sel{border-color:var(--gold);background:rgba(200,168,75,.10)}
-  .opt .dot{width:16px;height:16px;border-radius:50%;flex:none;border:1.5px solid var(--sage);position:relative;transition:border-color .18s}
-  .opt.sel .dot{border-color:var(--gold)}
-  .opt.sel .dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold)}
-  .opt .lab{flex:1}
-  .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px;flex-wrap:wrap}
+  /* number form */
+  .fields{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:560px){.fields{grid-template-columns:1fr 1fr}}
+  .field label{display:block;font-size:14px;color:var(--cream);margin-bottom:6px;font-weight:500}
+  .field .hint{color:var(--sage);font-size:12px;font-weight:400}
+  .inp{display:flex;align-items:center;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);border-radius:2px;padding:0 14px;transition:border-color .18s}
+  .inp:focus-within{border-color:var(--gold)}
+  .inp .pre{color:var(--sage);font-size:15px;padding-right:8px}
+  .inp input{flex:1;background:transparent;border:none;outline:none;padding:13px 0;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px}
+  .inp input::placeholder{color:rgba(157,196,176,.55)}
+  .formerr{color:var(--clay);font-size:13px;margin-top:14px;min-height:18px}
 
   /* result */
   .rlead{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:10px}
-  .scorebig{font-family:'Fraunces',serif;font-size:clamp(60px,14vw,96px);line-height:.95;text-align:center}
+  .scorebig{font-family:'Fraunces',serif;font-size:clamp(58px,13vw,92px);line-height:.95;text-align:center}
   .scoreof{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);text-align:center;margin-top:2px}
-  .bandlabel{font-family:'Fraunces',serif;font-size:clamp(26px,5vw,36px);text-align:center;margin-top:14px}
-  .banddesc{color:var(--sage);max-width:52ch;margin:12px auto 0;text-align:center;font-size:15px}
+  .bandlabel{font-family:'Fraunces',serif;font-size:clamp(24px,5vw,34px);text-align:center;margin-top:14px}
+  .banddesc{color:var(--sage);max-width:54ch;margin:12px auto 0;text-align:center;font-size:15px}
   .divider{border:0;border-top:1px solid var(--line);margin:34px 0}
   .sec-title{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
-  .dimrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
-  .dimrow .dn{display:flex;align-items:center;gap:11px;font-size:15px}
-  .dimrow .rag{width:11px;height:11px;border-radius:50%;flex:none}
-  .dimrow .dl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
-  .fix{border:1px solid var(--line-soft);border-radius:3px;padding:14px 16px;margin-bottom:10px}
-  .fix.red{border-color:rgba(196,106,84,.5);background:rgba(196,106,84,.08)}
-  .fix .fh{font-weight:600;font-size:14px;margin-bottom:4px;display:flex;align-items:center;gap:9px}
-  .fix .fd{font-size:14px;color:var(--cream);opacity:.9}
-  .fix .rag{width:9px;height:9px;border-radius:50%;flex:none}
+  .ratio{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .ratio .rn{display:flex;align-items:center;gap:11px;font-size:15px}
+  .ratio .rag{width:11px;height:11px;border-radius:50%;flex:none}
+  .ratio .rv{font-family:'Fraunces',serif;font-size:18px;white-space:nowrap}
+  .valbox{background:linear-gradient(180deg,rgba(200,168,75,.10),rgba(200,168,75,.02));border:1px solid var(--line);border-radius:4px;padding:clamp(20px,4vw,30px);text-align:center}
+  .valbox .vr{font-family:'Fraunces',serif;font-size:clamp(26px,5.5vw,40px);color:var(--gold-light);line-height:1.1}
+  .valbox .vm{font-size:13px;color:var(--sage);margin-top:14px;line-height:1.7}
+  .valdisc{font-size:12px;color:var(--sage);opacity:.85;margin-top:14px;line-height:1.55}
 
   .cta{margin-top:36px;padding:clamp(22px,4vw,32px);background:linear-gradient(180deg,rgba(200,168,75,.08),rgba(200,168,75,.02));border:1px solid var(--line);border-radius:4px;text-align:center}
   .cta h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,3.5vw,26px);margin-bottom:10px}
@@ -89,6 +83,7 @@
   .note{font-size:12px;color:var(--sage);margin-top:14px;opacity:.85}
   .subrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
   .footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px;flex-wrap:wrap}
   .hidden{display:none}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -98,8 +93,8 @@
 
   <header class="masthead">
     <div>
-      <div class="name">Financial Health Check</div>
-      <div class="sub">A 10-point diagnostic</div>
+      <div class="name">Health Check &amp; Valuation</div>
+      <div class="sub">Free · Financial Diagnostic</div>
     </div>
     <div class="spacer"></div>
     <img class="logo" src="/images/carron-logo-horizontal-white.png" alt="Carron Business Advisory" width="1320" height="510">
@@ -107,29 +102,27 @@
 
   <!-- INTRO -->
   <section id="intro" class="panel">
-    <div class="eyebrow">A 3-minute check</div>
-    <h1>Is your SME financially <em>healthy</em> — or just busy?</h1>
-    <p class="lede">Rate your business across the ten areas that decide financial health — cash, margins, debtors, debt and growth.</p>
-    <p class="lede tight">You'll get a health score out of 100, a red/amber/green read on every area, and a short list of what to fix first.</p>
+    <div class="eyebrow">A 2-minute check</div>
+    <h1>Where does your business stand — and what's it <em>worth</em>?</h1>
+    <p class="lede">Enter about nine numbers from your management accounts (rough figures are fine) and get an instant read: a health score, your key financial ratios, and an indicative value range.</p>
+    <p class="lede tight">No sign-up to see your result. Nothing is stored — the numbers stay in your browser.</p>
     <div class="meta-row">
-      <div class="meta"><div class="k">10</div><div class="v">Areas</div></div>
+      <div class="meta"><div class="k">9</div><div class="v">Numbers</div></div>
       <div class="meta"><div class="k">/100</div><div class="v">Health score</div></div>
-      <div class="meta"><div class="k">~3 min</div><div class="v">To complete</div></div>
+      <div class="meta"><div class="k">~2 min</div><div class="v">To complete</div></div>
     </div>
-    <button class="btn primary" onclick="start()">Start the check →</button>
+    <button class="btn primary" onclick="show('calc')">Start →</button>
   </section>
 
-  <!-- QUIZ -->
-  <section id="quiz" class="panel hidden">
-    <div class="qhead">
-      <span class="domain" id="q-domain"></span>
-      <span class="count" id="q-count"></span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="q-progress"></div></div>
-    <div class="qtitle" id="q-title"></div>
-    <div class="options" id="q-options"></div>
+  <!-- CALCULATOR -->
+  <section id="calc" class="panel hidden">
+    <div class="eyebrow">Your numbers</div>
+    <p class="lede" style="margin-bottom:26px">Annual figures unless noted. Estimates are fine — you can refine later.</p>
+    <div class="fields" id="fields"></div>
+    <div class="formerr" id="form-err"></div>
     <div class="navrow">
-      <button class="btn ghost" id="q-back" onclick="back()">← Back</button>
+      <button class="btn ghost" onclick="show('intro')">← Back</button>
+      <button class="btn primary" onclick="calculate()">See my result →</button>
     </div>
   </section>
 
@@ -142,30 +135,34 @@
     <p class="banddesc" id="band-desc"></p>
 
     <hr class="divider">
-    <div class="sec-title">Area by area</div>
-    <div id="dimensions"></div>
+    <div class="sec-title">Your key ratios</div>
+    <div id="ratios"></div>
 
     <hr class="divider">
-    <div class="sec-title">Fix these first</div>
-    <div id="fixes"></div>
+    <div class="sec-title">Indicative business value</div>
+    <div class="valbox">
+      <div class="vr" id="val-range"></div>
+      <div class="vm" id="val-methods"></div>
+      <div class="valdisc">Indicative and educational only — a very rough guide from simple rules of thumb, not a valuation. A real valuation depends on your industry, growth, assets, working capital, contracts, risk and buyer appetite, and should be prepared by a qualified adviser.</div>
+    </div>
 
     <div class="cta">
       <h3 id="cta-head">Want your full results?</h3>
-      <p>Leave your details and we'll email your health check and the one-page tracking checklist — or book a free discovery call to talk it through.</p>
+      <p>Leave your details and we'll email your health check, ratios and value estimate — or book a free discovery call to talk it through.</p>
       <div class="form">
         <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
         <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
         <button class="btn primary" onclick="submitLead()">Send me my results</button>
       </div>
-      <div class="note" id="lead-note">Your answers stay private. We'll only use your email to send your results.</div>
+      <div class="note" id="lead-note">Your numbers stay private. We'll only use your email to send your results.</div>
       <div class="subrow">
-        <a class="btn ghost" href="/resources/carron-financial-health-check.pdf" download>↓ Download the checklist</a>
+        <a class="btn ghost" href="/diagnostic">Go deeper: the R795 Diagnostic</a>
         <a class="btn ghost" href="/contact">Book a discovery call</a>
       </div>
     </div>
 
     <div class="navrow" style="justify-content:center;margin-top:24px">
-      <button class="btn ghost" onclick="restart()">↺ Retake the check</button>
+      <button class="btn ghost" onclick="show('calc')">↺ Edit my numbers</button>
     </div>
 
     <div class="footer">
@@ -177,108 +174,110 @@
 </div>
 
 <script>
-/* 10 areas — each option maps to a score: 2 = healthy (green), 1 = watch (amber), 0 = needs action (red).
-   action = what to do when the area isn't green. */
-const AREAS = [
-  { name:"Cash Position", action:"Build cash toward 2–3 months of operating expenses; invoice faster and tighten payables.",
-    opts:[["2–3+ months of expenses covered, creditors paid on time",2],["Under 2 months; sometimes tight",1],["Under 1 month; one delay from trouble",0]] },
-  { name:"Receivables Aging", action:"Chase overdue invoices the day they're due; renegotiate chronic late payers; add deposits or retainers.",
-    opts:[["Over 90% paid by their due date",2],["Roughly 70–90% on time",1],["Under 70%; chronic late payers",0]] },
-  { name:"Payables Management", action:"Build a payment calendar; negotiate longer terms with key suppliers rather than paying late.",
-    opts:[["Suppliers paid within terms, every time",2],["Occasionally late",1],["Often 30+ days late",0]] },
-  { name:"Gross Margin", action:"Investigate the gap — prices, COGS, discounts or product mix; look for pricing power and waste.",
-    opts:[["Healthy and stable for my model",2],["Slipping a little",1],["Declining, and I'm not sure why",0]] },
-  { name:"Operating Expense Ratio", action:"Audit fixed costs; grow revenue or trim overhead thoughtfully — don't just cut salaries.",
-    opts:[["Comfortably 50–70% of gross profit",2],["Creeping up",1],["Near 90%; a slow month hurts",0]] },
-  { name:"Net Margin", action:"Run a variance analysis — what changed? Aim for steady year-on-year improvement.",
-    opts:[["Solidly positive and improving",2],["Thin or flat",1],["Declining or negative while revenue grows",0]] },
-  { name:"Cash Conversion Cycle", action:"Reduce inventory, invoice same-day, and extend payables where you can without harming relationships.",
-    opts:[["Under 60 days (ideally 30–45)",2],["Around 60–90 days",1],["Over 90 days, and growing",0]] },
-  { name:"Debt-to-Revenue", action:"Grow revenue to grow out of debt; avoid new debt until the ratio improves.",
-    opts:[["Under 1.0 (debt less than a year's revenue)",2],["Between 1.0 and 2.0",1],["Over 2.0",0]] },
-  { name:"Revenue Concentration", action:"Actively diversify — build another revenue stream before your biggest customer sets the terms.",
-    opts:[["No customer over 30%; top three under 60%",2],["One customer is 30–50% of revenue",1],["Top customer is over 50%",0]] },
-  { name:"Year-over-Year Growth", action:"If revenue is growing but profit isn't, focus on margin, not volume.",
-    opts:[["Revenue and profit both growing",2],["Revenue up, profit flat",1],["Revenue up but profit down",0]] },
-];
-
-let idx = 0;
-const answers = new Array(AREAS.length).fill(null);
 const el = id => document.getElementById(id);
-function show(id){ ['intro','quiz','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
-function start(){ idx=0; show('quiz'); render(); }
-function restart(){ answers.fill(null); idx=0; leadBusy=false; show('intro'); }
+function show(id){ ['intro','calc','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 
-function render(){
-  const a = AREAS[idx];
-  el('q-domain').textContent = 'Area '+(idx+1)+' of '+AREAS.length;
-  el('q-count').textContent = a.name;
-  el('q-progress').style.width = (idx/AREAS.length)*100 + '%';
-  el('q-title').textContent = a.name + ' — which is closest?';
-  const box = el('q-options'); box.innerHTML='';
-  a.opts.forEach((o,oi)=>{
-    const b=document.createElement('button');
-    b.className='opt'+(answers[idx]===oi?' sel':'');
-    b.innerHTML='<span class="dot"></span><span class="lab">'+o[0]+'</span>';
-    b.onclick=()=>choose(oi);
-    box.appendChild(b);
-  });
-  el('q-back').style.visibility = idx===0 ? 'hidden':'visible';
+/* nine inputs */
+const INPUTS = [
+  { id:"revenue",  label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT" },
+  { id:"gross",    label:"Gross profit", hint:"Revenue minus direct costs (COGS)" },
+  { id:"opprofit", label:"Operating profit", hint:"Profit before interest & tax (roughly)" },
+  { id:"ownerpay", label:"Owner's pay", hint:"Your salary + drawings, per year" },
+  { id:"cash",     label:"Cash in the bank", hint:"Right now" },
+  { id:"opex",     label:"Monthly operating expenses", hint:"Rent, salaries, overheads per month" },
+  { id:"debtors",  label:"Debtors", hint:"Money customers owe you" },
+  { id:"creditors",label:"Creditors", hint:"Money you owe suppliers" },
+  { id:"debt",     label:"Total debt / loans", hint:"Outstanding balance" },
+];
+el('fields').innerHTML = INPUTS.map(f=>
+  '<div class="field"><label for="'+f.id+'">'+f.label+' <span class="hint">· '+f.hint+'</span></label>'
+  +'<div class="inp"><span class="pre">R</span><input id="'+f.id+'" inputmode="numeric" placeholder="0" oninput="fmtField(this)"></div></div>'
+).join('');
+
+function fmtField(inp){
+  const raw = inp.value.replace(/[^0-9]/g,'');
+  inp.value = raw ? Number(raw).toLocaleString('en-ZA') : '';
 }
-function choose(oi){ answers[idx]=oi; render(); setTimeout(()=>{ if(idx<AREAS.length-1){ idx++; render(); } else finish(); }, 200); }
-function back(){ if(idx>0){ idx--; render(); } }
+function num(id){ return parseFloat(String(el(id).value).replace(/[^0-9.\-]/g,'')) || 0; }
+function fmtR(n){ return 'R' + Math.round(n).toLocaleString('en-ZA'); }
+function round(n,step){ return Math.round(n/step)*step; }
 
-function ragOf(pts){ return pts===2?['var(--sage-bright)','Healthy']:pts===1?['var(--gold)','Watch']:['var(--clay)','Needs action']; }
+function ragDot(pts){ return pts===2?['var(--sage-bright)','Healthy']:pts===1?['var(--gold)','Watch']:['var(--clay)','Act']; }
 
-function finish(){
-  const total = answers.reduce((s,a,i)=> s + AREAS[i].opts[a][1], 0); // max 20
-  const score = Math.round(total/20*100);
+let RESULT=null;
+
+function calculate(){
+  const revenue=num('revenue'), gross=num('gross'), op=num('opprofit'), ownerpay=num('ownerpay'),
+        cash=num('cash'), opex=num('opex'), debtors=num('debtors'), creditors=num('creditors'), debt=num('debt');
+  if(revenue<=0){ el('form-err').textContent='Please enter your annual revenue to calculate a result.'; return; }
+  el('form-err').textContent='';
+
+  const grossM = gross/revenue;
+  const opM = op/revenue;
+  const runway = opex>0 ? cash/opex : (cash>0?12:0);
+  const debtRev = debt/revenue;
+  const liquidity = creditors>0 ? (cash+debtors)/creditors : (cash+debtors>0?3:1);
+
+  const R = [
+    { name:"Gross margin", val:(grossM*100).toFixed(0)+'%', pts: grossM>=0.4?2:grossM>=0.25?1:0 },
+    { name:"Operating margin", val:(opM*100).toFixed(0)+'%', pts: opM>=0.15?2:opM>=0.05?1:0 },
+    { name:"Cash runway", val: runway>=12?'12+ mo':runway.toFixed(1)+' mo', pts: runway>=3?2:runway>=1?1:0 },
+    { name:"Debt to revenue", val: debtRev.toFixed(2)+'×', pts: debtRev<1?2:debtRev<=2?1:0 },
+    { name:"Liquidity (cash+debtors vs creditors)", val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
+  ];
+  const total = R.reduce((s,r)=>s+r.pts,0);
+  const score = Math.round(total/10*100);
+
+  // valuation
+  const sde = op + ownerpay;
+  const earn = sde>0 ? [sde*2.5, sde*4.0] : null;
+  const rev = [revenue*0.4, revenue*0.8];
+  const head = earn ? earn : rev;
+  RESULT = { revenue, score, R, sde, earn, rev, head };
+  renderResult();
+}
+
+function renderResult(){
+  const r=RESULT;
   show('result');
-  // score count-up
   const t0=performance.now();
-  (function tick(t){ const p=Math.min(1,(t-t0)/900); el('score-num').textContent=Math.round(p*score); if(p<1) requestAnimationFrame(tick); })(t0);
-  // band
+  (function tick(t){ const p=Math.min(1,(t-t0)/900); el('score-num').textContent=Math.round(p*r.score); if(p<1) requestAnimationFrame(tick); })(t0);
   let label,desc,col;
-  const greens = answers.filter((a,i)=>AREAS[i].opts[a][1]===2).length;
-  if(score>=80){ label='Financially Healthy'; col='var(--sage-bright)'; desc='Strong across the board ('+greens+'/10 areas healthy). Protect what’s working, and stay ahead of any amber areas before they slip.'; }
-  else if(score>=50){ label='Some Cracks to Fix'; col='var(--gold-light)'; desc='A solid base with real gaps ('+greens+'/10 areas healthy). Fix the red areas first — they compound if ignored.'; }
-  else { label='Needs Attention'; col='var(--clay)'; desc='Several areas need work ('+greens+'/10 areas healthy). Start with cash and margin — and consider a structured review.'; }
-  el('band-label').textContent=label; el('band-label').style.color=col;
-  el('band-desc').textContent=desc;
-  el('score-num').style.color=col;
-  el('cta-head').textContent = 'Your score: '+score+'/100 — '+label+'.';
-  // area by area
-  el('dimensions').innerHTML = AREAS.map((a,i)=>{
-    const [c,lab]=ragOf(a.opts[answers[i]][1]);
-    return '<div class="dimrow"><span class="dn"><span class="rag" style="background:'+c+'"></span>'+a.name+'</span><span class="dl" style="color:'+c+'">'+lab+'</span></div>';
+  if(r.score>=80){ label='Financially Healthy'; col='var(--sage-bright)'; desc='Strong across the board. Protect what’s working and stay ahead of any amber ratios below.'; }
+  else if(r.score>=50){ label='Some Cracks to Fix'; col='var(--gold-light)'; desc='A solid base with real gaps. Focus on the red ratios first — they compound if ignored.'; }
+  else { label='Needs Attention'; col='var(--clay)'; desc='Several areas need work. Start with cash and margin — and consider a structured review.'; }
+  el('band-label').textContent=label; el('band-label').style.color=col; el('score-num').style.color=col;
+  el('cta-head').textContent='Your score: '+r.score+'/100 — '+label+'.';
+
+  el('ratios').innerHTML = r.R.map(x=>{ const [c,lab]=ragDot(x.pts);
+    return '<div class="ratio"><span class="rn"><span class="rag" style="background:'+c+'"></span>'+x.name+'</span><span class="rv" style="color:'+c+'">'+x.val+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· '+lab+'</span></span></div>';
   }).join('');
-  // fixes: red first, then amber
-  const gaps = AREAS.map((a,i)=>({a,pts:a.opts[answers[i]][1]})).filter(o=>o.pts<2).sort((x,y)=>x.pts-y.pts).slice(0,5);
-  el('fixes').innerHTML = gaps.length ? gaps.map(o=>{
-    const [c,lab]=ragOf(o.pts);
-    return '<div class="fix'+(o.pts===0?' red':'')+'"><div class="fh" style="color:'+c+'"><span class="rag" style="background:'+c+'"></span>'+o.a.name+' · '+lab+'</div><div class="fd">'+o.a.action+'</div></div>';
-  }).join('') : '<p class="banddesc" style="text-align:left;margin:0">No red or amber areas — your numbers are in good shape. Keep the discipline and re-check quarterly.</p>';
+
+  const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
+  el('val-range').textContent = fmtR(lo)+' – '+fmtR(hi);
+  let m = '<strong style="color:var(--cream)">How we got there</strong><br>';
+  if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
+  m += 'Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000));
+  if(!r.earn){ m += '<br>(Earnings method skipped — operating profit is not positive.)'; }
+  el('val-methods').innerHTML = m;
 }
 
 /* lead capture */
 let leadBusy=false;
 function submitLead(){
-  const name=el('lead-name').value.trim();
-  const email=el('lead-email').value.trim();
-  const note=el('lead-note');
+  const name=el('lead-name').value.trim(), email=el('lead-email').value.trim(), note=el('lead-note');
   if(!email || !/.+@.+\..+/.test(email)){ note.textContent='Please enter a valid email so we can send your results.'; note.style.color='var(--clay)'; return; }
-  if(leadBusy) return; leadBusy=true;
+  if(leadBusy||!RESULT) return; leadBusy=true;
   const btn=document.querySelector('.cta .btn.primary'); if(btn) btn.disabled=true;
   note.textContent='Sending…'; note.style.color='var(--sage)';
-  const total=answers.reduce((s,a,i)=>s+AREAS[i].opts[a][1],0); const score=Math.round(total/20*100);
-  const band=el('band-label').textContent;
-  const detail=AREAS.map((a,i)=>{ const [,lab]=ragOf(a.opts[answers[i]][1]); return a.name+': '+lab; }).join('\n');
+  const lo=round(RESULT.head[0],10000), hi=round(RESULT.head[1],10000);
+  const ratios=RESULT.R.map(x=>{ const [,lab]=ragDot(x.pts); return x.name+': '+x.val+' ('+lab+')'; }).join('\n');
   fetch('https://api.web3forms.com/submit',{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Financial Health Check lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,score:score+'/100',band:band,areas:detail,submitted:new Date().toISOString()})
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),ratios:ratios,submitted:new Date().toISOString()})
   }).then(r=>r.json()).then(res=>{
     if(!res||!res.success) throw new Error('fail');
-    note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+score+'/100</strong> result and we’ll email your full health check shortly.';
+    note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+RESULT.score+'/100</strong> result and we’ll email your full health check and value estimate shortly.';
     note.style.color='var(--sage-bright)';
   }).catch(()=>{ note.textContent='Something went wrong sending that. Please email info@carron.co.za and we’ll send your results.'; note.style.color='var(--clay)'; leadBusy=false; if(btn) btn.disabled=false; });
 }
