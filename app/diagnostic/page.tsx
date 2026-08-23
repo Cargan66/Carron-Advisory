@@ -38,7 +38,7 @@ const tiers: Tier[] = [
     fee: "Free",
     soon: false,
     description:
-      "Enter about nine numbers from your management accounts — around two minutes — and get an instant read on where you stand.",
+      "Enter about ten numbers from your management accounts — around two minutes — and get an instant read on where you stand.",
     includes: [
       "A financial health score out of 100",
       "Your key financial ratios",

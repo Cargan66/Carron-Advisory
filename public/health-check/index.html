@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Financial Health Check & Valuation · Carron Business Advisory</title>
-<meta name="description" content="A free 2-minute financial health check and indicative business valuation. Enter about nine numbers from your management accounts and get a health score, your key ratios, and an estimated value range.">
+<meta name="description" content="A free 2-minute financial health check and indicative business valuation. Enter about ten numbers from your management accounts and get a health score, your key ratios, and an estimated value range.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -104,10 +104,10 @@
   <section id="intro" class="panel">
     <div class="eyebrow">A 2-minute check</div>
     <h1>Where does your business stand — and what's it <em>worth</em>?</h1>
-    <p class="lede">Enter about nine numbers from your management accounts (rough figures are fine) and get an instant read: a health score, your key financial ratios, and an indicative value range.</p>
+    <p class="lede">Enter about ten numbers from your management accounts (rough figures are fine) and get an instant read: a health score, your key financial ratios, and an indicative value range.</p>
     <p class="lede tight">No sign-up to see your result. Nothing is stored — the numbers stay in your browser.</p>
     <div class="meta-row">
-      <div class="meta"><div class="k">9</div><div class="v">Numbers</div></div>
+      <div class="meta"><div class="k">10</div><div class="v">Numbers</div></div>
       <div class="meta"><div class="k">/100</div><div class="v">Health score</div></div>
       <div class="meta"><div class="k">~2 min</div><div class="v">To complete</div></div>
     </div>
@@ -177,7 +177,7 @@
 const el = id => document.getElementById(id);
 function show(id){ ['intro','calc','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 
-/* nine inputs */
+/* ten inputs */
 const INPUTS = [
   { id:"revenue",  label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT" },
   { id:"gross",    label:"Gross profit", hint:"Revenue minus direct costs (COGS)" },
@@ -186,6 +186,7 @@ const INPUTS = [
   { id:"cash",     label:"Cash in the bank", hint:"Right now" },
   { id:"opex",     label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include your own pay), overheads" },
   { id:"debtors",  label:"Debtors", hint:"Money customers owe you" },
+  { id:"assets",   label:"Other business assets", hint:"Equipment, vehicles, stock, property — excl. the cash & debtors above" },
   { id:"creditors",label:"Creditors", hint:"Money you owe suppliers" },
   { id:"debt",     label:"Total debt / loans", hint:"Outstanding balance" },
 ];
@@ -208,7 +209,8 @@ let RESULT=null;
 
 function calculate(){
   const revenue=num('revenue'), gross=num('gross'), op=num('opprofit'), ownerpay=num('ownerpay'),
-        cash=num('cash'), opex=num('opex'), debtors=num('debtors'), creditors=num('creditors'), debt=num('debt');
+        cash=num('cash'), opex=num('opex'), debtors=num('debtors'), assets=num('assets'),
+        creditors=num('creditors'), debt=num('debt');
   if(revenue<=0){ el('form-err').textContent='Please enter your annual revenue to calculate a result.'; return; }
   el('form-err').textContent='';
 
@@ -217,6 +219,10 @@ function calculate(){
   const runway = opex>0 ? cash/opex : (cash>0?12:0);
   const debtRev = debt/revenue;
   const liquidity = creditors>0 ? (cash+debtors)/creditors : (cash+debtors>0?3:1);
+  const totAssets = cash + debtors + assets;
+  const totLiab = creditors + debt;
+  const nav = totAssets - totLiab;                 // net asset value / owner's equity
+  const solvency = totLiab>0 ? totAssets/totLiab : (totAssets>0?3:1);
 
   const R = [
     { name:"Gross margin", val:(grossM*100).toFixed(0)+'%', pts: grossM>=0.4?2:grossM>=0.25?1:0 },
@@ -224,16 +230,19 @@ function calculate(){
     { name:"Cash runway", val: runway>=12?'12+ mo':runway.toFixed(1)+' mo', pts: runway>=3?2:runway>=1?1:0 },
     { name:"Debt to revenue", val: debtRev.toFixed(2)+'×', pts: debtRev<1?2:debtRev<=2?1:0 },
     { name:"Liquidity (cash+debtors vs creditors)", val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
+    { name:"Solvency (assets vs what you owe)", val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×', pts: solvency>=2?2:solvency>=1?1:0 },
   ];
   const total = R.reduce((s,r)=>s+r.pts,0);
-  const score = Math.round(total/10*100);
+  const score = Math.round(total/(R.length*2)*100);
 
   // valuation
   const sde = op + ownerpay;
   const earn = sde>0 ? [sde*2.5, sde*4.0] : null;
   const rev = [revenue*0.4, revenue*0.8];
-  const head = earn ? earn : rev;
-  RESULT = { revenue, score, R, sde, earn, rev, head };
+  let head = (earn ? earn : rev).slice();
+  // a going concern with real net assets is worth at least its net worth — floor the range at NAV
+  if(nav>0){ head = [Math.max(head[0], nav), Math.max(head[1], nav)]; }
+  RESULT = { revenue, score, R, sde, earn, rev, nav, head };
   renderResult();
 }
 
@@ -254,10 +263,11 @@ function renderResult(){
   }).join('');
 
   const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
-  el('val-range').textContent = fmtR(lo)+' – '+fmtR(hi);
+  el('val-range').textContent = lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi);
   let m = '<strong style="color:var(--cream)">How we got there</strong><br>';
   if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
-  m += 'Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000));
+  m += 'Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
+  m += 'Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.');
   if(!r.earn){ m += '<br>(Earnings method skipped — operating profit is not positive.)'; }
   el('val-methods').innerHTML = m;
 }
@@ -274,7 +284,7 @@ function submitLead(){
   const ratios=RESULT.R.map(x=>{ const [,lab]=ragDot(x.pts); return x.name+': '+x.val+' ('+lab+')'; }).join('\n');
   fetch('https://api.web3forms.com/submit',{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),ratios:ratios,submitted:new Date().toISOString()})
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),net_asset_value:fmtR(RESULT.nav),ratios:ratios,submitted:new Date().toISOString()})
   }).then(r=>r.json()).then(res=>{
     if(!res||!res.success) throw new Error('fail');
     note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+RESULT.score+'/100</strong> result and we’ll email your full health check and value estimate shortly.';
