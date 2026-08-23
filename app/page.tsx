@@ -68,10 +68,10 @@ export default function HomePage() {
                 cta: "Find your fit",
               },
               {
-                href: "/resources/financial-health-check",
+                href: "/health-check/",
                 badge: "10-point check",
                 title: "Financial Health Check",
-                desc: "Cash, margins, debtors and growth — a 20-minute diagnostic that shows exactly where the cracks are.",
+                desc: "Rate your business across cash, margins, debtors and growth — get a health score and what to fix first.",
                 cta: "Run the check",
               },
             ].map((t) => (
@@ -99,6 +99,21 @@ export default function HomePage() {
               </FadeInItem>
             ))}
           </FadeInStagger>
+
+          <FadeIn className="mt-12 flex flex-col items-center gap-3 border-t border-white/10 pt-10 text-center">
+            <p className="text-base text-bone/90">
+              Ready for a deeper, advisor-verified review?
+            </p>
+            <Link
+              href="/diagnostic"
+              className="inline-flex items-center gap-2 rounded-full border border-gold/60 px-6 py-3 text-sm font-semibold text-gold transition-colors hover:bg-gold/10"
+            >
+              See the Financial Performance Diagnostic
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+                <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </FadeIn>
         </div>
       </section>
 

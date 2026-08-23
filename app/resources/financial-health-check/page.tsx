@@ -204,8 +204,39 @@ export default function FinancialHealthCheckPage() {
             <span className="text-gold-gradient">10-Point Diagnostic</span>
           </>
         }
-        description="You run a profitable business and revenue is growing — but something feels off. This 20-minute diagnostic gives you clarity across the ten areas that decide whether your business is really in control of its numbers."
+        description="You run a profitable business and revenue is growing — but something feels off. This diagnostic gives you clarity across the ten areas that decide whether your business is really in control of its numbers."
       />
+
+      {/* Interactive tool CTA */}
+      <section className="bg-emerald-base pt-14 sm:pt-20">
+        <div className="container-luxe max-w-3xl">
+          <FadeIn>
+            <a
+              href="/health-check/"
+              className="group flex flex-col items-start gap-5 rounded-2xl border border-gold/30 bg-gradient-to-r from-gold/10 via-gold/5 to-transparent p-6 transition-all duration-300 hover:border-gold/60 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+            >
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+                  Interactive · 3 minutes
+                </span>
+                <p className="mt-2 text-lg font-semibold text-white">
+                  Prefer to just answer questions? Take the interactive check.
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-bone-muted">
+                  Rate your business across the ten areas below and get an instant health
+                  score, a red/amber/green read, and what to fix first.
+                </p>
+              </div>
+              <span className="inline-flex flex-none items-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-emerald-deep shadow-[0_8px_30px_-12px_rgba(212,175,55,0.6)] transition-transform duration-300 group-hover:-translate-y-0.5">
+                Run the check
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </a>
+          </FadeIn>
+        </div>
+      </section>
 
       <section className="bg-emerald-base py-20 sm:py-28">
         <div className="container-luxe max-w-3xl">
