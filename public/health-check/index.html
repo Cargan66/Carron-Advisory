@@ -61,6 +61,11 @@
 
   /* result */
   .rlead{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:10px}
+  .cbanner{border:1px solid var(--gold);background:rgba(200,168,75,.10);border-radius:6px;padding:14px 18px;margin:0 auto 28px;max-width:60ch;font-size:13.5px;line-height:1.55;color:var(--gold-light)}
+  .cbanner strong{color:var(--cream)}
+  .cbanner.hidden{display:none}
+  .ratio.na .rn{color:var(--sage);opacity:.75}
+  .ratio.na .rag{background:var(--line-soft)!important}
   .scorebig{font-family:'Fraunces',serif;font-size:clamp(58px,13vw,92px);line-height:.95;text-align:center}
   .scoreof{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);text-align:center;margin-top:2px}
   .bandlabel{font-family:'Fraunces',serif;font-size:clamp(24px,5vw,34px);text-align:center;margin-top:14px}
@@ -104,6 +109,8 @@
     .ps-head .ps-meta strong{display:block;font-family:'Fraunces',serif;font-size:13px;letter-spacing:.04em;color:#16412f;text-transform:none;margin-bottom:3px}
     #printsheet h2{font-family:'Fraunces',serif;font-weight:500;font-size:23px;color:#16412f;margin:0 0 8px}
     #printsheet .ps-desc{font-size:12.5px;color:#3a4a40;margin:0 0 8px;max-width:64ch}
+    .ps-caveat{font-size:11.5px;color:#7a5a1e;background:#faf3dd;border:1px solid #e3d29a;border-radius:5px;padding:9px 12px;margin:12px 0 4px;line-height:1.5}
+    .ps-caveat strong{color:#7a5a1e}
     #printsheet h3{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9a7d2e;margin:22px 0 8px;border-bottom:1px solid #e5ddc8;padding-bottom:6px}
     .ps-ratio{display:flex;justify-content:space-between;padding:6px 0;font-size:12.5px;border-bottom:1px solid #eee}
     .ps-ratio .st{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;margin-left:10px}
@@ -156,21 +163,28 @@
   <!-- RESULT -->
   <section id="result" class="panel hidden">
     <div class="rlead">Your financial health</div>
-    <div class="scorebig" id="score-num">0</div>
-    <div class="scoreof">Out of 100</div>
-    <div class="bandlabel" id="band-label"></div>
-    <p class="banddesc" id="band-desc"></p>
+    <div id="completeness" class="cbanner hidden"></div>
+    <div id="sec-score">
+      <div class="scorebig" id="score-num">0</div>
+      <div class="scoreof" id="score-of">Out of 100</div>
+      <div class="bandlabel" id="band-label"></div>
+      <p class="banddesc" id="band-desc"></p>
+    </div>
 
-    <hr class="divider">
-    <div class="sec-title">Your key ratios</div>
-    <div id="ratios"></div>
+    <div id="sec-ratios">
+      <hr class="divider">
+      <div class="sec-title">Your key ratios</div>
+      <div id="ratios"></div>
+    </div>
 
+    <div id="sec-value">
     <hr class="divider">
     <div class="sec-title">Indicative business value</div>
     <div class="valbox">
       <div class="vr" id="val-range"></div>
       <div class="vm" id="val-methods"></div>
       <div class="valdisc">Indicative and educational only — a very rough guide from simple rules of thumb, not a valuation. A real valuation depends on your industry, growth, assets, working capital, contracts, risk and buyer appetite, and should be prepared by a qualified adviser.</div>
+    </div>
     </div>
 
     <div class="cta">
@@ -241,6 +255,7 @@ function fmtField(inp){
   inp.value = raw ? Number(raw).toLocaleString('en-ZA') : '';
 }
 function num(id){ return parseFloat(String(el(id).value).replace(/[^0-9.\-]/g,'')) || 0; }
+function has(id){ return /\d/.test(el(id).value); }   // supplied? blank => no; a typed "0" counts as supplied
 function fmtR(n){ return 'R' + Math.round(n).toLocaleString('en-ZA'); }
 function round(n,step){ return Math.round(n/step)*step; }
 
@@ -265,31 +280,75 @@ function calculate(){
   const nav = totAssets - totLiab;                 // net asset value / owner's equity
   const solvency = totLiab>0 ? totAssets/totLiab : (totAssets>0?3:1);
 
+  // each ratio only counts if the numbers it needs were actually supplied (blank ≠ zero)
   const R = [
-    { name:"Gross margin", val:(grossM*100).toFixed(0)+'%', pts: grossM>=0.4?2:grossM>=0.25?1:0 },
-    { name:"Operating margin", val:(opM*100).toFixed(0)+'%', pts: opM>=0.15?2:opM>=0.05?1:0 },
-    { name:"Cash runway", val: runway>=12?'12+ mo':runway.toFixed(1)+' mo', pts: runway>=3?2:runway>=1?1:0 },
-    { name:"Debt to revenue", val: debtRev.toFixed(2)+'×', pts: debtRev<1?2:debtRev<=2?1:0 },
-    { name:"Liquidity (cash+debtors vs creditors)", val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
-    { name:"Solvency (assets vs what you owe)", val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×', pts: solvency>=2?2:solvency>=1?1:0 },
+    { name:"Gross margin", ok: has('revenue')&&has('gross'), val:(grossM*100).toFixed(0)+'%', pts: grossM>=0.4?2:grossM>=0.25?1:0 },
+    { name:"Operating margin", ok: has('revenue')&&has('opprofit'), val:(opM*100).toFixed(0)+'%', pts: opM>=0.15?2:opM>=0.05?1:0 },
+    { name:"Cash runway", ok: has('cash')&&has('opex'), val: runway>=12?'12+ mo':runway.toFixed(1)+' mo', pts: runway>=3?2:runway>=1?1:0 },
+    { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×', pts: debtRev<1?2:debtRev<=2?1:0 },
+    { name:"Liquidity (cash+debtors vs creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
+    { name:"Solvency (assets vs what you owe)", ok: (has('cash')||has('debtors')||has('assets'))&&(has('creditors')||has('debt')), val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×', pts: solvency>=2?2:solvency>=1?1:0 },
   ];
-  const total = R.reduce((s,r)=>s+r.pts,0);
-  const score = Math.round(total/(R.length*2)*100);
+  const applic = R.filter(x=>x.ok);
+  const earned = applic.reduce((s,x)=>s+x.pts,0);
+  const score = applic.length ? Math.round(earned/(applic.length*2)*100) : 0;
+
+  // completeness
+  const missing = INPUTS.filter(f=>!has(f.id)).map(f=>f.label);
+  const KEY = ['revenue','gross','opprofit','cash','opex'];
+  const keyMissing = KEY.filter(id=>!has(id)).map(id=>INPUTS.find(f=>f.id===id).label);
+  const tooFew = applic.length < 3;   // not enough supplied to say anything meaningful
 
   // valuation
+  const earnOk = has('opprofit');                          // need operating profit for an earnings value
   const sde = op + ownerpay;
-  const earn = sde>0 ? [sde*2.5, sde*4.0] : null;
+  const earn = (earnOk && sde>0) ? [sde*2.5, sde*4.0] : null;
   const rev = [revenue*0.4, revenue*0.8];
+  const navOk = has('cash')||has('debtors')||has('assets')||has('creditors')||has('debt');
   let head = (earn ? earn : rev).slice();
-  // a going concern with real net assets is worth at least its net worth — floor the range at NAV
-  if(nav>0){ head = [Math.max(head[0], nav), Math.max(head[1], nav)]; }
-  RESULT = { revenue, score, R, op, ownerpay, sde, earn, rev, nav, head };
+  if(navOk && nav>0){ head = [Math.max(head[0], nav), Math.max(head[1], nav)]; }
+  const valTooSmall = head[1] < 10000;                     // figures too small to value sensibly
+
+  RESULT = { revenue, score, R, applicCount: applic.length, op, ownerpay, sde, earn, earnOk, rev, nav, navOk, head,
+             missing, keyMissing, tooFew, valTooSmall, suppliedCount: 10-missing.length,
+             ownerpaySupplied: has('ownerpay') };
   renderResult();
 }
 
 function renderResult(){
   const r=RESULT;
   show('result');
+  const cb=el('completeness');
+
+  const canScore = r.applicCount >= 3;   // need at least 3 supplied ratios for a meaningful score
+  el('sec-score').classList.toggle('hidden', !canScore);
+  el('sec-ratios').classList.toggle('hidden', !canScore);
+  el('sec-value').classList.remove('hidden');   // a value only needs revenue, which is always present
+
+  // ---- banner: incomplete / partial / clean ----
+  const nilHint = ' Leave a box blank only if you truly don’t know it — enter 0 where a figure is genuinely nil.';
+  if(!canScore){
+    const need = r.keyMissing.length ? r.keyMissing.join(', ') : 'a few more figures';
+    cb.classList.remove('hidden');
+    cb.innerHTML = '<strong>We need a few more numbers to score your financial health.</strong><br>'
+      + 'You filled in '+r.suppliedCount+' of 10. Add at least: '+need+'.'
+      + (r.valTooSmall ? '' : ' An indicative value is shown below from what you gave.') + nilHint;
+    el('cta-head').textContent='Add your numbers to see your full result';
+    RESULT.band='Incomplete'; RESULT.bandDesc='Not enough figures supplied to score.';
+    renderValue(r);   // still show whatever value we can
+    return;
+  }
+  if(r.missing.length){
+    cb.classList.remove('hidden');
+    cb.innerHTML = '<strong>Heads-up: this is a partial result.</strong> '
+      + r.missing.length+' of 10 figures weren’t supplied ('+r.missing.join(', ')+'). '
+      + 'Your score is based only on the numbers you gave — add the rest for an accurate read.';
+    el('score-of').textContent='Out of 100 · based on the numbers you gave';
+  } else {
+    cb.classList.add('hidden');
+    el('score-of').textContent='Out of 100';
+  }
+
   const t0=performance.now();
   (function tick(t){ const p=Math.min(1,(t-t0)/900); el('score-num').textContent=Math.round(p*r.score); if(p<1) requestAnimationFrame(tick); })(t0);
   let label,desc,col;
@@ -301,17 +360,31 @@ function renderResult(){
   RESULT.band=label; RESULT.bandDesc=desc;
   el('cta-head').textContent='Your score: '+r.score+'/100 — '+label+'.';
 
-  el('ratios').innerHTML = r.R.map(x=>{ const [c,lab]=ragDot(x.pts);
+  el('ratios').innerHTML = r.R.map(x=>{
+    if(!x.ok){ return '<div class="ratio na"><span class="rn"><span class="rag"></span>'+x.name+'</span>'
+      +'<span class="rv" style="color:var(--sage)">— <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· Not supplied</span></span></div>'; }
+    const [c,lab]=ragDot(x.pts);
     return '<div class="ratio"><span class="rn"><span class="rag" style="background:'+c+'"></span>'+x.name+'</span><span class="rv" style="color:'+c+'">'+x.val+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· '+lab+'</span></span></div>';
   }).join('');
 
+  renderValue(r);
+}
+
+function renderValue(r){
   const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
-  el('val-range').textContent = lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi);
   let m = '<strong style="color:var(--cream)">How we got there</strong><br>';
-  if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+' + owner’s pay '+fmtR(r.ownerpay)+' added back) × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
+  if(r.valTooSmall){
+    el('val-range').textContent='—';
+    m += 'Your figures are too small to value sensibly — please check them and try again.';
+    el('val-methods').innerHTML = m;
+    return;
+  }
+  el('val-range').textContent = lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi);
+  if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
   m += 'Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
-  m += 'Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.');
-  if(!r.earn){ m += '<br>(Earnings method skipped — operating profit is not positive.)'; }
+  if(r.navOk){ m += 'Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.'); }
+  else { m += 'Net asset value: not calculated — no balance-sheet figures supplied.'; }
+  if(!r.earn){ m += '<br>(Earnings method skipped — '+(r.earnOk?'operating profit is not positive':'operating profit not supplied')+'.)'; }
   el('val-methods').innerHTML = m;
 }
 
@@ -320,24 +393,33 @@ function psStatusColor(lab){ return lab==='Healthy'?'#3f8f72':lab==='Watch'?'#b0
 function printResults(){
   if(!RESULT){ return; }
   const r=RESULT;
+  if(r.tooFew){ alert('Please add a few more numbers before saving — we need at least '+(r.keyMissing.join(', ')||'the core figures')+'.'); return; }
   const name=el('lead-name').value.trim();
   const d=new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
   const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
-  const rangeTxt = lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi);
-  const ratios = r.R.map(x=>{ const [,lab]=ragDot(x.pts); const c=psStatusColor(lab);
+  const rangeTxt = r.valTooSmall ? '—' : (lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi));
+  const ratios = r.R.map(x=>{
+    if(!x.ok){ return '<div class="ps-ratio"><span>'+x.name+'</span><span style="color:#8a978d">— <span class="st" style="color:#8a978d">Not supplied</span></span></div>'; }
+    const a=ragDot(x.pts); const lab=a[1]; const c=psStatusColor(lab);
     return '<div class="ps-ratio"><span>'+x.name+'</span><span><strong>'+x.val+'</strong>'
       +'<span class="st" style="color:'+c+'">● '+lab+'</span></span></div>'; }).join('');
   // rebuild the methods text (don't copy the dark-theme markup — its inline colours vanish on white)
   let methods='<strong>How we got there</strong><br>';
-  if(r.earn){ methods+='Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+' + owner’s pay '+fmtR(r.ownerpay)+' added back) × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
-  methods+='Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
-  methods+='Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.');
-  if(!r.earn){ methods+='<br>(Earnings method skipped — operating profit is not positive.)'; }
+  if(r.valTooSmall){ methods+='Your figures are too small to value sensibly — please check them.'; }
+  else {
+    if(r.earn){ methods+='Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
+    methods+='Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
+    if(r.navOk){ methods+='Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.'); }
+    else { methods+='Net asset value: not calculated — no balance-sheet figures supplied.'; }
+    if(!r.earn){ methods+='<br>(Earnings method skipped — '+(r.earnOk?'operating profit is not positive':'operating profit not supplied')+'.)'; }
+  }
+  const caveat = r.missing.length ? '<p class="ps-caveat"><strong>Partial result</strong> — '+r.missing.length+' of 10 figures weren’t supplied ('+r.missing.join(', ')+'). Based only on the numbers given.</p>' : '';
   el('printsheet').innerHTML =
     '<div class="ps-head"><img src="/images/carron-logo-horizontal-dark.png" alt="Carron Business Advisory">'
     +'<div class="ps-meta"><strong>Financial Health Check &amp; Valuation</strong>'+d+(name?' · '+name:'')+'</div></div>'
     +'<h2>Financial health score: '+r.score+'/100 — '+(r.band||'')+'</h2>'
     +'<p class="ps-desc">'+(r.bandDesc||'')+'</p>'
+    +caveat
     +'<h3>Key ratios</h3>'+ratios
     +'<h3>Indicative business value</h3><div class="ps-val">'+rangeTxt+'</div>'
     +'<div class="ps-methods">'+methods+'</div>'
