@@ -42,7 +42,7 @@ const tiers: Tier[] = [
     includes: [
       "A financial health score out of 100",
       "Your key financial ratios",
-      "An estimated business-value range, from two methods",
+      "An estimated business-value range (earnings, revenue and net-asset methods)",
     ],
     cta: { label: "Run your free check", href: "/health-check/", variant: "primary", raw: true },
   },

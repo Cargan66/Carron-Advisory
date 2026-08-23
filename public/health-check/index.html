@@ -45,8 +45,11 @@
   .btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
 
   /* number form */
-  .fields{display:grid;grid-template-columns:1fr;gap:16px}
-  @media(min-width:560px){.fields{grid-template-columns:1fr 1fr}}
+  .fields{display:grid;grid-template-columns:1fr;gap:28px}
+  @media(min-width:560px){.fields{grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,40px)}}
+  .col{display:flex;flex-direction:column;gap:16px}
+  .col-h{font-family:'Fraunces',serif;font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .col-h span{font-family:'Inter',sans-serif;font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:none;color:var(--sage)}
   .field label{display:block;font-size:14px;color:var(--cream);margin-bottom:6px;font-weight:500}
   .field .hint{color:var(--sage);font-size:12px;font-weight:400}
   .inp{display:flex;align-items:center;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);border-radius:2px;padding:0 14px;transition:border-color .18s}
@@ -177,22 +180,30 @@
 const el = id => document.getElementById(id);
 function show(id){ ['intro','calc','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 
-/* ten inputs */
+/* ten inputs — grouped by statement (bs = balance sheet, pl = profit & loss) */
 const INPUTS = [
-  { id:"revenue",  label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT" },
-  { id:"gross",    label:"Gross profit", hint:"Revenue minus direct costs (COGS)" },
-  { id:"opprofit", label:"Operating profit", hint:"Profit before interest & tax (roughly)" },
-  { id:"ownerpay", label:"Owner's pay", hint:"Your salary + drawings, per year" },
-  { id:"cash",     label:"Cash in the bank", hint:"Right now" },
-  { id:"opex",     label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include your own pay), overheads" },
-  { id:"debtors",  label:"Debtors", hint:"Money customers owe you" },
-  { id:"assets",   label:"Other business assets", hint:"Equipment, vehicles, stock, property — excl. the cash & debtors above" },
-  { id:"creditors",label:"Creditors", hint:"Money you owe suppliers" },
-  { id:"debt",     label:"Total debt / loans", hint:"Outstanding balance" },
+  { id:"revenue",  group:"pl", label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT" },
+  { id:"gross",    group:"pl", label:"Gross profit", hint:"Revenue minus direct costs (COGS)" },
+  { id:"opprofit", group:"pl", label:"Operating profit", hint:"Profit before interest & tax (roughly)" },
+  { id:"ownerpay", group:"pl", label:"Owner's pay", hint:"Your salary + drawings, per year" },
+  { id:"opex",     group:"pl", label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include your own pay), overheads" },
+  { id:"cash",     group:"bs", label:"Cash in the bank", hint:"Right now" },
+  { id:"debtors",  group:"bs", label:"Debtors", hint:"Money customers owe you" },
+  { id:"assets",   group:"bs", label:"Other business assets", hint:"Equipment, vehicles, stock, property — excl. the cash & debtors above" },
+  { id:"creditors",group:"bs", label:"Creditors", hint:"Money you owe suppliers" },
+  { id:"debt",     group:"bs", label:"Total debt / loans", hint:"Outstanding balance" },
 ];
-el('fields').innerHTML = INPUTS.map(f=>
+const fieldHTML = f =>
   '<div class="field"><label for="'+f.id+'">'+f.label+' <span class="hint">· '+f.hint+'</span></label>'
-  +'<div class="inp"><span class="pre">R</span><input id="'+f.id+'" inputmode="numeric" placeholder="0" oninput="fmtField(this)"></div></div>'
+  +'<div class="inp"><span class="pre">R</span><input id="'+f.id+'" inputmode="numeric" placeholder="0" oninput="fmtField(this)"></div></div>';
+const COLS = [
+  { key:"bs", title:"Balance sheet", note:"What you own & owe" },
+  { key:"pl", title:"Profit &amp; loss", note:"How you trade" },
+];
+el('fields').innerHTML = COLS.map(c=>
+  '<div class="col"><div class="col-h">'+c.title+' <span>· '+c.note+'</span></div>'
+  + INPUTS.filter(f=>f.group===c.key).map(fieldHTML).join('')
+  + '</div>'
 ).join('');
 
 function fmtField(inp){
