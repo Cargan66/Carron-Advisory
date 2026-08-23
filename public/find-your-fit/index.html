@@ -88,6 +88,11 @@
   .cta{margin-top:36px;padding:clamp(22px,4vw,32px);background:linear-gradient(180deg,rgba(200,168,75,.08),rgba(200,168,75,.02));border:1px solid var(--line);border-radius:4px;text-align:center}
   .cta h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,3.5vw,26px);margin-bottom:10px}
   .cta p{color:var(--sage);font-size:15px;margin-bottom:20px;max-width:54ch;margin-left:auto;margin-right:auto}
+  .form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .form input{flex:1;min-width:180px;max-width:260px;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);border-radius:2px;padding:14px 16px;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px}
+  .form input::placeholder{color:rgba(157,196,176,.6)}
+  .form input:focus{outline:none;border-color:var(--gold)}
+  .note{font-size:12px;color:var(--sage);margin-top:14px;opacity:.85}
   .footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   .hidden{display:none}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -151,8 +156,13 @@
 
     <div class="cta">
       <h3 id="cta-head">Let's confirm your fit.</h3>
-      <p>A free, no-obligation discovery call is the quickest way to confirm the right level — and there's no pressure to commit to anything ongoing.</p>
-      <a class="btn primary" href="/contact">Book a discovery call</a>
+      <p>Want your recommendation and next steps in writing? Leave your details and we'll email them over — or book a free, no-obligation discovery call to confirm the right level.</p>
+      <div class="form">
+        <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
+        <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
+        <button class="btn primary" onclick="submitLead()">Send me my fit</button>
+      </div>
+      <div class="note" id="lead-note">Your answers stay private. We'll only use your email to send your recommendation. Prefer to talk? <a href="/contact" style="color:var(--gold-light)">Book a discovery call</a>.</div>
     </div>
 
     <div class="navrow" style="justify-content:center;margin-top:24px">
@@ -257,6 +267,44 @@ function finish(){
       <span class="rt">${x.time}</span>
       <span class="rd">${x.line}</span>
     </div>`).join('');
+}
+
+let leadBusy=false;
+function submitLead(){
+  const name=el('lead-name').value.trim();
+  const email=el('lead-email').value.trim();
+  const note=el('lead-note');
+  if(!email || !/.+@.+\..+/.test(email)){
+    note.textContent='Please enter a valid email so we can send your recommendation.';
+    note.style.color='var(--clay)'; return;
+  }
+  if(leadBusy) return; leadBusy=true;
+  const btn=document.querySelector('.cta .btn.primary'); if(btn) btn.disabled=true;
+  note.textContent='Sending…'; note.style.color='var(--sage)';
+  const tier=el('tier-name').textContent;
+  const picks=answers.map((a,i)=> (i+1)+'. '+QUESTIONS[i].q+' → '+(a===null?'—':QUESTIONS[i].opts[a][0])).join('\n');
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({
+      access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',
+      subject:'New Find-Your-Fit lead — '+(name||email),
+      from_name:'Carron Find Your Fit',
+      name:name||'—',
+      email:email,
+      recommended_tier:tier,
+      answers:picks,
+      submitted:new Date().toISOString()
+    })
+  }).then(r=>r.json()).then(res=>{
+    if(!res || !res.success) throw new Error('fail');
+    note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+tier+'</strong> result and we’ll email your recommendation and next steps shortly.';
+    note.style.color='var(--sage-bright)';
+  }).catch(()=>{
+    note.textContent='Something went wrong sending that. Please email info@carron.co.za and we’ll send your recommendation.';
+    note.style.color='var(--clay)';
+    leadBusy=false; if(btn) btn.disabled=false;
+  });
 }
 </script>
 </body>

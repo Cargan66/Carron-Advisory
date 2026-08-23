@@ -205,6 +205,45 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Find Your Fit — quiz banner (links to the static tool) */}
+      <section className="bg-emerald-base pb-24 sm:pb-32">
+        <div className="container-luxe">
+          <FadeIn>
+            <a
+              href="/find-your-fit/"
+              className="group flex flex-col items-start gap-6 rounded-3xl border border-gold/25 bg-gradient-to-r from-gold/10 via-gold/5 to-transparent p-8 transition-all duration-500 hover:-translate-y-0.5 hover:border-gold/50 sm:flex-row sm:items-center sm:justify-between sm:p-10"
+            >
+              <div className="flex items-center gap-6">
+                <span className="hidden h-16 w-16 flex-none items-center justify-center rounded-full border border-gold/40 bg-gold/5 text-gold sm:flex">
+                  <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden>
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+                    90-second quiz
+                  </span>
+                  <h2 className="mt-2 text-2xl font-bold leading-tight text-white sm:text-3xl">
+                    Not sure how much finance support you need?
+                  </h2>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-bone/90 sm:text-base">
+                    Answer ten quick questions and we&apos;ll point you to the right tier —
+                    Advisory, Growth or Strategic — and what it includes.
+                  </p>
+                </div>
+              </div>
+              <span className="inline-flex flex-none items-center gap-2 rounded-full bg-gold-gradient px-7 py-3.5 text-base font-medium text-emerald-deep shadow-[0_8px_30px_-12px_rgba(212,175,55,0.6)] transition-transform duration-300 group-hover:-translate-y-0.5">
+                Find your fit
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </a>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* See your numbers clearly — dashboard + growth */}
       <section className="bg-emerald-section py-24 sm:py-32">
         <div className="container-luxe grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
