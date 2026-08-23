@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/Button";
+import { EngagementTiers } from "@/components/EngagementTiers";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
 import { engagementModels, engagementSteps } from "@/lib/content";
 
@@ -26,6 +27,9 @@ export default function EngagementPage() {
         }
         description="Three bounded ways to work together, each with a clear scope, agreed deliverables, and no assumption of unlimited availability."
       />
+
+      {/* Level of support — intensity tiers */}
+      <EngagementTiers />
 
       {/* Models */}
       <section className="bg-emerald-base py-24 sm:py-32">
