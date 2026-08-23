@@ -89,6 +89,30 @@
   .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px;flex-wrap:wrap}
   .hidden{display:none}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  /* printable one-page results sheet (light) */
+  #printsheet{display:none}
+  @media print{
+    @page{margin:16mm}
+    body{background:#fff!important;color:#12241a!important;padding:0!important}
+    .wrap{max-width:none}
+    .wrap>section:not(#printsheet), header.masthead{display:none!important}
+    #printsheet{display:block!important;font-family:'Inter',system-ui,sans-serif;color:#12241a}
+    .ps-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #16412f;padding-bottom:12px;margin-bottom:22px}
+    .ps-head img{height:50px;width:auto}
+    .ps-head .ps-meta{text-align:right;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#5b6b60}
+    .ps-head .ps-meta strong{display:block;font-family:'Fraunces',serif;font-size:13px;letter-spacing:.04em;color:#16412f;text-transform:none;margin-bottom:3px}
+    #printsheet h2{font-family:'Fraunces',serif;font-weight:500;font-size:23px;color:#16412f;margin:0 0 8px}
+    #printsheet .ps-desc{font-size:12.5px;color:#3a4a40;margin:0 0 8px;max-width:64ch}
+    #printsheet h3{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9a7d2e;margin:22px 0 8px;border-bottom:1px solid #e5ddc8;padding-bottom:6px}
+    .ps-ratio{display:flex;justify-content:space-between;padding:6px 0;font-size:12.5px;border-bottom:1px solid #eee}
+    .ps-ratio .st{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;margin-left:10px}
+    .ps-val{font-family:'Fraunces',serif;font-size:26px;color:#16412f;margin:2px 0 6px}
+    .ps-methods{font-size:11.5px;color:#3a4a40;line-height:1.65}
+    .ps-methods strong{color:#16412f}
+    .ps-disc{font-size:10px;color:#6a776e;margin-top:16px;line-height:1.5}
+    .ps-foot{margin-top:24px;padding-top:12px;border-top:1px solid #16412f;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#5b6b60;display:flex;justify-content:space-between;gap:12px}
+  }
 </style>
 </head>
 <body>
@@ -151,13 +175,16 @@
 
     <div class="cta">
       <h3 id="cta-head">Want your full results?</h3>
-      <p>Leave your details and we'll email your health check, ratios and value estimate — or book a free discovery call to talk it through.</p>
+      <p>Your results are shown above — save a copy for your records. Want a second opinion, or a plan to act on them? Leave your details and we'll follow up, or book a free discovery call.</p>
+      <div style="margin-bottom:18px">
+        <button class="btn primary" onclick="printResults()">⤓ Save / print my results (PDF)</button>
+      </div>
       <div class="form">
         <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
         <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
-        <button class="btn primary" onclick="submitLead()">Send me my results</button>
+        <button class="btn ghost" id="lead-btn" onclick="submitLead()">Ask Carron to follow up</button>
       </div>
-      <div class="note" id="lead-note">Your numbers stay private. We'll only use your email to send your results.</div>
+      <div class="note" id="lead-note">Your numbers stay private. We'll only use your email to follow up — no spam.</div>
       <div class="subrow">
         <a class="btn ghost" href="/diagnostic">Go deeper: the R795 Diagnostic</a>
         <a class="btn ghost" href="/contact">Book a discovery call</a>
@@ -173,6 +200,9 @@
       <span>Fractional CFO for SA SMEs</span>
     </div>
   </section>
+
+  <!-- PRINTABLE RESULTS SHEET (light, print only) -->
+  <section id="printsheet"></section>
 
 </div>
 
@@ -267,6 +297,8 @@ function renderResult(){
   else if(r.score>=50){ label='Some Cracks to Fix'; col='var(--gold-light)'; desc='A solid base with real gaps. Focus on the red ratios first — they compound if ignored.'; }
   else { label='Needs Attention'; col='var(--clay)'; desc='Several areas need work. Start with cash and margin — and consider a structured review.'; }
   el('band-label').textContent=label; el('band-label').style.color=col; el('score-num').style.color=col;
+  el('band-desc').textContent=desc;
+  RESULT.band=label; RESULT.bandDesc=desc;
   el('cta-head').textContent='Your score: '+r.score+'/100 — '+label+'.';
 
   el('ratios').innerHTML = r.R.map(x=>{ const [c,lab]=ragDot(x.pts);
@@ -283,13 +315,46 @@ function renderResult(){
   el('val-methods').innerHTML = m;
 }
 
+/* printable one-page results sheet */
+function psStatusColor(lab){ return lab==='Healthy'?'#3f8f72':lab==='Watch'?'#b08a2e':'#b3583f'; }
+function printResults(){
+  if(!RESULT){ return; }
+  const r=RESULT;
+  const name=el('lead-name').value.trim();
+  const d=new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
+  const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
+  const rangeTxt = lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi);
+  const ratios = r.R.map(x=>{ const [,lab]=ragDot(x.pts); const c=psStatusColor(lab);
+    return '<div class="ps-ratio"><span>'+x.name+'</span><span><strong>'+x.val+'</strong>'
+      +'<span class="st" style="color:'+c+'">● '+lab+'</span></span></div>'; }).join('');
+  // rebuild the methods text (don't copy the dark-theme markup — its inline colours vanish on white)
+  let methods='<strong>How we got there</strong><br>';
+  if(r.earn){ methods+='Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+' + owner’s pay '+fmtR(r.ownerpay)+' added back) × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
+  methods+='Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
+  methods+='Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.');
+  if(!r.earn){ methods+='<br>(Earnings method skipped — operating profit is not positive.)'; }
+  el('printsheet').innerHTML =
+    '<div class="ps-head"><img src="/images/carron-logo-horizontal-dark.png" alt="Carron Business Advisory">'
+    +'<div class="ps-meta"><strong>Financial Health Check &amp; Valuation</strong>'+d+(name?' · '+name:'')+'</div></div>'
+    +'<h2>Financial health score: '+r.score+'/100 — '+(r.band||'')+'</h2>'
+    +'<p class="ps-desc">'+(r.bandDesc||'')+'</p>'
+    +'<h3>Key ratios</h3>'+ratios
+    +'<h3>Indicative business value</h3><div class="ps-val">'+rangeTxt+'</div>'
+    +'<div class="ps-methods">'+methods+'</div>'
+    +'<p class="ps-disc">Indicative and educational only — a very rough guide from simple rules of thumb, not a valuation. '
+    +'A real valuation depends on your industry, growth, assets, working capital, contracts, risk and buyer appetite, and should be prepared by a qualified adviser.</p>'
+    +'<div class="ps-foot"><span>Carron Business Advisory · info@carron.co.za</span>'
+    +'<span>Fractional CFO for SA SMEs · Prepared '+d+'</span></div>';
+  window.print();
+}
+
 /* lead capture */
 let leadBusy=false;
 function submitLead(){
   const name=el('lead-name').value.trim(), email=el('lead-email').value.trim(), note=el('lead-note');
-  if(!email || !/.+@.+\..+/.test(email)){ note.textContent='Please enter a valid email so we can send your results.'; note.style.color='var(--clay)'; return; }
+  if(!email || !/.+@.+\..+/.test(email)){ note.textContent='Please enter a valid email so we can follow up.'; note.style.color='var(--clay)'; return; }
   if(leadBusy||!RESULT) return; leadBusy=true;
-  const btn=document.querySelector('.cta .btn.primary'); if(btn) btn.disabled=true;
+  const btn=el('lead-btn'); if(btn) btn.disabled=true;
   note.textContent='Sending…'; note.style.color='var(--sage)';
   const lo=round(RESULT.head[0],10000), hi=round(RESULT.head[1],10000);
   const ratios=RESULT.R.map(x=>{ const [,lab]=ragDot(x.pts); return x.name+': '+x.val+' ('+lab+')'; }).join('\n');
@@ -298,9 +363,9 @@ function submitLead(){
     body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),net_asset_value:fmtR(RESULT.nav),ratios:ratios,submitted:new Date().toISOString()})
   }).then(r=>r.json()).then(res=>{
     if(!res||!res.success) throw new Error('fail');
-    note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+RESULT.score+'/100</strong> result and we’ll email your full health check and value estimate shortly.';
+    note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+RESULT.score+'/100</strong> result and we’ll be in touch shortly. Use <strong style="color:var(--gold-light)">Save / print my results</strong> above to keep a copy now.';
     note.style.color='var(--sage-bright)';
-  }).catch(()=>{ note.textContent='Something went wrong sending that. Please email info@carron.co.za and we’ll send your results.'; note.style.color='var(--clay)'; leadBusy=false; if(btn) btn.disabled=false; });
+  }).catch(()=>{ note.textContent='Something went wrong. Please email info@carron.co.za and we’ll follow up.'; note.style.color='var(--clay)'; leadBusy=false; if(btn) btn.disabled=false; });
 }
 </script>
 </body>
