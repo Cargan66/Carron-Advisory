@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Financial Health Check & Valuation · Carron Business Advisory</title>
-<meta name="description" content="A free 2-minute financial health check and indicative business valuation. Enter about ten numbers from your management accounts and get a health score, your key ratios, and an estimated value range.">
+<meta name="description" content="A free 2-minute financial health check and indicative business valuation. Enter about ten numbers from your management accounts and get a health score, your key ratios benchmarked against your industry sector, and an estimated value range.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -57,6 +57,9 @@
   .inp .pre{color:var(--sage);font-size:15px;padding-right:8px}
   .inp input{flex:1;background:transparent;border:none;outline:none;padding:13px 0;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px}
   .inp input::placeholder{color:rgba(157,196,176,.55)}
+  .selwrap .inp{padding:0 14px}
+  .selwrap select{flex:1;background:transparent;border:none;outline:none;padding:14px 0;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239dc4b0' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right center}
+  .selwrap select option{background:var(--green-800);color:var(--cream)}
   .formerr{color:var(--clay);font-size:13px;margin-top:14px;min-height:18px}
 
   /* result */
@@ -73,8 +76,9 @@
   .divider{border:0;border-top:1px solid var(--line);margin:34px 0}
   .sec-title{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
   .ratio{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
-  .ratio .rn{display:flex;align-items:center;gap:11px;font-size:15px}
-  .ratio .rag{width:11px;height:11px;border-radius:50%;flex:none}
+  .ratio .rn{display:flex;align-items:flex-start;gap:11px;font-size:15px}
+  .ratio .rn .bench{display:block;font-size:11px;letter-spacing:.06em;color:var(--sage);opacity:.85;margin-top:2px}
+  .ratio .rag{width:11px;height:11px;border-radius:50%;flex:none;margin-top:5px}
   .ratio .rv{font-family:'Fraunces',serif;font-size:18px;white-space:nowrap}
   .valbox{background:linear-gradient(180deg,rgba(200,168,75,.10),rgba(200,168,75,.02));border:1px solid var(--line);border-radius:4px;padding:clamp(20px,4vw,30px);text-align:center}
   .valbox .vr{font-family:'Fraunces',serif;font-size:clamp(26px,5.5vw,40px);color:var(--gold-light);line-height:1.1}
@@ -112,8 +116,9 @@
     .ps-caveat{font-size:11.5px;color:#7a5a1e;background:#faf3dd;border:1px solid #e3d29a;border-radius:5px;padding:9px 12px;margin:12px 0 4px;line-height:1.5}
     .ps-caveat strong{color:#7a5a1e}
     #printsheet h3{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9a7d2e;margin:22px 0 8px;border-bottom:1px solid #e5ddc8;padding-bottom:6px}
-    .ps-ratio{display:flex;justify-content:space-between;padding:6px 0;font-size:12.5px;border-bottom:1px solid #eee}
+    .ps-ratio{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;font-size:12.5px;border-bottom:1px solid #eee}
     .ps-ratio .st{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;margin-left:10px}
+    .ps-ratio .psb{display:block;font-size:9px;color:#8a978d;margin-top:1px;letter-spacing:.02em}
     .ps-val{font-family:'Fraunces',serif;font-size:26px;color:#16412f;margin:2px 0 6px}
     .ps-methods{font-size:11.5px;color:#3a4a40;line-height:1.65}
     .ps-methods strong{color:#16412f}
@@ -138,7 +143,7 @@
   <section id="intro" class="panel">
     <div class="eyebrow">A 2-minute check</div>
     <h1>Where does your business stand — and what's it <em>worth</em>?</h1>
-    <p class="lede">Enter about ten numbers from your management accounts (rough figures are fine) and get an instant read: a health score, your key financial ratios, and an indicative value range.</p>
+    <p class="lede">Pick your industry, enter about ten numbers from your management accounts (rough figures are fine), and get an instant read: a health score, your key ratios benchmarked against your sector, and an indicative value range.</p>
     <p class="lede tight">No sign-up to see your result. Nothing is stored — the numbers stay in your browser.</p>
     <div class="meta-row">
       <div class="meta"><div class="k">10</div><div class="v">Numbers</div></div>
@@ -151,7 +156,11 @@
   <!-- CALCULATOR -->
   <section id="calc" class="panel hidden">
     <div class="eyebrow">Your numbers</div>
-    <p class="lede" style="margin-bottom:26px">Annual figures unless noted. Estimates are fine — you can refine later.</p>
+    <p class="lede" style="margin-bottom:22px">Annual figures unless noted. Estimates are fine — you can refine later.</p>
+    <div class="field selwrap" style="margin-bottom:24px">
+      <label for="sector">Industry sector <span class="hint">· required — so we can compare you to your sector</span></label>
+      <div class="inp"><select id="sector" onchange="if(el('sector').value)el('form-err').textContent=''"><option value="">Select your sector…</option></select></div>
+    </div>
     <div class="fields" id="fields"></div>
     <div class="formerr" id="form-err"></div>
     <div class="navrow">
@@ -173,7 +182,7 @@
 
     <div id="sec-ratios">
       <hr class="divider">
-      <div class="sec-title">Your key ratios</div>
+      <div class="sec-title" id="ratios-title">Your key ratios</div>
       <div id="ratios"></div>
     </div>
 
@@ -250,6 +259,30 @@ el('fields').innerHTML = COLS.map(c=>
   + '</div>'
 ).join('');
 
+/* Industry sectors with indicative, generally-accepted benchmark ranges (%).
+   gm = typical gross margin [low, high]; om = typical operating margin [low, high].
+   Scoring for those two ratios is sector-relative: >=high => Healthy, >=low => Watch, else Act.
+   Ranges are indicative starting points — refine with authoritative data later. */
+const SECTORS = {
+  retail:      { label:"Retail & wholesale",            gm:[20,40], om:[3,8]   },
+  hospitality: { label:"Hospitality & food service",    gm:[55,70], om:[5,12]  },
+  construction:{ label:"Construction & trades",         gm:[15,30], om:[5,10]  },
+  proservices: { label:"Professional & business services", gm:[50,80], om:[15,30] },
+  manufacturing:{label:"Manufacturing",                 gm:[25,45], om:[8,15]  },
+  transport:   { label:"Transport & logistics",         gm:[20,40], om:[5,12]  },
+  agriculture: { label:"Agriculture",                   gm:[20,40], om:[8,20]  },
+  healthcare:  { label:"Healthcare & medical",          gm:[40,65], om:[12,25] },
+  education:   { label:"Education & training",          gm:[40,65], om:[8,18]  },
+  tech:        { label:"IT, software & tech",           gm:[60,85], om:[15,30] },
+  financial:   { label:"Financial & insurance services",gm:[50,80], om:[15,30] },
+  property:    { label:"Real estate & property",        gm:[40,70], om:[15,35] },
+  personal:    { label:"Personal & other services",     gm:[45,70], om:[8,18]  },
+  creative:    { label:"Creative, media & marketing",   gm:[45,70], om:[10,20] },
+  other:       { label:"Other / not listed",            gm:[25,40], om:[5,15]  },   // generally-accepted fallback
+};
+el('sector').insertAdjacentHTML('beforeend',
+  Object.keys(SECTORS).map(k=>'<option value="'+k+'">'+SECTORS[k].label+'</option>').join(''));
+
 function fmtField(inp){
   const raw = inp.value.replace(/[^0-9]/g,'');
   inp.value = raw ? Number(raw).toLocaleString('en-ZA') : '';
@@ -267,8 +300,11 @@ function calculate(){
   const revenue=num('revenue'), gross=num('gross'), op=num('opprofit'), ownerpay=num('ownerpay'),
         cash=num('cash'), opex=num('opex'), debtors=num('debtors'), assets=num('assets'),
         creditors=num('creditors'), debt=num('debt');
+  const sector = el('sector').value;
+  if(!sector){ el('form-err').textContent='Please select your industry sector.'; el('sector').focus(); return; }
   if(revenue<=0){ el('form-err').textContent='Please enter your annual revenue to calculate a result.'; return; }
   el('form-err').textContent='';
+  const B = SECTORS[sector];
 
   const grossM = gross/revenue;
   const opM = op/revenue;
@@ -281,13 +317,20 @@ function calculate(){
   const solvency = totLiab>0 ? totAssets/totLiab : (totAssets>0?3:1);
 
   // each ratio only counts if the numbers it needs were actually supplied (blank ≠ zero)
+  const gmPct=grossM*100, omPct=opM*100;
   const R = [
-    { name:"Gross margin", ok: has('revenue')&&has('gross'), val:(grossM*100).toFixed(0)+'%', pts: grossM>=0.4?2:grossM>=0.25?1:0 },
-    { name:"Operating margin", ok: has('revenue')&&has('opprofit'), val:(opM*100).toFixed(0)+'%', pts: opM>=0.15?2:opM>=0.05?1:0 },
-    { name:"Cash runway", ok: has('cash')&&has('opex'), val: runway>=12?'12+ mo':runway.toFixed(1)+' mo', pts: runway>=3?2:runway>=1?1:0 },
-    { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×', pts: debtRev<1?2:debtRev<=2?1:0 },
-    { name:"Liquidity (cash+debtors vs creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
-    { name:"Solvency (assets vs what you owe)", ok: (has('cash')||has('debtors')||has('assets'))&&(has('creditors')||has('debt')), val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×', pts: solvency>=2?2:solvency>=1?1:0 },
+    { name:"Gross margin", ok: has('revenue')&&has('gross'), val:gmPct.toFixed(0)+'%',
+      bench:'Sector '+B.gm[0]+'–'+B.gm[1]+'%', pts: gmPct>=B.gm[1]?2:gmPct>=B.gm[0]?1:0 },
+    { name:"Operating margin", ok: has('revenue')&&has('opprofit'), val:omPct.toFixed(0)+'%',
+      bench:'Sector '+B.om[0]+'–'+B.om[1]+'%', pts: omPct>=B.om[1]?2:omPct>=B.om[0]?1:0 },
+    { name:"Cash runway", ok: has('cash')&&has('opex'), val: runway>=12?'12+ mo':runway.toFixed(1)+' mo',
+      bench:'Aim 3+ months', pts: runway>=3?2:runway>=1?1:0 },
+    { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×',
+      bench:'Aim under 1×', pts: debtRev<1?2:debtRev<=2?1:0 },
+    { name:"Liquidity (cash+debtors vs creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×',
+      bench:'Aim 1.5×+', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
+    { name:"Solvency (assets vs what you owe)", ok: (has('cash')||has('debtors')||has('assets'))&&(has('creditors')||has('debt')), val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×',
+      bench:'Aim 2×+', pts: solvency>=2?2:solvency>=1?1:0 },
   ];
   const applic = R.filter(x=>x.ok);
   const earned = applic.reduce((s,x)=>s+x.pts,0);
@@ -311,7 +354,7 @@ function calculate(){
 
   RESULT = { revenue, score, R, applicCount: applic.length, op, ownerpay, sde, earn, earnOk, rev, nav, navOk, head,
              missing, keyMissing, tooFew, valTooSmall, suppliedCount: 10-missing.length,
-             ownerpaySupplied: has('ownerpay') };
+             ownerpaySupplied: has('ownerpay'), sector, sectorLabel: B.label };
   renderResult();
 }
 
@@ -360,11 +403,12 @@ function renderResult(){
   RESULT.band=label; RESULT.bandDesc=desc;
   el('cta-head').textContent='Your score: '+r.score+'/100 — '+label+'.';
 
+  el('ratios-title').textContent = 'Your key ratios — benchmarked against '+r.sectorLabel;
   el('ratios').innerHTML = r.R.map(x=>{
-    if(!x.ok){ return '<div class="ratio na"><span class="rn"><span class="rag"></span>'+x.name+'</span>'
+    if(!x.ok){ return '<div class="ratio na"><span class="rn"><span class="rag"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span>'
       +'<span class="rv" style="color:var(--sage)">— <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· Not supplied</span></span></div>'; }
     const [c,lab]=ragDot(x.pts);
-    return '<div class="ratio"><span class="rn"><span class="rag" style="background:'+c+'"></span>'+x.name+'</span><span class="rv" style="color:'+c+'">'+x.val+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· '+lab+'</span></span></div>';
+    return '<div class="ratio"><span class="rn"><span class="rag" style="background:'+c+'"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span><span class="rv" style="color:'+c+'">'+x.val+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· '+lab+'</span></span></div>';
   }).join('');
 
   renderValue(r);
@@ -399,9 +443,10 @@ function printResults(){
   const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
   const rangeTxt = r.valTooSmall ? '—' : (lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi));
   const ratios = r.R.map(x=>{
-    if(!x.ok){ return '<div class="ps-ratio"><span>'+x.name+'</span><span style="color:#8a978d">— <span class="st" style="color:#8a978d">Not supplied</span></span></div>'; }
+    const nm='<span>'+x.name+'<span class="psb">'+(x.bench||'')+'</span></span>';
+    if(!x.ok){ return '<div class="ps-ratio">'+nm+'<span style="color:#8a978d">— <span class="st" style="color:#8a978d">Not supplied</span></span></div>'; }
     const a=ragDot(x.pts); const lab=a[1]; const c=psStatusColor(lab);
-    return '<div class="ps-ratio"><span>'+x.name+'</span><span><strong>'+x.val+'</strong>'
+    return '<div class="ps-ratio">'+nm+'<span><strong>'+x.val+'</strong>'
       +'<span class="st" style="color:'+c+'">● '+lab+'</span></span></div>'; }).join('');
   // rebuild the methods text (don't copy the dark-theme markup — its inline colours vanish on white)
   let methods='<strong>How we got there</strong><br>';
@@ -416,11 +461,11 @@ function printResults(){
   const caveat = r.missing.length ? '<p class="ps-caveat"><strong>Partial result</strong> — '+r.missing.length+' of 10 figures weren’t supplied ('+r.missing.join(', ')+'). Based only on the numbers given.</p>' : '';
   el('printsheet').innerHTML =
     '<div class="ps-head"><img src="/images/carron-logo-horizontal-dark.png" alt="Carron Business Advisory">'
-    +'<div class="ps-meta"><strong>Financial Health Check &amp; Valuation</strong>'+d+(name?' · '+name:'')+'</div></div>'
+    +'<div class="ps-meta"><strong>Financial Health Check &amp; Valuation</strong>'+(r.sectorLabel?r.sectorLabel+' · ':'')+d+(name?' · '+name:'')+'</div></div>'
     +'<h2>Financial health score: '+r.score+'/100 — '+(r.band||'')+'</h2>'
     +'<p class="ps-desc">'+(r.bandDesc||'')+'</p>'
     +caveat
-    +'<h3>Key ratios</h3>'+ratios
+    +'<h3>Key ratios — vs '+(r.sectorLabel||'sector')+'</h3>'+ratios
     +'<h3>Indicative business value</h3><div class="ps-val">'+rangeTxt+'</div>'
     +'<div class="ps-methods">'+methods+'</div>'
     +'<p class="ps-disc">Indicative and educational only — a very rough guide from simple rules of thumb, not a valuation. '
@@ -439,10 +484,10 @@ function submitLead(){
   const btn=el('lead-btn'); if(btn) btn.disabled=true;
   note.textContent='Sending…'; note.style.color='var(--sage)';
   const lo=round(RESULT.head[0],10000), hi=round(RESULT.head[1],10000);
-  const ratios=RESULT.R.map(x=>{ const [,lab]=ragDot(x.pts); return x.name+': '+x.val+' ('+lab+')'; }).join('\n');
+  const ratios=RESULT.R.map(x=>{ if(!x.ok) return x.name+': not supplied'; const [,lab]=ragDot(x.pts); return x.name+': '+x.val+' ('+lab+'; '+x.bench+')'; }).join('\n');
   fetch('https://api.web3forms.com/submit',{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),net_asset_value:fmtR(RESULT.nav),ratios:ratios,submitted:new Date().toISOString()})
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,sector:RESULT.sectorLabel,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),net_asset_value:fmtR(RESULT.nav),ratios:ratios,submitted:new Date().toISOString()})
   }).then(r=>r.json()).then(res=>{
     if(!res||!res.success) throw new Error('fail');
     note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+RESULT.score+'/100</strong> result and we’ll be in touch shortly. Use <strong style="color:var(--gold-light)">Save / print my results</strong> above to keep a copy now.';
