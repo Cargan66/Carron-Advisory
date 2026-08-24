@@ -78,6 +78,7 @@
   .ratio{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
   .ratio .rn{display:flex;align-items:flex-start;gap:11px;font-size:15px}
   .ratio .rn .bench{display:block;font-size:11px;letter-spacing:.06em;color:var(--sage);opacity:.85;margin-top:2px}
+  .benchnote{font-size:11.5px;line-height:1.55;color:var(--sage);opacity:.8;margin-top:16px;max-width:64ch}
   .ratio .rag{width:11px;height:11px;border-radius:50%;flex:none;margin-top:5px}
   .ratio .rv{font-family:'Fraunces',serif;font-size:18px;white-space:nowrap}
   .valbox{background:linear-gradient(180deg,rgba(200,168,75,.10),rgba(200,168,75,.02));border:1px solid var(--line);border-radius:4px;padding:clamp(20px,4vw,30px);text-align:center}
@@ -121,6 +122,7 @@
     .ps-ratio{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;font-size:12.5px;border-bottom:1px solid #eee}
     .ps-ratio .st{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;margin-left:10px}
     .ps-ratio .psb{display:block;font-size:9px;color:#8a978d;margin-top:1px;letter-spacing:.02em}
+    .ps-benchnote{font-size:9px;color:#8a978d;line-height:1.5;margin:10px 0 0}
     .ps-val{font-family:'Fraunces',serif;font-size:26px;color:#16412f;margin:2px 0 6px}
     .ps-methods{font-size:11.5px;color:#3a4a40;line-height:1.65}
     .ps-methods strong{color:#16412f}
@@ -186,6 +188,7 @@
       <hr class="divider">
       <div class="sec-title" id="ratios-title">Your key ratios</div>
       <div id="ratios"></div>
+      <div class="benchnote" id="bench-note"></div>
     </div>
 
     <div id="sec-value">
@@ -262,26 +265,32 @@ el('fields').innerHTML = COLS.map(c=>
   + '</div>'
 ).join('');
 
-/* Industry sectors with indicative, generally-accepted benchmark ranges (%).
-   gm = typical gross margin [low, high]; om = typical operating margin [low, high].
-   Scoring for those two ratios is sector-relative: >=high => Healthy, >=low => Watch, else Act.
-   Ranges are indicative starting points — refine with authoritative data later. */
+/* Industry benchmarks.
+   OPERATING margin is benchmarked against the sector's NET profit margin (net profit
+   after tax / turnover) from Statistics SA, Annual Financial Statistics 2023 (Table 11)
+   — field `saNet` (%), with `saMap` naming the StatsSA industry and `proxy` flagging a
+   loose fit. Where StatsSA has no figure (education, financial services), saNet is null
+   and a generally-accepted range is used.
+   GROSS margin uses generally-accepted ranges `gm:[Watch, Healthy]` — StatsSA does not
+   publish gross margin by sector. Reviewed 6-monthly (StatsSA AFS updates ~mid-year). */
+const SRC_SA  = 'Statistics SA, Annual Financial Statistics 2023';
+const REVIEW  = { done:'August 2026', next:'February 2027' };
 const SECTORS = {
-  retail:      { label:"Retail & wholesale",            gm:[20,40], om:[3,8]   },
-  hospitality: { label:"Hospitality & food service",    gm:[55,70], om:[5,12]  },
-  construction:{ label:"Construction & trades",         gm:[15,30], om:[5,10]  },
-  proservices: { label:"Professional & business services", gm:[50,80], om:[15,30] },
-  manufacturing:{label:"Manufacturing",                 gm:[25,45], om:[8,15]  },
-  transport:   { label:"Transport & logistics",         gm:[20,40], om:[5,12]  },
-  agriculture: { label:"Agriculture",                   gm:[20,40], om:[8,20]  },
-  healthcare:  { label:"Healthcare & medical",          gm:[40,65], om:[12,25] },
-  education:   { label:"Education & training",          gm:[40,65], om:[8,18]  },
-  tech:        { label:"IT, software & tech",           gm:[60,85], om:[15,30] },
-  financial:   { label:"Financial & insurance services",gm:[50,80], om:[15,30] },
-  property:    { label:"Real estate & property",        gm:[40,70], om:[15,35] },
-  personal:    { label:"Personal & other services",     gm:[45,70], om:[8,18]  },
-  creative:    { label:"Creative, media & marketing",   gm:[45,70], om:[10,20] },
-  other:       { label:"Other / not listed",            gm:[25,40], om:[5,15]  },   // generally-accepted fallback
+  retail:      { label:"Retail & wholesale",               gm:[15,30], saNet:4.5,  saMap:"Trade" },
+  hospitality: { label:"Hospitality & food service",       gm:[55,70], saNet:4.5,  saMap:"Trade (incl. accommodation & catering)" },
+  construction:{ label:"Construction & trades",            gm:[15,30], saNet:2.0,  saMap:"Construction" },
+  proservices: { label:"Professional & business services", gm:[50,75], saNet:15.4, saMap:"Real estate & other business services" },
+  manufacturing:{label:"Manufacturing",                    gm:[25,45], saNet:3.6,  saMap:"Manufacturing" },
+  transport:   { label:"Transport & logistics",            gm:[20,40], saNet:4.1,  saMap:"Transport, storage & communication" },
+  agriculture: { label:"Agriculture",                      gm:[20,40], saNet:11.6, saMap:"Forestry & fishing", proxy:true },
+  healthcare:  { label:"Healthcare & medical",             gm:[40,65], saNet:5.5,  saMap:"Community, social & personal services" },
+  education:   { label:"Education & training",             gm:[40,65], saNet:null, saMap:null },
+  tech:        { label:"IT, software & tech",              gm:[60,85], saNet:15.4, saMap:"Other business services", proxy:true },
+  financial:   { label:"Financial & insurance services",   gm:[50,80], saNet:null, saMap:null },
+  property:    { label:"Real estate & property",           gm:[40,70], saNet:15.4, saMap:"Real estate & other business services" },
+  personal:    { label:"Personal & other services",        gm:[45,70], saNet:5.5,  saMap:"Community, social & personal services" },
+  creative:    { label:"Creative, media & marketing",      gm:[45,70], saNet:15.4, saMap:"Other business services", proxy:true },
+  other:       { label:"Other / not listed",               gm:[25,45], saNet:6.3,  saMap:"All industries" },
 };
 el('sector').insertAdjacentHTML('beforeend',
   Object.keys(SECTORS).map(k=>'<option value="'+k+'">'+SECTORS[k].label+'</option>').join(''));
@@ -321,19 +330,31 @@ function calculate(){
 
   // each ratio only counts if the numbers it needs were actually supplied (blank ≠ zero)
   const gmPct=grossM*100, omPct=opM*100;
+  // gross margin — generally-accepted (StatsSA does not publish gross margin by sector)
+  const gmPts = gmPct>=B.gm[1]?2:gmPct>=B.gm[0]?1:0;
+  const gmBench = 'Typical '+B.gm[0]+'–'+B.gm[1]+'% · gen. accepted';
+  // operating margin — vs the sector's SA net profit margin where StatsSA has it, else generally-accepted
+  let omPts, omBench;
+  if(B.saNet!=null){
+    omPts = omPct>=B.saNet?2:omPct>0?1:0;
+    omBench = 'SA sector net margin ~'+B.saNet+'% · StatsSA ’23'+(B.proxy?' (proxy)':'');
+  } else {
+    omPts = omPct>=12?2:omPct>=5?1:0;
+    omBench = 'Aim 5–12% · gen. accepted';
+  }
   const R = [
     { name:"Gross margin", ok: has('revenue')&&has('gross'), val:gmPct.toFixed(0)+'%',
-      bench:'Sector '+B.gm[0]+'–'+B.gm[1]+'%', pts: gmPct>=B.gm[1]?2:gmPct>=B.gm[0]?1:0 },
+      bench:gmBench, pts:gmPts },
     { name:"Operating margin", ok: has('revenue')&&has('opprofit'), val:omPct.toFixed(0)+'%',
-      bench:'Sector '+B.om[0]+'–'+B.om[1]+'%', pts: omPct>=B.om[1]?2:omPct>=B.om[0]?1:0 },
+      bench:omBench, pts:omPts },
     { name:"Cash runway", ok: has('cash')&&has('opex'), val: runway>=12?'12+ mo':runway.toFixed(1)+' mo',
-      bench:'Aim 3+ months', pts: runway>=3?2:runway>=1?1:0 },
+      bench:'Aim 3+ months · gen. accepted', pts: runway>=3?2:runway>=1?1:0 },
     { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×',
-      bench:'Aim under 1×', pts: debtRev<1?2:debtRev<=2?1:0 },
+      bench:'Aim under 1× · gen. accepted', pts: debtRev<1?2:debtRev<=2?1:0 },
     { name:"Liquidity (cash+debtors vs creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×',
-      bench:'Aim 1.5×+', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
+      bench:'Aim 1.5×+ · gen. accepted', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
     { name:"Solvency (assets vs what you owe)", ok: (has('cash')||has('debtors')||has('assets'))&&(has('creditors')||has('debt')), val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×',
-      bench:'Aim 2×+', pts: solvency>=2?2:solvency>=1?1:0 },
+      bench:'Aim 2×+ · gen. accepted', pts: solvency>=2?2:solvency>=1?1:0 },
   ];
   const applic = R.filter(x=>x.ok);
   const earned = applic.reduce((s,x)=>s+x.pts,0);
@@ -413,6 +434,7 @@ function renderResult(){
     const [c,lab]=ragDot(x.pts);
     return '<div class="ratio"><span class="rn"><span class="rag" style="background:'+c+'"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span><span class="rv" style="color:'+c+'">'+x.val+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· '+lab+'</span></span></div>';
   }).join('');
+  el('bench-note').innerHTML = 'Benchmarks: operating margin is compared to your sector’s <strong>net profit margin</strong> (net profit after tax ÷ turnover) from '+SRC_SA+'. Gross margin, cash runway, debt, liquidity and solvency use generally-accepted standards — StatsSA doesn’t publish these by sector. StatsSA excludes agriculture, financial services and education, so those use a proxy or a generally-accepted standard. Reviewed '+REVIEW.done+' · next review '+REVIEW.next+'.';
 
   renderValue(r);
 }
@@ -469,6 +491,7 @@ function printResults(){
     +'<p class="ps-desc">'+(r.bandDesc||'')+'</p>'
     +caveat
     +'<h3>Key ratios — vs '+(r.sectorLabel||'sector')+'</h3>'+ratios
+    +'<p class="ps-benchnote">Benchmarks: operating margin vs your sector’s net profit margin (net profit after tax / turnover) from '+SRC_SA+'. Gross margin, cash, debt, liquidity and solvency use generally-accepted standards (StatsSA does not publish these by sector). StatsSA excludes agriculture, financial services and education — those use a proxy or generally-accepted standard. Reviewed '+REVIEW.done+' · next review '+REVIEW.next+'.</p>'
     +'<h3>Indicative business value</h3><div class="ps-val">'+rangeTxt+'</div>'
     +'<div class="ps-methods">'+methods+'</div>'
     +'<p class="ps-disc">Indicative and educational only — a very rough guide from simple rules of thumb, not a valuation. '
