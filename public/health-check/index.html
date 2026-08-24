@@ -93,6 +93,8 @@
   .form input::placeholder{color:rgba(157,196,176,.6)}
   .form input:focus{outline:none;border-color:var(--gold)}
   .note{font-size:12px;color:var(--sage);margin-top:14px;opacity:.85}
+  .consent{display:flex;align-items:flex-start;gap:9px;justify-content:center;max-width:52ch;margin:16px auto 0;font-size:12.5px;color:var(--sage);text-align:left;cursor:pointer}
+  .consent input{margin-top:2px;flex:none;accent-color:var(--gold)}
   .subrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
   .footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px;flex-wrap:wrap}
@@ -144,7 +146,7 @@
     <div class="eyebrow">A 2-minute check</div>
     <h1>Where does your business stand — and what's it <em>worth</em>?</h1>
     <p class="lede">Pick your industry, enter about ten numbers from your management accounts (rough figures are fine), and get an instant read: a health score, your key ratios benchmarked against your sector, and an indicative value range.</p>
-    <p class="lede tight">No sign-up to see your result. Nothing is stored — the numbers stay in your browser.</p>
+    <p class="lede tight">No sign-up to see your result. Your figures stay in your browser — if you ask us to follow up, we keep only a short summary of your results, never your raw numbers.</p>
     <div class="meta-row">
       <div class="meta"><div class="k">10</div><div class="v">Numbers</div></div>
       <div class="meta"><div class="k">/100</div><div class="v">Health score</div></div>
@@ -207,7 +209,8 @@
         <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
         <button class="btn ghost" id="lead-btn" onclick="submitLead()">Ask Carron to follow up</button>
       </div>
-      <div class="note" id="lead-note">Your numbers stay private. We'll only use your email to follow up — no spam.</div>
+      <label class="consent"><input type="checkbox" id="lead-consent"><span>I agree Carron may store a summary of these results (not my raw figures) and contact me about them.</span></label>
+      <div class="note" id="lead-note">Your raw numbers stay private. We keep only a summary — sector, score and value range — to follow up. No spam.</div>
       <div class="subrow">
         <a class="btn ghost" href="/diagnostic">Go deeper: the R795 Diagnostic</a>
         <a class="btn ghost" href="/contact">Book a discovery call</a>
@@ -475,16 +478,33 @@ function printResults(){
   window.print();
 }
 
+/* record a summary of the result to our D1-backed endpoint (summary only, no raw figures) */
+function recordSubmission(name, email, lo, hi){
+  try{
+    const r=RESULT;
+    const ratios=r.R.map(x=>({ name:x.name, val:x.ok?x.val:'—', status:x.ok?ragDot(x.pts)[1]:'Not supplied', bench:x.bench }));
+    fetch('/api/health-check',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ sector:r.sectorLabel, score:r.score, band:r.band||'', value_low:lo, value_high:hi,
+        net_asset_value:Math.round(r.nav), ratios:JSON.stringify(ratios), name:name||'', email:email,
+        missing_count:r.missing.length, consent:true })
+    }).catch(()=>{});   // endpoint may not be live yet — never block the lead
+  }catch(e){}
+}
+
 /* lead capture */
 let leadBusy=false;
 function submitLead(){
   const name=el('lead-name').value.trim(), email=el('lead-email').value.trim(), note=el('lead-note');
   if(!email || !/.+@.+\..+/.test(email)){ note.textContent='Please enter a valid email so we can follow up.'; note.style.color='var(--clay)'; return; }
+  if(!el('lead-consent').checked){ note.textContent='Please tick the box so we may store a summary and follow up.'; note.style.color='var(--clay)'; return; }
   if(leadBusy||!RESULT) return; leadBusy=true;
   const btn=el('lead-btn'); if(btn) btn.disabled=true;
   note.textContent='Sending…'; note.style.color='var(--sage)';
   const lo=round(RESULT.head[0],10000), hi=round(RESULT.head[1],10000);
   const ratios=RESULT.R.map(x=>{ if(!x.ok) return x.name+': not supplied'; const [,lab]=ragDot(x.pts); return x.name+': '+x.val+' ('+lab+'; '+x.bench+')'; }).join('\n');
+  // record a summary to our own database (best-effort — never blocks the lead)
+  recordSubmission(name, email, lo, hi);
   fetch('https://api.web3forms.com/submit',{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
     body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+(name||email),from_name:'Carron Health Check',name:name||'—',email:email,sector:RESULT.sectorLabel,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),net_asset_value:fmtR(RESULT.nav),ratios:ratios,submitted:new Date().toISOString()})

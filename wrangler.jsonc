@@ -8,11 +8,23 @@
   // Cloudflare project. If your Worker is named differently, change it here.
   "name": "carron-advisory",
   "compatibility_date": "2025-06-01",
+  // Worker entry: serves the static site (via the ASSETS binding) and adds the
+  // /api/health-check endpoint that records submissions to D1.
+  "main": "worker/index.js",
   "assets": {
     "directory": "./out",
+    "binding": "ASSETS",
     // Serve out/404.html for unknown paths (Next.js export produces it).
     "not_found_handling": "404-page"
   },
+  // D1 database that stores Health Check submission summaries (no raw figures).
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "carron-health-check",
+      "database_id": "1457ab6a-858a-4df8-a76d-7ef1d5d0c0c2"
+    }
+  ],
   // Attach the live domain. `custom_domain: true` makes Cloudflare create the
   // routing DNS record + SSL automatically on deploy. (Static-asset Workers
   // can't add domains via the dashboard Triggers screen, so we do it here.)
