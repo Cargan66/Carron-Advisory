@@ -38,6 +38,134 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "business-can-afford-every-decision",
+    cover: "/images/business-can-afford-every-decision.png",
+    ogImage: "/images/business-can-afford-every-decision.png",
+    pdf: "/articles/Carron_The_Business_Can_Afford_Every_Decision_But_Not_All_at_Once.pdf",
+    title: "The Business Can Afford Every Decision — But Not All at Once",
+    category: "Cash Flow",
+    excerpt:
+      "Our September 2026 special report: a business can pay each new cost on its own and still be unable to carry them all together — especially if revenue arrives late or a commitment can't be reversed. A practical framework — the cumulative commitment test, the full-cost view, break-even recalculation and an approval register — for seeing the combined financial effect of individually sensible decisions.",
+    date: "2026-09-03",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `Each commitment is approved on its own. Every one of them is paid from the same cash flow. That is the hidden risk: a business can afford every decision individually and still be unable to carry all of them together — particularly if expected revenue arrives late, margins are weaker than forecast, or the cost cannot be reversed quickly.
+
+## Executive summary
+
+The next commitment should be tested against every commitment already made — not against the bank balance on the day it is approved.
+
+A business may be able to pay each new monthly cost when it is considered alone. That does not establish that it can carry all the commitments together. Before approving another recurring cost, management should restate the total monthly run rate, the revised break-even sales level, the upfront cash requirement, the cash effect of a delay, and the cost of getting out.
+
+- Assess the full cost of each commitment, not only its quoted salary, rental or instalment.
+- Use contribution margin to calculate the additional sales needed to cover the combined monthly cost.
+- Stress-test the timing: profit expected later cannot fund payroll and instalments due now.
+
+**Decision principle:** approve the portfolio of commitments, not only the next item on the agenda.
+
+## When reasonable decisions combine
+
+Consider a business that approves a salesperson in January, a vehicle in February, additional software in March, a warehouse extension in April and equipment finance in May. Each decision may have a credible business case. Each may even fit comfortably into the bank balance when approved.
+
+By June, however, the business has one larger fixed-cost base. The separate motivations no longer matter to the bank account. Salaries, rentals, licences and instalments must all be paid from the same operating cash flow, whether or not the expected sales have arrived.
+
+SME commitments accumulate through different people at different times. Sales requests another employee. Operations needs a vehicle. Finance recommends software. The owner agrees to more space. No single proposal appears large enough to trigger a full financial review. The business evaluates the marginal cost of the next item but never restates the total cost of everything already approved. It asks, "Can we afford R28,000 a month?" when the better question is, "What will our complete monthly commitment be after this decision, and what must the business then produce to carry it?"
+
+A department may be accountable for the benefit of its proposal, but the financial exposure belongs to the whole business:
+
+- The monthly break-even point rises before the expected revenue is certain.
+- Upfront deposits, installation, recruitment and implementation absorb cash immediately.
+- New capacity can require more stock, debtors, fuel, support and supervision.
+- Contracts may continue even if the project, employee or customer does not perform.
+
+**CFO test:** if management cannot state the total committed monthly run rate after approval, it has not completed the financial decision.
+
+## Count the commitment, not merely the quoted price
+
+The first number presented for approval is often only the most visible part of the cost. The purpose is not to inflate every proposal until it becomes impossible — it is to prevent management from approving a partial number and discovering the rest later through the bank account.
+
+| Commitment | Visible price | Costs that may sit behind it |
+| --- | --- | --- |
+| Employee | Salary | Employer costs, recruitment, equipment, software, training, supervision and time to full productivity |
+| Vehicle | Instalment or lease | Deposit, insurance, fuel, maintenance, tyres, tracking, licences and replacement risk |
+| Software | Monthly licence | Implementation, data migration, user licences, integrations, support, training and escalation clauses |
+| Premises | Monthly rental | Deposit, fit-out, utilities, security, insurance, moving costs and restoration obligations |
+| Equipment | Purchase or instalment | Installation, finance cost, maintenance, consumables, downtime, insurance and working capital |
+
+A sound proposal separates three different numbers: the **upfront cash** needed before the commitment starts, the recurring **monthly run rate**, and the **total contractual exposure** if circumstances change. These answer different questions, and depreciation or tax treatment does not remove the need to understand the actual payment profile.
+
+## Worked example: five reasonable decisions, one different business
+
+A fictional service and distribution SME has fixed monthly operating commitments of R800,000 and an average contribution margin of 35%. Its approximate break-even sales are therefore R2.286 million a month. Management then approves five initiatives over four months.
+
+| Approved commitment | Monthly cost | Expected benefit |
+| --- | --- | --- |
+| Two employees | R75,000 | More sales and operational capacity |
+| Vehicle and operating costs | R22,000 | Faster customer service and delivery |
+| Software and support | R15,000 | Better scheduling and information |
+| Additional premises | R45,000 | Space for expected volume |
+| Equipment finance and upkeep | R28,000 | Higher throughput |
+| **Combined increase** | **R185,000** | Benefits depend on execution and timing |
+
+The new fixed-cost base is R985,000. At the same 35% contribution margin, break-even sales rise to about R2.814 million — so the business needs roughly **R529,000 of additional monthly sales** simply to cover the R185,000 increase in recurring commitments.
+
+| Calculation | Result |
+| --- | --- |
+| Previous fixed monthly commitments | R800,000 |
+| Additional monthly commitments | R185,000 |
+| New fixed monthly commitments | R985,000 |
+| Contribution margin | 35% |
+| Previous break-even sales | R2.286 million |
+| New break-even sales | R2.814 million |
+| Additional monthly sales required | ≈ R529,000 |
+
+This is an illustration, not a benchmark; the required sales depend on the business's own margin, cost behaviour, payment timing and capacity to deliver. **Decision principle:** a R185,000 monthly cost does not require R185,000 of sales — at a 35% contribution margin it requires about R529,000 of sales.
+
+## Affordability depends on timing and reversibility
+
+New commitments usually start on a known date. Their benefits do not. An employee may take months to become productive; premises may open before customers arrive; equipment can be installed before orders convert. In the worked example, a three-month delay in the expected benefit creates R555,000 of additional recurring cash outflow (R185,000 × 3), before deposits, implementation or working capital.
+
+| Case | Assumption | Management question |
+| --- | --- | --- |
+| Expected | Revenue and benefit arrive on plan | Can normal operations fund the commitments and working capital? |
+| Delayed | Benefit arrives three to six months later | What is the cash low point, and which facility or reserve covers it? |
+| Underperformance | Only part of the benefit is achieved | Which cost can be reduced, paused or exited — and at what cost? |
+
+Two commitments with the same monthly cost can carry very different risk. A service cancellable on 30 days' notice is not equivalent to a five-year lease, a financed vehicle or a permanent hire. **Management test:** ask not only "What do we gain if this works?" but also "What remains payable if it does not?"
+
+## Make cumulative exposure visible before the next yes
+
+The solution is a small commitment register and a repeatable approval test — not a complicated capital committee. Record every approved-but-not-yet-visible commitment in one place: signed contracts, accepted offers, approved hires, pending installations and decisions that begin charging in a future month.
+
+- Monthly recurring cost and start date
+- Upfront cash and payment dates
+- Total contractual exposure and exit terms
+- Expected operational benefit, value and timing
+- Additional stock, debtors or support required
+- Decision owner and post-implementation review date
+
+Then run every proposal through four gates:
+
+| Gate | Question that must be answered |
+| --- | --- |
+| 1. Baseline | What are total commitments before this decision? |
+| 2. Combined effect | What will monthly run rate, upfront cash and break-even sales become? |
+| 3. Downside | Can the business fund a three- to six-month delay or partial result? |
+| 4. Exit | What can be stopped, when, at what cost and with what operational consequence? |
+
+Approval is not the end of the decision. Compare actual cost, benefit and timing against the business case after 30, 60 or 90 days, and correct execution, revise the forecast, stop further phases or exercise an exit right where the benefit has not appeared.
+
+**CFO test:** every new recurring cost should have a named benefit, an owner, a measurement date and a downside response.
+
+## Closing perspective
+
+An SME should hire, invest, expand and improve its systems when the commercial case supports it. The problem is not recurring cost itself — it is approving recurring cost without recalculating the complete obligation it joins. The most dangerous commitment is rarely the largest one; it is the apparently manageable decision approved after several other manageable decisions, when nobody has paused to add them together.
+
+**Final decision rule:** do not approve the next recurring commitment until the combined run rate, break-even point, cash low point and exit cost are visible.
+
+The full report includes a one-page Cumulative Commitment Test to complete before management approves any new recurring commitment.`,
+  },
+  {
     slug: "when-shareholders-contribute-unequally",
     cover: "/images/shareholders-contribute-unequally.png",
     pdf: "/articles/Carron_When_Shareholders_Contribute_Unequally.pdf",
