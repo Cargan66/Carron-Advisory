@@ -10,7 +10,8 @@ export type ArticleCategory =
   | "Tax"
   | "Strategy"
   | "Hiring"
-  | "Growth";
+  | "Growth"
+  | "Risk";
 
 export type Article = {
   slug: string;
@@ -37,6 +38,174 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  {
+    slug: "invoice-was-real-bank-account-wasnt",
+    cover: "/images/invoice-was-real-bank-account-wasnt.png",
+    ogImage: "/images/invoice-was-real-bank-account-wasnt.png",
+    pdf: "/articles/Carron_The_Invoice_Was_Real_The_Bank_Account_Wasnt.pdf",
+    title: "The Invoice Was Real. The Bank Account Wasn't.",
+    category: "Risk",
+    excerpt:
+      "Our September 2026 special report: a supplier can be genuine, the invoice correct and the email familiar — and one false banking instruction still sends the payment to a criminal. A practical payment-control framework for South African SMEs: independent call-back verification, a controlled supplier master, separated capture/approve/release duties, and the first hour after a suspicious payment.",
+    date: "2026-09-14",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `A supplier can be genuine, the invoice can be correct and the email can look familiar. One false banking instruction can still send the payment to a criminal. The protection lies in a process that verifies the change outside the message that requested it.
+
+## Executive summary
+
+The payment control must test the instruction, not merely approve the transaction.
+
+Payment fraud often succeeds without breaking into a bank. A criminal compromises or imitates a trusted communication channel, changes the banking details and relies on a busy employee to treat the message as routine. The bank then processes a payment that an authorised user deliberately released — but to the wrong beneficiary.
+
+SABRIC recorded 110,074 digital-banking client-claim investigations and approximately R2.41 billion in reported client-claim amounts during 2025. Internet banking represented fewer than 9% of the investigations but 28.6% of the claim value, reflecting the larger supplier and business payments often processed through that channel.
+
+- Verify every new beneficiary and every change of banking details through a trusted contact route obtained independently of the change request.
+- Separate beneficiary creation, supporting-document review and payment release wherever the size of the team permits.
+- Treat urgency, secrecy and a departure from normal payment behaviour as reasons to pause, not reasons to bypass the control.
+
+**Decision principle:** no banking-detail change becomes valid because it looks convincing. It becomes valid only after an independent verification process is completed and recorded.
+
+## What changed in payment fraud
+
+A payment run can be fully authorised and still be wrong. The invoice may match a purchase order, the goods may have arrived and the supplier balance may be due. If the beneficiary details were altered before payment, every commercial fact can be correct except the destination of the money.
+
+The practical risk has shifted towards deception. SABRIC reports that many digital-banking incidents begin outside the banking platform. Criminals impersonate a trusted organisation or person, create urgency and persuade an employee or owner to add a beneficiary or release a payment. The banking system may then do exactly what an authorised user instructed it to do.
+
+| Year | Client claim investigations | Reported client claim amount | Average per investigation |
+| --- | --- | --- | --- |
+| 2023 | 52,588 | R1.086 billion | R20,649 |
+| 2024 | 97,547 | R1.863 billion | R19,095 |
+| 2025 | 110,074 | R2.407 billion | R21,865 |
+
+These are reported client claims and investigations from participating banks; they are not a complete measure of all fraud in South Africa. They nevertheless show the scale and direction of the exposure.
+
+**AI improves the disguise, not the control.** Artificial intelligence can help criminals produce polished messages, realistic images and believable voice recordings. SABRIC describes AI as an enabling rather than primary fraud vector. The management implication is simple: writing style, a logo, a familiar voice or knowledge of a real transaction cannot serve as proof of identity.
+
+**CFO test:** if the evidence used to verify a payment came through the same channel as the payment request, the verification may not be independent.
+
+## Worked example: how the fraud reaches the payment run
+
+The process can fail even when every person believes they followed the normal routine.
+
+Consider a fictional distribution business preparing to pay a regular supplier R286,400. The supplier is genuine and the invoice agrees to goods received. Two days before the payment run, the accounts clerk receives an email in the existing correspondence chain saying that the supplier has moved banks. A bank-confirmation letter is attached.
+
+The clerk replaces the beneficiary details and replies to the email asking whether the new account is correct. A confirmation comes back from the compromised mailbox. The owner sees the real supplier name, the correct amount and two approvals on the banking platform, then releases the payment.
+
+| What looked reassuring | What was actually proved | Control that was missing |
+| --- | --- | --- |
+| Existing email conversation | Only that the message appeared in a familiar thread | Call-back using a trusted number already held on file |
+| Correct invoice and amount | That money was owed to the supplier | Separate validation of where the supplier must be paid |
+| Bank-confirmation letter | That a document was attached | Account-holder check plus direct supplier confirmation |
+| Reply from supplier mailbox | That the same email channel answered | Verification outside the potentially compromised channel |
+| Two bank approvals | That two users approved the captured beneficiary and payment | Evidence that the beneficiary change itself had been verified |
+
+**Why ordinary approval is not enough.** Dual approval is valuable, but it can become two people approving the same false information. The second approver must review evidence that addresses the risk: who requested the change, how the supplier was contacted independently, who answered, what details were confirmed and whether the account-holder name matched the supplier record.
+
+A low-value test payment can sometimes form part of a bank or supplier process, but it does not prove identity on its own. A fraudster controlling the substituted account can confirm receipt just as easily as the genuine supplier.
+
+**Control point:** an invoice proves the amount claimed. It does not, by itself, prove that newly supplied banking details belong to the creditor.
+
+## Build the control before the email arrives
+
+Independent verification works only when the trusted information already exists.
+
+**Keep a controlled supplier master.** The supplier master should contain the approved legal name, registration or identification information where appropriate, bank-account details, normal contact people and at least one trusted verification number. The trusted number should come from onboarding, a signed contract, an independently located official channel or an earlier verified record — not from the message requesting the change.
+
+Access to change the supplier master should be limited. Each amendment should leave an audit trail showing the old details, the new details, the requester, the person who captured the change, the independent verifier, the approver and the effective date.
+
+**Use an independent call-back.** When banking details change, the verifier should call a known supplier representative using the trusted number already held on file. The verifier should identify the supplier, refer to the pending change without disclosing the full new account number first, and ask the supplier to state the new details. This reduces the risk of simply feeding the answer to an impostor.
+
+- Do not use the telephone number printed on the change request, altered invoice or attached bank letter as the only contact route.
+- Do not treat a reply from the same email account as a second source.
+- If the trusted contact has also changed, verify that change through another established route or suspend the amendment until it can be resolved.
+
+**Match the account holder.** Where the bank or payment service offers account-holder verification, use it. Investigate differences between the supplier's legal name, trading name and the account-holder name before releasing payment. A name match is a useful control, but it still belongs inside the wider verification process.
+
+| Record | Why it matters |
+| --- | --- |
+| Contact route used | Shows that the verifier did not rely on the telephone number or address supplied in the change request |
+| Person who answered | Connects the confirmation to a named supplier representative and role |
+| Details stated by supplier | Avoids a yes-or-no call in which the verifier reads the fraudster's answer to the person contacted |
+| Time and verifier | Creates an audit trail that the payment approver can inspect before release |
+
+**Non-negotiable:** no employee may verify a banking-detail change using only contact information supplied in the same change request.
+
+## Separate capture, approval and release
+
+The control should fit the size of the business without depending on one person noticing everything.
+
+| Role | Responsibility | Evidence reviewed |
+| --- | --- | --- |
+| Capture | Record the proposed supplier or beneficiary change | Request, supplier record and supporting documents |
+| Verify | Confirm the change through a trusted independent route | Call-back record, contact used, responses and account-holder result |
+| Approve | Authorise the supplier-master or beneficiary amendment | Complete verification record and any exception approval |
+| Release | Confirm the payment agrees to the approved supplier record | Amount, due date, beneficiary age, change flag and authority limit |
+| Review | Check exceptions and unusual changes after the payment run | Audit log, new beneficiaries, overrides and incidents |
+
+A small business may not have five different people. It can still prevent one person from controlling the entire chain. The owner might approve new beneficiaries, while the bookkeeper prepares payments and another authorised person releases amounts above an agreed threshold. Where separation is temporarily impossible, the business should apply a documented compensating review before or immediately after payment.
+
+**Make exceptions harder than routine payments.** Fraudsters use urgency because pressure shortens the review. A same-day instruction from a director, an unexpected advance payment, a request for secrecy, a new beneficiary shortly before release or a supplier insisting that an old account has suddenly closed should increase the level of verification.
+
+- Set payment and beneficiary-approval limits that match the business's exposure, not job titles alone.
+- Require a cooling-off or additional approval for new or changed beneficiaries above a defined value.
+- Send independent notifications of supplier-master changes to an owner or senior finance reviewer.
+- Review all overrides and urgent-payment exceptions at least monthly, even when no loss occurred.
+
+**Do not let the owner become the override.** An owner's message should follow the same verification rule as any supplier request. A familiar WhatsApp profile, email signature or voice note is evidence of a message, not proof that the owner sent it. Agree in advance that staff may pause unusual instructions without being criticised for delaying payment.
+
+**Management test:** can the payment process stop an apparently urgent instruction from the owner until it has been verified through the agreed channel?
+
+## The first hour after a suspicious payment
+
+Speed matters because funds may be transferred through several accounts soon after receipt. Recovery is never guaranteed. SABRIC reports that fraud proceeds are often moved rapidly, reducing the opportunity to trace or preserve them. The response plan should therefore be written before an incident and kept where the owner and finance team can reach it.
+
+1. Stop further payments to the beneficiary and pause related supplier-master changes without deleting the audit trail.
+2. Contact the business's bank immediately through an official fraud channel. Provide the transaction reference, amount, time, beneficiary and account details, and ask what recall, tracing or preservation steps are available.
+3. Contact the genuine supplier through a trusted route to establish which communications and accounts were compromised.
+4. Preserve emails, headers, attachments, WhatsApp messages, call records, beneficiary logs, approvals and screenshots. Do not rely only on forwarded copies.
+5. Secure affected email, banking and user accounts with the bank and IT provider. Reset credentials from a known-clean device and review forwarding rules, delegates and active sessions.
+6. Report the criminal incident to SAPS and follow the bank's evidence and case-number requirements. Notify the insurer or broker promptly if a policy may respond.
+7. Ask the information officer and legal adviser whether compromised personal information creates duties under POPIA or other contracts and laws.
+
+**Do not assume who carries the loss.** South African disputes involving intercepted payment instructions have produced fact-specific outcomes. Courts examine the parties' relationship, the communication, the duties that existed and the conduct of each party. A payment sent to a fraudster may also leave the genuine supplier claiming that its invoice remains unpaid.
+
+Management should obtain legal advice early rather than telling the supplier, customer or bank that liability is obvious. Contracts should also state how banking-detail changes must be communicated and verified, but contractual wording cannot replace compliance with the agreed process.
+
+| Contact | Information to keep available |
+| --- | --- |
+| Bank fraud team | Official number, online reporting route and business account details |
+| IT provider | After-hours contact and authority to secure affected accounts |
+| Insurer or broker | Policy number, notification period and claims contact |
+| Legal and information officer | Incident contact and POPIA assessment route |
+
+**Important:** preserve the evidence and obtain legal advice before admitting liability, rejecting a claim or agreeing how the loss will be shared.
+
+## The control must survive a busy Friday
+
+A procedure that disappears under time pressure is not yet a dependable control.
+
+Most SME payment teams know that changed banking details should be checked. The weakness lies in how the check is performed. Calling the number on the altered document, replying to the same compromised mailbox or asking a second person to approve the same evidence creates activity without independence.
+
+The effective control is deliberately inconvenient at one narrow point: before money is sent to a new destination. The supplier record is established in advance. The call-back uses a trusted route. The person releasing payment can see that verification was completed. Exceptions are visible and reviewed.
+
+**The questions management should ask:**
+
+- Who can create or change a supplier, and who can create a bank beneficiary?
+- Which trusted contact details are held independently of invoices and change requests?
+- What evidence must the final payment approver see when banking details changed recently?
+- Which values or circumstances require additional approval or a cooling-off period?
+- Can staff challenge an urgent instruction from an owner or senior manager without fear?
+- Does everyone know the bank, SAPS, insurer, IT and legal escalation route before an incident occurs?
+
+**The bottom line.** The aim is not to distrust every supplier or slow every payment. It is to identify the few events where the destination of money changes and apply a stronger test there. A two-minute independent call can protect a payment that took months of trading to earn.
+
+*This report provides general business and financial education. It is not cybersecurity, banking, insurance, legal or POPIA advice. Obtain advice appropriate to the systems, contracts and facts involved, especially after an incident.*
+
+**Related reading:** Your Management Accounts Arrived. Now What? · The Business Can Afford Every Decision — But Not All at Once.
+
+The full report includes a one-page **Supplier Payment Verification Record** — to complete before approving new banking details, a changed beneficiary or an unusual urgent payment — available in the downloadable PDF.`,
+  },
   {
     slug: "business-can-afford-every-decision",
     cover: "/images/business-can-afford-every-decision.png",
