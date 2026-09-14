@@ -36,7 +36,8 @@ export function Navbar() {
       <nav className="container-luxe flex h-20 items-center justify-between">
         <Logo />
 
-        <ul className="hidden items-center gap-5 lg:flex xl:gap-7">
+        {/* Tighter gap at xl, where the "Book a call" button also appears, so 8 links + button never collide. */}
+        <ul className="hidden items-center gap-5 lg:flex xl:gap-4">
           {navLinks.map((link) => {
             const active =
               link.href === "/"
