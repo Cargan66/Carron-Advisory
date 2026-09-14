@@ -95,6 +95,36 @@ export function OrganizationJsonLd() {
   );
 }
 
+/**
+ * FAQPage structured data. Helps search engines and AI answer engines
+ * (ChatGPT, Claude, Perplexity, Google AI Overviews) parse and cite the Q&A.
+ * Pass plain-text answers (no markup).
+ */
+export function FaqJsonLd({
+  items,
+}: {
+  items: { question: string; answer: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${siteConfig.url}/faq#faqpage`,
+    inLanguage: "en-ZA",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.question,
+      acceptedAnswer: { "@type": "Answer", text: it.answer },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 export function ArticleJsonLd({
   title,
   description,

@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/engagement": 0.9,
     "/resources/financial-health-check": 0.9,
     "/contact": 0.8,
+    "/faq": 0.8,
     "/about": 0.8,
     "/testimonials-case-studies": 0.8,
     "/insights": 0.8,

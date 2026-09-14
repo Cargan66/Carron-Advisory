@@ -23,6 +23,7 @@ export const navLinks = [
   { label: "Engagement", href: "/engagement" },
   { label: "Case Studies", href: "/testimonials-case-studies" },
   { label: "Insights", href: "/insights" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
