@@ -12,7 +12,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/faq" },
 };
 
-type Faq = { q: string; a: string; link?: { href: string; label: string } };
+// raw:true renders a plain <a> — required for the static tool pages
+// (/health-check/, /find-your-fit/, /90-day-test/), which a Next <Link> breaks.
+type FaqLink = { href: string; label: string; raw?: boolean };
+type Faq = { q: string; a: string; links?: FaqLink[] };
 type FaqGroup = { eyebrow: string; title: string; items: Faq[] };
 
 const faqGroups: FaqGroup[] = [
@@ -35,6 +38,13 @@ const faqGroups: FaqGroup[] = [
       {
         q: "What is the difference between a bookkeeper, an accountant and a CFO?",
         a: "A bookkeeper records transactions; an accountant compiles financial statements and handles tax and compliance; a CFO uses those numbers to steer the business forward — cash, margin, funding, risk and strategy. The three roles are complementary, not interchangeable. Most owner-managed SMEs have a bookkeeper and an accountant long before anyone is doing the CFO role.",
+        links: [
+          {
+            href: "/find-your-fit/",
+            label: "Find Your Fit — 90-second quiz",
+            raw: true,
+          },
+        ],
       },
       {
         q: "Do I still need a CFO if I already have an accountant or auditor?",
@@ -53,7 +63,7 @@ const faqGroups: FaqGroup[] = [
       {
         q: "How much does a fractional CFO cost in South Africa?",
         a: "A fractional CFO costs a fraction of a full-time one. Instead of a full-time CFO salary — commonly R1 million or more a year in South Africa, plus benefits — you pay only for the time the business needs, typically a monthly retainer, a fixed-scope project, or ad-hoc sessions. Carron scopes each engagement to the business and quotes the fee in plain language up front, and the first discovery call is free.",
-        link: { href: "/engagement", label: "See how engagement works" },
+        links: [{ href: "/engagement", label: "See how engagement works" }],
       },
       {
         q: "What is Carron Business Advisory?",
@@ -70,7 +80,7 @@ const faqGroups: FaqGroup[] = [
       {
         q: "How does an engagement with Carron work, and how do I get started?",
         a: "It starts with a free, no-obligation discovery call about your business and your numbers. From there you can take a fixed-scope financial diagnostic that surfaces your priorities and a 90-day plan, then a right-sized engagement — retainer, project or ad-hoc — with scope and fee agreed up front. You only take on what the business actually needs.",
-        link: { href: "/contact", label: "Book a free discovery call" },
+        links: [{ href: "/contact", label: "Book a free discovery call" }],
       },
     ],
   },
@@ -98,8 +108,12 @@ const faqGroups: FaqGroup[] = [
     items: [
       {
         q: "Does Carron offer any free tools?",
-        a: "Yes. Carron offers a free online Financial Health Check & Valuation — enter about ten numbers from your accounts and get a health score out of 100, your key ratios benchmarked against your industry, and an indicative business value. There is also a free 90-Day Owner-Independence Test. Both are on the site and take a few minutes.",
-        link: { href: "/tools", label: "Explore the free tools" },
+        a: "Yes — three free tools, each a couple of minutes. The Financial Health Check & Valuation asks for about ten numbers and gives you a health score out of 100, your key ratios benchmarked against your industry, and an indicative business value. Find Your Fit is a 90-second quiz that tells you whether you need a bookkeeper, an accountant or a CFO. And the 90-Day Test scores whether your business could run for 90 days without you, and the bottlenecks to fix first.",
+        links: [
+          { href: "/health-check/", label: "Financial Health Check", raw: true },
+          { href: "/find-your-fit/", label: "Find Your Fit", raw: true },
+          { href: "/90-day-test/", label: "The 90-Day Test", raw: true },
+        ],
       },
     ],
   },
@@ -109,12 +123,11 @@ const allFaqs = faqGroups.flatMap((g) =>
   g.items.map((it) => ({ question: it.q, answer: it.a })),
 );
 
-function ArrowLink({ href, label }: { href: string; label: string }) {
-  return (
-    <Link
-      href={href}
-      className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-light"
-    >
+function ArrowLink({ href, label, raw }: FaqLink) {
+  const className =
+    "inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-light";
+  const inner = (
+    <>
       {label}
       <svg
         className="h-4 w-4"
@@ -126,6 +139,16 @@ function ArrowLink({ href, label }: { href: string; label: string }) {
       >
         <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
+    </>
+  );
+  // Static tool pages must use a plain <a> (a Next <Link> breaks client nav to them).
+  return raw ? (
+    <a href={href} className={className}>
+      {inner}
+    </a>
+  ) : (
+    <Link href={href} className={className}>
+      {inner}
     </Link>
   );
 }
@@ -168,7 +191,13 @@ export default function FaqPage() {
                     </dt>
                     <dd className="mt-3 text-base leading-relaxed text-stone-300/90">
                       {f.a}
-                      {f.link && <div><ArrowLink {...f.link} /></div>}
+                      {f.links && (
+                        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                          {f.links.map((l) => (
+                            <ArrowLink key={l.href} {...l} />
+                          ))}
+                        </div>
+                      )}
                     </dd>
                   </FadeIn>
                 ))}
