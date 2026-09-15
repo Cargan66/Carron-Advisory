@@ -1,22 +1,30 @@
 /**
  * Carron site Worker.
  *
- * Serves the static site (the ./out export, via the ASSETS binding) and adds a
- * single dynamic endpoint that records Financial Health Check submissions to a
- * Cloudflare D1 database.
+ * Serves the static site (the ./out export, via the ASSETS binding) and records
+ * questionnaire completions to a Cloudflare D1 database:
+ *   - POST /api/health-check : detailed Financial Health Check row (submissions
+ *     table) PLUS a summary row in the unified `leads` table.
+ *   - POST /api/lead         : a completion from any tool (90-Day Test, Find
+ *     Your Fit, Health Check) into the unified `leads` table.
  *
- * Privacy: we store a SUMMARY only — sector, score, band, indicative value
- * range, net-asset value, the computed ratios, and the lead's name/email with
- * their consent. The raw financial inputs (revenue, profit, cash, etc.) are
- * NEVER sent here or stored.
+ * Privacy: we store a SUMMARY only, with the user's consent. Raw financial
+ * inputs (revenue, profit, cash, etc.) are never sent here or stored.
  */
 
+const ALLOWED_TOOLS = ["health-check", "90-day-test", "find-your-fit"];
+
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env) {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/health-check") {
-      if (request.method === "POST") return handleSubmit(request, env);
+      if (request.method === "POST") return handleHealthCheck(request, env);
+      return json({ ok: false, error: "method not allowed" }, 405);
+    }
+
+    if (url.pathname === "/api/lead") {
+      if (request.method === "POST") return handleLead(request, env);
       return json({ ok: false, error: "method not allowed" }, 405);
     }
 
@@ -25,7 +33,67 @@ export default {
   },
 };
 
-async function handleSubmit(request, env) {
+// Unified table for every tool completion (auto-created on first write).
+async function ensureLeads(env) {
+  await env.DB.prepare(
+    `CREATE TABLE IF NOT EXISTS leads (
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       created_at TEXT NOT NULL,
+       tool       TEXT NOT NULL,   -- 'health-check' | '90-day-test' | 'find-your-fit'
+       name       TEXT,
+       email      TEXT,
+       result     TEXT,            -- short headline result
+       detail     TEXT,            -- JSON, tool-specific summary
+       consent    INTEGER,
+       country    TEXT
+     )`
+  ).run();
+}
+
+async function insertLead(env, request, fields) {
+  await ensureLeads(env);
+  await env.DB.prepare(
+    `INSERT INTO leads (created_at, tool, name, email, result, detail, consent, country)
+     VALUES (?,?,?,?,?,?,?,?)`
+  )
+    .bind(
+      new Date().toISOString(),
+      str(fields.tool, 40),
+      str(fields.name, 120),
+      str(fields.email, 200),
+      str(fields.result, 200),
+      str(fields.detail, 8000),
+      fields.consent ? 1 : 0,
+      (request.cf && request.cf.country) || ""
+    )
+    .run();
+}
+
+// Generic completion endpoint for the 90-Day Test and Find Your Fit.
+async function handleLead(request, env) {
+  try {
+    const data = await request.json().catch(() => ({}));
+    const email = str(data.email, 200);
+    const tool = str(data.tool, 40);
+    if (!ALLOWED_TOOLS.includes(tool)) return json({ ok: false, error: "unknown tool" }, 400);
+    if (!/.+@.+\..+/.test(email)) return json({ ok: false, error: "invalid email" }, 400);
+    if (!data.consent) return json({ ok: false, error: "consent required" }, 400);
+
+    await insertLead(env, request, {
+      tool,
+      name: data.name,
+      email,
+      result: data.result,
+      detail: data.detail,
+      consent: data.consent,
+    });
+    return json({ ok: true });
+  } catch (e) {
+    return json({ ok: false, error: "server error" }, 500);
+  }
+}
+
+async function handleHealthCheck(request, env) {
   try {
     const data = await request.json().catch(() => ({}));
 
@@ -55,6 +123,27 @@ async function handleSubmit(request, env) {
         (request.cf && request.cf.country) || ""
       )
       .run();
+
+    // Mirror a summary row into the unified leads table so all three tools'
+    // completions can be seen in one place. Best-effort: never fail the request.
+    try {
+      await insertLead(env, request, {
+        tool: "health-check",
+        name: data.name,
+        email,
+        result: int(data.score) + "/100 — " + str(data.band, 40),
+        detail: JSON.stringify({
+          sector: str(data.sector, 80),
+          value_low: int(data.value_low),
+          value_high: int(data.value_high),
+          net_asset_value: int(data.net_asset_value),
+          missing_count: int(data.missing_count),
+        }),
+        consent: data.consent,
+      });
+    } catch (e) {
+      /* leads mirror is non-critical */
+    }
 
     return json({ ok: true });
   } catch (e) {

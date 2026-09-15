@@ -19,3 +19,21 @@ CREATE TABLE IF NOT EXISTS submissions (
 
 CREATE INDEX IF NOT EXISTS idx_submissions_created ON submissions (created_at);
 CREATE INDEX IF NOT EXISTS idx_submissions_email   ON submissions (email);
+
+-- Unified completions log for ALL three tools (Health Check, 90-Day Test,
+-- Find Your Fit). The Worker auto-creates this on first write; it is listed
+-- here for reference. Summary fields only, stored with the user's consent.
+CREATE TABLE IF NOT EXISTS leads (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  created_at TEXT    NOT NULL,
+  tool       TEXT    NOT NULL,   -- 'health-check' | '90-day-test' | 'find-your-fit'
+  name       TEXT,
+  email      TEXT,
+  result     TEXT,               -- short headline result (score/band/tier)
+  detail     TEXT,               -- JSON, tool-specific summary
+  consent    INTEGER,
+  country    TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_leads_created ON leads (created_at);
+CREATE INDEX IF NOT EXISTS idx_leads_tool    ON leads (tool);
+CREATE INDEX IF NOT EXISTS idx_leads_email   ON leads (email);
