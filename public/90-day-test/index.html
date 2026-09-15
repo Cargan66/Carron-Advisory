@@ -296,6 +296,19 @@
     </div>
   </section>
 
+  <!-- ============ EMAIL GATE (after the questions, before the result) ============ -->
+  <section id="gate" class="panel hidden">
+    <div class="eyebrow" style="text-align:center">Your result is ready</div>
+    <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,4vw,34px);color:var(--cream);text-align:center;margin:8px 0 10px">See your owner-independence score and the bottlenecks to fix first</h2>
+    <p style="color:var(--sage);text-align:center;max-width:54ch;margin:0 auto 22px;font-size:15px">Enter your email to see your result now — and we'll email you the full 90-day action plan, including the complete 40-question assessment. It's free; we only ask for a valid email address.</p>
+    <div class="form" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto">
+      <input type="email" id="gate-email" placeholder="you@business.co.za" autocomplete="email" style="flex:1;min-width:220px">
+      <button class="btn primary" id="gate-btn" onclick="unlock()">Show my result →</button>
+    </div>
+    <div class="note" id="gate-note" style="text-align:center">We'll email your result and plan, and may follow up. No spam; unsubscribe any time.</div>
+    <div class="navrow" style="justify-content:center;margin-top:22px"><button class="btn ghost" onclick="show('quiz')">← Back to the questions</button></div>
+  </section>
+
   <!-- ============ RESULTS ============ -->
   <section id="results" class="panel hidden">
     <div class="eyebrow" style="text-align:center">Your result</div>
@@ -329,15 +342,12 @@
     <div id="bottlenecks"></div>
 
     <div class="cta">
-      <h3>Get the full 90-day action plan</h3>
-      <p>Emailed to you only: the complete owner-independence plan — including the <strong style="color:var(--gold-light)">full 40-question assessment</strong> (twice the depth of the 20 you just did), plus the authorities, limits and hand-overs to put in place for every area you scored low, in priority order.</p>
-      <div class="form">
-        <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
-        <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
-        <button class="btn primary" onclick="submitLead()">Send my plan</button>
+      <h3>Your full 90-day action plan is on its way</h3>
+      <p id="plan-note">We've emailed your complete owner-independence plan — including the <strong style="color:var(--gold-light)">full 40-question assessment</strong> (twice the depth of the 20 you just did), plus the authorities, limits and hand-overs to put in place for every area you scored low, in priority order.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+        <a class="btn primary" href="/contact">Book a discovery call</a>
+        <a class="btn ghost" href="/health-check/">Try the Financial Health Check</a>
       </div>
-      <label class="consent" style="display:flex;align-items:flex-start;gap:9px;justify-content:center;max-width:52ch;margin:14px auto 0;font-size:12.5px;color:var(--sage);text-align:left;cursor:pointer"><input type="checkbox" id="lead-consent" style="margin-top:2px;flex:none;accent-color:var(--gold)"><span>I agree Carron may store a summary of my result and contact me about it.</span></label>
-      <div class="note" id="lead-note">Your answers stay private — we keep only a summary of your result to follow up. Prefer to talk? Email <a href="mailto:info@carron.co.za" style="color:var(--gold-light)">info@carron.co.za</a>.</div>
     </div>
 
     <div class="navrow" style="justify-content:center;margin-top:28px;gap:12px;flex-wrap:wrap">
@@ -478,7 +488,7 @@ const answers = new Array(QUESTIONS.length).fill(null);
 const maxScore = QUESTIONS.reduce((s,q)=> s + MAXPTS*(q.survival?2:1), 0);
 
 function el(id){return document.getElementById(id)}
-function show(id){['intro','quiz','results'].forEach(s=>el(s).classList.add('hidden'));el(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
+function show(id){['intro','quiz','gate','results'].forEach(s=>el(s).classList.add('hidden'));el(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
 
 function start(){ idx=0; show('quiz'); render(); }
 function restart(){ answers.fill(null); idx=0; leadBusy=false; show('intro'); }
@@ -545,8 +555,16 @@ function ragLabel(avg){ return avg<1?'Owner-dependent':avg<2?'Documented':avg<2.
 function criticals(){ return QUESTIONS.map((q,i)=>({q,i})).filter(o=>o.q.survival && answers[o.i]===0); }
 
 /* ---------- results ---------- */
+let PENDING_SCORE=0, CAPTURED_EMAIL='';
 function finish(){
-  const score = currentScore();
+  PENDING_SCORE = currentScore();
+  leadBusy=false;
+  const gb=el('gate-btn'); if(gb) gb.disabled=false;
+  const gn=el('gate-note'); if(gn){ gn.textContent="We'll email your result and plan, and may follow up. No spam; unsubscribe any time."; gn.style.color=''; }
+  show('gate');   // require a valid email before revealing the result
+}
+function revealResults(){
+  const score = PENDING_SCORE;
   show('results');
   drawGauge(score);
   drawBands(score);
@@ -719,61 +737,35 @@ function resultSummary(){
   return s;
 }
 
-function submitLead(){
-  const name=el('lead-name').value.trim();
-  const email=el('lead-email').value.trim();
-  const note=el('lead-note');
+function unlock(){
+  const email=el('gate-email').value.trim();
+  const note=el('gate-note');
   if(!email || !/.+@.+\..+/.test(email)){
-    note.textContent='Please enter a valid email so we can send your plan.';
-    note.style.color='var(--clay)';return;
-  }
-  if(!el('lead-consent').checked){
-    note.textContent='Please tick the box so we may store a summary and follow up.';
+    note.textContent='Please enter a valid email address to see your result.';
     note.style.color='var(--clay)';return;
   }
   if(leadBusy) return;
   leadBusy=true;
-  const btn=document.querySelector('.cta .btn.primary');
-  if(btn) btn.disabled=true;
-  note.textContent='Sending…'; note.style.color='var(--sage)';
+  const btn=el('gate-btn'); if(btn) btn.disabled=true;
+  CAPTURED_EMAIL=email;
 
-  const score=currentScore();
+  revealResults();   // draw the result first (sets band-label + print sheet)
+
+  const score=PENDING_SCORE;
   const band=el('band-label').textContent||'';
   const ts=new Date().toISOString();
 
-  // record the completion to our database (summary only; best-effort, never blocks)
+  // record the completion to our database (summary only; best-effort)
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({tool:'90-day-test',name:name||'',email:email,result:score+'/100 — '+band,detail:JSON.stringify({score:score,band:band,summary:resultSummary()}),consent:true})}).catch(()=>{}); }catch(e){}
+    body:JSON.stringify({tool:'90-day-test',name:'',email:email,result:score+'/100 — '+band,detail:JSON.stringify({score:score,band:band,summary:resultSummary()}),consent:true})}).catch(()=>{}); }catch(e){}
 
-  /* ---- INTEGRATION POINT ----
-     Lead capture posts to Web3Forms (same pipeline as the site contact form),
-     which emails the submission to info@carron.co.za. To switch providers,
-     replace the fetch target/body below; the UI stays the same. */
-  fetch('https://api.web3forms.com/submit',{
-    method:'POST',
-    headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({
-      access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',
-      subject:'New 90-Day Test lead — '+(name||email),
-      from_name:'Carron 90-Day Test',
-      name:name||'—',
-      email:email,
-      score:score+'/100',
-      band:band,
-      summary:resultSummary(),
-      answers:JSON.stringify(answers),
-      submitted:ts
-    })
-  }).then(r=>r.json()).then(res=>{
-    if(!res || !res.success) throw new Error('fail');
-    note.textContent='Thanks'+(name?', '+name:'')+' — we’ve got your results and will send your full 90-day plan to '+email+' shortly.';
-    note.style.color='var(--sage-bright)';
-  }).catch(()=>{
-    note.textContent='Something went wrong sending that. Please email info@carron.co.za and we’ll send your plan.';
-    note.style.color='var(--clay)';
-    leadBusy=false;
-    if(btn) btn.disabled=false;
-  });
+  // email the full 90-day plan via Web3Forms (same pipeline as the contact form -> info@carron.co.za)
+  try{ fetch('https://api.web3forms.com/submit',{
+    method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New 90-Day Test lead — '+email,from_name:'Carron 90-Day Test',name:'—',email:email,score:score+'/100',band:band,summary:resultSummary(),answers:JSON.stringify(answers),submitted:ts})}).catch(()=>{}); }catch(e){}
+
+  const cnote=el('plan-note');
+  if(cnote){ cnote.innerHTML='We’ve emailed your full 90-day plan to <strong style="color:var(--gold-light)">'+email+'</strong>.'; cnote.style.color='var(--sage-bright)'; }
 }
 </script>
 </body>

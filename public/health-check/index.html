@@ -148,7 +148,7 @@
     <div class="eyebrow">A 2-minute check</div>
     <h1>Where does your business stand — and what's it <em>worth</em>?</h1>
     <p class="lede">Pick your industry, enter about ten numbers from your management accounts (rough figures are fine), and get an instant read: a health score, your key ratios benchmarked against your sector, and an indicative value range.</p>
-    <p class="lede tight">No sign-up to see your result. Your figures stay in your browser — if you ask us to follow up, we keep only a short summary of your results, never your raw numbers.</p>
+    <p class="lede tight">Free to run — you'll enter your email to see your result. Your raw figures stay in your browser; we keep only a short summary of the result, never your raw numbers.</p>
     <div class="meta-row">
       <div class="meta"><div class="k">10</div><div class="v">Numbers</div></div>
       <div class="meta"><div class="k">/100</div><div class="v">Health score</div></div>
@@ -170,6 +170,21 @@
     <div class="navrow">
       <button class="btn ghost" onclick="show('intro')">← Back</button>
       <button class="btn primary" onclick="calculate()">See my result →</button>
+    </div>
+  </section>
+
+  <!-- EMAIL GATE (after the numbers, before the result) -->
+  <section id="gate" class="panel hidden">
+    <div class="rlead">Your result is ready</div>
+    <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,5vw,40px);color:var(--cream);text-align:center;margin:8px 0 12px">See your health score and indicative value</h2>
+    <p style="color:var(--sage);text-align:center;max-width:54ch;margin:0 auto 24px;font-size:15px">Enter your email to see your result now. It's free — we only ask for a valid email address. Your raw figures stay in your browser; we keep only a summary of the result.</p>
+    <div class="form" style="max-width:480px;margin:0 auto">
+      <input type="email" id="gate-email" placeholder="you@business.co.za" autocomplete="email" style="min-width:220px">
+      <button class="btn primary" id="gate-btn" onclick="unlock()">Show my result →</button>
+    </div>
+    <div class="note" id="gate-note">We may follow up about your result. No spam; unsubscribe any time.</div>
+    <div class="navrow" style="justify-content:center;margin-top:22px">
+      <button class="btn ghost" onclick="show('calc')">← Back to my numbers</button>
     </div>
   </section>
 
@@ -203,17 +218,10 @@
 
     <div class="cta">
       <h3 id="cta-head">Want your full results?</h3>
-      <p>Your results are shown above — save a copy for your records. Want a second opinion, or a plan to act on them? Leave your details and we'll follow up, or book a free discovery call.</p>
-      <div style="margin-bottom:18px">
+      <p>Save a copy for your records, or talk them through with us. Your raw numbers stay in your browser — we keep only a summary (sector, score and value range) to follow up.</p>
+      <div style="margin:6px 0 18px">
         <button class="btn primary" onclick="printResults()">⤓ Save / print my results (PDF)</button>
       </div>
-      <div class="form">
-        <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
-        <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
-        <button class="btn ghost" id="lead-btn" onclick="submitLead()">Ask Carron to follow up</button>
-      </div>
-      <label class="consent"><input type="checkbox" id="lead-consent"><span>I agree Carron may store a summary of these results (not my raw figures) and contact me about them.</span></label>
-      <div class="note" id="lead-note">Your raw numbers stay private. We keep only a summary — sector, score and value range — to follow up. No spam.</div>
       <div class="subrow">
         <a class="btn ghost" href="/diagnostic">Go deeper: the R795 Diagnostic</a>
         <a class="btn ghost" href="/contact">Book a discovery call</a>
@@ -237,7 +245,7 @@
 
 <script>
 const el = id => document.getElementById(id);
-function show(id){ ['intro','calc','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+function show(id){ ['intro','calc','gate','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 
 /* ten inputs — grouped by statement (bs = balance sheet, pl = profit & loss) */
 const INPUTS = [
@@ -379,7 +387,14 @@ function calculate(){
   RESULT = { revenue, score, R, applicCount: applic.length, op, ownerpay, sde, earn, earnOk, rev, nav, navOk, head,
              missing, keyMissing, tooFew, valTooSmall, suppliedCount: 10-missing.length,
              ownerpaySupplied: has('ownerpay'), sector, sectorLabel: B.label };
-  renderResult();
+  // Not enough numbers to score? Show the "add more" prompt directly (nothing to gate).
+  // Otherwise require a valid email before revealing the result.
+  if(RESULT.tooFew){ renderResult(); }
+  else {
+    const gb=el('gate-btn'); if(gb) gb.disabled=false;
+    const gn=el('gate-note'); if(gn){ gn.textContent='We may follow up about your result. No spam; unsubscribe any time.'; gn.style.color=''; }
+    show('gate');
+  }
 }
 
 function renderResult(){
@@ -463,7 +478,7 @@ function printResults(){
   if(!RESULT){ return; }
   const r=RESULT;
   if(r.tooFew){ alert('Please add a few more numbers before saving — we need at least '+(r.keyMissing.join(', ')||'the core figures')+'.'); return; }
-  const name=el('lead-name').value.trim();
+  const name=CAPTURED_EMAIL||'';
   const d=new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
   const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
   const rangeTxt = r.valTooSmall ? '—' : (lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi));
@@ -515,7 +530,26 @@ function recordSubmission(name, email, lo, hi){
   }catch(e){}
 }
 
-/* lead capture */
+/* email gate: require a valid email, record + notify the owner, then reveal the result */
+let CAPTURED_EMAIL='';
+function unlock(){
+  const email=el('gate-email').value.trim();
+  const note=el('gate-note');
+  if(!email || !/.+@.+\..+/.test(email)){ note.textContent='Please enter a valid email address to see your result.'; note.style.color='var(--clay)'; return; }
+  if(!RESULT) return;
+  const btn=el('gate-btn'); if(btn) btn.disabled=true;
+  CAPTURED_EMAIL=email;
+  const lo=round(RESULT.head[0],10000), hi=round(RESULT.head[1],10000);
+  // record a summary to D1 (also mirrored into the unified leads table server-side)
+  recordSubmission('', email, lo, hi);
+  // notify the owner via Web3Forms
+  const ratios=RESULT.R.map(x=>{ if(!x.ok) return x.name+': not supplied'; const [,lab]=ragDot(x.pts); return x.name+': '+x.val+' ('+lab+'; '+x.bench+')'; }).join('\n');
+  try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+email,from_name:'Carron Health Check',name:'—',email:email,sector:RESULT.sectorLabel,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),net_asset_value:fmtR(RESULT.nav),ratios:ratios,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
+  renderResult();
+}
+
+/* lead capture (legacy bottom form — retained but no longer shown) */
 let leadBusy=false;
 function submitLead(){
   const name=el('lead-name').value.trim(), email=el('lead-email').value.trim(), note=el('lead-note');

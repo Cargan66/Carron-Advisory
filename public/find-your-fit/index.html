@@ -138,6 +138,19 @@
     </div>
   </section>
 
+  <!-- EMAIL GATE (shown after the questions, before the result) -->
+  <section id="gate" class="panel hidden">
+    <div class="rlead">Your result is ready</div>
+    <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,4vw,34px);color:var(--cream);text-align:center;margin:8px 0 10px">See the level of finance support that fits your business</h2>
+    <p style="color:var(--sage);text-align:center;max-width:52ch;margin:0 auto 22px;font-size:15px">Enter your email to see your recommendation now — we'll send you a copy too. It's free; we only ask for a valid email address.</p>
+    <div class="form" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto">
+      <input type="email" id="gate-email" placeholder="you@business.co.za" autocomplete="email" style="flex:1;min-width:220px">
+      <button class="btn primary" id="gate-btn" onclick="unlock()">Show my result →</button>
+    </div>
+    <div class="note" id="gate-note" style="text-align:center">We'll email your result and may follow up. No spam; unsubscribe any time.</div>
+    <div class="navrow" style="justify-content:center;margin-top:22px"><button class="btn ghost" onclick="show('quiz')">← Back to the questions</button></div>
+  </section>
+
   <!-- RESULT -->
   <section id="result" class="panel hidden">
     <div class="rlead">Your recommended starting point</div>
@@ -156,14 +169,11 @@
 
     <div class="cta">
       <h3 id="cta-head">Let's confirm your fit.</h3>
-      <p>Want your recommendation and next steps in writing? Leave your details and we'll email them over — or book a free, no-obligation discovery call to confirm the right level.</p>
-      <div class="form">
-        <input type="text" id="lead-name" placeholder="Your name" autocomplete="name">
-        <input type="email" id="lead-email" placeholder="Your email" autocomplete="email">
-        <button class="btn primary" onclick="submitLead()">Send me my fit</button>
+      <p>We've emailed a copy of your recommendation. Want to talk it through? Book a free, no-obligation discovery call to confirm the right level for your business.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px">
+        <a class="btn primary" href="/contact">Book a discovery call</a>
+        <a class="btn ghost" href="/health-check/">Try the Financial Health Check</a>
       </div>
-      <label class="consent" style="display:flex;align-items:flex-start;gap:9px;justify-content:center;max-width:52ch;margin:14px auto 0;font-size:12.5px;color:var(--sage);text-align:left;cursor:pointer"><input type="checkbox" id="lead-consent" style="margin-top:2px;flex:none;accent-color:var(--gold)"><span>I agree Carron may store a summary of my result and contact me about it.</span></label>
-      <div class="note" id="lead-note">Your answers stay private — we keep only a summary of your recommendation to follow up. Prefer to talk? <a href="/contact" style="color:var(--gold-light)">Book a discovery call</a>.</div>
     </div>
 
     <div class="navrow" style="justify-content:center;margin-top:24px">
@@ -220,7 +230,7 @@ const TIERS = [
 let idx = 0;
 const answers = new Array(QUESTIONS.length).fill(null);
 const el = id => document.getElementById(id);
-function show(id){ ['intro','quiz','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+function show(id){ ['intro','quiz','gate','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 function start(){ idx=0; show('quiz'); render(); }
 function restart(){ answers.fill(null); idx=0; show('intro'); }
 
@@ -250,18 +260,23 @@ function tierFor(total){
   if(total<=20) return 1;
   return 2;
 }
+let PENDING=null, leadBusy=false;
 function finish(){
   const total = answers.reduce((s,a,i)=> s + (a===null?0:QUESTIONS[i].opts[a][1]), 0);
-  const t = TIERS[tierFor(total)];
+  PENDING = TIERS[tierFor(total)];
+  leadBusy=false;
+  const gb=el('gate-btn'); if(gb) gb.disabled=false;
+  const gn=el('gate-note'); if(gn){ gn.textContent="We'll email your result and may follow up. No spam; unsubscribe any time."; gn.style.color=''; }
+  show('gate');   // require a valid email before revealing the result
+}
+function renderFit(t){
   show('result');
   el('tier-name').textContent = t.key;
   el('tier-time').textContent = t.time;
   el('tier-desc').textContent = t.desc;
   requestAnimationFrame(()=>{ el('tier-bar').style.transition='width 1s cubic-bezier(.34,1.2,.4,1)'; el('tier-bar').style.width = t.pct+'%'; });
   el('cta-head').textContent = `${t.key} looks like your fit.`;
-  // deliverables
   el('tier-delivs').innerHTML = t.items.map(i=>`<li><span class="d"></span>${i}</li>`).join('');
-  // scale
   el('scale').innerHTML = TIERS.map(x=>`
     <div class="row${x.key===t.key?' on':''}">
       <span class="rn">${x.key}</span>
@@ -270,49 +285,25 @@ function finish(){
     </div>`).join('');
 }
 
-let leadBusy=false;
-function submitLead(){
-  const name=el('lead-name').value.trim();
-  const email=el('lead-email').value.trim();
-  const note=el('lead-note');
+function unlock(){
+  const email=el('gate-email').value.trim();
+  const note=el('gate-note');
   if(!email || !/.+@.+\..+/.test(email)){
-    note.textContent='Please enter a valid email so we can send your recommendation.';
-    note.style.color='var(--clay)'; return;
-  }
-  if(!el('lead-consent').checked){
-    note.textContent='Please tick the box so we may store a summary and follow up.';
+    note.textContent='Please enter a valid email address to see your result.';
     note.style.color='var(--clay)'; return;
   }
   if(leadBusy) return; leadBusy=true;
-  const btn=document.querySelector('.cta .btn.primary'); if(btn) btn.disabled=true;
-  note.textContent='Sending…'; note.style.color='var(--sage)';
-  const tier=el('tier-name').textContent;
+  const btn=el('gate-btn'); if(btn) btn.disabled=true;
+  const tier=PENDING.key;
   const picks=answers.map((a,i)=> (i+1)+'. '+QUESTIONS[i].q+' → '+(a===null?'—':QUESTIONS[i].opts[a][0])).join('\n');
-  // record the completion to our database (summary only; best-effort, never blocks)
+  // record the completion to our database (summary only; best-effort)
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({tool:'find-your-fit',name:name||'',email:email,result:tier,detail:JSON.stringify({tier:tier,answers:picks}),consent:true})}).catch(()=>{}); }catch(e){}
-  fetch('https://api.web3forms.com/submit',{
-    method:'POST',
-    headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({
-      access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',
-      subject:'New Find-Your-Fit lead — '+(name||email),
-      from_name:'Carron Find Your Fit',
-      name:name||'—',
-      email:email,
-      recommended_tier:tier,
-      answers:picks,
-      submitted:new Date().toISOString()
-    })
-  }).then(r=>r.json()).then(res=>{
-    if(!res || !res.success) throw new Error('fail');
-    note.innerHTML='Thanks'+(name?', '+name:'')+' — we’ve got your <strong style="color:var(--gold-light)">'+tier+'</strong> result and we’ll email your recommendation and next steps shortly.';
-    note.style.color='var(--sage-bright)';
-  }).catch(()=>{
-    note.textContent='Something went wrong sending that. Please email info@carron.co.za and we’ll send your recommendation.';
-    note.style.color='var(--clay)';
-    leadBusy=false; if(btn) btn.disabled=false;
-  });
+    body:JSON.stringify({tool:'find-your-fit',name:'',email:email,result:tier,detail:JSON.stringify({tier:tier,answers:picks}),consent:true})}).catch(()=>{}); }catch(e){}
+  // email the recommendation via Web3Forms
+  try{ fetch('https://api.web3forms.com/submit',{
+    method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Find-Your-Fit lead — '+email,from_name:'Carron Find Your Fit',name:'—',email:email,recommended_tier:tier,answers:picks,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
+  renderFit(PENDING);
 }
 </script>
 </body>
