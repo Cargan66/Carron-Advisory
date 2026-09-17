@@ -266,6 +266,12 @@ const STRENGTH_LABEL = {
   solvency: "Balance-sheet strength",
   debt: "Low gearing (debt level)",
 };
+// Plain-English area names for the summary and the 90-day sequence.
+const AREA = {
+  runway: "cash runway", liquidity: "short-term liquidity", solvency: "the balance sheet",
+  debt: "debt levels", operating: "operating profitability", gross: "gross margin",
+  valuation: "business value", reporting: "monthly reporting",
+};
 const KEEP = {
   gross: "Hold the line on discounting and re-quote whenever input costs move — margin erodes quietly, a point at a time.",
   operating: "Bank a share of the profit as a cash buffer rather than letting it drift into new fixed costs.",
@@ -369,6 +375,7 @@ export function generateDiagnostic(d) {
     valueHigh: d.value_high,
     nav: d.net_asset_value,
     headline,
+    ratios: ratios.map((r) => ({ name: r.name, val: r.val, status: r.status, bench: r.bench })),
     strengths: strengthsFrom(ratios),
     priorities: priorities.map((p, i) => ({ rank: i + 1, howto: HOWTO[p.key] || "", ...p })),
   };
@@ -412,10 +419,89 @@ export function renderDiagnosticHTML(report, meta = {}) {
   <p class="dg-lede">Health score <strong>${report.score}/100</strong> — ${esc(
     report.band
   )}. Indicative value <strong>${val}</strong>. ${esc(report.headline)} Every area is covered below, most urgent first.</p>
+  ${renderExec(report, val)}
+  ${renderTable(report)}
   ${renderStrengths(report)}
   ${cards}
+  ${renderSequence(report)}
   <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> In a Carron CFO Review a senior advisor works through these priorities with you — the full method for each, the order to tackle them, and a plan you can act on. Your R795 fee is credited in full toward it.</div>
   <p class="dg-disc">Automated and educational only, generated from the figures you entered — not a formal audit, valuation or advisor-reviewed opinion. Confirm anything material with a qualified adviser before acting.</p>`;
+}
+
+// A synthesis paragraph: overall standing, the binding constraint, strengths, value.
+function renderExec(report, valTxt) {
+  const pr = report.priorities || [];
+  const st = report.strengths || [];
+  const act = pr.filter((p) => p.status === "Act");
+  const lead = act.length >= 2
+    ? "You have genuine strengths to build on, but several financial pressures need attention now — and left alone they compound, because cash, margin and debt all feed each other."
+    : act.length === 1
+    ? "The business is broadly sound, with one pressing issue to fix before it starts to constrain everything around it."
+    : "Your financials are in good shape. The work now is protecting that position and building value on purpose, rather than by accident.";
+  const first = pr[0] ? ` The single place to start is <strong>${esc(AREA[pr[0].key] || "priority 1")}</strong> (priority 1 below) — clear that and the rest gets easier.` : "";
+  const strengths = st.length
+    ? ` You're not starting from zero: ${esc(joinLabels(st.slice(0, 3)))} already ${st.length === 1 ? "stacks" : "stack"} up well, so the job is to protect ${st.length === 1 ? "it" : "them"} while you close the gaps.`
+    : "";
+  const value = valTxt && valTxt !== "—"
+    ? ` On today's numbers the business is worth an indicative <strong>${valTxt}</strong>; the surest way to move that up is stronger, steadier operating profit that leans less on you personally.`
+    : "";
+  return `<div class="dg-exec"><span class="eh">In short</span>${lead}${first}${strengths}${value}</div>`;
+}
+
+function joinLabels(items) {
+  const labels = items.map((s) => String(s.label || "").toLowerCase());
+  if (labels.length <= 1) return labels[0] || "";
+  if (labels.length === 2) return labels[0] + " and " + labels[1];
+  return labels.slice(0, -1).join(", ") + " and " + labels[labels.length - 1];
+}
+
+// All ratios in one scannable dashboard.
+function renderTable(report) {
+  const rs = report.ratios || [];
+  if (!rs.length) return "";
+  const rows = rs.map((r) => {
+    const stt = r.status || "";
+    const cls = stt === "Act" ? "pri-act" : stt === "Watch" ? "pri-watch" : stt === "Healthy" ? "pri-healthy" : "";
+    const supplied = stt && stt !== "Not supplied";
+    const value = supplied && r.val ? esc(r.val) : "—";
+    const bench = r.bench ? esc(String(r.bench).replace(/·.*$/, "").trim()) : "";
+    const badge = stt ? `<span class="tb-badge ${cls}">${esc(stt)}</span>` : "";
+    return `<tr><td>${esc(r.name)}</td><td class="tb-val">${value}</td><td class="tb-bench">${bench}</td><td>${badge}</td></tr>`;
+  }).join("");
+  return `<h3 class="dg-h3">Your numbers at a glance</h3>
+  <div class="dg-tablewrap"><table class="dg-table"><thead><tr><th>Measure</th><th>Your figure</th><th>Benchmark</th><th>Rating</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// The priorities sequenced into 30/60/90-day windows.
+function renderSequence(report) {
+  const pr = report.priorities || [];
+  if (!pr.length) return "";
+  const now = [], soon = [], ongoing = [];
+  pr.forEach((p) => {
+    if (p.status === "Act") now.push(p);
+    else if (p.key === "reporting" || p.key === "valuation") ongoing.push(p);
+    else soon.push(p);
+  });
+  const col = (w, list, empty) => {
+    const body = list.length
+      ? `<ul>${list.map((p) => `<li><span class="seq-n">${p.rank}</span>${esc(cap(AREA[p.key] || p.title))}</li>`).join("")}</ul>`
+      : `<p class="seq-empty">${empty}</p>`;
+    return `<div class="seq-col"><div class="sc-w">${w}</div>${body}</div>`;
+  };
+  return `<div class="seq">
+    <div class="seq-h">Your next 90 days</div>
+    <div class="seq-grid">
+      ${col("First 30 days — stabilise", now, "Nothing critical — good.")}
+      ${col("Days 30–60 — strengthen", soon, "Nothing outstanding here.")}
+      ${col("Days 60–90 — build & embed", ongoing, "—")}
+    </div>
+    <p class="seq-foot">Work top-down: the numbered items match the priority cards above. Re-run the free Health Check each quarter to see the score move.</p>
+  </div>`;
+}
+
+function cap(s) {
+  s = String(s || "");
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 function renderStrengths(report) {
