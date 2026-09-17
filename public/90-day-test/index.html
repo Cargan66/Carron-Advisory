@@ -794,8 +794,10 @@ function unlock(){
   }
 }
 
-/* R795 plan paywall is hidden until Paystack is connected — flip to true to go live. */
-const R795_PLAN_LIVE = false;
+/* R795 plan paywall. NOTE: currently ON with a Paystack TEST key (test/demo) —
+   the upsell shows and checkout works, but real cards are not charged and the
+   free full-plan email is off until a live key is set. */
+const R795_PLAN_LIVE = true;
 
 /* R795 90-day plan purchase — send the answers + email to the Worker, then to checkout */
 let buyBusy=false;
