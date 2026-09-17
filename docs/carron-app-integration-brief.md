@@ -31,7 +31,7 @@ Because the server owns the report logic, any app that sends the same inputs get
   - background `#fff`; body `#12241a`; headings emerald `#16412f`; gold accent `#9a7d2e`; sage-grey `#5b6b60`
   - status pills: Act `#b3583f` on `#f7e4de`; Watch `#9a7d2e` on `#faf1d6`; Healthy/Proven `#3f8f72` on `#e2efe4`
 - **Logo:** `https://carron.co.za/images/carron-logo-horizontal-white.png` on dark backgrounds; `.../carron-logo-horizontal-emerald.png` on light/print. (Never recolour the logo.)
-- **Pricing anchors:** free tools; **R1,295** Financial Health Action Plan and **R795** 90-Day Plan; CFO Review from **R4,500**. Carron is **not VAT-registered** — never add "plus VAT". The R795 fee is credited toward a CFO Review.
+- **Pricing anchors:** free tools; **R1,295** Financial Health Action Plan and **R795** 90-Day Plan; CFO Review from **R4,500**. Carron is **not VAT-registered** — never add "plus VAT". Either fee is credited toward a CFO Review. Never state a Carron fee as "excl. VAT", "plus VAT" or "ex VAT" — the price shown is the price paid.
 
 ---
 
