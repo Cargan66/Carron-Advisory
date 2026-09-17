@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The 90-Day Test · Carron Business Advisory</title>
-<meta name="description" content="The 90-Day Owner-Independence Test: a free 2-minute diagnostic scoring how much of your business can run without you, across 10 areas, with a prioritised action plan.">
+<meta name="description" content="The 90-Day Owner-Independence Test: a free 2-minute diagnostic scoring how much of your business can run without you, across 10 areas, with a red/amber/green read on each.">
 <link rel="canonical" href="https://carron.co.za/90-day-test/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://carron.co.za/90-day-test/">
 <meta property="og:title" content="The 90-Day Test · Carron Business Advisory">
-<meta property="og:description" content="Could your business run for 90 days without you? A free 2-minute owner-independence diagnostic — get a score out of 100 and the bottlenecks to fix first.">
+<meta property="og:description" content="Could your business run for 90 days without you? A free 2-minute owner-independence diagnostic — get a score out of 100 and see where the business still depends on you.">
 <meta property="og:image" content="https://carron.co.za/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"The 90-Day Owner-Independence Test","url":"https://carron.co.za/90-day-test/","description":"A free 2-minute diagnostic for South African SME owners: scores how much of your business can run without you across 10 areas, with a score out of 100 and the bottlenecks to fix first.","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"en-ZA","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"ZAR"},"provider":{"@type":"Organization","name":"Carron Business Advisory","url":"https://carron.co.za"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"The 90-Day Owner-Independence Test","url":"https://carron.co.za/90-day-test/","description":"A free 2-minute diagnostic for South African SME owners: scores how much of your business can run without you across 10 areas, with a score out of 100 and a red/amber/green read on each area.","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"en-ZA","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"ZAR"},"provider":{"@type":"Organization","name":"Carron Business Advisory","url":"https://carron.co.za"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -315,13 +315,13 @@
   <!-- ============ EMAIL GATE (after the questions, before the result) ============ -->
   <section id="gate" class="panel hidden">
     <div class="eyebrow" style="text-align:center">Your result is ready</div>
-    <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,4vw,34px);color:var(--cream);text-align:center;margin:8px 0 10px">See your owner-independence score and the bottlenecks to fix first</h2>
-    <p style="color:var(--sage);text-align:center;max-width:54ch;margin:0 auto 22px;font-size:15px">Enter your email to see your result now — and we'll email you the full 90-day action plan, including the complete 40-question assessment. It's free; we only ask for a valid email address.</p>
+    <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,4vw,34px);color:var(--cream);text-align:center;margin:8px 0 10px">See your owner-independence score and where your business depends on you</h2>
+    <p style="color:var(--sage);text-align:center;max-width:54ch;margin:0 auto 22px;font-size:15px">Enter your email to see your result now. It's free; we only ask for a valid email address.</p>
     <div class="form" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto">
       <input type="email" id="gate-email" placeholder="you@business.co.za" autocomplete="email" style="flex:1;min-width:220px">
       <button class="btn primary" id="gate-btn" onclick="unlock()">Show my result →</button>
     </div>
-    <div class="note" id="gate-note" style="text-align:center">We'll email your result and plan, and may follow up. No spam; unsubscribe any time.</div>
+    <div class="note" id="gate-note" style="text-align:center">We may follow up by email. No spam; unsubscribe any time.</div>
     <div class="navrow" style="justify-content:center;margin-top:22px"><button class="btn ghost" onclick="show('quiz')">← Back to the questions</button></div>
   </section>
 
@@ -354,7 +354,7 @@
     <div id="dimensions"></div>
 
     <hr class="divider">
-    <div class="sec-title">Fix these first — your biggest bottlenecks</div>
+    <div class="sec-title">Where you’re most exposed</div>
     <div id="bottlenecks"></div>
 
     <div class="upsell" id="upsell" hidden>
@@ -366,7 +366,7 @@
 
     <div class="cta">
       <h3 id="cta-title">Your result is ready</h3>
-      <p id="cta-note">Your score and biggest bottlenecks are above — hit <strong style="color:var(--gold-light)">Download</strong> to keep the snapshot. For the complete phase-by-phase plan — every authority, limit and hand-over to put in place — unlock the full R795 report above. Prefer to talk it through? Book a free discovery call.</p>
+      <p id="cta-note">Your score and most exposed areas are above — hit <strong style="color:var(--gold-light)">Download</strong> to keep the snapshot. For the complete phase-by-phase plan — every authority, limit and hand-over to put in place — unlock the full R795 report above. Prefer to talk it through? Book a free discovery call.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
         <a class="btn primary" href="/contact">Book a discovery call</a>
         <a class="btn ghost" href="/health-check/">Try the Financial Health Check</a>
@@ -410,7 +410,7 @@
     <div class="ps-secttitle">Area by area</div>
     <div id="ps-dimensions"></div>
 
-    <div class="ps-secttitle">Fix these first — your biggest bottlenecks</div>
+    <div class="ps-secttitle">Where you’re most exposed</div>
     <div id="ps-bottlenecks"></div>
 
     <div class="ps-foot">
@@ -583,7 +583,7 @@ function finish(){
   PENDING_SCORE = currentScore();
   leadBusy=false;
   const gb=el('gate-btn'); if(gb) gb.disabled=false;
-  const gn=el('gate-note'); if(gn){ gn.textContent="We'll email your result and plan, and may follow up. No spam; unsubscribe any time."; gn.style.color=''; }
+  const gn=el('gate-note'); if(gn){ gn.textContent="We may follow up by email. No spam; unsubscribe any time."; gn.style.color=''; }
   show('gate');   // require a valid email before revealing the result
 }
 function revealResults(){
@@ -624,7 +624,7 @@ function drawGauge(score){
 const BANDS=[
   {lo:0,  hi:39,  label:"Self-Employed",    desc:"The business is you — an unplanned week away would already cause problems."},
   {lo:40, hi:64,  label:"Owner-Reliant",    desc:"It runs, but leans on you for approvals; it could cope for a few days, not 90."},
-  {lo:65, hi:84,  label:"Owner-Light",      desc:"Strong foundations — could hold for a few weeks. Close the remaining gaps."},
+  {lo:65, hi:84,  label:"Owner-Light",      desc:"Strong foundations — could hold for a few weeks, but gaps remain."},
   {lo:85, hi:100, label:"Owner-Independent",desc:"A business, not a job. Decisions happen without you, up to clear limits."},
 ];
 function bandFor(score){ return BANDS.find(b=>score>=b.lo && score<=b.hi) || BANDS[BANDS.length-1]; }
@@ -655,7 +655,7 @@ function drawCritical(){
   const head=document.createElement('div');
   head.className='sec-title';
   head.style.marginTop='30px';
-  head.textContent='Critical bottlenecks — these break the 90 days on their own';
+  head.textContent='Critical gaps — these break the 90 days on their own';
   block.appendChild(head);
   failed.forEach(({q})=>{
     const d=document.createElement('div');
@@ -715,7 +715,7 @@ function buildPrintSheet(score){
   if(failed.length){
     const t=document.createElement('div');
     t.className='ps-secttitle';
-    t.textContent='Critical bottlenecks — these break the 90 days on their own';
+    t.textContent='Critical gaps — these break the 90 days on their own';
     cbox.appendChild(t);
     failed.forEach(({q})=>{
       const d=document.createElement('div'); d.className='ps-crit';

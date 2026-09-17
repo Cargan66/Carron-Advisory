@@ -458,9 +458,9 @@ function renderResult(){
   const t0=performance.now();
   (function tick(t){ const p=Math.min(1,(t-t0)/900); el('score-num').textContent=Math.round(p*r.score); if(p<1) requestAnimationFrame(tick); })(t0);
   let label,desc,col;
-  if(r.score>=80){ label='Financially Healthy'; col='var(--sage-bright)'; desc='Strong across the board. Protect what’s working and stay ahead of any amber ratios below.'; }
-  else if(r.score>=50){ label='Some Cracks to Fix'; col='var(--gold-light)'; desc='A solid base with real gaps. Focus on the red ratios first — they compound if ignored.'; }
-  else { label='Needs Attention'; col='var(--clay)'; desc='Several areas need work. Start with cash and margin — and consider a structured review.'; }
+  if(r.score>=80){ label='Financially Healthy'; col='var(--sage-bright)'; desc='Strong across the board. Keep an eye on any amber ratios below.'; }
+  else if(r.score>=50){ label='Some Cracks to Fix'; col='var(--gold-light)'; desc='A solid base with real gaps. The red ratios below show where the pressure is.'; }
+  else { label='Needs Attention'; col='var(--clay)'; desc='Several ratios are under pressure. See which below.'; }
   el('band-label').textContent=label; el('band-label').style.color=col; el('score-num').style.color=col;
   el('band-desc').textContent=desc;
   RESULT.band=label; RESULT.bandDesc=desc;

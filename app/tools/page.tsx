@@ -47,7 +47,7 @@ export default function ToolsPage() {
                     people, compliance and risk — scored on how far each has really
                     travelled from you: on paper, delegated, or proven. You get an
                     owner-independence score out of 100, a red/amber/green read on every
-                    area, and a prioritised action plan.
+                    area, and the areas where you are most exposed.
                   </p>
                   <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors group-hover:text-gold-light">
                     Take the test

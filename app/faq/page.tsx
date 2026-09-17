@@ -226,7 +226,7 @@ const faqGroups: FaqGroup[] = [
     items: [
       {
         q: "Does Carron offer any free tools?",
-        a: "Yes — three free tools, each a couple of minutes. The Financial Health Check & Valuation asks for about ten numbers and gives you a health score out of 100, your key ratios benchmarked against your industry, and an indicative business value. Find Your Fit is a 90-second quiz that tells you whether you need a bookkeeper, an accountant or a CFO. And the 90-Day Test scores whether your business could run for 90 days without you, and the bottlenecks to fix first.",
+        a: "Yes — three free tools, each a couple of minutes. The Financial Health Check & Valuation asks for about ten numbers and gives you a health score out of 100, your key ratios benchmarked against your industry, and an indicative business value. Find Your Fit is a 90-second quiz that tells you whether you need a bookkeeper, an accountant or a CFO. And the 90-Day Test scores whether your business could run for 90 days without you, and shows where it still depends on you.",
         links: [
           { href: "/health-check/", label: "Financial Health Check", raw: true },
           { href: "/find-your-fit/", label: "Find Your Fit", raw: true },

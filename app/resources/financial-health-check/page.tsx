@@ -45,7 +45,6 @@ type Area = {
   healthy: string;
   why: string;
   redFlag: string;
-  action: string[];
 };
 
 const areas: Area[] = [
@@ -58,9 +57,6 @@ const areas: Area[] = [
       "2–3 months of operating expenses, plus the ability to pay all creditor obligations when due.",
     why: "Cash is oxygen. Without it, nothing else works — no matter how profitable you are.",
     redFlag: "Less than one month. You're one customer delay away from trouble.",
-    action: [
-      "Below two months? Prioritise cash recovery — invoice faster, tighten payables, and pause discretionary spend.",
-    ],
   },
   {
     n: 2,
@@ -69,11 +65,6 @@ const areas: Area[] = [
     healthy: "Over 90% paid by the due date (or when renegotiated).",
     why: "Every day late is cash trapped in operations. Net 30 slipping to Net 45 can be R50k sitting in someone else's bank account.",
     redFlag: "Under 70% on-time, especially from repeat customers.",
-    action: [
-      "Call overdue customers the day they're due — not ten days later.",
-      "Renegotiate terms with large customers who chronically pay late.",
-      "Consider retainers or deposits for new customers.",
-    ],
   },
   {
     n: 3,
@@ -83,11 +74,6 @@ const areas: Area[] = [
     healthy: "100% on time (or early, if cash allows).",
     why: "Late payments damage supplier relationships, trigger penalties, and telegraph cash problems.",
     redFlag: "Paying 30+ days late when terms are Net 15 — suppliers will pull credit.",
-    action: [
-      "Build a payment calendar two weeks out, so you know what's due.",
-      "Negotiate longer terms with key suppliers if cash is tight.",
-      "Never take early-payment discounts you can't afford.",
-    ],
   },
   {
     n: 4,
@@ -97,10 +83,6 @@ const areas: Area[] = [
       "Depends on your model — retail 30–40%, services 60–80%, product varies.",
     why: "Gross margin funds everything else — salaries, rent, profit. Low margin means you need huge volume to survive.",
     redFlag: "Gross margin declining year on year with no clear explanation.",
-    action: [
-      "If margin is slipping, investigate: did prices drop, did COGS rise, are some products far more profitable than others?",
-      "Don't set arbitrary targets — diagnose the gap, then look for pricing power, waste reduction, or a mix shift.",
-    ],
   },
   {
     n: 5,
@@ -109,10 +91,6 @@ const areas: Area[] = [
     healthy: "Roughly 50–70% of gross profit (varies by industry).",
     why: "At 90% of gross profit you have almost no room for error — a slow month breaks profitability.",
     redFlag: "The ratio rising while revenue is flat or falling.",
-    action: [
-      "Don't reflexively cut salaries — grow revenue or reduce overhead thoughtfully.",
-      "Audit fixed costs: rent, subscriptions, contractors. Which ones are earned?",
-    ],
   },
   {
     n: 6,
@@ -121,10 +99,6 @@ const areas: Area[] = [
     healthy: "Often 10–20% (higher for services, lower for retail).",
     why: "This is your bottom line — what you keep after paying everyone.",
     redFlag: "Net margin declining or negative while revenue grows — profit is leaking somewhere.",
-    action: [
-      "Run a variance analysis: what changed — COGS, overhead, a lost customer?",
-      "Aim for steady year-on-year improvement; small, consistent gains compound.",
-    ],
   },
   {
     n: 7,
@@ -133,11 +107,6 @@ const areas: Area[] = [
     healthy: "Under 60 days (ideally 30–45).",
     why: "Every day in the cycle is cash sitting in inventory or receivables. A shorter cycle means more cash to grow.",
     redFlag: "A cycle over 90 days, especially if it's growing.",
-    action: [
-      "Reduce inventory with tighter ordering, dropshipping or consignment.",
-      "Invoice the same day, not a week later.",
-      "Extend payables where you can without damaging relationships.",
-    ],
   },
   {
     n: 8,
@@ -146,10 +115,6 @@ const areas: Area[] = [
     healthy: "Under 1.0 (debt less than a year's revenue).",
     why: "High leverage means high fixed obligations — a revenue drop becomes existential.",
     redFlag: "Over 2.0 (more debt than two years of revenue).",
-    action: [
-      "Don't panic if it's high during growth — just stay aware.",
-      "Focus on revenue growth to grow out of debt, and avoid new debt until the ratio improves.",
-    ],
   },
   {
     n: 9,
@@ -158,9 +123,6 @@ const areas: Area[] = [
     healthy: "No single customer over 30%; top three under 60%.",
     why: "One customer leaving can be a crisis. At 50% of revenue, losing them means halving costs — or shutting down.",
     redFlag: "Top customer over 50% of revenue — and a price negotiator.",
-    action: [
-      "Actively build a more diverse customer base. If your top customer wants longer terms, build another revenue stream first.",
-    ],
   },
   {
     n: 10,
@@ -169,9 +131,6 @@ const areas: Area[] = [
     healthy: "Both revenue and profit growing (even if profit grows slower).",
     why: "Growth without profit is a treadmill.",
     redFlag: "Revenue up 20% but profit flat or down — something's broken in execution.",
-    action: [
-      "If revenue is growing but profit isn't, focus on margin, not volume.",
-    ],
   },
 ];
 
@@ -179,17 +138,17 @@ const scoreBands = [
   {
     band: "8–10 healthy",
     meaning:
-      "You're in good shape. Maintain discipline, and stay ahead of any watch-area before it turns into a problem.",
+      "You're in good shape. Keep an eye on any watch-areas before they turn into problems.",
   },
   {
     band: "5–7 healthy",
     meaning:
-      "Fix the red areas first — cash position, margin, growth. Watch-areas can wait 30–60 days.",
+      "A solid base with real pressure points. Your red areas are where the business is most exposed.",
   },
   {
     band: "Under 5 healthy",
     meaning:
-      "Systemic issues. You need a structured financial review — book a diagnostic call.",
+      "Several areas are under pressure at once — a sign of systemic issues rather than one-off problems.",
   },
 ];
 
@@ -224,7 +183,7 @@ export default function FinancialHealthCheckPage() {
                 </p>
                 <p className="mt-1 text-sm leading-relaxed text-bone-muted">
                   Rate your business across the ten areas below and get an instant health
-                  score, a red/amber/green read, and what to fix first.
+                  score, a red/amber/green read, and see where attention is needed.
                 </p>
               </div>
               <span className="inline-flex flex-none items-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-emerald-deep shadow-[0_8px_30px_-12px_rgba(212,175,55,0.6)] transition-transform duration-300 group-hover:-translate-y-0.5">
@@ -247,7 +206,7 @@ export default function FinancialHealthCheckPage() {
               We measure your business across 10 financial areas. Rate each one{" "}
               <span className="font-semibold text-emerald-300">green</span> (healthy),{" "}
               <span className="font-semibold text-gold">yellow</span> (watch), or{" "}
-              <span className="font-semibold text-red-300">red</span> (needs action). At the
+              <span className="font-semibold text-red-300">red</span> (under pressure). At the
               end you&apos;ll know which areas are strong, which need attention first, and which
               will become problems if ignored. No benchmarks to chase — just an honest read on
               where the work is.
@@ -271,19 +230,6 @@ export default function FinancialHealthCheckPage() {
                     <Row label="Why it matters">{a.why}</Row>
                     <Row label="Red flag" tone="bad">{a.redFlag}</Row>
                   </dl>
-                  <div className="mt-4 border-t border-white/10 pt-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                      Action
-                    </p>
-                    <ul className="mt-3 space-y-2">
-                      {a.action.map((step) => (
-                        <li key={step} className="flex gap-3 text-sm text-bone/90">
-                          <span className="mt-[0.55rem] h-1.5 w-1.5 flex-none rounded-full bg-gold" aria-hidden />
-                          <span>{step}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
               </FadeInItem>
             ))}
@@ -305,26 +251,22 @@ export default function FinancialHealthCheckPage() {
             </div>
           </FadeIn>
 
-          {/* Next steps */}
+          {/* From diagnosis to action */}
           <FadeIn className="mt-16">
-            <h2 className="text-2xl font-bold text-white sm:text-3xl">Next steps</h2>
-            <ol className="mt-6 space-y-4">
-              {[
-                ["Immediate (0–4 weeks)", "Fix any red areas. Call overdue receivables, adjust payables, pause discretionary spend."],
-                ["Medium-term (1–3 months)", "Address the watch-areas. Renegotiate terms, build a cash forecast, investigate margin gaps."],
-                ["Strategic (3+ months)", "Diversify your customer base, improve the cash cycle, and build a 13-week rolling forecast."],
-              ].map(([k, v], i) => (
-                <li key={k} className="flex gap-4">
-                  <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-gold/40 bg-gold/5 text-sm font-bold text-gold">
-                    {i + 1}
-                  </span>
-                  <p className="text-base leading-relaxed text-bone/90">
-                    <span className="font-semibold text-white">{k}: </span>
-                    {v}
-                  </p>
-                </li>
-              ))}
-            </ol>
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">Know where the pressure is?</h2>
+            <p className="mt-4 text-base leading-relaxed text-bone/90">
+              This checklist shows you where your business is under pressure. What to do
+              about it depends on your actual numbers — which areas to tackle first, what
+              to change, and in what order.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-bone/90">
+              Run the free{" "}
+              <a href="/health-check/" className="font-medium text-gold hover:text-gold-light">
+                interactive Financial Health Check
+              </a>{" "}
+              for your score and a red/amber/green read benchmarked against your sector — then
+              unlock your personalised action plan from those same numbers.
+            </p>
           </FadeIn>
         </div>
       </section>
