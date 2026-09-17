@@ -52,6 +52,11 @@ export default {
     const url = new URL(request.url);
     const p = url.pathname;
 
+    // CORS preflight for the JSON API, so apps hosted elsewhere (e.g. a Claude
+    // Artifact on claude.ai) can call these endpoints from the browser.
+    if (request.method === "OPTIONS" && p.startsWith("/api/"))
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+
     if (p === "/api/health-check")
       return request.method === "POST" ? handleHealthCheck(request, env) : methodNotAllowed();
     if (p === "/api/lead")
@@ -357,8 +362,17 @@ async function verifySignature(env, rawBody, signatureHex) {
 function methodNotAllowed() {
   return json({ ok: false, error: "method not allowed" }, 405);
 }
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Max-Age": "86400",
+};
 function json(obj, status = 200) {
-  return new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: { "content-type": "application/json", ...CORS_HEADERS },
+  });
 }
 function str(v, n) {
   return v == null ? "" : String(v).slice(0, n);
