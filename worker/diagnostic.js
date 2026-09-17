@@ -331,6 +331,7 @@ export function generateDiagnostic(d) {
 
   for (const r of ratios) {
     if (r.status === "Not supplied") continue;
+    if (r.status === "Healthy") continue; // healthy ratios are covered in the strengths section
     const key = ratioKey(r.name);
     if (!key) continue;
     const p = priorityFromRatio(key, r);
@@ -342,23 +343,23 @@ export function generateDiagnostic(d) {
 
   candidates.sort((a, b) => b.weight - a.weight);
 
-  // De-dup by key, take the top 5.
+  // Full report: de-dup by key and keep EVERY area that needs work, most urgent
+  // first (no cap). The healthy areas are acknowledged in the strengths section.
   const seen = new Set();
-  const top = [];
+  const priorities = [];
   for (const p of candidates) {
     if (seen.has(p.key)) continue;
     seen.add(p.key);
-    top.push(p);
-    if (top.length === 5) break;
+    priorities.push(p);
   }
 
-  const actCount = top.filter((p) => p.status === "Act").length;
+  const actCount = priorities.filter((p) => p.status === "Act").length;
   const headline =
     actCount >= 2
       ? "Several items need attention now — the first two below are the most urgent."
       : actCount === 1
       ? "The business is broadly sound, with one pressing item to act on first."
-      : "A solid base — these five moves protect it and build value from here.";
+      : "A solid base — the moves below protect it and build value from here.";
 
   return {
     sector: d.sectorLabel || "your sector",
@@ -368,8 +369,8 @@ export function generateDiagnostic(d) {
     valueHigh: d.value_high,
     nav: d.net_asset_value,
     headline,
-    strengths: strengthsFrom(ratios, new Set(top.map((p) => p.key))),
-    priorities: top.map((p, i) => ({ rank: i + 1, howto: HOWTO[p.key] || "", ...p })),
+    strengths: strengthsFrom(ratios),
+    priorities: priorities.map((p, i) => ({ rank: i + 1, howto: HOWTO[p.key] || "", ...p })),
   };
 }
 
@@ -407,10 +408,10 @@ export function renderDiagnosticHTML(report, meta = {}) {
     meta.date || ""
   )}${meta.name ? " · " + esc(meta.name) : ""}</div>
   </div>
-  <h2>Your top five financial priorities</h2>
+  <h2>Your financial priorities — the full picture</h2>
   <p class="dg-lede">Health score <strong>${report.score}/100</strong> — ${esc(
     report.band
-  )}. Indicative value <strong>${val}</strong>. ${esc(report.headline)}</p>
+  )}. Indicative value <strong>${val}</strong>. ${esc(report.headline)} Every area is covered below, most urgent first.</p>
   ${renderStrengths(report)}
   ${cards}
   <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> In a Carron CFO Review a senior advisor works through these priorities with you — the full method for each, the order to tackle them, and a plan you can act on. Your R795 fee is credited in full toward it.</div>
