@@ -207,7 +207,7 @@ async function orderCreate(request, env, product) {
       test: true,
     });
   } catch (e) {
-    return json({ ok: false, error: "server error", detail: String((e && e.message) || e).slice(0, 200) }, 500);
+    return json({ ok: false, error: "server error" }, 500);
   }
 }
 
