@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 export const metadata: Metadata = {
   title: "Diagnostic",
   description:
-    "Start free: an instant financial health check and valuation, a R795 Financial Health Action Plan, or a full CFO-level review. Fixed-scope financial clarity for established South African SMEs.",
+    "Start free: an instant financial health check and valuation, a R1,295 Financial Health Action Plan, or a full CFO-level review. Fixed-scope financial clarity for established South African SMEs.",
 };
 
 // The three-tier ladder. Tier 1 and Tier 2 tools are not live yet — their
@@ -34,7 +34,7 @@ type Tier = {
 const tiers: Tier[] = [
   {
     tag: "Tier 1 · Free",
-    name: "Free Health Check & Valuation",
+    name: "Free Financial Health Check",
     fee: "Free",
     soon: false,
     description:
@@ -47,34 +47,35 @@ const tiers: Tier[] = [
     cta: { label: "Run your free check", href: "/health-check/", variant: "primary", raw: true },
   },
   {
-    tag: "Tier 2 · R795",
-    name: "R795 Financial Health Action Plan",
-    fee: "R795",
+    tag: "Tier 2 · R1,295",
+    name: "Financial Health Action Plan",
+    fee: "R1,295",
     feeNote: "once-off",
     soon: true,
     description:
-      "Your top five priorities ranked by potential impact, each with a first action — generated instantly from the same numbers you have already entered.",
+      "What to do about your result — every priority ranked most-urgent-first, each with what to do, how to start and a target. Generated instantly from the numbers you entered in the free check.",
     disclosure:
       "An automated result with an AI-written explanation. Not advisor-reviewed at this tier.",
     includes: [
-      "Top five priorities, ranked by impact",
-      "A clear first action for each priority",
-      "Generated instantly from your entered numbers",
+      "Priorities ranked most-urgent-first",
+      "Specific actions — what to do and how to start",
+      "A target for each priority",
+      "What is already strong, and how to protect it",
     ],
-    cta: { label: "Unlock your action plan", href: "/diagnostic#notify", variant: "secondary" },
+    cta: { label: "Start with the free check", href: "/health-check/", variant: "secondary", raw: true },
   },
   {
     tag: "Tier 3 · CFO Review",
     name: "CFO Review",
     fee: "From R4,500",
-    feeNote: "your R795 action plan fee credited in full",
+    feeNote: "your R1,295 action plan fee credited in full",
     soon: false,
     description:
-      "A senior, advisor-verified review of your numbers — the priorities checked by a person and turned into a practical 90-day plan. Full detail below.",
+      "An experienced human review: judgement on your priorities, a discussion with management, and a detailed 90-day implementation plan. Full detail below.",
     includes: [
-      "Everything in the action plan, verified by an advisor",
-      "Executive scorecard and 90-day action plan",
+      "Everything in the action plan, reviewed and challenged by an advisor",
       "A 90-minute findings session with management",
+      "A detailed 90-day implementation plan",
     ],
     cta: { label: "Book a CFO Review", href: "/contact", variant: "primary" },
   },
@@ -157,7 +158,7 @@ export default function DiagnosticPage() {
             Then go as deep as you need.
           </>
         }
-        description="A free instant read on your numbers, a fast paid diagnostic with your top priorities, or a full CFO-level review — start free and choose how far to take it."
+        description="Free: where do you stand? The Financial Health Action Plan: what should you do about it? The CFO Review: does an experienced advisor agree — and how do you implement it?"
       />
 
       {/* Three-tier ladder */}
@@ -258,7 +259,7 @@ export default function DiagnosticPage() {
           <FadeIn className="mt-10">
             <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-bone-dim">
               Start with the free check. If it surfaces something worth acting on,
-              step up to the R795 Financial Health Action Plan or a full CFO Review — and your R795 is
+              step up to the Financial Health Action Plan or a full CFO Review — and your R1,295 is
               credited in full against the review.
             </p>
           </FadeIn>
@@ -366,7 +367,7 @@ export default function DiagnosticPage() {
                   Insight and direction, without an open-ended assignment.
                 </h2>
                 <p className="mt-4 leading-relaxed text-bone-muted">
-                  The Free Health Check and R795 Financial Health Action Plan are automated tools —
+                  The Free Financial Health Check and the Financial Health Action Plan are automated tools —
                   useful starting points, not advice. The CFO Review is
                   advisor-led: its fixed fee covers the agreed information review,
                   one leadership interview, analysis, a concise diagnostic report,
@@ -384,7 +385,7 @@ export default function DiagnosticPage() {
                   <Fact label="Time frame" value="Two to three weeks" />
                   <Fact
                     label="Fee"
-                    value="From R4,500 — your R795 action plan fee credited in full"
+                    value="From R4,500 — your R1,295 action plan fee credited in full"
                   />
                   <Fact label="Management time" value="Two focused sessions" />
                   <Fact label="Commitment" value="No ongoing retainer required" />
@@ -409,7 +410,7 @@ export default function DiagnosticPage() {
               Launching soon
             </span>
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl">
-              The R795 Financial Health Action Plan is on its way
+              The Financial Health Action Plan is on its way
             </h2>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-bone-muted">
               Your{" "}
@@ -419,7 +420,7 @@ export default function DiagnosticPage() {
               >
                 Free Health Check &amp; Valuation
               </a>{" "}
-              is live now. The paid R795 Financial Health Action Plan — your priorities and actions, ranked
+              is live now. The paid R1,295 Financial Health Action Plan — your priorities and actions, ranked
               from your numbers — is coming next. Leave your email and we&apos;ll tell
               you the moment it opens, or book a CFO Review now.
             </p>

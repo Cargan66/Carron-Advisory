@@ -1,5 +1,5 @@
 /**
- * Carron R795 "Top-5 Financial Priorities" diagnostic — the grounded expert engine.
+ * Carron R1,295 "Financial Health Action Plan" (internal id: diagnostic) — the grounded expert engine.
  *
  * Pure function: takes the Financial Health Check summary the browser already
  * computes (sector, score, band, value range, net-asset value, and the six
@@ -424,7 +424,7 @@ export function renderDiagnosticHTML(report, meta = {}) {
   ${renderStrengths(report)}
   ${cards}
   ${renderSequence(report)}
-  <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> In a Carron CFO Review a senior advisor works through these priorities with you — the full method for each, the order to tackle them, and a plan you can act on. Your R795 fee is credited in full toward it.</div>
+  <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> In a Carron CFO Review a senior advisor works through these priorities with you — the full method for each, the order to tackle them, and a plan you can act on. Your R1,295 fee is credited in full toward it.</div>
   <p class="dg-disc">Automated and educational only, generated from the figures you entered — not a formal audit, valuation or advisor-reviewed opinion. Confirm anything material with a qualified adviser before acting.</p>`;
 }
 

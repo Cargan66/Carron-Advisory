@@ -237,9 +237,9 @@
       </div>
 
       <div class="upsell" id="upsell">
-        <h4>Now find out what to do about it — the R795 Financial Health Action Plan</h4>
-        <p>A full report from these exact numbers: what's already financially strong (and how to protect it), then every priority ranked most-urgent-first — each with what to do, how to start, and a target. Instant, and your R795 fee is credited toward a CFO Review.</p>
-        <button class="btn primary" id="buy-btn" onclick="buyDiagnostic()">Unlock your action plan · R795</button>
+        <h4>Now find out what to do about it — the Financial Health Action Plan · R1,295</h4>
+        <p>A full report from these exact numbers: what's already financially strong (and how to protect it), then every priority ranked most-urgent-first — each with what to do, how to start, and a target. Instant, and your R1,295 fee is credited toward a CFO Review.</p>
+        <button class="btn primary" id="buy-btn" onclick="buyDiagnostic()">Unlock your action plan · R1,295</button>
         <div class="note" id="buy-note"></div>
       </div>
 
@@ -335,7 +335,7 @@ function round(n,step){ return Math.round(n/step)*step; }
 function ragDot(pts){ return pts===2?['var(--sage-bright)','Healthy']:pts===1?['var(--gold)','Watch']:['var(--clay)','Act']; }
 
 let RESULT=null;
-/* R795 upsell. NOTE: currently ON with a Paystack TEST key (test/demo) — the
+/* R1,295 action-plan upsell (flag name kept for history). NOTE: currently ON with a Paystack TEST key (test/demo) — the
    checkout works but real cards are not charged until a live key is set. */
 const R795_LIVE = true;
 
@@ -577,7 +577,7 @@ function unlock(){
   renderResult();
 }
 
-/* R795 diagnostic purchase — send the summary + email to the Worker, then to checkout */
+/* R1,295 Financial Health Action Plan purchase — send the summary + email to the Worker, then to checkout */
 function buyDiagnostic(){
   if(!RESULT || RESULT.tooFew) return;
   const btn=el('buy-btn'), note=el('buy-note');

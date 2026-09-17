@@ -6,7 +6,7 @@
 
 ## 0. The golden rule (read first)
 
-**Never generate the paid report in the app.** The paid reports (the R795 Financial Health Action Plan and the R795 90-Day Owner-Independence Plan) are generated **server-side after payment** — that is the paywall. The app's job is only to:
+**Never generate the paid report in the app.** The paid reports (the R1,295 Financial Health Action Plan and the R795 90-Day Owner-Independence Plan) are generated **server-side after payment** — that is the paywall. The app's job is only to:
 
 1. collect the inputs,
 2. show a **free** result (score + where they stand — *not* the fixes),
@@ -31,7 +31,7 @@ Because the server owns the report logic, any app that sends the same inputs get
   - background `#fff`; body `#12241a`; headings emerald `#16412f`; gold accent `#9a7d2e`; sage-grey `#5b6b60`
   - status pills: Act `#b3583f` on `#f7e4de`; Watch `#9a7d2e` on `#faf1d6`; Healthy/Proven `#3f8f72` on `#e2efe4`
 - **Logo:** `https://carron.co.za/images/carron-logo-horizontal-white.png` on dark backgrounds; `.../carron-logo-horizontal-emerald.png` on light/print. (Never recolour the logo.)
-- **Pricing anchors:** free tools; **R795** paid products; CFO Review from **R4,500**. Carron is **not VAT-registered** — never add "plus VAT". The R795 fee is credited toward a CFO Review.
+- **Pricing anchors:** free tools; **R1,295** Financial Health Action Plan and **R795** 90-Day Plan; CFO Review from **R4,500**. Carron is **not VAT-registered** — never add "plus VAT". The R795 fee is credited toward a CFO Review.
 
 ---
 
@@ -51,10 +51,10 @@ The API sends `Access-Control-Allow-Origin: *`, so an app hosted anywhere (inclu
 
 | Product | Sold off | `product` key | Price | Result viewer |
 |---|---|---|---|---|
-| Financial Health Action Plan | Financial Health Check | `diagnostic` | R795 | `/diagnostic-result/` |
+| Financial Health Action Plan | Financial Health Check | `diagnostic` | R1,295 | `/diagnostic-result/` |
 | 90-Day Owner-Independence Plan | 90-Day Test | `plan` | R795 | `/plan-result/` |
 
-R795 = **79500** (ZAR cents, Paystack subunit). Both credited toward a R4,500 CFO Review.
+R1,295 = **129500** and R795 = **79500** (ZAR cents, Paystack subunit). Both credited toward a R4,500 CFO Review.
 
 ---
 
@@ -219,4 +219,4 @@ async function buy(product, summary, email) {
 - [ ] Paid report is **never** generated in the app — always via `/api/{product}/create` → Paystack → the carron.co.za viewer.
 - [ ] Reuse the canonical questions (§7) / Health Check scoring (§8) verbatim so scores and reports match.
 - [ ] Record every completion to `/api/lead` (with consent).
-- [ ] R795 = 79500 cents; fee credited toward a R4,500 CFO Review.
+- [ ] R1,295 = 129500 / R795 = 79500 cents; fee credited toward a R4,500 CFO Review.

@@ -4,7 +4,7 @@
  * Serves the static site (the ./out export, via the ASSETS binding) and provides:
  *   - POST /api/health-check : detailed Health Check row + unified leads row.
  *   - POST /api/lead         : a completion from any free tool → unified leads.
- *   - The R795 "Financial Health Action Plan" paid flow (Paystack):
+ *   - The R1,295 "Financial Health Action Plan" paid flow (Paystack):
  *       POST /api/diagnostic/create   → create a pending order, return a checkout URL
  *       GET  /api/diagnostic/get      → the generated report, once the order is paid
  *       POST /api/diagnostic/webhook  → Paystack payment notification (signed)
@@ -22,14 +22,14 @@ const ALLOWED_TOOLS = ["health-check", "90-day-test", "find-your-fit"];
 const WEB3FORMS_KEY = "dc0870f4-27e1-4787-8fb0-ab76fdcc861f";
 const ORDER_CURRENCY = "ZAR";
 
-// The two paid R795 products. Each order carries a `product` so one set of
+// The two paid products (Health plan R1,295; 90-Day plan R795). Each order carries a `product` so one set of
 // routes (/api/<product>/create|get|webhook|testpay) serves both.
 const PRODUCTS = {
   diagnostic: {
-    amount: 79500, // R795.00 in ZAR cents (Paystack subunit)
+    amount: 129500, // R1,295.00 in ZAR cents (Paystack subunit)
     result: "/diagnostic-result/",
     leadTool: "r795-diagnostic",
-    label: "R795 Financial Health Action Plan",
+    label: "R1,295 Financial Health Action Plan",
     validate: (s) => s && Array.isArray(s.ratios) && s.ratios.length >= 3,
     validateErr: "run the health check first",
     generate: (s, meta) => { const report = generateDiagnostic(s); return { report, html: renderDiagnosticHTML(report, meta) }; },

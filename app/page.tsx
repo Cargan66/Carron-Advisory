@@ -57,7 +57,7 @@ export default function HomePage() {
                 href: "/90-day-test/",
                 badge: "2-min test",
                 title: "The 90-Day Test",
-                desc: "Could your business run for 90 days without you? Get a score out of 100 and see where the business still depends on you.",
+                desc: "Could your business run for 90 days without you? Get your owner-independence score and see where the business depends most heavily on you.",
                 cta: "Take the test",
               },
               {
@@ -71,7 +71,7 @@ export default function HomePage() {
                 href: "/health-check/",
                 badge: "10-point check",
                 title: "Financial Health Check",
-                desc: "Rate your business across cash, margins, debtors and growth — get a health score and see where the pressure is.",
+                desc: "Rate your business across cash, margins, debtors and growth — get your financial health score and see which areas need the most attention.",
                 cta: "Run the check",
               },
             ].map((t) => (
