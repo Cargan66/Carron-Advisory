@@ -335,6 +335,8 @@ function round(n,step){ return Math.round(n/step)*step; }
 function ragDot(pts){ return pts===2?['var(--sage-bright)','Healthy']:pts===1?['var(--gold)','Watch']:['var(--clay)','Act']; }
 
 let RESULT=null;
+/* R795 upsell is hidden until Paystack is connected — flip to true to go live. */
+const R795_LIVE = false;
 
 function calculate(){
   const revenue=num('revenue'), gross=num('gross'), op=num('opprofit'), ownerpay=num('ownerpay'),
@@ -421,7 +423,7 @@ function renderResult(){
   const r=RESULT;
   show('result');
   const cb=el('completeness');
-  const up=el('upsell'); if(up) up.hidden = r.tooFew;   // no R795 upsell on an incomplete result
+  const up=el('upsell'); if(up) up.hidden = r.tooFew || !R795_LIVE;   // upsell only when live + scorable
 
   const canScore = r.applicCount >= 3;   // need at least 3 supplied ratios for a meaningful score
   el('sec-score').classList.toggle('hidden', !canScore);
