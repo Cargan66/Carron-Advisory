@@ -50,10 +50,10 @@ const tiers: Tier[] = [
     tag: "Tier 2 · R1,295",
     name: "Financial Health Action Plan",
     fee: "R1,295",
-    feeNote: "once-off",
-    soon: true,
+    feeNote: "once-off · no VAT",
+    soon: false,
     description:
-      "What to do about your result — every priority ranked most-urgent-first, each with what to do, how to start and a target. Generated instantly from the numbers you entered in the free check.",
+      "Your financial priorities, ranked in order of urgency — with a clear action, starting point and target for each. Generated instantly from the numbers you entered in the free check.",
     disclosure:
       "An automated result with an AI-written explanation. Not advisor-reviewed at this tier.",
     includes: [
@@ -399,35 +399,23 @@ export default function DiagnosticPage() {
         </div>
       </section>
 
-      {/* Get notified — Tier 1 & Tier 2 tools coming soon */}
+      {/* Fees — plain, and no VAT */}
       <section
         id="notify"
         className="scroll-mt-28 border-t border-white/10 bg-emerald-section py-20 sm:py-28"
       >
         <div className="container-luxe">
           <FadeIn className="mx-auto max-w-2xl rounded-3xl border border-gold/25 bg-emerald-base/60 px-8 py-12 text-center sm:px-12">
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              Launching soon
-            </span>
-            <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl">
-              The Financial Health Action Plan is on its way
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">
+              The fee you see is the fee you pay
             </h2>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-bone-muted">
-              Your{" "}
-              <a
-                href="/health-check/"
-                className="font-medium text-gold hover:text-gold-light"
-              >
-                Free Health Check &amp; Valuation
-              </a>{" "}
-              is live now. The paid R1,295 Financial Health Action Plan — your priorities and actions, ranked
-              from your numbers — is coming next. Leave your email and we&apos;ll tell
-              you the moment it opens, or book a CFO Review now.
+              Carron is not VAT-registered, so no VAT is added to any fee. R1,295 is
+              R1,295, and a CFO Review from R4,500 is R4,500 — nothing is added at
+              checkout or on the invoice.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href="mailto:info@carron.co.za?subject=Notify%20me%20when%20the%20Carron%20financial%20tools%20launch">
-                Notify me when it&apos;s live
-              </Button>
+              <Button href="/health-check/">Run your free check</Button>
               <Button href="/contact" variant="secondary">
                 Book a CFO Review
               </Button>
