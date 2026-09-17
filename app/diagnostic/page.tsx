@@ -100,7 +100,7 @@ const reviewAreas = [
   {
     title: "Strategy & governance",
     description:
-      "Financial risks, decision rights, accountability, controls, and whether the finance function supports the next stage of growth.",
+      "Financial risks, decision rights, accountability, controls, how much the business still depends on the owner, and whether the finance function supports the next stage of growth.",
   },
 ];
 

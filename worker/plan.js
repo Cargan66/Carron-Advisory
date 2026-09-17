@@ -164,7 +164,7 @@ export function renderPlanHTML(plan, meta = {}) {
   ${strengthsHTML}
   <p class="dg-intro">Each item below shows where you stand today, why it matters, and the one thing to put in place. Don't try to do it all at once — work the phases in order, delegate the doing where you can, and treat <em>proven</em> (it has actually happened without you) as the bar, not merely <em>documented</em>.</p>
   ${phaseHTML}
-  <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> A Carron CFO/advisory session works these phases with you — the authority matrix, the procedure and scorecard templates, and how to prove each item — and holds you to the 90 days. Your R795 fee is credited in full toward it.</div>
+  <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> A Carron CFO Review works these phases with you — the authority matrix, the procedure and scorecard templates, and how to prove each item — and holds you to the 90 days. Owner dependence is one of the areas it covers, alongside cash, profitability and reporting. Your R795 fee is credited in full toward it, and Carron is not VAT-registered, so no VAT is added.</div>
   <p class="dg-disc">Automated and educational only, generated from the answers you gave — not advisor-reviewed, legal, employment or tax advice. Confirm anything with employment, contractual or statutory consequences with a qualified adviser before acting.</p>`;
 }
 
