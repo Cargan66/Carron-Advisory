@@ -1,11 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { OrganizationJsonLd } from "@/components/JsonLd";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { siteConfig } from "@/lib/site";
+
+// Installable-app (PWA) chrome: theme colour for the status bar / task switcher.
+export const viewport: Viewport = {
+  themeColor: "#0f2218",
+};
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -68,6 +74,21 @@ export const metadata: Metadata = {
   verification: {
     google: "TwNXvSYn9QtWDEy0jZMwh5nMh3BDReClG78WWGJdRUQ",
   },
+  manifest: "/manifest.webmanifest",
+  applicationName: "Carron",
+  appleWebApp: {
+    capable: true,
+    title: "Carron",
+    statusBarStyle: "black-translucent",
+  },
+  icons: {
+    icon: [
+      { url: "/icons/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
@@ -87,6 +108,7 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <Footer />
         <Analytics />
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
