@@ -363,8 +363,8 @@
     </div>
 
     <div class="cta">
-      <h3>Your result is ready</h3>
-      <p>Your score and biggest bottlenecks are above — save them below. When you're ready to act, book a free discovery call, or check the numbers behind the business with the Financial Health Check.</p>
+      <h3 id="cta-title">Your result is ready</h3>
+      <p id="cta-note">Your score and biggest bottlenecks are above — save them below. When you're ready to act, book a free discovery call, or check the numbers behind the business with the Financial Health Check.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
         <a class="btn primary" href="/contact">Book a discovery call</a>
         <a class="btn ghost" href="/health-check/">Try the Financial Health Check</a>
@@ -780,8 +780,18 @@ function unlock(){
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({tool:'90-day-test',name:'',email:email,result:score+'/100 — '+band,detail:JSON.stringify({score:score,band:band,summary:resultSummary()}),consent:true})}).catch(()=>{}); }catch(e){}
 
-  // reveal the R795 upsell once the plan paywall is live
-  const up=el('upsell'); if(up) up.hidden = !R795_PLAN_LIVE;
+  if(R795_PLAN_LIVE){
+    // Paid mode: offer the full plan for R795.
+    const up=el('upsell'); if(up) up.hidden=false;
+  } else {
+    // Free mode (until Paystack is live): email the full plan, as before.
+    const up=el('upsell'); if(up) up.hidden=true;
+    try{ fetch('https://api.web3forms.com/submit',{
+      method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New 90-Day Test lead — '+email,from_name:'Carron 90-Day Test',name:'—',email:email,score:score+'/100',band:band,summary:resultSummary(),answers:JSON.stringify(answers),submitted:ts})}).catch(()=>{}); }catch(e){}
+    const t=el('cta-title'); if(t) t.textContent='Your full 90-day action plan is on its way';
+    const n=el('cta-note'); if(n){ n.innerHTML='We’ve emailed your complete owner-independence plan to <strong style="color:var(--gold-light)">'+email+'</strong> — including the full 40-question assessment and the authorities, limits and hand-overs to put in place for every area you scored low, in priority order.'; }
+  }
 }
 
 /* R795 plan paywall is hidden until Paystack is connected — flip to true to go live. */
