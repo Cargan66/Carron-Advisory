@@ -207,7 +207,7 @@ async function orderCreate(request, env, product) {
       test: true,
     });
   } catch (e) {
-    return json({ ok: false, error: "server error" }, 500);
+    return json({ ok: false, error: "server error", detail: String((e && e.message) || e).slice(0, 200) }, 500);
   }
 }
 
@@ -328,8 +328,8 @@ async function paystackInit(env, { email, amount, reference, callback_url }) {
     headers: { Authorization: "Bearer " + env.PAYSTACK_SECRET, "Content-Type": "application/json" },
     body: JSON.stringify({ email, amount, currency: ORDER_CURRENCY, reference, callback_url }),
   });
-  const j = await res.json();
-  if (!j.status) throw new Error("paystack init failed");
+  const j = await res.json().catch(() => ({}));
+  if (!j.status) throw new Error("paystack init failed: " + (res.status + " " + (j.message || "")).slice(0, 120));
   return j.data; // { authorization_url, access_code, reference }
 }
 
