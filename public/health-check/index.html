@@ -509,7 +509,7 @@ function printResults(){
   }
   const caveat = r.missing.length ? '<p class="ps-caveat"><strong>Partial result</strong> — '+r.missing.length+' of 10 figures weren’t supplied ('+r.missing.join(', ')+'). Based only on the numbers given.</p>' : '';
   el('printsheet').innerHTML =
-    '<div class="ps-head"><img src="/images/carron-logo-horizontal-dark.png" alt="Carron Business Advisory">'
+    '<div class="ps-head"><img src="/images/carron-logo-horizontal-emerald.png" alt="Carron Business Advisory">'
     +'<div class="ps-meta"><strong>Financial Health Check &amp; Valuation</strong>'+(r.sectorLabel?r.sectorLabel+' · ':'')+d+(name?' · '+name:'')+'</div></div>'
     +'<h2>Financial health score: '+r.score+'/100 — '+(r.band||'')+'</h2>'
     +'<p class="ps-desc">'+(r.bandDesc||'')+'</p>'

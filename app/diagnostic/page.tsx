@@ -67,7 +67,7 @@ const tiers: Tier[] = [
     tag: "Tier 3 · CFO Review",
     name: "CFO Review",
     fee: "From R4,500",
-    feeNote: "plus VAT · your R795 diagnostic fee credited in full",
+    feeNote: "your R795 diagnostic fee credited in full",
     soon: false,
     description:
       "A senior, advisor-verified review of your numbers — the priorities checked by a person and turned into a practical 90-day plan. Full detail below.",
@@ -384,7 +384,7 @@ export default function DiagnosticPage() {
                   <Fact label="Time frame" value="Two to three weeks" />
                   <Fact
                     label="Fee"
-                    value="From R4,500 plus VAT — your R795 diagnostic fee credited in full"
+                    value="From R4,500 — your R795 diagnostic fee credited in full"
                   />
                   <Fact label="Management time" value="Two focused sessions" />
                   <Fact label="Commitment" value="No ongoing retainer required" />
