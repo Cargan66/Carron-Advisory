@@ -192,6 +192,7 @@
   .bottleneck ul{list-style:none;display:flex;flex-direction:column;gap:7px}
   .bottleneck li{font-size:14px;color:var(--cream);opacity:.88;padding-left:20px;position:relative}
   .bottleneck li::before{content:"→";position:absolute;left:0;color:var(--gold)}
+  .blocked{font-size:13.5px;line-height:1.6;color:var(--sage);background:rgba(200,168,75,.06);border:1px dashed rgba(200,168,75,.4);border-radius:6px;padding:12px 14px;margin-top:6px}
 
   .cta{
     margin-top:36px;padding:clamp(22px,4vw,32px);
@@ -249,6 +250,7 @@
     .ps-bn .r span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a3e}
     .ps-bn ul{margin:6px 0 0 0;padding-left:16px}
     .ps-bn li{font-size:13px;color:#2a3830;margin-bottom:3px}
+    .ps-lock{font-size:12px;color:#6a776e;font-style:italic;margin-top:10px;padding-top:8px;border-top:1px dotted #cbd3c9}
     .ps-foot{display:flex;justify-content:space-between;border-top:1px solid #d9cfa8;margin-top:24px;padding-top:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a9a90}
   }
 
@@ -658,7 +660,7 @@ function drawCritical(){
   failed.forEach(({q})=>{
     const d=document.createElement('div');
     d.className='critical';
-    d.innerHTML=`<div class="ct">⚠ ${q.domain}</div><div class="cd">${q.action}</div>`;
+    d.innerHTML=`<div class="ct">⚠ ${q.domain}</div><div class="cd">Still waits for you — a survival gap that can stall the business the moment you step away. The specific fix is in your full 90-day plan.</div>`;
     block.appendChild(d);
   });
 }
@@ -689,14 +691,16 @@ function drawBottlenecks(){
   ranked.forEach(o=>{
     const d=document.createElement('div');
     d.className='bottleneck';
-    const items=(o.gaps.length?o.gaps:['Move this area from documented to delegated, then prove it without you.']).slice(0,2).map(t=>`<li>${t}</li>`).join('');
     d.innerHTML=`
       <div class="bh"><span class="bname">${o.name}</span>
         <span class="bscore">${Math.round(o.pct*100)}% in place</span></div>
-      <div class="bar"><span style="width:${Math.round(o.pct*100)}%"></span></div>
-      <ul>${items}</ul>`;
+      <div class="bar"><span style="width:${Math.round(o.pct*100)}%"></span></div>`;
     wrap.appendChild(d);
   });
+  const lock=document.createElement('p');
+  lock.className='blocked';
+  lock.innerHTML='🔒 That’s where you’re most exposed. The specific fix for each area — the exact authority, limit or hand-over to put in place, in priority order — is in your full 90-day plan.';
+  wrap.appendChild(lock);
 }
 
 function buildPrintSheet(score){
@@ -735,11 +739,13 @@ function buildPrintSheet(score){
     bbox.innerHTML='<p style="font-size:13px;color:#3a4a42">No material gaps — every area is at least delegated. Confirm with the one-week phone-off test.</p>';
   } else {
     ranked.forEach(o=>{
-      const items=(o.gaps.length?o.gaps:['Move from documented to delegated, then prove it without you.']).slice(0,2).map(t=>`<li>${t}</li>`).join('');
       const d=document.createElement('div'); d.className='ps-bn';
-      d.innerHTML=`<div class="r"><b>${o.name}</b><span>${Math.round(o.pct*100)}% in place</span></div><ul>${items}</ul>`;
+      d.innerHTML=`<div class="r"><b>${o.name}</b><span>${Math.round(o.pct*100)}% in place</span></div>`;
       bbox.appendChild(d);
     });
+    const note=document.createElement('p'); note.className='ps-lock';
+    note.textContent='The specific fix for each area — the authority, limit or hand-over to put in place, in priority order — is in the full R795 90-day plan.';
+    bbox.appendChild(note);
   }
 }
 
