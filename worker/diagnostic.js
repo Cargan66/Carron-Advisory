@@ -256,6 +256,37 @@ const HOWTO = {
     "Set a hard monthly deadline (say the 7th) for management accounts. A fixed date does more for reporting discipline than any new system.",
 };
 
+// The strengths section: ratios already scoring Healthy, named with a "keep it"
+// tip. Reassures the owner and stops the report reading as all-negative.
+const STRENGTH_LABEL = {
+  gross: "Gross margin",
+  operating: "Operating profit",
+  runway: "Cash runway",
+  liquidity: "Short-term liquidity",
+  solvency: "Balance-sheet strength",
+  debt: "Low gearing (debt level)",
+};
+const KEEP = {
+  gross: "Hold the line on discounting and re-quote whenever input costs move — margin erodes quietly, a point at a time.",
+  operating: "Bank a share of the profit as a cash buffer rather than letting it drift into new fixed costs.",
+  runway: "Keep your minimum cash floor a rule, not a maybe, and watch debtor days as volume grows.",
+  liquidity: "Keep debtor days and slow-moving stock in check as you grow — that's what quietly tightens an otherwise sound position.",
+  solvency: "Keep retaining enough profit to stay ahead of any new liabilities.",
+  debt: "Keep any new borrowing tied to a clear, funded return — borrow by choice, not out of necessity.",
+};
+
+function strengthsFrom(ratios, exclude = new Set()) {
+  const out = [];
+  for (const r of ratios) {
+    if (r.status !== "Healthy") continue;
+    const key = ratioKey(r.name);
+    if (!key || !STRENGTH_LABEL[key] || exclude.has(key)) continue; // skip anything already a priority card
+    out.push({ key, label: STRENGTH_LABEL[key], where: whereLine(key, r), tip: KEEP[key] });
+  }
+  out.sort((a, b) => (IMPORTANCE[a.key] || 9) - (IMPORTANCE[b.key] || 9));
+  return out;
+}
+
 function valuationPriority(d) {
   const range =
     d.value_low && d.value_high
@@ -337,6 +368,7 @@ export function generateDiagnostic(d) {
     valueHigh: d.value_high,
     nav: d.net_asset_value,
     headline,
+    strengths: strengthsFrom(ratios, new Set(top.map((p) => p.key))),
     priorities: top.map((p, i) => ({ rank: i + 1, howto: HOWTO[p.key] || "", ...p })),
   };
 }
@@ -379,9 +411,34 @@ export function renderDiagnosticHTML(report, meta = {}) {
   <p class="dg-lede">Health score <strong>${report.score}/100</strong> — ${esc(
     report.band
   )}. Indicative value <strong>${val}</strong>. ${esc(report.headline)}</p>
+  ${renderStrengths(report)}
   ${cards}
   <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> In a Carron CFO Review a senior advisor works through these priorities with you — the full method for each, the order to tackle them, and a plan you can act on. Your R795 fee is credited in full toward it.</div>
   <p class="dg-disc">Automated and educational only, generated from the figures you entered — not a formal audit, valuation or advisor-reviewed opinion. Confirm anything material with a qualified adviser before acting.</p>`;
+}
+
+function renderStrengths(report) {
+  const s = report.strengths || [];
+  if (!s.length) {
+    return `
+    <div class="strengths strengths--none">
+      <div class="str-h">What's already strong</div>
+      <p class="str-lede">None of the six ratios is in the clear yet — the priorities below are where to start. As each one moves into the healthy range it'll be recorded here, so expect this to fill up as you work the plan.</p>
+    </div>`;
+  }
+  const lis = s
+    .map(
+      (it) =>
+        `<li><span class="pi-dom">${esc(it.label)}</span><span class="str-cap">${esc(it.where)}</span><span class="str-tip">${esc(it.tip)}</span></li>`
+    )
+    .join("");
+  const count = s.length;
+  return `
+    <div class="strengths">
+      <div class="str-h">What's already strong${count > 1 ? ` · ${count} of your ratios` : ""}</div>
+      <p class="str-lede">Start here — these are already in good shape. Don't lose sight of them while you work the priorities below; a strength ignored is the next problem.</p>
+      <ul class="str-list">${lis}</ul>
+    </div>`;
 }
 
 function esc(s) {

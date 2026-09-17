@@ -16,11 +16,36 @@
  */
 
 import { generateDiagnostic, renderDiagnosticHTML } from "./diagnostic.js";
+import { generatePlan, renderPlanHTML } from "./plan.js";
 
 const ALLOWED_TOOLS = ["health-check", "90-day-test", "find-your-fit"];
 const WEB3FORMS_KEY = "dc0870f4-27e1-4787-8fb0-ab76fdcc861f";
-const DIAG_AMOUNT = 79500; // R795.00 in ZAR cents (Paystack subunit)
-const DIAG_CURRENCY = "ZAR";
+const ORDER_CURRENCY = "ZAR";
+
+// The two paid R795 products. Each order carries a `product` so one set of
+// routes (/api/<product>/create|get|webhook|testpay) serves both.
+const PRODUCTS = {
+  diagnostic: {
+    amount: 79500, // R795.00 in ZAR cents (Paystack subunit)
+    result: "/diagnostic-result/",
+    leadTool: "r795-diagnostic",
+    label: "R795 Financial Priorities Diagnostic",
+    validate: (s) => s && Array.isArray(s.ratios) && s.ratios.length >= 3,
+    validateErr: "run the health check first",
+    generate: (s, meta) => { const report = generateDiagnostic(s); return { report, html: renderDiagnosticHTML(report, meta) }; },
+    context: (s) => ({ sector: s.sectorLabel || "" }),
+  },
+  plan: {
+    amount: 79500,
+    result: "/plan-result/",
+    leadTool: "r795-plan",
+    label: "R795 90-Day Owner-Independence Plan",
+    validate: (s) => s && Array.isArray(s.answers) && s.answers.length >= 10,
+    validateErr: "take the 90-day test first",
+    generate: (s, meta) => { const report = generatePlan(s); return { report, html: renderPlanHTML(report, meta) }; },
+    context: () => ({}),
+  },
+};
 
 export default {
   async fetch(request, env) {
@@ -32,14 +57,15 @@ export default {
     if (p === "/api/lead")
       return request.method === "POST" ? handleLead(request, env) : methodNotAllowed();
 
-    if (p === "/api/diagnostic/create")
-      return request.method === "POST" ? diagCreate(request, env) : methodNotAllowed();
-    if (p === "/api/diagnostic/get")
-      return request.method === "GET" ? diagGet(request, env) : methodNotAllowed();
-    if (p === "/api/diagnostic/webhook")
-      return request.method === "POST" ? diagWebhook(request, env) : methodNotAllowed();
-    if (p === "/api/diagnostic/testpay")
-      return request.method === "GET" ? diagTestPay(request, env) : methodNotAllowed();
+    // Paid-product flow, shared across products (diagnostic, plan).
+    const m = p.match(/^\/api\/(diagnostic|plan)\/(create|get|webhook|testpay)$/);
+    if (m) {
+      const product = m[1], action = m[2];
+      if (action === "create") return request.method === "POST" ? orderCreate(request, env, product) : methodNotAllowed();
+      if (action === "get") return request.method === "GET" ? orderGet(request, env) : methodNotAllowed();
+      if (action === "webhook") return request.method === "POST" ? orderWebhook(request, env) : methodNotAllowed();
+      if (action === "testpay") return request.method === "GET" ? orderTestPay(request, env, product) : methodNotAllowed();
+    }
 
     // Everything else: serve the static site.
     return env.ASSETS.fetch(request);
@@ -123,7 +149,7 @@ async function handleHealthCheck(request, env) {
   }
 }
 
-/* ---------------------------------------------------------------- R795 diagnostic (paid) */
+/* ---------------------------------------------------------------- R795 paid products (diagnostic, plan) */
 
 async function ensureOrders(env) {
   await env.DB.prepare(
@@ -135,45 +161,49 @@ async function ensureOrders(env) {
        amount INTEGER,
        status TEXT NOT NULL,      -- 'pending' | 'paid'
        paid_at TEXT,
-       data TEXT,                 -- JSON: the Health Check summary (for generation)
+       data TEXT,                 -- JSON: the tool summary (for generation)
        report TEXT,               -- JSON: { report, html, meta } once paid
+       product TEXT,              -- 'diagnostic' | 'plan'
        country TEXT )`
   ).run();
+  // Migrate orders tables that predate the product column (throws once added — ignore).
+  try { await env.DB.prepare("ALTER TABLE orders ADD COLUMN product TEXT").run(); } catch (e) { /* already there */ }
 }
 
-// POST /api/diagnostic/create  { email, summary } → { reference, authorization_url }
-async function diagCreate(request, env) {
+// POST /api/<product>/create  { email, summary } → { reference, authorization_url }
+async function orderCreate(request, env, product) {
   try {
+    const cfg = PRODUCTS[product];
+    if (!cfg) return json({ ok: false, error: "unknown product" }, 400);
     await ensureOrders(env);
     const body = await request.json().catch(() => ({}));
     const email = str(body.email, 200);
     const summary = body.summary;
     if (!/.+@.+\..+/.test(email)) return json({ ok: false, error: "invalid email" }, 400);
-    if (!summary || !Array.isArray(summary.ratios) || summary.ratios.length < 3)
-      return json({ ok: false, error: "run the health check first" }, 400);
+    if (!cfg.validate(summary)) return json({ ok: false, error: cfg.validateErr }, 400);
 
     const reference = "cba_" + crypto.randomUUID().replace(/-/g, "");
     const origin = new URL(request.url).origin;
 
     await env.DB.prepare(
-      `INSERT INTO orders (reference, created_at, email, amount, status, data, country)
-       VALUES (?,?,?,?,?,?,?)`
+      `INSERT INTO orders (reference, created_at, email, amount, status, data, product, country)
+       VALUES (?,?,?,?,?,?,?,?)`
     )
-      .bind(reference, new Date().toISOString(), email, DIAG_AMOUNT, "pending",
-        JSON.stringify(summary), (request.cf && request.cf.country) || "")
+      .bind(reference, new Date().toISOString(), email, cfg.amount, "pending",
+        JSON.stringify(summary), product, (request.cf && request.cf.country) || "")
       .run();
 
     if (env.PAYSTACK_SECRET) {
       const data = await paystackInit(env, {
-        email, amount: DIAG_AMOUNT, reference,
-        callback_url: origin + "/diagnostic-result/",
+        email, amount: cfg.amount, reference,
+        callback_url: origin + cfg.result,
       });
       return json({ ok: true, reference, authorization_url: data.authorization_url });
     }
     // Bypass mode (no Paystack configured yet): a local "pay" link for testing the flow.
     return json({
       ok: true, reference,
-      authorization_url: origin + "/api/diagnostic/testpay?reference=" + reference,
+      authorization_url: origin + "/api/" + product + "/testpay?reference=" + reference,
       test: true,
     });
   } catch (e) {
@@ -181,8 +211,8 @@ async function diagCreate(request, env) {
   }
 }
 
-// GET /api/diagnostic/get?reference=… → { status, report, html, meta }
-async function diagGet(request, env) {
+// GET /api/<product>/get?reference=… → { status, report, html, meta }
+async function orderGet(request, env) {
   try {
     await ensureOrders(env);
     const reference = new URL(request.url).searchParams.get("reference") || "";
@@ -207,8 +237,8 @@ async function diagGet(request, env) {
   }
 }
 
-// POST /api/diagnostic/webhook  (Paystack, signed)
-async function diagWebhook(request, env) {
+// POST /api/<product>/webhook  (Paystack, signed)
+async function orderWebhook(request, env) {
   const raw = await request.text();
   if (!env.PAYSTACK_SECRET) return json({ ok: true }); // nothing to verify against yet
   const sig = request.headers.get("x-paystack-signature") || "";
@@ -223,14 +253,15 @@ async function diagWebhook(request, env) {
   return json({ ok: true });
 }
 
-// GET /api/diagnostic/testpay?reference=…  — DEV ONLY. Disabled once PAYSTACK_SECRET is set.
-async function diagTestPay(request, env) {
+// GET /api/<product>/testpay?reference=…  — DEV ONLY. Disabled once PAYSTACK_SECRET is set.
+async function orderTestPay(request, env, product) {
   if (env.PAYSTACK_SECRET) return new Response("Not found", { status: 404 });
+  const cfg = PRODUCTS[product] || PRODUCTS.diagnostic;
   await ensureOrders(env);
   const reference = new URL(request.url).searchParams.get("reference") || "";
   const order = await getOrder(env, reference);
   if (order && order.status !== "paid") await fulfil(env, order);
-  return Response.redirect(new URL(request.url).origin + "/diagnostic-result/?reference=" + reference, 302);
+  return Response.redirect(new URL(request.url).origin + cfg.result + "?reference=" + reference, 302);
 }
 
 async function getOrder(env, reference) {
@@ -239,13 +270,14 @@ async function getOrder(env, reference) {
 
 // Generate the report, store it, mark paid, notify the owner.
 async function fulfil(env, order) {
+  const product = order.product || "diagnostic";
+  const cfg = PRODUCTS[product] || PRODUCTS.diagnostic;
   const summary = JSON.parse(order.data || "{}");
-  const report = generateDiagnostic(summary);
   const meta = {
     date: new Date().toLocaleDateString("en-ZA", { day: "numeric", month: "long", year: "numeric" }),
     name: order.email || "",
   };
-  const html = renderDiagnosticHTML(report, meta);
+  const { report, html } = cfg.generate(summary, meta);
   await env.DB.prepare("UPDATE orders SET status=?, paid_at=?, report=? WHERE reference=?")
     .bind("paid", new Date().toISOString(), JSON.stringify({ report, html, meta }), order.reference)
     .run();
@@ -257,10 +289,11 @@ async function fulfil(env, order) {
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
         access_key: WEB3FORMS_KEY,
-        subject: "R795 Diagnostic purchased — " + (order.email || ""),
-        from_name: "Carron Diagnostic",
-        email: order.email, sector: summary.sectorLabel, score: report.score + "/100",
+        subject: cfg.label + " purchased — " + (order.email || ""),
+        from_name: "Carron",
+        email: order.email, score: report.score + "/100",
         reference: order.reference, submitted: new Date().toISOString(),
+        ...cfg.context(summary),
       }),
     });
   } catch (e) { /* non-critical */ }
@@ -268,9 +301,9 @@ async function fulfil(env, order) {
   // Record in the unified leads table too.
   try {
     await insertLeadRaw(env, {
-      tool: "r795-diagnostic", email: order.email,
+      tool: cfg.leadTool, email: order.email,
       result: report.score + "/100 — " + report.band,
-      detail: JSON.stringify({ sector: summary.sectorLabel, reference: order.reference }),
+      detail: JSON.stringify({ reference: order.reference, ...cfg.context(summary) }),
       consent: 1, country: order.country || "",
     });
   } catch (e) { /* non-critical */ }
@@ -293,7 +326,7 @@ async function paystackInit(env, { email, amount, reference, callback_url }) {
   const res = await fetch("https://api.paystack.co/transaction/initialize", {
     method: "POST",
     headers: { Authorization: "Bearer " + env.PAYSTACK_SECRET, "Content-Type": "application/json" },
-    body: JSON.stringify({ email, amount, currency: DIAG_CURRENCY, reference, callback_url }),
+    body: JSON.stringify({ email, amount, currency: ORDER_CURRENCY, reference, callback_url }),
   });
   const j = await res.json();
   if (!j.status) throw new Error("paystack init failed");

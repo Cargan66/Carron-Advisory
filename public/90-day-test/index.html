@@ -200,6 +200,11 @@
   }
   .cta h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,3.5vw,26px);margin-bottom:10px}
   .cta p{color:var(--sage);font-size:15px;margin-bottom:20px;max-width:54ch}
+  .upsell{margin-top:36px;padding:clamp(22px,4vw,30px);border:1px solid var(--gold);border-radius:8px;
+    background:linear-gradient(180deg,rgba(200,168,75,.14),rgba(200,168,75,.03))}
+  .upsell h4{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(19px,3vw,22px);color:var(--gold-light);margin-bottom:10px}
+  .upsell p{color:var(--sage);font-size:14.5px;line-height:1.6;margin-bottom:18px;max-width:60ch}
+  .upsell .note{margin-top:12px;font-size:13px;color:var(--sage)}
   .form{display:flex;flex-wrap:wrap;gap:10px}
   .form input{
     flex:1;min-width:180px;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);
@@ -350,9 +355,16 @@
     <div class="sec-title">Fix these first — your biggest bottlenecks</div>
     <div id="bottlenecks"></div>
 
+    <div class="upsell" id="upsell" hidden>
+      <h4>Unlock your full 90-day action plan — R795</h4>
+      <p>Turn this score into a prioritised, phase-by-phase plan — <strong style="color:var(--gold-light)">Days 1–30 / 31–60 / 61–90</strong> — built from these exact answers: what's already running without you, and for every gap the authority, limit or hand-over to put in place, why it matters, and how to prove it. Instant, and your R795 fee is credited toward advisory.</p>
+      <button class="btn primary" id="buy-btn" onclick="buyPlan()">Unlock the full plan · R795</button>
+      <div class="note" id="buy-note"></div>
+    </div>
+
     <div class="cta">
-      <h3>Your full 90-day action plan is on its way</h3>
-      <p id="plan-note">We've emailed your complete owner-independence plan — including the <strong style="color:var(--gold-light)">full 40-question assessment</strong> (twice the depth of the 20 you just did), plus the authorities, limits and hand-overs to put in place for every area you scored low, in priority order.</p>
+      <h3>Your result is ready</h3>
+      <p>Your score and biggest bottlenecks are above — save them below. When you're ready to act, book a free discovery call, or check the numbers behind the business with the Financial Health Check.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
         <a class="btn primary" href="/contact">Book a discovery call</a>
         <a class="btn ghost" href="/health-check/">Try the Financial Health Check</a>
@@ -424,7 +436,7 @@ const QUESTIONS = [
     action:"Document the price list and discount rules so staff quote and close without a 'let me ask the boss'." },
   { domain:"Sales, quoting & pricing", survival:false,
     title:"Pre-approved quote, contract and terms templates exist, and someone owns following up leads while you're away.",
-    action:"Create pre-approved quote/contract/T&C templates and assign lead follow-up to someone other than you." },
+    action:"Create pre-approved quote, contract and terms-and-conditions templates and assign lead follow-up to someone other than you." },
 
   { domain:"Customer service & resolution", survival:true,
     title:"Someone can resolve a complaint and issue a refund or credit up to a limit without you.",
@@ -449,7 +461,7 @@ const QUESTIONS = [
 
   { domain:"Purchasing & suppliers", survival:true,
     title:"Staff can reorder stock, raise a purchase order and approve a supplier invoice up to a limit.",
-    action:"Set reorder rules and a PO/invoice approval limit so buying doesn't wait for you." },
+    action:"Set reorder rules and a purchase-order and invoice approval limit so buying doesn't wait for you." },
   { domain:"Purchasing & suppliers", survival:false,
     title:"A preferred-supplier list, terms and contacts are known to more than one person.",
     action:"Document preferred suppliers, terms and contacts so a supplier problem can be handled without you." },
@@ -458,12 +470,12 @@ const QUESTIONS = [
     title:"A manager can approve leave, cover a shift gap and handle first-line discipline without you.",
     action:"Give a manager written authority over leave, rosters and first-line discipline." },
   { domain:"People, operations & delivery", survival:false,
-    title:"The core work is documented in simple SOPs with quality standards, and every key role has a cross-trained backup.",
-    action:"Write simple SOPs and quality standards for the work only you know, and cross-train a backup for each key role." },
+    title:"The core work is documented in simple written procedures (SOPs) with quality standards, and every key role has a cross-trained backup.",
+    action:"Write simple written procedures (SOPs) and quality standards for the work only you know, and cross-train a backup for each key role." },
 
   { domain:"Access, IT & cyber resilience", survival:true,
-    title:"No critical system depends on your personal login, device or MFA — access is via named accounts, banking mandates and a password manager with emergency access.",
-    action:"Move to named accounts and role-based access; put logins in a password manager with emergency access for the deputy; add backup MFA and proper banking mandates." },
+    title:"No critical system depends on your personal login, device or two-step verification — access is via named accounts, banking mandates and a password manager with emergency access.",
+    action:"Move to named accounts and role-based access; put logins in a password manager with emergency access for the deputy; add a backup two-step login (MFA) and proper banking mandates." },
   { domain:"Access, IT & cyber resilience", survival:false,
     title:"There's a written plan for an IT or cyber incident — outage, ransomware, lost phone, failed backup, payment fraud — covering who acts and who authorises spend.",
     action:"Write an incident plan: who calls the IT provider, who authorises spend, where backups are, who decides to shut systems down, and who tells customers." },
@@ -768,13 +780,35 @@ function unlock(){
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({tool:'90-day-test',name:'',email:email,result:score+'/100 — '+band,detail:JSON.stringify({score:score,band:band,summary:resultSummary()}),consent:true})}).catch(()=>{}); }catch(e){}
 
-  // email the full 90-day plan via Web3Forms (same pipeline as the contact form -> info@carron.co.za)
-  try{ fetch('https://api.web3forms.com/submit',{
-    method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New 90-Day Test lead — '+email,from_name:'Carron 90-Day Test',name:'—',email:email,score:score+'/100',band:band,summary:resultSummary(),answers:JSON.stringify(answers),submitted:ts})}).catch(()=>{}); }catch(e){}
+  // reveal the R795 upsell once the plan paywall is live
+  const up=el('upsell'); if(up) up.hidden = !R795_PLAN_LIVE;
+}
 
-  const cnote=el('plan-note');
-  if(cnote){ cnote.innerHTML='We’ve emailed your full 90-day plan to <strong style="color:var(--gold-light)">'+email+'</strong>.'; cnote.style.color='var(--sage-bright)'; }
+/* R795 plan paywall is hidden until Paystack is connected — flip to true to go live. */
+const R795_PLAN_LIVE = false;
+
+/* R795 90-day plan purchase — send the answers + email to the Worker, then to checkout */
+let buyBusy=false;
+function buyPlan(){
+  if(buyBusy) return;
+  const email=CAPTURED_EMAIL||'';
+  const note=el('buy-note');
+  if(!email || !/.+@.+\..+/.test(email)){ if(note){note.textContent='Please enter your email above first.';note.style.color='var(--clay)';} return; }
+  buyBusy=true;
+  const btn=el('buy-btn'); if(btn){ btn.disabled=true; btn.textContent='Taking you to secure checkout…'; }
+  if(note){ note.textContent='Redirecting to secure payment…'; note.style.color=''; }
+  const summary={ answers:answers.slice(), score:PENDING_SCORE, band:(el('band-label').textContent||'') };
+  fetch('/api/plan/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,summary:summary})})
+    .then(r=>r.json())
+    .then(r=>{
+      if(r&&r.ok&&r.authorization_url){ location.href=r.authorization_url; }
+      else{ throw new Error((r&&r.error)||'could not start checkout'); }
+    })
+    .catch(e=>{
+      buyBusy=false;
+      if(btn){ btn.disabled=false; btn.textContent='Unlock the full plan · R795'; }
+      if(note){ note.textContent='Something went wrong starting checkout. Please try again, or email info@carron.co.za.'; note.style.color='var(--clay)'; }
+    });
 }
 </script>
 </body>

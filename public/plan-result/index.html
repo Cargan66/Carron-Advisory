@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Financial Priorities Diagnostic · Carron Business Advisory</title>
+<title>Your 90-Day Owner-Independence Plan · Carron Business Advisory</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,39 +23,46 @@
   .btn.ghost{background:#fff;color:#16412f;border:1px solid #cdd6cd}
   .muted{font-size:12px;color:#6a776e;margin-top:12px}
 
-  /* report body (matches the engine's markup) */
+  /* report body (matches the plan engine's markup) */
   .dg-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #16412f;padding-bottom:12px;margin-bottom:20px;gap:14px;flex-wrap:wrap}
   .dg-head img{height:54px;border-radius:6px}
   .dg-meta{text-align:right;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#5b6b60}
   .dg-meta strong{display:block;font-family:'Fraunces',serif;font-size:13px;color:#16412f;text-transform:none;letter-spacing:.02em;margin-bottom:3px}
   h2{font-family:'Fraunces',serif;font-weight:500;font-size:26px;color:#16412f;margin:0 0 8px}
   .dg-lede{font-size:13px;color:#3a4a40;margin:0 0 20px;line-height:1.6}
-  .pri{border:1px solid #e5e0d2;border-left:3px solid #16412f;border-radius:6px;padding:14px 16px;margin:0 0 12px;page-break-inside:avoid}
-  .pri-h{display:flex;align-items:center;gap:10px;margin-bottom:7px;flex-wrap:wrap}
-  .pri-n{flex:none;width:24px;height:24px;border-radius:50%;background:#16412f;color:#fff;font-family:'Fraunces',serif;font-size:13px;display:flex;align-items:center;justify-content:center}
-  .pri-t{font-family:'Fraunces',serif;font-size:17px;color:#16412f;flex:1;min-width:180px}
-  .pri-s{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;font-weight:600}
-  .pri-act{background:#f7e4de;color:#b3583f}.pri-watch{background:#faf1d6;color:#9a7d2e}.pri-healthy{background:#e2efe4;color:#3f8f72}
-  .pri-where{font-size:12px;color:#16412f;font-weight:600;margin-bottom:5px}
-  .pri-why{font-size:12.5px;color:#3a4a40;line-height:1.55;margin-bottom:8px}
-  .pri-do{font-size:12.5px;color:#3a4a40}.pri-do strong{color:#16412f;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
-  .pri-do ul{margin:5px 0 0;padding-left:18px}.pri-do li{margin-bottom:3px;line-height:1.5}
-  .pri-how{font-size:12px;color:#3a4a40;margin-top:9px;padding:8px 11px;background:#f5f8f4;border:1px solid #e6ede6;border-radius:5px;line-height:1.5}
-  .pri-how strong{color:#9a7d2e;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px}
-  .pri-target{font-size:11.5px;color:#5b6b60;font-style:italic;margin-top:9px;padding-top:8px;border-top:1px dotted #ddd}
+  .dg-intro{font-size:12.5px;color:#3a4a40;line-height:1.6;margin:0 0 20px;padding:11px 13px;background:#f7f9f6;border:1px solid #e9eee8;border-radius:6px}
+  .dg-intro em{font-style:normal;font-weight:600;color:#16412f}
+  .phase{border:1px solid #e5e0d2;border-left:3px solid #16412f;border-radius:6px;padding:15px 17px;margin:0 0 13px;page-break-inside:avoid}
+  .ph-h{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;flex-wrap:wrap}
+  .ph-w{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#fff;background:#16412f;padding:3px 10px;border-radius:20px}
+  .ph-t{font-family:'Fraunces',serif;font-size:19px;color:#16412f}
+  .ph-goal{font-size:12.5px;color:#3a4a40;line-height:1.55;margin:0 0 12px}
+  .ph-items{list-style:none;margin:0;padding:0}
+  .ph-items li{padding:9px 0;border-top:1px solid #eee}
+  .pi-dom{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#9a7d2e;font-weight:600;margin-right:10px}
+  .pi-state{font-size:10px;color:#8a978d;font-style:italic}
+  .pi-why{font-size:12px;color:#5b6b60;line-height:1.5;margin:4px 0 5px;font-style:italic}
+  .pi-act{font-size:12.5px;color:#2a3a30;line-height:1.5;margin-top:3px}
+  .pi-do{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:#16412f;font-weight:600}
+  .ph-empty{font-size:12.5px;color:#3f8f72;font-style:italic;margin:0}
+  .ph-how{font-size:12px;color:#3a4a40;margin-top:11px;padding:8px 11px;background:#f5f8f4;border:1px solid #e6ede6;border-radius:5px;line-height:1.5}
+  .ph-how strong{color:#9a7d2e;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px}
   .dg-cta{background:#faf3dd;border:1px solid #e3d29a;border-radius:6px;padding:14px 16px;margin:18px 0 12px;font-size:12.5px;color:#5c4a1e;line-height:1.55}
   .dg-cta strong{color:#16412f}
   .dg-disc{font-size:10px;color:#6a776e;line-height:1.5}
-  .strengths{border:1px solid #cfe3d4;border-left:3px solid #3f8f72;background:#f2f8f3;border-radius:6px;padding:14px 16px;margin:0 0 16px;page-break-inside:avoid}
-  .str-h{font-family:'Fraunces',serif;font-size:17px;color:#215c43;margin-bottom:5px}
-  .str-lede{font-size:12.5px;color:#33513f;line-height:1.55;margin:0 0 11px}
+  /* strengths section */
+  .strengths{border:1px solid #cfe3d4;border-left:3px solid #3f8f72;background:#f2f8f3;border-radius:6px;padding:15px 17px;margin:0 0 18px;page-break-inside:avoid}
+  .str-h{font-family:'Fraunces',serif;font-size:18px;color:#215c43;margin-bottom:6px}
+  .str-lede{font-size:12.5px;color:#33513f;line-height:1.55;margin:0 0 12px}
   .strengths--none .str-lede{margin-bottom:0}
-  .str-list{list-style:none;margin:0;padding:0}
-  .str-list li{padding:8px 0;border-top:1px solid #d8e8dc}
-  .str-list li:first-child{border-top:none}
-  .str-list .pi-dom{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#3f8f72;font-weight:700;margin-right:10px}
-  .str-cap{font-size:12px;color:#215c43;font-weight:600}
-  .str-tip{display:block;font-size:12px;color:#33513f;line-height:1.5;margin-top:3px}
+  .str-list{list-style:none;margin:0 0 13px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:7px 20px}
+  .str-list li{padding:7px 0;border-top:1px solid #d8e8dc}
+  .str-cap{display:block;font-size:12.5px;color:#234433;line-height:1.4;margin-top:2px}
+  .str-tips{font-size:12px;color:#33513f;line-height:1.5;background:#e8f2ea;border:1px solid #cfe3d4;border-radius:5px;padding:10px 13px}
+  .str-tips>strong{color:#215c43;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:5px}
+  .str-tips ul{margin:0;padding-left:18px}
+  .str-tips li{margin:0 0 4px}
+  @media (max-width:560px){ .str-list{grid-template-columns:1fr} }
 
   @media print{
     body{background:#fff;padding:0}
@@ -69,8 +76,8 @@
   <div class="sheet">
     <div class="state" id="loading">
       <div class="spinner"></div>
-      <h1>Preparing your diagnostic…</h1>
-      <p>Confirming your payment and generating your report. This takes a few seconds.</p>
+      <h1>Preparing your plan…</h1>
+      <p>Confirming your payment and building your 90-day plan. This takes a few seconds.</p>
     </div>
 
     <div class="state" id="pending" hidden>
@@ -80,7 +87,7 @@
     </div>
 
     <div class="state" id="errored" hidden>
-      <h1>We couldn't load your report</h1>
+      <h1>We couldn't load your plan</h1>
       <p>Please refresh this page. If it still doesn't appear, email <a href="mailto:info@carron.co.za">info@carron.co.za</a> and we'll sort it out.</p>
     </div>
 
@@ -88,7 +95,7 @@
 
     <div class="actions" id="actions" hidden>
       <button class="btn primary" onclick="window.print()">⤓ Save / print (PDF)</button>
-      <a class="btn ghost" href="/contact">Book a CFO Review</a>
+      <a class="btn ghost" href="/contact">Book a discovery call</a>
     </div>
   </div>
 
@@ -109,7 +116,7 @@
   async function poll(tries){
     if(!reference){ showError(); return; }
     try{
-      const r = await fetch('/api/diagnostic/get?reference=' + encodeURIComponent(reference)).then(r=>r.json());
+      const r = await fetch('/api/plan/get?reference=' + encodeURIComponent(reference)).then(r=>r.json());
       if(r.status === 'paid' && r.html){ showReport(r); return; }
       if(r.status === 'unknown'){ showError(); return; }
       if(tries > 0){ setTimeout(()=>poll(tries-1), 2500); } else { showPending(); }
