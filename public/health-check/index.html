@@ -106,6 +106,10 @@
   .consent{display:flex;align-items:flex-start;gap:9px;justify-content:center;max-width:52ch;margin:16px auto 0;font-size:12.5px;color:var(--sage);text-align:left;cursor:pointer}
   .consent input{margin-top:2px;flex:none;accent-color:var(--gold)}
   .subrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .upsell{border:1px solid var(--gold);background:linear-gradient(180deg,rgba(200,168,75,.12),rgba(200,168,75,.03));border-radius:8px;padding:22px;margin:4px auto 18px;max-width:56ch}
+  .upsell h4{font-family:'Fraunces',serif;font-weight:500;font-size:19px;color:var(--gold-light);margin-bottom:8px}
+  .upsell p{color:var(--sage);font-size:14px;margin-bottom:16px}
+  .upsell .note{margin-top:12px}
   .footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   .navrow{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px;flex-wrap:wrap}
   .hidden{display:none}
@@ -231,8 +235,15 @@
       <div style="margin:6px 0 18px">
         <button class="btn primary" onclick="printResults()">⤓ Save / print my results (PDF)</button>
       </div>
+
+      <div class="upsell" id="upsell">
+        <h4>Go deeper — the R795 Financial Priorities Diagnostic</h4>
+        <p>Your top five priorities, ranked — each with what to do, how to start, and a target, generated from these exact numbers. Instant, and your R795 fee is credited toward a CFO Review.</p>
+        <button class="btn primary" id="buy-btn" onclick="buyDiagnostic()">Unlock the full diagnostic · R795</button>
+        <div class="note" id="buy-note"></div>
+      </div>
+
       <div class="subrow">
-        <a class="btn ghost" href="/diagnostic">Go deeper: the R795 Diagnostic</a>
         <a class="btn ghost" href="/contact">Book a discovery call</a>
       </div>
     </div>
@@ -410,6 +421,7 @@ function renderResult(){
   const r=RESULT;
   show('result');
   const cb=el('completeness');
+  const up=el('upsell'); if(up) up.hidden = r.tooFew;   // no R795 upsell on an incomplete result
 
   const canScore = r.applicCount >= 3;   // need at least 3 supplied ratios for a meaningful score
   el('sec-score').classList.toggle('hidden', !canScore);
@@ -556,6 +568,21 @@ function unlock(){
   try{ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
     body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Health Check & Valuation lead — '+email,from_name:'Carron Health Check',name:'—',email:email,sector:RESULT.sectorLabel,score:RESULT.score+'/100',indicative_value:fmtR(lo)+' – '+fmtR(hi),net_asset_value:fmtR(RESULT.nav),ratios:ratios,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
   renderResult();
+}
+
+/* R795 diagnostic purchase — send the summary + email to the Worker, then to checkout */
+function buyDiagnostic(){
+  if(!RESULT || RESULT.tooFew) return;
+  const btn=el('buy-btn'), note=el('buy-note');
+  btn.disabled=true; note.textContent='Taking you to secure checkout…'; note.style.color='var(--sage)';
+  const lo=round(RESULT.head[0],10000), hi=round(RESULT.head[1],10000);
+  const ratios=RESULT.R.map(x=>({ name:x.name, val:x.ok?x.val:'—', status:x.ok?ragDot(x.pts)[1]:'Not supplied', bench:x.bench }));
+  const summary={ sectorLabel:RESULT.sectorLabel, score:RESULT.score, band:RESULT.band||'', value_low:lo, value_high:hi, net_asset_value:Math.round(RESULT.nav), ratios };
+  fetch('/api/diagnostic/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:CAPTURED_EMAIL||'', summary})})
+    .then(r=>r.json()).then(r=>{
+      if(r && r.authorization_url){ location.href=r.authorization_url; }
+      else { note.textContent='Could not start checkout — please try again, or email info@carron.co.za.'; note.style.color='var(--clay)'; btn.disabled=false; }
+    }).catch(()=>{ note.textContent='Could not start checkout — please try again.'; note.style.color='var(--clay)'; btn.disabled=false; });
 }
 
 /* lead capture (legacy bottom form — retained but no longer shown) */
