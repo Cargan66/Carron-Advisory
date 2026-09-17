@@ -6,7 +6,7 @@
 
 ## 0. The golden rule (read first)
 
-**Never generate the paid report in the app.** The paid reports (the R795 Financial Priorities Diagnostic and the R795 90-Day Owner-Independence Plan) are generated **server-side after payment** — that is the paywall. The app's job is only to:
+**Never generate the paid report in the app.** The paid reports (the R795 Financial Health Action Plan and the R795 90-Day Owner-Independence Plan) are generated **server-side after payment** — that is the paywall. The app's job is only to:
 
 1. collect the inputs,
 2. show a **free** result (score + where they stand — *not* the fixes),
@@ -51,7 +51,7 @@ The API sends `Access-Control-Allow-Origin: *`, so an app hosted anywhere (inclu
 
 | Product | Sold off | `product` key | Price | Result viewer |
 |---|---|---|---|---|
-| Financial Priorities Diagnostic | Financial Health Check | `diagnostic` | R795 | `/diagnostic-result/` |
+| Financial Health Action Plan | Financial Health Check | `diagnostic` | R795 | `/diagnostic-result/` |
 | 90-Day Owner-Independence Plan | 90-Day Test | `plan` | R795 | `/plan-result/` |
 
 R795 = **79500** (ZAR cents, Paystack subunit). Both credited toward a R4,500 CFO Review.

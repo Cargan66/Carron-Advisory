@@ -411,7 +411,7 @@ export function renderDiagnosticHTML(report, meta = {}) {
   return `
   <div class="dg-head">
     <img src="/images/carron-logo-horizontal-emerald.png" alt="Carron Business Advisory">
-    <div class="dg-meta"><strong>Financial Priorities Diagnostic</strong>${report.sector} · ${esc(
+    <div class="dg-meta"><strong>Financial Health Action Plan</strong>${report.sector} · ${esc(
     meta.date || ""
   )}${meta.name ? " · " + esc(meta.name) : ""}</div>
   </div>

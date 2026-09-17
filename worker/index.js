@@ -4,7 +4,7 @@
  * Serves the static site (the ./out export, via the ASSETS binding) and provides:
  *   - POST /api/health-check : detailed Health Check row + unified leads row.
  *   - POST /api/lead         : a completion from any free tool → unified leads.
- *   - The R795 "Financial Priorities Diagnostic" paid flow (Paystack):
+ *   - The R795 "Financial Health Action Plan" paid flow (Paystack):
  *       POST /api/diagnostic/create   → create a pending order, return a checkout URL
  *       GET  /api/diagnostic/get      → the generated report, once the order is paid
  *       POST /api/diagnostic/webhook  → Paystack payment notification (signed)
@@ -29,7 +29,7 @@ const PRODUCTS = {
     amount: 79500, // R795.00 in ZAR cents (Paystack subunit)
     result: "/diagnostic-result/",
     leadTool: "r795-diagnostic",
-    label: "R795 Financial Priorities Diagnostic",
+    label: "R795 Financial Health Action Plan",
     validate: (s) => s && Array.isArray(s.ratios) && s.ratios.length >= 3,
     validateErr: "run the health check first",
     generate: (s, meta) => { const report = generateDiagnostic(s); return { report, html: renderDiagnosticHTML(report, meta) }; },

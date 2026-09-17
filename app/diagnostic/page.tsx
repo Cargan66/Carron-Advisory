@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 export const metadata: Metadata = {
   title: "Diagnostic",
   description:
-    "Start free: an instant financial health check and valuation, a R795 top-five diagnostic, or a full CFO-level review. Fixed-scope financial clarity for established South African SMEs.",
+    "Start free: an instant financial health check and valuation, a R795 Financial Health Action Plan, or a full CFO-level review. Fixed-scope financial clarity for established South African SMEs.",
 };
 
 // The three-tier ladder. Tier 1 and Tier 2 tools are not live yet — their
@@ -48,7 +48,7 @@ const tiers: Tier[] = [
   },
   {
     tag: "Tier 2 · R795",
-    name: "R795 Diagnostic",
+    name: "R795 Financial Health Action Plan",
     fee: "R795",
     feeNote: "once-off",
     soon: true,
@@ -61,18 +61,18 @@ const tiers: Tier[] = [
       "A clear first action for each priority",
       "Generated instantly from your entered numbers",
     ],
-    cta: { label: "Unlock your Top 5", href: "/diagnostic#notify", variant: "secondary" },
+    cta: { label: "Unlock your action plan", href: "/diagnostic#notify", variant: "secondary" },
   },
   {
     tag: "Tier 3 · CFO Review",
     name: "CFO Review",
     fee: "From R4,500",
-    feeNote: "your R795 diagnostic fee credited in full",
+    feeNote: "your R795 action plan fee credited in full",
     soon: false,
     description:
       "A senior, advisor-verified review of your numbers — the priorities checked by a person and turned into a practical 90-day plan. Full detail below.",
     includes: [
-      "Everything in the diagnostic, verified by an advisor",
+      "Everything in the action plan, verified by an advisor",
       "Executive scorecard and 90-day action plan",
       "A 90-minute findings session with management",
     ],
@@ -258,7 +258,7 @@ export default function DiagnosticPage() {
           <FadeIn className="mt-10">
             <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-bone-dim">
               Start with the free check. If it surfaces something worth acting on,
-              step up to the R795 Top 5 or a full CFO Review — and your R795 is
+              step up to the R795 Financial Health Action Plan or a full CFO Review — and your R795 is
               credited in full against the review.
             </p>
           </FadeIn>
@@ -366,7 +366,7 @@ export default function DiagnosticPage() {
                   Insight and direction, without an open-ended assignment.
                 </h2>
                 <p className="mt-4 leading-relaxed text-bone-muted">
-                  The Free Health Check and R795 Diagnostic are automated tools —
+                  The Free Health Check and R795 Financial Health Action Plan are automated tools —
                   useful starting points, not advice. The CFO Review is
                   advisor-led: its fixed fee covers the agreed information review,
                   one leadership interview, analysis, a concise diagnostic report,
@@ -384,7 +384,7 @@ export default function DiagnosticPage() {
                   <Fact label="Time frame" value="Two to three weeks" />
                   <Fact
                     label="Fee"
-                    value="From R4,500 — your R795 diagnostic fee credited in full"
+                    value="From R4,500 — your R795 action plan fee credited in full"
                   />
                   <Fact label="Management time" value="Two focused sessions" />
                   <Fact label="Commitment" value="No ongoing retainer required" />
@@ -409,7 +409,7 @@ export default function DiagnosticPage() {
               Launching soon
             </span>
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl">
-              The R795 Diagnostic is on its way
+              The R795 Financial Health Action Plan is on its way
             </h2>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-bone-muted">
               Your{" "}
@@ -419,7 +419,7 @@ export default function DiagnosticPage() {
               >
                 Free Health Check &amp; Valuation
               </a>{" "}
-              is live now. The paid R795 Top-5 Diagnostic — instant priorities ranked
+              is live now. The paid R795 Financial Health Action Plan — your priorities and actions, ranked
               from your numbers — is coming next. Leave your email and we&apos;ll tell
               you the moment it opens, or book a CFO Review now.
             </p>
