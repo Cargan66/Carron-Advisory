@@ -20,6 +20,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/testimonials-case-studies": 0.8,
     "/insights": 0.8,
     "/tools": 0.7,
+    // Interactive tools (static pages under /public, served at the trailing-slash
+    // URL). Listed explicitly so crawlers discover them, not only via links.
+    "/health-check/": 0.9,
+    "/find-your-fit/": 0.8,
+    "/90-day-test/": 0.8,
   };
 
   const staticRoutes = Object.entries(priorityByRoute).map(
