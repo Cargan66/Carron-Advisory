@@ -59,6 +59,7 @@ const CAPS = [
 ];
 
 const STATE = ["waits for you", "on paper only", "delegated, not proven", "proven"];
+const STATE_SHORT = ["Waits for you", "On paper", "Delegated", "Proven"];
 
 export function generatePlan(input) {
   const answers = Array.isArray(input.answers) ? input.answers : [];
@@ -102,13 +103,27 @@ export function generatePlan(input) {
   const provenCount = proven.length;
   // The strengths section: what already runs without you, named and grouped by domain.
   const strengths = proven.map((it) => ({ domain: it.domain, cap: it.cap }));
+
+  // Domain-level readiness roll-up for the "at a glance" table (10 areas).
+  const dOrder = [], dMap = {};
+  items.forEach((it) => {
+    if (!dMap[it.domain]) { dMap[it.domain] = []; dOrder.push(it.domain); }
+    dMap[it.domain].push(it.level);
+  });
+  const areas = dOrder.map((dn) => {
+    const lv = dMap[dn];
+    const avg = lv.reduce((a, b) => a + b, 0) / lv.length;
+    const level = Math.round(avg);
+    return { domain: dn, level, label: STATE_SHORT[level], proven: lv.filter((x) => x === 3).length, total: lv.length };
+  });
+
   const headline = p1.length >= 1
     ? `${p1.length} critical ${p1.length === 1 ? "item still stalls" : "items still stall"} the business the moment you step away — that's where the first 30 days go.`
     : gapCount > 0
     ? "No day-one emergencies — solid. This plan closes the remaining documentation and delegation gaps and proves them."
     : "Strong: almost everything already runs without you. This plan is about proving it and keeping it that way.";
 
-  return { score: input.score, band: input.band || "", headline, strengths, phases, gapCount, provenCount };
+  return { score: input.score, band: input.band || "", headline, strengths, areas, phases, gapCount, provenCount };
 }
 
 export function renderPlanHTML(plan, meta = {}) {
@@ -144,11 +159,43 @@ export function renderPlanHTML(plan, meta = {}) {
   </div>
   <h2>Your 90-day plan to run the business without you</h2>
   <p class="dg-lede">Owner-independence score <strong>${plan.score}/100</strong>${plan.band ? " — " + esc(plan.band) : ""}. ${esc(plan.headline)} Work it in three phases.</p>
-  <p class="dg-intro">Each item below shows where you stand today, why it matters, and the one thing to put in place. Don't try to do it all at once — work the phases in order, delegate the doing where you can, and treat <em>proven</em> (it has actually happened without you) as the bar, not merely <em>documented</em>.</p>
+  ${renderPlanExec(plan)}
+  ${renderAreas(plan)}
   ${strengthsHTML}
+  <p class="dg-intro">Each item below shows where you stand today, why it matters, and the one thing to put in place. Don't try to do it all at once — work the phases in order, delegate the doing where you can, and treat <em>proven</em> (it has actually happened without you) as the bar, not merely <em>documented</em>.</p>
   ${phaseHTML}
   <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> A Carron CFO/advisory session works these phases with you — the authority matrix, the procedure and scorecard templates, and how to prove each item — and holds you to the 90 days. Your R795 fee is credited in full toward it.</div>
   <p class="dg-disc">Automated and educational only, generated from the answers you gave — not advisor-reviewed, legal, employment or tax advice. Confirm anything with employment, contractual or statutory consequences with a qualified adviser before acting.</p>`;
+}
+
+// A synthesis paragraph: overall standing, the binding constraint, strengths, the goal.
+function renderPlanExec(plan) {
+  const p1 = (plan.phases[0] && plan.phases[0].items) || [];
+  const st = plan.strengths || [];
+  const lead = p1.length >= 1
+    ? `Right now ${p1.length} survival-critical ${p1.length === 1 ? "area still stalls" : "areas still stall"} the business the moment you step away — that's the risk to close first, and it's where the first 30 days go.`
+    : plan.gapCount > 0
+    ? "No day-one emergencies — the business would keep running if you stepped out tomorrow. What's left is turning informal habits into documented, delegated and proven routines."
+    : "Almost everything already runs without you. From here it's about proving it under real conditions and keeping it that way as the business changes.";
+  const strengths = st.length
+    ? ` You're not starting from zero: ${st.length} ${st.length === 1 ? "area is" : "areas are"} already proven to run without you (below), so protect ${st.length === 1 ? "it" : "them"} while you close the gaps.`
+    : "";
+  const goal = " The goal across these 90 days is one thing: every task and decision below should be able to happen without you — first documented, then delegated, then <strong>proven by your absence</strong>. That's also what lifts the value and sellability of the business.";
+  return `<div class="dg-exec"><span class="eh">In short</span>${lead}${strengths}${goal}</div>`;
+}
+
+// All ten areas in one scannable readiness dashboard.
+function renderAreas(plan) {
+  const a = plan.areas || [];
+  if (!a.length) return "";
+  const cls = ["st-wait", "st-paper", "st-deleg", "st-proven"];
+  const rows = a.map((x) => {
+    const badge = `<span class="tb-badge ${cls[x.level] || "st-wait"}">${esc(x.label)}</span>`;
+    const prov = `${x.proven}/${x.total} proven`;
+    return `<tr><td>${esc(x.domain)}</td><td>${badge}</td><td class="tb-prov">${prov}</td></tr>`;
+  }).join("");
+  return `<h3 class="dg-h3">Where you stand — your ten areas at a glance</h3>
+  <div class="dg-tablewrap"><table class="dg-table"><thead><tr><th>Area</th><th>Readiness</th><th>Proven</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function renderStrengths(plan) {
