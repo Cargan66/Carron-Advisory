@@ -335,8 +335,9 @@ function round(n,step){ return Math.round(n/step)*step; }
 function ragDot(pts){ return pts===2?['var(--sage-bright)','Healthy']:pts===1?['var(--gold)','Watch']:['var(--clay)','Act']; }
 
 let RESULT=null;
-/* R795 upsell is hidden until Paystack is connected — flip to true to go live. */
-const R795_LIVE = false;
+/* R795 upsell. NOTE: currently ON with a Paystack TEST key (test/demo) — the
+   checkout works but real cards are not charged until a live key is set. */
+const R795_LIVE = true;
 
 function calculate(){
   const revenue=num('revenue'), gross=num('gross'), op=num('opprofit'), ownerpay=num('ownerpay'),
@@ -536,7 +537,11 @@ function printResults(){
     +'A real valuation depends on your industry, growth, assets, working capital, contracts, risk and buyer appetite, and should be prepared by a qualified adviser.</p>'
     +'<div class="ps-foot"><span>Carron Business Advisory · info@carron.co.za</span>'
     +'<span>Fractional CFO for SA SMEs · Prepared '+d+'</span></div>';
-  window.print();
+  // Wait for the logo to load before printing — otherwise the print dialog can
+  // capture the sheet before the (uncached) emerald logo has rendered.
+  const logo = el('printsheet').querySelector('img');
+  if(logo && !logo.complete){ logo.onload = logo.onerror = ()=>window.print(); }
+  else { window.print(); }
 }
 
 /* record a summary of the result to our D1-backed endpoint (summary only, no raw figures) */
