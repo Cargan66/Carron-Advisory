@@ -407,9 +407,9 @@ function calculate(){
       bench:'Healthy 3+ mo · Watch 1–3 mo · Act under 1 mo · Carron resilience target', pts: runway>=3?2:runway>=1?1:0 },
     { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×',
       bench:'Healthy under 1× · Watch 1–1.5× · Act above 1.5×', pts: debtRev<1?2:debtRev<=1.5?1:0 },
-    { name:"Short-term liquidity cover (cash + debtors ÷ creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×',
+    { name:"Short-term liquidity cover (cash + debtors ÷ creditors)", ok: has('cash')&&has('debtors')&&has('creditors'), val: creditors===0?'No creditors':(liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×'),
       bench:'Healthy 1.5×+ · Watch 1–1.5× · Act under 1× · quick-cover proxy', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
-    { name:"Solvency (assets vs what you owe)", ok: (has('cash')||has('debtors')||has('assets'))&&(has('creditors')||has('debt')), val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×',
+    { name:"Solvency (assets vs what you owe)", ok: has('cash')&&has('debtors')&&has('assets')&&has('creditors')&&has('debt'), val: totLiab===0?'No liabilities':(solvency>=3?'3.0+×':solvency.toFixed(2)+'×'),
       bench:'Healthy 2×+ · Watch 1–2× · Act under 1×', pts: solvency>=2?2:solvency>=1?1:0 },
   ];
   const applic = R.filter(x=>x.ok);
@@ -429,7 +429,9 @@ function calculate(){
   const rev = [revenue*0.4, revenue*0.8];
   // NAV is only reliable with BOTH an asset side and a liability side supplied — otherwise
   // "net assets" from (say) cash alone is meaningless. Don't floor the value on unreliable NAV.
-  const navOk = (has('cash')||has('debtors')||has('assets')) && (has('creditors')||has('debt'));
+  // NAV requires a COMPLETE asset side AND a COMPLETE liability side. If any component
+  // (e.g. total debt) is blank, net assets cannot be calculated — never substitute zero.
+  const navOk = has('cash')&&has('debtors')&&has('assets')&&has('creditors')&&has('debt');
   let head = (earn ? earn : rev).slice();
   if(navOk && nav>0){ head = [Math.max(head[0], nav), Math.max(head[1], nav)]; }
   const valTooSmall = head[1] < 10000;                     // figures too small to value sensibly
