@@ -249,7 +249,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
     <div id="sec-value">
     <hr class="divider">
-    <div class="sec-title">Indicative business value</div>
+    <div class="sec-title" id="val-title">Indicative business value</div>
     <div class="valbox">
       <div class="vr" id="val-range"></div>
       <div class="vm" id="val-methods"></div>
@@ -536,6 +536,23 @@ function paintRatios(r){
 }
 
 function renderValue(r){
+  const titleEl = el('val-title');
+  // R0-revenue special case: no normal operating-business value can be produced. Show only
+  // net assets (an asset figure), clearly labelled — never dressed up as a "business value".
+  if(r.noRevenue){
+    if(titleEl) titleEl.textContent = 'Indicative net asset value';
+    if(r.navOk){
+      el('val-range').textContent = fmtR(r.nav);
+      el('val-methods').innerHTML = '<strong style="color:var(--cream)">Why net assets, not a business value</strong><br>'
+        + 'We can’t estimate a normal operating-business value while annual revenue is R0. Based on the balance-sheet figures supplied, net assets are approximately '+fmtR(r.nav)+'. This is not a valuation of a trading business — a pre-revenue business may be worth more than net assets (IP, contracts, product development), while a dormant one may be worth little more.';
+    } else {
+      el('val-range').textContent = '—';
+      el('val-methods').innerHTML = '<strong style="color:var(--cream)">Why no value is shown</strong><br>'
+        + 'We can’t estimate a normal operating-business value while annual revenue is R0, and the balance-sheet figures supplied are incomplete, so net assets can’t be calculated reliably either.';
+    }
+    return;
+  }
+  if(titleEl) titleEl.textContent = 'Indicative business value';
   const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
   let m = '<strong style="color:var(--cream)">How we got there</strong><br>';
   if(r.valTooSmall){
