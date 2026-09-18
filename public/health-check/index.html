@@ -310,7 +310,7 @@ const INPUTS = [
 ];
 const fieldHTML = f =>
   '<div class="field"><label for="'+f.id+'">'+f.label+' <span class="hint">· '+f.hint+'</span></label>'
-  +'<div class="inp"><span class="pre">R</span><input id="'+f.id+'" inputmode="numeric" placeholder="0" oninput="fmtField(this)"></div></div>';
+  +'<div class="inp"><span class="pre">R</span><input id="'+f.id+'" inputmode="numeric" placeholder="—  (type 0 if nil)" oninput="fmtField(this)"></div></div>';
 const COLS = [
   { key:"bs", title:"Balance sheet", note:"What you own & owe" },
   { key:"pl", title:"Profit &amp; loss", note:"How you trade" },
