@@ -366,6 +366,24 @@ export function generateDiagnostic(d) {
     if (op) op.why = operatingWhy(num(d.figures.operatingMarginPct));
   }
 
+  // Context-aware cash advice: never tell an over-leveraged or insolvent business to just
+  // take on another facility; and only chase "debtors and stock" cash if those are material.
+  const stByKey = {};
+  ratios.forEach((r) => { const k = ratioKey(r.name); if (k) stByKey[k] = r.status; });
+  const leverageStressed = stByKey.debt === "Act" || stByKey.solvency === "Act";
+  const rw = priorities.find((p) => p.key === "runway");
+  if (rw && Array.isArray(rw.actions)) {
+    rw.actions = rw.actions.map((a) => {
+      if (/facility|overdraft/i.test(a))
+        return leverageStressed
+          ? "Don't add debt automatically — start with collections, cash preservation and a supplier/lender/funding review before taking on another facility."
+          : "Arrange committed backup liquidity (e.g. an overdraft) before you need it — while your debt and solvency are still sound.";
+      if (/trapped in debtors|debtors and stock/i.test(a))
+        return "If debtors or stock are material, free up cash that's unnecessarily tied up there.";
+      return a;
+    });
+  }
+
   const actCount = priorities.filter((p) => p.status === "Act").length;
   const critical = financialCritical(d.figures, ratios);
   const headline = critical.triggered
@@ -559,11 +577,20 @@ function renderValuation(report, valTxt) {
   const addback = f.ownerpaySupplied && num(f.ownerPay) > 0
     ? `<p class="dg-val-why"><strong>Owner-pay add-back:</strong> we've added your full remuneration (${fmtR(num(f.ownerPay))}) back to earnings. A buyer still needs someone to do your job, so a formal valuation deducts a market salary for that role — which would lower this figure${num(f.operatingProfit) <= 0 ? ", and here the business isn't profitable at the operating line before that add-back, so treat the earnings value with real caution" : ""}.</p>`
     : "";
-  // Enterprise vs equity — flag when debt is material.
-  const debt = num(f.debt);
-  const debtNote = debt > 0
-    ? `<p class="dg-val-why"><strong>Before debt:</strong> this is the value of the operating business. With about ${fmtR(debt)} of debt to settle, the value to you as owner (equity) is materially lower${nav < 0 ? " — and with net assets negative, likely little or nothing until the balance sheet is repaired" : ""}.</p>`
-    : "";
+  // Enterprise vs equity — reconcile on NET debt (debt less cash), not total debt.
+  const debt = num(f.debt), cash = num(f.cash), netDebt = debt - cash;
+  let debtNote = "";
+  if (debt > 0) {
+    let tail;
+    if (netDebt <= 0) {
+      tail = ` You hold about ${fmtR(cash)} cash against ${fmtR(debt)} debt, so net debt is roughly nil or negative — the amount attributable to you as owner could be close to, or even above, the operating value once cash and working capital are reconciled.`;
+    } else if (report.valueLow != null && num(report.valueLow) - netDebt <= 0) {
+      tail = ` Net of cash, debt is about ${fmtR(netDebt)} — close to or above the operating value, so after settling it there may be little or nothing left for equity until the balance sheet is repaired.`;
+    } else {
+      tail = ` Net of cash, debt is about ${fmtR(netDebt)}; your equity is roughly the operating value less net debt and other transaction adjustments.`;
+    }
+    debtNote = `<p class="dg-val-why"><strong>Operating value vs your equity:</strong> this figure is the operating business before financing. The amount ultimately attributable to you as owner depends on debt, excess cash, normal working capital and other transaction adjustments — a formal valuation would reconcile the two.${tail}</p>`;
+  }
   return `<h3 class="dg-h3">How we estimated your indicative value</h3>
   <div class="dg-val">
     <p class="dg-val-top"><strong>Indicative operating-business value ${valTxt}</strong> — the value of the operating business <em>before</em> debt and buyer adjustments; set by the most defensible method for your numbers, not simply the highest.</p>
@@ -589,12 +616,14 @@ function renderExec(report, valTxt) {
     : act.length === 1
     ? "The business is broadly sound, with one pressing issue to fix before it starts to constrain everything around it."
     : "Your financials are in good shape. The work now is protecting that position and building value on purpose, rather than by accident.";
-  const first = pr[0] ? ` The single place to start is <strong>${esc(AREA[pr[0].key] || "priority 1")}</strong> (priority 1 below) — clear that and the rest gets easier.` : "";
+  const first = act.length === 0
+    ? " With no immediate financial weakness to fix, the opportunity now is to protect what's working and deliberately build business value, rather than react to problems."
+    : (pr[0] ? ` The single place to start is <strong>${esc(AREA[pr[0].key] || "priority 1")}</strong> (priority 1 below) — clear that and the rest gets easier.` : "");
   const strengths = st.length
     ? ` You're not starting from zero: ${esc(joinLabels(st.slice(0, 3)))} already ${st.length === 1 ? "stacks" : "stack"} up well, so the job is to protect ${st.length === 1 ? "it" : "them"} while you close the gaps.`
     : "";
   const value = valTxt && valTxt !== "—"
-    ? ` On today's numbers the operating business is worth an indicative <strong>${valTxt}</strong> before debt (equity is lower once debt is settled); the surest way to move that up is stronger, steadier operating profit that leans less on you personally.`
+    ? ` On today's numbers the operating business is worth an indicative <strong>${valTxt}</strong> before debt (how that reconciles to your own equity is set out below); the surest way to move that up is stronger, steadier operating profit that leans less on you personally.`
     : "";
   return `<div class="dg-exec"><span class="eh">In short</span>${lead}${first}${strengths}${value}</div>`;
 }
