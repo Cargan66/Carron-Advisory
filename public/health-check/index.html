@@ -373,7 +373,12 @@ function calculate(){
         creditors=num('creditors'), debt=num('debt');
   const sector = el('sector').value;
   if(!sector){ el('form-err').textContent='Please select your industry sector.'; el('sector').focus(); return; }
-  if(revenue<=0){ el('form-err').textContent='Please enter your annual revenue to calculate a result.'; return; }
+  // Revenue is the one required figure. Distinguish BLANK (must supply) from a genuine
+  // R0 (pre-revenue/dormant) — the latter is valid input but can't earn a normal rating.
+  if(!has('revenue')){ el('form-err').textContent='Please enter your annual revenue to calculate a result.'; el('revenue').focus(); return; }
+  const noRevenue = revenue===0;   // genuine zero trading revenue → Limited assessment, no normal classification
+  // Genuine R0 monthly opex is unusual — confirm it's real, not an input slip (non-blocking).
+  if(has('opex') && opex===0 && !confirm('You entered R0 monthly operating expenses. Please confirm that the business genuinely has no monthly operating cash costs.')){ el('opex').focus(); return; }
   el('form-err').textContent='';
   const B = SECTORS[sector];
 
@@ -444,11 +449,11 @@ function calculate(){
 
   RESULT = { revenue, score, R, applicCount: applic.length, op, ownerpay, sde, earn, earnOk, rev, nav, navOk, head,
              gross, cash, opex, debtors, assets, creditors, debt, omPct, gmPct, saNet: (B.saNet!=null?B.saNet:null),
-             missing, keyMissing, tooFew, valTooSmall, suppliedCount: 10-missing.length,
+             missing, keyMissing, tooFew, noRevenue, valTooSmall, suppliedCount: 10-missing.length,
              ownerpaySupplied: has('ownerpay'), sector, sectorLabel: B.label };
   // Not enough numbers to score? Show the "add more" prompt directly (nothing to gate).
   // Otherwise require a valid email before revealing the result.
-  if(RESULT.tooFew){ renderResult(); }
+  if(RESULT.tooFew || RESULT.noRevenue){ renderResult(); }
   else {
     const gb=el('gate-btn'); if(gb) gb.disabled=false;
     const gn=el('gate-note'); if(gn){ gn.textContent='We may follow up about your result. No spam; unsubscribe any time.'; gn.style.color=''; }
@@ -460,9 +465,11 @@ function renderResult(){
   const r=RESULT;
   show('result');
   const cb=el('completeness');
-  const up=el('upsell'); if(up) up.hidden = r.tooFew || !R795_LIVE;   // upsell only when live + scorable
+  const up=el('upsell'); if(up) up.hidden = r.tooFew || r.noRevenue || !R795_LIVE;   // upsell only when live + scorable
 
-  const canScore = r.applicCount >= 3;   // need at least 3 of the 6 measures for an overall score
+  // A genuine R0 trading revenue can't earn a normal operating-company rating, even if
+  // other ratios are assessable — pre-revenue/dormant businesses get a Limited assessment.
+  const canScore = r.applicCount >= 3 && !r.noRevenue;
   el('sec-score').classList.toggle('hidden', !canScore);   // no misleading overall score on thin data
   el('sec-ratios').classList.remove('hidden');             // always show the measures we could calculate
   el('sec-value').classList.remove('hidden');   // a value only needs revenue, which is always present
@@ -473,6 +480,16 @@ function renderResult(){
   const nilHint = ' Leave a box blank only if you truly don’t know it — enter 0 where a figure is genuinely nil.';
   if(!canScore){
     cb.classList.remove('hidden');
+    if(r.noRevenue){
+      cb.innerHTML = '<strong>Limited assessment — no trading revenue supplied.</strong><br>'
+        + 'You entered R0 annual revenue, so we can’t issue a normal Financial Health Score for an operating business. '
+        + 'If the business is pre-revenue or dormant, that’s expected — this tool is built for trading SMEs. Otherwise, please correct your annual revenue figure.'
+        + '<div style="margin-top:14px"><button class="btn primary" onclick="show(\'calc\')">← Confirm or correct my revenue</button></div>';
+      el('cta-head').textContent='Confirm your revenue to see a full result';
+      RESULT.band='Limited assessment'; RESULT.bandDesc='No trading revenue supplied.';
+      renderValue(r);
+      return;
+    }
     cb.innerHTML = '<strong>Limited assessment — not enough information for an overall Financial Health Score.</strong><br>'
       + 'We could assess only '+r.applicCount+' of 6 measures. The ones we could calculate are shown below; complete more figures for a reliable overall view.' + nilHint
       + '<div style="margin-top:14px"><button class="btn primary" onclick="show(\'calc\')">← Add / edit my numbers</button></div>';

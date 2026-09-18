@@ -32,8 +32,10 @@ const PRODUCTS = {
     label: "R1,295 Financial Health Action Plan",
     // Require at least 3 of the 6 measures actually assessed (not just present-but-blank) —
     // no overall Financial Health score can be issued on fewer, so no payment on fewer.
-    validate: (s) => s && Array.isArray(s.ratios) && s.ratios.filter((r) => r && r.status && r.status !== "Not supplied").length >= 3,
-    validateErr: "add a few more figures first — at least 3 of the 6 measures are needed",
+    // Also require genuine trading revenue > 0: a pre-revenue/dormant business gets a
+    // Limited assessment, not a normal operating-company rating (mirrors the client gate).
+    validate: (s) => s && Array.isArray(s.ratios) && s.ratios.filter((r) => r && r.status && r.status !== "Not supplied").length >= 3 && Number(s.figures && s.figures.revenue) > 0,
+    validateErr: "add a few more figures first — at least 3 of the 6 measures and genuine trading revenue are needed",
     generate: (s, meta) => { const report = generateDiagnostic(s); return { report, html: renderDiagnosticHTML(report, meta) }; },
     context: (s) => ({ sector: s.sectorLabel || "" }),
   },
