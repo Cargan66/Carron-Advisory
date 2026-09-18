@@ -226,7 +226,7 @@ function targetLine(key) {
   return {
     gross: "Aim to lift gross margin toward the top of your sector's typical range.",
     operating: "Aim first for Carron's 12% operating-margin target, then reassess the right target for your business and sector.",
-    runway: "Aim for at least 3 months of operating cash cover.",
+    runway: "Aim for at least 3 months of operating cash cover — Carron's resilience target (a planning benchmark, not a universal accounting standard).",
     debt: "Aim to bring total debt below one year's revenue.",
     liquidity: "Aim for cash plus debtors to cover supplier creditors by around 1.5× or better.",
     solvency: "Aim for assets comfortably above liabilities (around 2×).",
@@ -396,7 +396,9 @@ export function generateDiagnostic(d) {
       if (Array.isArray(sv.actions)) sv.actions = sv.actions.map((a) => /^retain/i.test(a)
         ? "Restrict discretionary drawings while losses continue — first restore operating profitability, then retain a defined portion of profit to rebuild equity."
         : a);
-      if (sv.howto) sv.howto = "While the business is loss-making, protect what equity remains by limiting drawings; retaining profit to rebuild equity starts once it's back in profit.";
+      // Set unconditionally — the default HOWTO is applied later in the map, so it must be
+      // overridden here (a loss-making business has no profit to "retain each month").
+      sv.howto = "While the business remains loss-making, restrict discretionary drawings and focus first on returning to operating profit. Once profitable, retain a defined amount each month to rebuild equity.";
     }
   }
   // A high-performing operating margin is optimised, not "lifted".
@@ -602,13 +604,20 @@ function renderValuation(report, valTxt) {
     : "";
   // Enterprise vs equity — reconcile on NET debt (debt less cash), not total debt.
   const debt = num(f.debt), cash = num(f.cash), netDebt = debt - cash;
+  const vLow = report.valueLow != null ? num(report.valueLow) : null;
+  const vHigh = report.valueHigh != null ? num(report.valueHigh) : null;
   let debtNote = "";
-  if (debt > 0) {
+  if (!navReliable) {
+    // Can't reconcile to equity without the balance sheet / debt.
+    debtNote = `<p class="dg-val-why"><strong>Operating value only:</strong> because debt and the full balance sheet weren't supplied, we can't reconcile this to the value attributable to you as owner (equity). Add your debt and balance-sheet figures for that.</p>`;
+  } else if (debt > 0) {
     let tail;
     if (netDebt <= 0) {
       tail = ` You hold about ${fmtR(cash)} cash against ${fmtR(debt)} debt, so net debt is roughly nil or negative — the amount attributable to you as owner could be close to, or even above, the operating value once cash and working capital are reconciled.`;
-    } else if (report.valueLow != null && num(report.valueLow) - netDebt <= 0) {
-      tail = ` Net of cash, debt is about ${fmtR(netDebt)} — close to or above the operating value, so after settling it there may be little or nothing left for equity until the balance sheet is repaired.`;
+    } else if (vHigh != null && netDebt > vHigh) {
+      tail = ` Net debt of about ${fmtR(netDebt)} exceeds the indicative operating value, so there may be little or no equity value until the balance sheet is repaired.`;
+    } else if (vLow != null && netDebt > vLow) {
+      tail = ` Net debt of about ${fmtR(netDebt)} is close to or above the operating value, so little may be left for equity until the balance sheet is repaired.`;
     } else {
       tail = ` Net of cash, debt is about ${fmtR(netDebt)}; your equity is roughly the operating value less net debt and other transaction adjustments.`;
     }

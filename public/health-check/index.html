@@ -400,7 +400,7 @@ function calculate(){
     { name:"Operating margin", ok: has('revenue')&&has('opprofit'), val:omPct.toFixed(0)+'%',
       bench:omBench, pts:omPts },
     { name:"Cash runway", ok: has('cash')&&has('opex'), val: runway>=12?'12+ mo':runway.toFixed(1)+' mo',
-      bench:'Healthy 3+ mo · Watch 1–3 mo · Act under 1 mo', pts: runway>=3?2:runway>=1?1:0 },
+      bench:'Healthy 3+ mo · Watch 1–3 mo · Act under 1 mo · Carron resilience target', pts: runway>=3?2:runway>=1?1:0 },
     { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×',
       bench:'Healthy under 1× · Watch 1–1.5× · Act above 1.5×', pts: debtRev<1?2:debtRev<=1.5?1:0 },
     { name:"Short-term liquidity cover (cash + debtors ÷ creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×',
