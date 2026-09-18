@@ -196,7 +196,11 @@ export function ContactForm() {
           {status === "submitting" ? "Sending…" : "Book a Discovery Call"}
         </Button>
         <p className="text-xs text-bone-dim">
-          We respect your privacy. Your details are never shared.
+          We respect your privacy — see our{" "}
+          <a href="/privacy" className="text-gold underline hover:text-gold-light">
+            Privacy Notice
+          </a>
+          .
         </p>
       </div>
     </form>

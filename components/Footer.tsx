@@ -98,7 +98,10 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 text-xs text-bone-dim sm:flex-row">
           <p>
-            © {year} {siteConfig.name}. All rights reserved.
+            © {year} {siteConfig.name}. All rights reserved.{" "}
+            <Link href="/privacy" className="text-bone-muted transition-colors hover:text-gold">
+              Privacy
+            </Link>
           </p>
           <p className="max-w-xl text-center sm:text-right">
             Serving SMEs remotely across South Africa. Information on this site
