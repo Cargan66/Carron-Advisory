@@ -417,13 +417,16 @@ function calculate(){
   ];
   const applic = R.filter(x=>x.ok);
   const earned = applic.reduce((s,x)=>s+x.pts,0);
-  const score = applic.length ? Math.round(earned/(applic.length*2)*100) : 0;
+  // Minimum-data guardrail lives in the score itself: with fewer than 3 assessable
+  // measures NO headline score is issued (null), so no path can surface a misleading
+  // number (e.g. 100 off two Healthy ratios). Display + payment gate on this too.
+  const tooFew = applic.length < 3;
+  const score = tooFew ? null : Math.round(earned/(applic.length*2)*100);
 
   // completeness
   const missing = INPUTS.filter(f=>!has(f.id)).map(f=>f.label);
   const KEY = ['revenue','gross','opprofit','cash','opex'];
   const keyMissing = KEY.filter(id=>!has(id)).map(id=>INPUTS.find(f=>f.id===id).label);
-  const tooFew = applic.length < 3;   // not enough supplied to say anything meaningful
 
   // valuation
   const earnOk = has('opprofit');                          // need operating profit for an earnings value

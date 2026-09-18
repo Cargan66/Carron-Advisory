@@ -422,7 +422,9 @@ export function generateDiagnostic(d) {
     : actCount >= 2
       ? "Several items need attention now — the first two below are the most urgent."
       : actCount === 1
-      ? "The business is broadly sound, with one pressing item to act on first."
+      ? (num(d.score) >= 65
+          ? "The business is broadly sound, with one pressing item to act on first."
+          : "The available figures show a mixed picture, with one pressing item to act on first.")
       : "A solid base — the moves below protect it and build value from here.";
 
   return {
