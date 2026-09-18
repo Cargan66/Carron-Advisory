@@ -296,7 +296,7 @@ const INPUTS = [
   { id:"revenue",  group:"pl", label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT" },
   { id:"gross",    group:"pl", label:"Gross profit", hint:"Revenue minus direct costs (COGS)" },
   { id:"opprofit", group:"pl", label:"Operating profit", hint:"Profit before interest & tax (roughly)" },
-  { id:"ownerpay", group:"pl", label:"Owner's pay", hint:"Your salary + drawings, per year" },
+  { id:"ownerpay", group:"pl", label:"Owner's remuneration", hint:"Per year — salary, pension/company contributions and personal costs the business pays for you (i.e. already in operating expenses). Do NOT include dividends or drawings taken from profit." },
   { id:"opex",     group:"pl", label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include your own pay), overheads" },
   { id:"cash",     group:"bs", label:"Cash in the bank", hint:"Right now" },
   { id:"debtors",  group:"bs", label:"Debtors", hint:"Money customers owe you" },
@@ -385,18 +385,15 @@ function calculate(){
 
   // each ratio only counts if the numbers it needs were actually supplied (blank ≠ zero)
   const gmPct=grossM*100, omPct=opM*100;
-  // gross margin — generally-accepted (StatsSA does not publish gross margin by sector)
-  const gmPts = gmPct>=B.gm[1]?2:gmPct>=B.gm[0]?1:0;
-  const gmBench = 'Typical '+B.gm[0]+'–'+B.gm[1]+'% · gen. accepted';
-  // operating margin — vs the sector's SA net profit margin where StatsSA has it, else generally-accepted
-  let omPts, omBench;
-  if(B.saNet!=null){
-    omPts = omPct>=B.saNet?2:omPct>0?1:0;
-    omBench = 'SA sector net margin ~'+B.saNet+'% · StatsSA ’23'+(B.proxy?' (proxy)':'');
-  } else {
-    omPts = omPct>=12?2:omPct>=5?1:0;
-    omBench = 'Aim 5–12% · gen. accepted';
-  }
+  // gross margin — rating thresholds stated so the label follows visibly from the benchmark.
+  // Healthy at/above the mid-point of the sector's typical range; Watch in the lower half; Act below.
+  const gmMid = Math.round((B.gm[0]+B.gm[1])/2);
+  const gmPts = gmPct>=gmMid?2:gmPct>=B.gm[0]?1:0;
+  const gmBench = 'Healthy '+gmMid+'%+ · Watch '+B.gm[0]+'–'+gmMid+'% · Act below '+B.gm[0]+'%';
+  // operating margin — rated against a STATED Carron operating-margin target (operating vs
+  // operating). The sector's StatsSA net margin is passed through as context only, never the rule.
+  const omPts = omPct>=12?2:omPct>=5?1:0;
+  const omBench = 'Healthy 12%+ · Watch 5–12% · Act below 5% (Carron target)';
   const R = [
     { name:"Gross margin", ok: has('revenue')&&has('gross'), val:gmPct.toFixed(0)+'%',
       bench:gmBench, pts:gmPts },
@@ -406,8 +403,8 @@ function calculate(){
       bench:'Aim 3+ months · gen. accepted', pts: runway>=3?2:runway>=1?1:0 },
     { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×',
       bench:'Aim under 1× · gen. accepted', pts: debtRev<1?2:debtRev<=2?1:0 },
-    { name:"Liquidity (cash+debtors vs creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×',
-      bench:'Aim 1.5×+ · gen. accepted', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
+    { name:"Short-term liquidity cover (cash + debtors ÷ creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×',
+      bench:'Aim 1.5×+ · a quick-cover proxy, not a full current ratio', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
     { name:"Solvency (assets vs what you owe)", ok: (has('cash')||has('debtors')||has('assets'))&&(has('creditors')||has('debt')), val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×',
       bench:'Aim 2×+ · gen. accepted', pts: solvency>=2?2:solvency>=1?1:0 },
   ];
@@ -432,6 +429,7 @@ function calculate(){
   const valTooSmall = head[1] < 10000;                     // figures too small to value sensibly
 
   RESULT = { revenue, score, R, applicCount: applic.length, op, ownerpay, sde, earn, earnOk, rev, nav, navOk, head,
+             gross, cash, opex, debtors, assets, creditors, debt, omPct, gmPct, saNet: (B.saNet!=null?B.saNet:null),
              missing, keyMissing, tooFew, valTooSmall, suppliedCount: 10-missing.length,
              ownerpaySupplied: has('ownerpay'), sector, sectorLabel: B.label };
   // Not enough numbers to score? Show the "add more" prompt directly (nothing to gate).
@@ -608,7 +606,16 @@ function buyDiagnostic(){
   btn.disabled=true; note.textContent='Taking you to secure checkout…'; note.style.color='var(--sage)';
   const lo=round(RESULT.head[0],10000), hi=round(RESULT.head[1],10000);
   const ratios=RESULT.R.map(x=>({ name:x.name, val:x.ok?x.val:'—', status:x.ok?ragDot(x.pts)[1]:'Not supplied', bench:x.bench }));
-  const summary={ sectorLabel:RESULT.sectorLabel, score:RESULT.score, band:RESULT.band||'', value_low:lo, value_high:hi, net_asset_value:Math.round(RESULT.nav), ratios };
+  const Rr=RESULT;
+  const summary={ sectorLabel:Rr.sectorLabel, score:Rr.score, band:Rr.band||'', value_low:lo, value_high:hi, net_asset_value:Math.round(Rr.nav), ratios,
+    figures:{
+      revenue:Math.round(Rr.revenue), grossProfit:Math.round(Rr.gross), operatingProfit:Math.round(Rr.op), ownerPay:Math.round(Rr.ownerpay),
+      monthlyOpex:Math.round(Rr.opex), cash:Math.round(Rr.cash), debtors:Math.round(Rr.debtors), otherAssets:Math.round(Rr.assets),
+      creditors:Math.round(Rr.creditors), debt:Math.round(Rr.debt),
+      operatingMarginPct:Rr.omPct, grossMarginPct:Rr.gmPct, sectorNetMarginPct:Rr.saNet,
+      sde:Math.round(Rr.sde), earnUsed:!!Rr.earn, earnLow:Rr.earn?Math.round(Rr.earn[0]):null, earnHigh:Rr.earn?Math.round(Rr.earn[1]):null,
+      revLow:Math.round(Rr.rev[0]), revHigh:Math.round(Rr.rev[1]), navValue:Math.round(Rr.nav), ownerpaySupplied:Rr.ownerpaySupplied }
+  };
   fetch('/api/diagnostic/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:CAPTURED_EMAIL||'', summary})})
     .then(r=>r.json()).then(r=>{
       if(r && r.authorization_url){ location.href=r.authorization_url; }

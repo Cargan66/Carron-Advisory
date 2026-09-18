@@ -308,6 +308,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     <p class="lede">Most owners aren't running a business — they're <em>self-employed</em>, and every decision waits for them. This test measures one thing: how much can happen while you're unreachable — across cash, decisions, customers, people and risk.</p>
     <p class="lede tight">Twenty questions across ten areas. For each, don't ask <em>"do I do this?"</em> — ask <strong>"can this happen without me?"</strong> and score how far it has really travelled from you: on paper, delegated, or <em>proven</em>.</p>
 
+    <div style="border:1px solid var(--line);border-radius:4px;padding:16px 18px;margin:22px 0 6px;background:rgba(200,168,75,.05)">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Two rules before you start</div>
+      <p style="color:var(--sage);font-size:14px;margin-bottom:8px"><strong style="color:var(--gold-light)">"Proven"</strong> means it has actually happened successfully <strong style="color:var(--cream)">without you at least once in the last 90 days</strong> — not that someone could theoretically do it.</p>
+      <p style="color:var(--sage);font-size:14px;margin:0">Where a question lists several things, <strong style="color:var(--cream)">answer for the weakest one</strong>.</p>
+    </div>
+
     <div class="meta-row">
       <div class="meta"><div class="k">20</div><div class="v">Questions</div></div>
       <div class="meta"><div class="k">10</div><div class="v">Areas of the business</div></div>
@@ -479,8 +485,8 @@ const QUESTIONS = [
     action:"Set who approves credit limits, who can change terms, and who can agree a repayment arrangement — each with a limit." },
 
   { domain:"Money & payments", survival:true,
-    title:"Someone can approve and release payroll and supplier payments up to a limit without you.",
-    action:"Delegate payment approval up to a set limit, and confirm payroll can run and be approved without you." },
+    title:"There is documented authority and appropriate dual control so payroll and supplier payments can be approved and released up to a limit without relying on you personally — without weakening segregation of duties.",
+    action:"Delegate payment approval up to a set limit with proper dual controls (a separate preparer and approver), and confirm payroll can run and be approved without you — independence without weakening fraud controls." },
   { domain:"Money & payments", survival:false,
     title:"A second person holds a banking mandate and can tell you the cash position at any time.",
     action:"Add a second bank signatory/mandate and make the cash position visible to someone other than you." },
@@ -653,10 +659,31 @@ const BANDS=[
 ];
 function bandFor(score){ return BANDS.find(b=>score>=b.lo && score<=b.hi) || BANDS[BANDS.length-1]; }
 
+/* Critical-item override: a business can't be called owner-independent while any
+   survival-critical (◆) area still waits for the owner. The numeric score is
+   unchanged; only the classification is capped, and a flag is raised. */
+function criticalOverride(){
+  const surv=QUESTIONS.map((q,i)=>({q,a:answers[i]==null?0:answers[i]})).filter(o=>o.q.survival);
+  const zeros=surv.filter(o=>o.a===0).length, ones=surv.filter(o=>o.a===1).length;
+  const minA=surv.reduce((m,o)=>Math.min(m,o.a),3);
+  return { zeros, ones, capped:minA<=1, critical:zeros>0 };
+}
+function BAND_INDEX(label){ return BANDS.findIndex(b=>b.label===label); }
+
 function drawBands(score){
-  const b=bandFor(score);
+  let b=bandFor(score);
+  const ov=criticalOverride();
+  // can't rate "Owner-Independent" while a survival-critical item scores 0 or 1
+  if(ov.capped && BAND_INDEX(b.label)===BANDS.length-1){ b=BANDS[2]; }
   el('band-label').textContent=b.label;
-  el('band-desc').textContent=b.desc;
+  let desc=b.desc;
+  if(ov.critical){
+    desc+=' ⚠ '+ov.zeros+' survival-critical '+(ov.zeros===1?'area':'areas')+' still stop the business without you — that caps the rating until fixed, whatever the score.';
+  } else if(ov.capped){
+    desc+=' Note: a survival-critical area is only on paper, not proven — so the rating is held below owner-independent until it is.';
+  }
+  el('band-desc').textContent=desc;
+  el('band-desc').style.color = ov.critical ? 'var(--clay)' : '';
 }
 
 function drawScale(score){

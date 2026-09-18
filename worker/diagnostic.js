@@ -359,6 +359,13 @@ export function generateDiagnostic(d) {
     priorities.push(p);
   }
 
+  // Margin-aware operating narrative: never say "not making an operating profit" when the
+  // margin is positive — reword to match the actual number.
+  if (d.figures && d.figures.operatingMarginPct != null) {
+    const op = priorities.find((p) => p.key === "operating");
+    if (op) op.why = operatingWhy(num(d.figures.operatingMarginPct));
+  }
+
   const actCount = priorities.filter((p) => p.status === "Act").length;
   const headline =
     actCount >= 2
@@ -375,6 +382,8 @@ export function generateDiagnostic(d) {
     valueHigh: d.value_high,
     nav: d.net_asset_value,
     headline,
+    figures: d.figures || null,
+    confidence: computeConfidence(ratios),
     ratios: ratios.map((r) => ({ name: r.name, val: r.val, status: r.status, bench: r.bench })),
     strengths: strengthsFrom(ratios),
     priorities: priorities.map((p, i) => ({ rank: i + 1, howto: HOWTO[p.key] || "", ...p })),
@@ -399,6 +408,7 @@ export function renderDiagnosticHTML(report, meta = {}) {
         <span class="pri-s pri-${p.status.toLowerCase()}">${esc(p.status)}</span></div>
       <div class="pri-where">${esc(p.where)}</div>
       <div class="pri-why">${esc(p.why)}</div>
+      ${impactAndNote(p.key, report.figures)}
       <div class="pri-do"><strong>Do this</strong><ul>${p.actions
         .map((a) => `<li>${esc(a)}</li>`)
         .join("")}</ul></div>
@@ -419,13 +429,107 @@ export function renderDiagnosticHTML(report, meta = {}) {
   <p class="dg-lede">Health score <strong>${report.score}/100</strong> — ${esc(
     report.band
   )}. Indicative value <strong>${val}</strong>. ${esc(report.headline)} Every area is covered below, most urgent first.</p>
+  ${renderConfidence(report)}
   ${renderExec(report, val)}
   ${renderTable(report)}
+  ${renderValuation(report, val)}
   ${renderStrengths(report)}
   ${cards}
   ${renderSequence(report)}
-  <div class="dg-cta"><strong>The "how to start" notes above are a taster.</strong> In a Carron CFO Review a senior advisor works through these priorities with you — the full method for each, the order to tackle them, and a plan you can act on. Your R1,295 fee is credited in full toward it.</div>
+  <div class="dg-cta"><strong>This Action Plan gives you the priorities, the actions, where to start and the targets.</strong> In a Carron CFO Review a senior advisor validates these findings against your actual business circumstances, challenges the assumptions, and works with you to turn them into a detailed implementation plan you can execute. Your R1,295 fee is credited in full toward the Review.</div>
   <p class="dg-disc">Automated and educational only, generated from the figures you entered — not a formal audit, valuation or advisor-reviewed opinion. Confirm anything material with a qualified adviser before acting.</p>`;
+}
+
+function num(v) { const n = Number(v); return Number.isFinite(n) ? n : 0; }
+
+// Operating-margin narrative that always agrees with the actual number.
+function operatingWhy(om) {
+  if (om <= 0)
+    return "After overheads, the business isn't making an operating profit — it can't fund growth, service debt or pay a fair owner's income from trading, and it will lean on cash or borrowing to survive.";
+  if (om < 5)
+    return `The business is making an operating profit, but at ${om.toFixed(0)}% it's very thin — almost nothing survives overheads to fund growth, service debt or a fair owner's income, so a single weak month bites hard.`;
+  return `The business is making an operating profit, but at ${om.toFixed(0)}% the margin is below a resilient level — limited room to absorb a weak month, rising costs or investment in growth, and less to reinvest than a stronger operator keeps.`;
+}
+
+// Data-confidence: how many of the six ratios could actually be assessed.
+function computeConfidence(ratios) {
+  const total = ratios.length || 0;
+  const supplied = ratios.filter((r) => r.status && r.status !== "Not supplied").length;
+  const missing = ratios.filter((r) => !r.status || r.status === "Not supplied").map((r) => r.name);
+  return { pct: total ? Math.round((supplied / total) * 100) : 0, supplied, total, missing };
+}
+
+function renderConfidence(report) {
+  const c = report.confidence;
+  if (!c || !c.total) return "";
+  const tail = c.missing.length
+    ? ` ${c.missing.length} of ${c.total} measures couldn't be assessed — ${esc(c.missing.join(", "))} (figures not supplied) — so the score is based on the ${c.supplied} that could.`
+    : ` All ${c.total} key measures were assessed from the figures you supplied.`;
+  return `<div class="dg-conf"><span class="dg-conf-pct">Data confidence ${c.pct}%</span>${tail}</div>`;
+}
+
+// The rand value of moving each lever — only where the figures allow an honest number.
+function impactLine(key, f) {
+  if (!f) return "";
+  const rev = num(f.revenue);
+  if (key === "operating" && rev > 0) {
+    const per = Math.round(rev / 100);
+    const om = num(f.operatingMarginPct);
+    const target = 12; // Carron operating-margin target
+    const worth = Math.round((Math.max(0, target - om) / 100) * rev);
+    if (worth <= 0) return `Every 1 percentage point of operating margin is worth about ${fmtR(per)} more operating profit a year at your revenue.`;
+    return `Every 1 percentage point of operating margin is worth about ${fmtR(per)} more operating profit a year at your revenue. Closing the gap from ${om.toFixed(0)}% to Carron's ${target}% target would add roughly ${fmtR(worth)} a year.`;
+  }
+  if (key === "gross" && rev > 0) {
+    return `Every 1 percentage point of gross margin is worth about ${fmtR(Math.round(rev / 100))} a year at your current revenue — before any of it reaches overheads.`;
+  }
+  if (key === "runway" && num(f.monthlyOpex) > 0) {
+    const three = 3 * num(f.monthlyOpex), gap = Math.max(0, three - num(f.cash));
+    if (gap <= 0) return "";
+    return `Three months' operating cover is about ${fmtR(three)}; you hold ${fmtR(num(f.cash))}, so reaching it means finding roughly ${fmtR(gap)} more cash (from collections, a facility, or retained profit).`;
+  }
+  if (key === "liquidity" && rev > 0) {
+    return `Cash is tied up in debtors: collecting about 10 days faster would release roughly ${fmtR(Math.round((rev / 365) * 10))} (each day of sales is about ${fmtR(Math.round(rev / 365))}).`;
+  }
+  if (key === "debt" && num(f.debt) > 0) {
+    return `You carry about ${fmtR(num(f.debt))} of debt; every 1% of interest on that is roughly ${fmtR(Math.round(num(f.debt) / 100))} a year, straight off your profit.`;
+  }
+  return "";
+}
+
+function impactAndNote(key, f) {
+  let out = "";
+  const imp = impactLine(key, f);
+  if (imp) out += `<div class="pri-impact"><strong>What it's worth</strong> ${esc(imp)}</div>`;
+  if (key === "operating" && f && f.operatingMarginPct != null)
+    out += `<div class="pri-note">Rated against Carron's operating-margin target — 12%+ healthy, below 5% at risk (an operating-vs-operating rule).${f.sectorNetMarginPct != null ? ` For context only, StatsSA puts your sector's <em>net</em> margin — after interest and tax — at about ${esc(String(f.sectorNetMarginPct))}%.` : ""}</div>`;
+  return out;
+}
+
+// "How we estimated your indicative value" — the actual methods, shown transparently.
+function renderValuation(report, valTxt) {
+  const f = report.figures;
+  if (!f) return "";
+  const rows = [];
+  if (f.earnUsed && f.earnLow != null) {
+    const base = f.ownerpaySupplied
+      ? `operating profit ${fmtR(num(f.operatingProfit))} + owner's pay ${fmtR(num(f.ownerPay))} added back`
+      : `operating profit ${fmtR(num(f.operatingProfit))}`;
+    rows.push(`<li><strong>Earnings method.</strong> Adjusted owner-earnings of ${fmtR(num(f.sde))} (${base}) × 2.5–4.0 = ${fmtR(num(f.earnLow))} – ${fmtR(num(f.earnHigh))}.</li>`);
+  }
+  if (f.revLow != null) rows.push(`<li><strong>Revenue method.</strong> Annual revenue of ${fmtR(num(f.revenue))} × 0.4–0.8 = ${fmtR(num(f.revLow))} – ${fmtR(num(f.revHigh))}.</li>`);
+  const nav = num(f.navValue);
+  rows.push(`<li><strong>Net asset value.</strong> What you own minus what you owe ≈ ${fmtR(nav)}${nav > 0 ? " — used as a floor under the range." : " — not positive, so the range rests on earnings."}</li>`);
+  const revWhy = (f.earnUsed && f.revHigh != null && f.earnHigh != null && num(f.revHigh) > num(f.earnHigh))
+    ? `<p class="dg-val-why">The revenue method points higher (up to ${fmtR(num(f.revHigh))}), but with operating profitability still modest we anchor the range on earnings — the more conservative, defensible measure here — so the value isn't flattered by turnover alone.</p>`
+    : "";
+  return `<h3 class="dg-h3">How we estimated your indicative value</h3>
+  <div class="dg-val">
+    <p class="dg-val-top">Indicative range <strong>${valTxt}</strong> — set by the most defensible method for your numbers, not simply the highest.</p>
+    <ul class="dg-val-list">${rows.join("")}</ul>
+    ${revWhy}
+    <p class="dg-val-note">Indicative and educational only — a planning range from standard rules of thumb, not a formal valuation. The multiples reflect a small owner-managed business; a real buyer's offer depends on growth, how reliable the profit is, the assets, contracts, and how much of it depends on you personally.</p>
+  </div>`;
 }
 
 // A synthesis paragraph: overall standing, the binding constraint, strengths, value.
