@@ -400,13 +400,13 @@ function calculate(){
     { name:"Operating margin", ok: has('revenue')&&has('opprofit'), val:omPct.toFixed(0)+'%',
       bench:omBench, pts:omPts },
     { name:"Cash runway", ok: has('cash')&&has('opex'), val: runway>=12?'12+ mo':runway.toFixed(1)+' mo',
-      bench:'Aim 3+ months · gen. accepted', pts: runway>=3?2:runway>=1?1:0 },
+      bench:'Healthy 3+ mo · Watch 1–3 mo · Act under 1 mo', pts: runway>=3?2:runway>=1?1:0 },
     { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×',
-      bench:'Aim under 1× · gen. accepted', pts: debtRev<1?2:debtRev<=2?1:0 },
+      bench:'Healthy under 1× · Watch 1–1.5× · Act above 1.5×', pts: debtRev<1?2:debtRev<=1.5?1:0 },
     { name:"Short-term liquidity cover (cash + debtors ÷ creditors)", ok: has('creditors')&&(has('cash')||has('debtors')), val: liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×',
-      bench:'Aim 1.5×+ · a quick-cover proxy, not a full current ratio', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
+      bench:'Healthy 1.5×+ · Watch 1–1.5× · Act under 1× · quick-cover proxy', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
     { name:"Solvency (assets vs what you owe)", ok: (has('cash')||has('debtors')||has('assets'))&&(has('creditors')||has('debt')), val: solvency>=3?'3.0+×':solvency.toFixed(2)+'×',
-      bench:'Aim 2×+ · gen. accepted', pts: solvency>=2?2:solvency>=1?1:0 },
+      bench:'Healthy 2×+ · Watch 1–2× · Act under 1×', pts: solvency>=2?2:solvency>=1?1:0 },
   ];
   const applic = R.filter(x=>x.ok);
   const earned = applic.reduce((s,x)=>s+x.pts,0);
@@ -423,7 +423,9 @@ function calculate(){
   const sde = op + ownerpay;
   const earn = (earnOk && sde>0) ? [sde*2.5, sde*4.0] : null;
   const rev = [revenue*0.4, revenue*0.8];
-  const navOk = has('cash')||has('debtors')||has('assets')||has('creditors')||has('debt');
+  // NAV is only reliable with BOTH an asset side and a liability side supplied — otherwise
+  // "net assets" from (say) cash alone is meaningless. Don't floor the value on unreliable NAV.
+  const navOk = (has('cash')||has('debtors')||has('assets')) && (has('creditors')||has('debt'));
   let head = (earn ? earn : rev).slice();
   if(navOk && nav>0){ head = [Math.max(head[0], nav), Math.max(head[1], nav)]; }
   const valTooSmall = head[1] < 10000;                     // figures too small to value sensibly
@@ -614,7 +616,7 @@ function buyDiagnostic(){
       creditors:Math.round(Rr.creditors), debt:Math.round(Rr.debt),
       operatingMarginPct:Rr.omPct, grossMarginPct:Rr.gmPct, sectorNetMarginPct:Rr.saNet,
       sde:Math.round(Rr.sde), earnUsed:!!Rr.earn, earnLow:Rr.earn?Math.round(Rr.earn[0]):null, earnHigh:Rr.earn?Math.round(Rr.earn[1]):null,
-      revLow:Math.round(Rr.rev[0]), revHigh:Math.round(Rr.rev[1]), navValue:Math.round(Rr.nav), ownerpaySupplied:Rr.ownerpaySupplied }
+      revLow:Math.round(Rr.rev[0]), revHigh:Math.round(Rr.rev[1]), navValue:Math.round(Rr.nav), navReliable:Rr.navOk, ownerpaySupplied:Rr.ownerpaySupplied }
   };
   fetch('/api/diagnostic/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:CAPTURED_EMAIL||'', summary})})
     .then(r=>r.json()).then(r=>{

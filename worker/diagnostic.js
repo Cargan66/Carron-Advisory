@@ -162,10 +162,10 @@ const TEMPLATES = {
     }),
     Watch: (r) => ({
       title: "Strengthen your short-term liquidity",
-      why: "You can cover current obligations, but only just. There's little margin if a large customer pays late.",
+      why: "Your cash and debtors cover what you owe suppliers, but only just. There's little margin if a large customer pays late.",
       actions: [
         "Tighten debtor collection and reduce slow stock.",
-        "Aim to cover current liabilities comfortably (around 1.5× or better).",
+        "Aim for cash plus debtors to cover supplier creditors comfortably (around 1.5× or better).",
       ],
     }),
     Healthy: (r) => ({
@@ -225,10 +225,10 @@ function whereLine(key, r) {
 function targetLine(key) {
   return {
     gross: "Aim to lift gross margin toward the top of your sector's typical range.",
-    operating: "Aim to clear your sector's typical margin, then push above it.",
+    operating: "Aim first for Carron's 12% operating-margin target, then reassess the right target for your business and sector.",
     runway: "Aim for at least 3 months of operating cash cover.",
     debt: "Aim to bring total debt below one year's revenue.",
-    liquidity: "Aim to cover current liabilities around 1.5× or better.",
+    liquidity: "Aim for cash plus debtors to cover supplier creditors by around 1.5× or better.",
     solvency: "Aim for assets comfortably above liabilities (around 2×).",
     valuation: "Aim to move up your indicative value range by lifting margin and reducing owner-dependence.",
     reporting: "Aim for management accounts and a cash forecast every month, within days of month-end.",
@@ -317,10 +317,10 @@ function valuationPriority(d) {
 function reportingPriority() {
   return {
     key: "reporting",
-    status: "Watch",
+    status: "Recommended",
     weight: 120,
     title: "Put reporting on a monthly rhythm",
-    where: "This is a foundation every other priority depends on.",
+    where: "Carron good practice — not scored from your figures (the Health Check doesn't ask about your reporting).",
     why: "You can't manage cash, margin or debt from numbers that arrive late or that you don't trust. Timely monthly management accounts and a short cash forecast turn all of the above from guesswork into decisions.",
     actions: [
       "Get management accounts out within a few days of month-end.",
@@ -367,8 +367,10 @@ export function generateDiagnostic(d) {
   }
 
   const actCount = priorities.filter((p) => p.status === "Act").length;
-  const headline =
-    actCount >= 2
+  const critical = financialCritical(d.figures, ratios);
+  const headline = critical.triggered
+    ? "This carries real financial risk right now — the balance sheet or cash position needs attention before anything else."
+    : actCount >= 2
       ? "Several items need attention now — the first two below are the most urgent."
       : actCount === 1
       ? "The business is broadly sound, with one pressing item to act on first."
@@ -377,7 +379,9 @@ export function generateDiagnostic(d) {
   return {
     sector: d.sectorLabel || "your sector",
     score: d.score,
-    band: d.band || "",
+    band: critical.triggered ? "Significant financial risk" : (d.band || ""),
+    scoreBand: d.band || "",
+    critical,
     valueLow: d.value_low,
     valueHigh: d.value_high,
     nav: d.net_asset_value,
@@ -388,6 +392,23 @@ export function generateDiagnostic(d) {
     strengths: strengthsFrom(ratios),
     priorities: priorities.map((p, i) => ({ rank: i + 1, howto: HOWTO[p.key] || "", ...p })),
   };
+}
+
+// Financial critical-risk override: a dangerous balance sheet or cash position can't be
+// hidden behind healthy margins. The numeric score is unchanged; the classification is.
+function financialCritical(figures, ratios) {
+  const f = figures || {};
+  const st = {};
+  (ratios || []).forEach((r) => { const k = ratioKey(r.name); if (k) st[k] = r.status; });
+  const supplied = (k) => st[k] && st[k] !== "Not supplied";
+  const reasons = [];
+  const totA = num(f.cash) + num(f.debtors) + num(f.otherAssets), totL = num(f.creditors) + num(f.debt);
+  if (supplied("solvency") && totL > 0 && totA / totL < 1) reasons.push("what the business owes is more than what it owns — assets don't cover liabilities");
+  if (supplied("runway") && num(f.monthlyOpex) > 0 && num(f.cash) / num(f.monthlyOpex) < 0.5) reasons.push("less than two weeks' cash cover");
+  if (supplied("operating") && num(f.operatingMarginPct) < 0) reasons.push("the business is making an operating loss");
+  if (supplied("liquidity") && num(f.creditors) > 0 && (num(f.cash) + num(f.debtors)) / num(f.creditors) < 1) reasons.push("cash and debtors don't cover what you owe suppliers");
+  if (supplied("debt") && num(f.revenue) > 0 && num(f.debt) / num(f.revenue) > 1.5) reasons.push("debt is more than 1.5× annual revenue");
+  return { triggered: reasons.length > 0, reasons };
 }
 
 function fmtR(n) {
@@ -428,7 +449,8 @@ export function renderDiagnosticHTML(report, meta = {}) {
   <h2>Your financial priorities — the full picture</h2>
   <p class="dg-lede">Health score <strong>${report.score}/100</strong> — ${esc(
     report.band
-  )}. Indicative value <strong>${val}</strong>. ${esc(report.headline)} Every area is covered below, most urgent first.</p>
+  )}. Indicative operating value <strong>${val}</strong> (before debt — see below). ${esc(report.headline)} Every area is covered below, most urgent first.</p>
+  ${renderCriticalFlag(report)}
   ${renderConfidence(report)}
   ${renderExec(report, val)}
   ${renderTable(report)}
@@ -468,6 +490,14 @@ function renderConfidence(report) {
   return `<div class="dg-conf"><span class="dg-conf-pct">Data confidence ${c.pct}%</span>${tail}</div>`;
 }
 
+// Prominent red banner when a financial critical-risk condition is triggered.
+function renderCriticalFlag(report) {
+  const c = report.critical;
+  if (!c || !c.triggered) return "";
+  const list = c.reasons.map((x) => `<li>${esc(x)}</li>`).join("");
+  return `<div class="dg-critical"><strong>⚠ Significant financial risk</strong> Your score is ${report.score}/100, but the classification is capped because a survival-level condition is present regardless of the average:<ul>${list}</ul>Treat the priorities below as urgent, not optional.</div>`;
+}
+
 // The rand value of moving each lever — only where the figures allow an honest number.
 function impactLine(key, f) {
   if (!f) return "";
@@ -489,7 +519,7 @@ function impactLine(key, f) {
     return `Three months' operating cover is about ${fmtR(three)}; you hold ${fmtR(num(f.cash))}, so reaching it means finding roughly ${fmtR(gap)} more cash (from collections, a facility, or retained profit).`;
   }
   if (key === "liquidity" && rev > 0) {
-    return `Cash is tied up in debtors: collecting about 10 days faster would release roughly ${fmtR(Math.round((rev / 365) * 10))} (each day of sales is about ${fmtR(Math.round(rev / 365))}).`;
+    return `If most of your sales are on credit, collecting about 10 days faster would release roughly ${fmtR(Math.round((rev / 365) * 10))} of cash (each day of sales is about ${fmtR(Math.round(rev / 365))} — the exact figure needs your credit-sales split, which the full CFO Review would confirm).`;
   }
   if (key === "debt" && num(f.debt) > 0) {
     return `You carry about ${fmtR(num(f.debt))} of debt; every 1% of interest on that is roughly ${fmtR(Math.round(num(f.debt) / 100))} a year, straight off your profit.`;
@@ -518,17 +548,28 @@ function renderValuation(report, valTxt) {
     rows.push(`<li><strong>Earnings method.</strong> Adjusted owner-earnings of ${fmtR(num(f.sde))} (${base}) × 2.5–4.0 = ${fmtR(num(f.earnLow))} – ${fmtR(num(f.earnHigh))}.</li>`);
   }
   if (f.revLow != null) rows.push(`<li><strong>Revenue method.</strong> Annual revenue of ${fmtR(num(f.revenue))} × 0.4–0.8 = ${fmtR(num(f.revLow))} – ${fmtR(num(f.revHigh))}.</li>`);
-  const nav = num(f.navValue);
-  rows.push(`<li><strong>Net asset value.</strong> What you own minus what you owe ≈ ${fmtR(nav)}${nav > 0 ? " — used as a floor under the range." : " — not positive, so the range rests on earnings."}</li>`);
+  const nav = num(f.navValue), navReliable = f.navReliable !== false; // default true for older orders
+  rows.push(navReliable
+    ? `<li><strong>Net asset value.</strong> What you own minus what you owe ≈ ${fmtR(nav)}${nav > 0 ? " — used as a floor under the range." : " — not positive, so the range rests on earnings."}</li>`
+    : `<li><strong>Net asset value — insufficient data.</strong> Not enough balance-sheet figures were supplied to calculate net assets reliably, so this method is excluded.</li>`);
   const revWhy = (f.earnUsed && f.revHigh != null && f.earnHigh != null && num(f.revHigh) > num(f.earnHigh))
     ? `<p class="dg-val-why">The revenue method points higher (up to ${fmtR(num(f.revHigh))}), but with operating profitability still modest we anchor the range on earnings — the more conservative, defensible measure here — so the value isn't flattered by turnover alone.</p>`
     : "";
+  // Owner-remuneration guardrail — strongest when the operating line is thin or negative.
+  const addback = f.ownerpaySupplied && num(f.ownerPay) > 0
+    ? `<p class="dg-val-why"><strong>Owner-pay add-back:</strong> we've added your full remuneration (${fmtR(num(f.ownerPay))}) back to earnings. A buyer still needs someone to do your job, so a formal valuation deducts a market salary for that role — which would lower this figure${num(f.operatingProfit) <= 0 ? ", and here the business isn't profitable at the operating line before that add-back, so treat the earnings value with real caution" : ""}.</p>`
+    : "";
+  // Enterprise vs equity — flag when debt is material.
+  const debt = num(f.debt);
+  const debtNote = debt > 0
+    ? `<p class="dg-val-why"><strong>Before debt:</strong> this is the value of the operating business. With about ${fmtR(debt)} of debt to settle, the value to you as owner (equity) is materially lower${nav < 0 ? " — and with net assets negative, likely little or nothing until the balance sheet is repaired" : ""}.</p>`
+    : "";
   return `<h3 class="dg-h3">How we estimated your indicative value</h3>
   <div class="dg-val">
-    <p class="dg-val-top">Indicative range <strong>${valTxt}</strong> — set by the most defensible method for your numbers, not simply the highest.</p>
+    <p class="dg-val-top"><strong>Indicative operating-business value ${valTxt}</strong> — the value of the operating business <em>before</em> debt and buyer adjustments; set by the most defensible method for your numbers, not simply the highest.</p>
     <ul class="dg-val-list">${rows.join("")}</ul>
-    ${revWhy}
-    <p class="dg-val-note">Indicative and educational only — a planning range from standard rules of thumb, not a formal valuation. The multiples reflect a small owner-managed business; a real buyer's offer depends on growth, how reliable the profit is, the assets, contracts, and how much of it depends on you personally.</p>
+    ${revWhy}${addback}${debtNote}
+    <p class="dg-val-note">Indicative and educational only — a planning range from standard rules of thumb, not a formal valuation. The multiples reflect a small owner-managed business; a real buyer's offer depends on growth, how reliable the profit is, the assets, contracts, debt, and how much of it depends on you personally.</p>
   </div>`;
 }
 
@@ -537,7 +578,13 @@ function renderExec(report, valTxt) {
   const pr = report.priorities || [];
   const st = report.strengths || [];
   const act = pr.filter((p) => p.status === "Act");
-  const lead = act.length >= 2
+  const c = report.confidence || {};
+  const lowConf = c.total && c.supplied < Math.ceil(c.total * 0.67); // ≥2 of 6 missing
+  const lead = report.critical && report.critical.triggered
+    ? "This business is carrying real financial risk right now — the score alone doesn't capture it. Fix the survival-level items below before anything else; they're what put otherwise-viable businesses under."
+    : lowConf
+    ? `The areas we could assess look ${act.length ? "mixed" : "broadly sound"}, but read this as a partial picture — ${c.total - c.supplied} of ${c.total} key measures couldn't be calculated from the figures given, so fill those in for a fuller view.`
+    : act.length >= 2
     ? "You have genuine strengths to build on, but several financial pressures need attention now — and left alone they compound, because cash, margin and debt all feed each other."
     : act.length === 1
     ? "The business is broadly sound, with one pressing issue to fix before it starts to constrain everything around it."
@@ -547,7 +594,7 @@ function renderExec(report, valTxt) {
     ? ` You're not starting from zero: ${esc(joinLabels(st.slice(0, 3)))} already ${st.length === 1 ? "stacks" : "stack"} up well, so the job is to protect ${st.length === 1 ? "it" : "them"} while you close the gaps.`
     : "";
   const value = valTxt && valTxt !== "—"
-    ? ` On today's numbers the business is worth an indicative <strong>${valTxt}</strong>; the surest way to move that up is stronger, steadier operating profit that leans less on you personally.`
+    ? ` On today's numbers the operating business is worth an indicative <strong>${valTxt}</strong> before debt (equity is lower once debt is settled); the surest way to move that up is stronger, steadier operating profit that leans less on you personally.`
     : "";
   return `<div class="dg-exec"><span class="eh">In short</span>${lead}${first}${strengths}${value}</div>`;
 }
