@@ -371,7 +371,9 @@ export function generateDiagnostic(d) {
   const stByKey = {};
   ratios.forEach((r) => { const k = ratioKey(r.name); if (k) stByKey[k] = r.status; });
   const leverageStressed = stByKey.debt === "Act" || stByKey.solvency === "Act";
-  const debtSupplied = stByKey.debt && stByKey.debt !== "Not supplied";
+  // Only claim the balance sheet is "sound" when debt AND solvency were actually
+  // assessed Healthy — never when either is Not supplied (e.g. debt was left blank).
+  const balanceSheetSound = stByKey.debt === "Healthy" && stByKey.solvency === "Healthy";
   const lossMaking = d.figures && num(d.figures.operatingMarginPct) < 0;
   const operatingHealthy = stByKey.operating === "Healthy";
 
@@ -381,9 +383,9 @@ export function generateDiagnostic(d) {
       if (/facility|overdraft/i.test(a))
         return leverageStressed
           ? "Don't add debt automatically — start with collections, cash preservation and a supplier/lender/funding review before taking on another facility."
-          : debtSupplied
+          : balanceSheetSound
             ? "Arrange committed backup liquidity (e.g. an overdraft) before you need it — while your debt and solvency are still sound."
-            : "Because solvency is sound, committed backup liquidity may be worth considering — but confirm your existing debt level is manageable first (you didn't supply it here).";
+            : "Committed backup liquidity (e.g. an overdraft) may be worth considering — but confirm your existing debt level and overall balance-sheet position are manageable first; they aren't fully confirmed here.";
       if (/trapped in debtors|debtors and stock/i.test(a))
         return "If debtors or stock are material, free up cash that's unnecessarily tied up there.";
       return a;

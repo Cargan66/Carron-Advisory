@@ -377,10 +377,13 @@ function calculate(){
   el('form-err').textContent='';
   const B = SECTORS[sector];
 
-  const grossM = gross/revenue;
-  const opM = op/revenue;
-  const runway = opex>0 ? cash/opex : (cash>0?12:0);
-  const debtRev = debt/revenue;
+  // Zero-denominator guards: never divide by a zero base — margins/debt need revenue,
+  // runway needs an operating-cost base. A zero here makes the ratio not assessable
+  // (excluded below), never Infinity and never an accidental "Healthy".
+  const grossM = revenue>0 ? gross/revenue : 0;
+  const opM = revenue>0 ? op/revenue : 0;
+  const runway = opex>0 ? cash/opex : 0;
+  const debtRev = revenue>0 ? debt/revenue : 0;
   const liquidity = creditors>0 ? (cash+debtors)/creditors : (cash+debtors>0?3:1);
   const totAssets = cash + debtors + assets;
   const totLiab = creditors + debt;
@@ -399,13 +402,13 @@ function calculate(){
   const omPts = omPct>=12?2:omPct>=5?1:0;
   const omBench = 'Healthy 12%+ · Watch 5–12% · Act below 5% (Carron target)';
   const R = [
-    { name:"Gross margin", ok: has('revenue')&&has('gross'), val:gmPct.toFixed(0)+'%',
+    { name:"Gross margin", ok: has('revenue')&&has('gross')&&revenue>0, val:gmPct.toFixed(0)+'%',
       bench:gmBench, pts:gmPts },
-    { name:"Operating margin", ok: has('revenue')&&has('opprofit'), val:omPct.toFixed(0)+'%',
+    { name:"Operating margin", ok: has('revenue')&&has('opprofit')&&revenue>0, val:omPct.toFixed(0)+'%',
       bench:omBench, pts:omPts },
-    { name:"Cash runway", ok: has('cash')&&has('opex'), val: runway>=12?'12+ mo':runway.toFixed(1)+' mo',
+    { name:"Cash runway", ok: has('cash')&&has('opex')&&opex>0, val: runway>=12?'12+ mo':runway.toFixed(1)+' mo',
       bench:'Healthy 3+ mo · Watch 1–3 mo · Act under 1 mo · Carron resilience target', pts: runway>=3?2:runway>=1?1:0 },
-    { name:"Debt to revenue", ok: has('revenue')&&has('debt'), val: debtRev.toFixed(2)+'×',
+    { name:"Debt to revenue", ok: has('revenue')&&has('debt')&&revenue>0, val: debtRev.toFixed(2)+'×',
       bench:'Healthy under 1× · Watch 1–1.5× · Act above 1.5×', pts: debtRev<1?2:debtRev<=1.5?1:0 },
     { name:"Short-term liquidity cover (cash + debtors ÷ creditors)", ok: has('cash')&&has('debtors')&&has('creditors'), val: creditors===0?'No creditors':(liquidity>=3?'3.0+×':liquidity.toFixed(2)+'×'),
       bench:'Healthy 1.5×+ · Watch 1–1.5× · Act under 1× · quick-cover proxy', pts: liquidity>=1.5?2:liquidity>=1?1:0 },
