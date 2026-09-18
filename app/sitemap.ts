@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/insights": 0.8,
     "/tools": 0.7,
     "/privacy": 0.3,
+    "/paia": 0.3,
     // Interactive tools (static pages under /public, served at the trailing-slash
     // URL). Listed explicitly so crawlers discover them, not only via links.
     "/health-check/": 0.9,

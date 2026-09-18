@@ -101,6 +101,10 @@ export function Footer() {
             © {year} {siteConfig.name}. All rights reserved.{" "}
             <Link href="/privacy" className="text-bone-muted transition-colors hover:text-gold">
               Privacy
+            </Link>{" "}
+            ·{" "}
+            <Link href="/paia" className="text-bone-muted transition-colors hover:text-gold">
+              PAIA
             </Link>
           </p>
           <p className="max-w-xl text-center sm:text-right">
