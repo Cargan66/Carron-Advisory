@@ -404,9 +404,13 @@ export function generateDiagnostic(d) {
   // A high-performing operating margin is optimised, not "lifted".
   if (operatingHealthy) {
     const vp = priorities.find((p) => p.key === "valuation");
-    if (vp && Array.isArray(vp.actions)) vp.actions = vp.actions.map((a) => /lift operating margin/i.test(a)
-      ? "Protect the quality and sustainability of operating profit — grow without sacrificing margin."
-      : a);
+    if (vp) {
+      if (Array.isArray(vp.actions)) vp.actions = vp.actions.map((a) => /lift operating margin/i.test(a)
+        ? "Protect the quality and sustainability of operating profit — grow without sacrificing margin."
+        : a);
+      // Set unconditionally — HOWTO is applied later in the map (see the loss-making note above).
+      vp.howto = "Prioritise profitable growth over revenue for its own sake — protect margin as you scale, and reduce how much depends on you personally.";
+    }
   }
 
   const actCount = priorities.filter((p) => p.status === "Act").length;
@@ -654,8 +658,9 @@ function renderExec(report, valTxt) {
     : soft.length > 0
     ? ` No ACT-level issue was found among the measures we could assess, but ${esc(joinAreas(soft))} still ${soft.length === 1 ? "needs" : "need"} strengthening — work ${soft.length === 1 ? "it" : "them"} in the order below.`
     : " With no immediate financial weakness to fix, the opportunity now is to protect what's working and deliberately build business value, rather than react to problems.";
+  const noGaps = act.length === 0 && soft.length === 0;
   const strengths = st.length
-    ? ` You're not starting from zero: ${esc(joinLabels(st.slice(0, 3)))} already ${st.length === 1 ? "stacks" : "stack"} up well, so the job is to protect ${st.length === 1 ? "it" : "them"} while you close the gaps.`
+    ? ` You're not starting from zero: ${esc(joinLabels(st.slice(0, 3)))} already ${st.length === 1 ? "stacks" : "stack"} up well, so the job now is to ${noGaps ? "protect those strengths while deliberately building value" : "protect " + (st.length === 1 ? "it" : "them") + " while you close the gaps"}.`
     : "";
   const value = valTxt && valTxt !== "—"
     ? ` On today's numbers the operating business is worth an indicative <strong>${valTxt}</strong> before debt (how that reconciles to your own equity is set out below); the surest way to move that up is stronger, steadier operating profit that leans less on you personally.`

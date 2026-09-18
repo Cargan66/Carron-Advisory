@@ -561,6 +561,9 @@ function render(){
   el('q-test').innerHTML = q.survival
     ? '<span class="flag">Critical:</span> if this still needs you, the business stalls within days. Score honestly — "Proven" means it has actually happened without you.'
     : 'Ask: can this happen without me? "Proven" means it has actually happened without you.';
+  if(q.domain==='Collections & credit control'){
+    el('q-test').innerHTML += ' <span style="color:var(--gold-light)">If your business doesn’t offer customer credit, score this <em>Proven</em> where a documented no-credit policy (cash/card up front) is applied consistently without you needing to step in.</span>';
+  }
 
   const box = el('q-options'); box.innerHTML='';
   CHOICES.forEach((c,ci)=>{

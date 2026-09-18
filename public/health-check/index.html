@@ -450,22 +450,23 @@ function renderResult(){
   const cb=el('completeness');
   const up=el('upsell'); if(up) up.hidden = r.tooFew || !R795_LIVE;   // upsell only when live + scorable
 
-  const canScore = r.applicCount >= 3;   // need at least 3 supplied ratios for a meaningful score
-  el('sec-score').classList.toggle('hidden', !canScore);
-  el('sec-ratios').classList.toggle('hidden', !canScore);
+  const canScore = r.applicCount >= 3;   // need at least 3 of the 6 measures for an overall score
+  el('sec-score').classList.toggle('hidden', !canScore);   // no misleading overall score on thin data
+  el('sec-ratios').classList.remove('hidden');             // always show the measures we could calculate
   el('sec-value').classList.remove('hidden');   // a value only needs revenue, which is always present
 
-  // ---- banner: incomplete / partial / clean ----
+  paintRatios(r);   // render the assessed ratios (+ "Not supplied" for the rest)
+
+  // ---- banner: limited / partial / clean ----
   const nilHint = ' Leave a box blank only if you truly don’t know it — enter 0 where a figure is genuinely nil.';
   if(!canScore){
-    const need = r.keyMissing.length ? r.keyMissing.join(', ') : 'a few more figures';
     cb.classList.remove('hidden');
-    cb.innerHTML = '<strong>We need a few more numbers to score your financial health.</strong><br>'
-      + 'You filled in '+r.suppliedCount+' of 10. Add at least: '+need+'.'
-      + (r.valTooSmall ? '' : ' An indicative value is shown below from what you gave.') + nilHint;
+    cb.innerHTML = '<strong>Limited assessment — not enough information for an overall Financial Health Score.</strong><br>'
+      + 'We could assess only '+r.applicCount+' of 6 measures. The ones we could calculate are shown below; complete more figures for a reliable overall view.' + nilHint
+      + '<div style="margin-top:14px"><button class="btn primary" onclick="show(\'calc\')">← Add / edit my numbers</button></div>';
     el('cta-head').textContent='Add your numbers to see your full result';
-    RESULT.band='Incomplete'; RESULT.bandDesc='Not enough figures supplied to score.';
-    renderValue(r);   // still show whatever value we can
+    RESULT.band='Limited assessment'; RESULT.bandDesc='Insufficient information for an overall score.';
+    renderValue(r);   // an indicative value can still be shown from revenue
     return;
   }
   if(r.missing.length){
@@ -490,6 +491,11 @@ function renderResult(){
   RESULT.band=label; RESULT.bandDesc=desc;
   el('cta-head').textContent='Your score: '+r.score+'/100 — '+label+'.';
 
+  paintRatios(r);
+  renderValue(r);
+}
+
+function paintRatios(r){
   el('ratios-title').textContent = 'Your key ratios — benchmarked against '+r.sectorLabel;
   el('ratios').innerHTML = r.R.map(x=>{
     if(!x.ok){ return '<div class="ratio na"><span class="rn"><span class="rag"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span>'
@@ -497,9 +503,7 @@ function renderResult(){
     const [c,lab]=ragDot(x.pts);
     return '<div class="ratio"><span class="rn"><span class="rag" style="background:'+c+'"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span><span class="rv" style="color:'+c+'">'+x.val+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· '+lab+'</span></span></div>';
   }).join('');
-  el('bench-note').innerHTML = 'Benchmarks: operating margin is compared to your sector’s <strong>net profit margin</strong> (net profit after tax ÷ turnover) from '+SRC_SA+'. Gross margin, cash runway, debt, liquidity and solvency use generally-accepted standards — StatsSA doesn’t publish these by sector. StatsSA excludes agriculture, financial services and education, so those use a proxy or a generally-accepted standard. Reviewed '+REVIEW.done+' · next review '+REVIEW.next+'.';
-
-  renderValue(r);
+  el('bench-note').innerHTML = 'Benchmarks: operating margin is rated against Carron’s <strong>12% operating-margin target</strong> (your sector’s StatsSA net margin is shown for context only, as it is an after-tax measure). Gross margin, cash runway, debt, liquidity and solvency use generally-accepted standards with a Carron 3-month cash-resilience target — StatsSA doesn’t publish these by sector. Reviewed '+REVIEW.done+' · next review '+REVIEW.next+'.';
 }
 
 function renderValue(r){
