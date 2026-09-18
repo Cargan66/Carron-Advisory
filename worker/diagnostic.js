@@ -142,8 +142,8 @@ const TEMPLATES = {
       ],
     }),
     Healthy: (r) => ({
-      title: "Maintain your low gearing",
-      why: "Low debt is a strength — it gives you room to borrow deliberately when a real opportunity appears, rather than out of necessity.",
+      title: "Keep debt low relative to revenue",
+      why: "Low debt relative to revenue is a strength — it gives you room to borrow deliberately when a real opportunity appears, rather than out of necessity (note: this measures debt against revenue, not against equity).",
       actions: [
         "Keep new borrowing tied to a clear, funded return.",
       ],
@@ -264,7 +264,7 @@ const STRENGTH_LABEL = {
   runway: "Cash runway",
   liquidity: "Short-term liquidity",
   solvency: "Balance-sheet strength",
-  debt: "Low gearing (debt level)",
+  debt: "Low debt (relative to revenue)",
 };
 // Plain-English area names for the summary and the 90-day sequence.
 const AREA = {
@@ -371,17 +371,40 @@ export function generateDiagnostic(d) {
   const stByKey = {};
   ratios.forEach((r) => { const k = ratioKey(r.name); if (k) stByKey[k] = r.status; });
   const leverageStressed = stByKey.debt === "Act" || stByKey.solvency === "Act";
+  const debtSupplied = stByKey.debt && stByKey.debt !== "Not supplied";
+  const lossMaking = d.figures && num(d.figures.operatingMarginPct) < 0;
+  const operatingHealthy = stByKey.operating === "Healthy";
+
   const rw = priorities.find((p) => p.key === "runway");
   if (rw && Array.isArray(rw.actions)) {
     rw.actions = rw.actions.map((a) => {
       if (/facility|overdraft/i.test(a))
         return leverageStressed
           ? "Don't add debt automatically — start with collections, cash preservation and a supplier/lender/funding review before taking on another facility."
-          : "Arrange committed backup liquidity (e.g. an overdraft) before you need it — while your debt and solvency are still sound.";
+          : debtSupplied
+            ? "Arrange committed backup liquidity (e.g. an overdraft) before you need it — while your debt and solvency are still sound."
+            : "Because solvency is sound, committed backup liquidity may be worth considering — but confirm your existing debt level is manageable first (you didn't supply it here).";
       if (/trapped in debtors|debtors and stock/i.test(a))
         return "If debtors or stock are material, free up cash that's unnecessarily tied up there.";
       return a;
     });
+  }
+  // A loss-making business can't "retain profit that doesn't exist".
+  if (lossMaking) {
+    const sv = priorities.find((p) => p.key === "solvency");
+    if (sv) {
+      if (Array.isArray(sv.actions)) sv.actions = sv.actions.map((a) => /^retain/i.test(a)
+        ? "Restrict discretionary drawings while losses continue — first restore operating profitability, then retain a defined portion of profit to rebuild equity."
+        : a);
+      if (sv.howto) sv.howto = "While the business is loss-making, protect what equity remains by limiting drawings; retaining profit to rebuild equity starts once it's back in profit.";
+    }
+  }
+  // A high-performing operating margin is optimised, not "lifted".
+  if (operatingHealthy) {
+    const vp = priorities.find((p) => p.key === "valuation");
+    if (vp && Array.isArray(vp.actions)) vp.actions = vp.actions.map((a) => /lift operating margin/i.test(a)
+      ? "Protect the quality and sustainability of operating profit — grow without sacrificing margin."
+      : a);
   }
 
   const actCount = priorities.filter((p) => p.status === "Act").length;
@@ -616,9 +639,12 @@ function renderExec(report, valTxt) {
     : act.length === 1
     ? "The business is broadly sound, with one pressing issue to fix before it starts to constrain everything around it."
     : "Your financials are in good shape. The work now is protecting that position and building value on purpose, rather than by accident.";
-  const first = act.length === 0
-    ? " With no immediate financial weakness to fix, the opportunity now is to protect what's working and deliberately build business value, rather than react to problems."
-    : (pr[0] ? ` The single place to start is <strong>${esc(AREA[pr[0].key] || "priority 1")}</strong> (priority 1 below) — clear that and the rest gets easier.` : "");
+  const soft = pr.filter((p) => p.status === "Watch" && p.key !== "valuation");
+  const first = act.length > 0
+    ? (pr[0] ? ` The single place to start is <strong>${esc(AREA[pr[0].key] || "priority 1")}</strong> (priority 1 below) — clear that and the rest gets easier.` : "")
+    : soft.length > 0
+    ? ` No ACT-level issue was found among the measures we could assess, but ${esc(joinAreas(soft))} still ${soft.length === 1 ? "needs" : "need"} strengthening — work ${soft.length === 1 ? "it" : "them"} in the order below.`
+    : " With no immediate financial weakness to fix, the opportunity now is to protect what's working and deliberately build business value, rather than react to problems.";
   const strengths = st.length
     ? ` You're not starting from zero: ${esc(joinLabels(st.slice(0, 3)))} already ${st.length === 1 ? "stacks" : "stack"} up well, so the job is to protect ${st.length === 1 ? "it" : "them"} while you close the gaps.`
     : "";
@@ -626,6 +652,13 @@ function renderExec(report, valTxt) {
     ? ` On today's numbers the operating business is worth an indicative <strong>${valTxt}</strong> before debt (how that reconciles to your own equity is set out below); the surest way to move that up is stronger, steadier operating profit that leans less on you personally.`
     : "";
   return `<div class="dg-exec"><span class="eh">In short</span>${lead}${first}${strengths}${value}</div>`;
+}
+
+function joinAreas(items) {
+  const names = items.map((p) => AREA[p.key] || p.key);
+  if (names.length <= 1) return names[0] || "";
+  if (names.length === 2) return names[0] + " and " + names[1];
+  return names.slice(0, -1).join(", ") + " and " + names[names.length - 1];
 }
 
 function joinLabels(items) {
