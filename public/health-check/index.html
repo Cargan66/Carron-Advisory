@@ -197,7 +197,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   <!-- CALCULATOR -->
   <section id="calc" class="panel hidden">
     <div class="eyebrow">Your numbers</div>
-    <p class="lede" style="margin-bottom:22px">Annual figures unless noted. Estimates are fine — you can refine later.</p>
+    <p class="lede" style="margin-bottom:14px">Annual figures unless noted. Estimates are fine — you can refine later.</p>
+    <div style="border:1px solid var(--gold);background:rgba(200,168,75,.07);border-radius:6px;padding:12px 15px;margin-bottom:22px;font-size:13.5px;color:var(--sage);line-height:1.5">
+      <strong style="color:var(--gold-light)">Enter <span style="font-family:ui-monospace,monospace;background:rgba(255,255,255,.08);padding:0 5px;border-radius:3px">0</span> where a figure is genuinely nil.</strong>
+      A box left <strong style="color:var(--cream)">blank</strong> is treated as “not supplied” and skipped in your score — so if something really is zero (e.g. no debt), type <strong style="color:var(--cream)">0</strong> to record it. That keeps your result accurate.
+    </div>
     <div class="field selwrap" style="margin-bottom:24px">
       <label for="sector">Industry sector <span class="hint">· required — so we can compare you to your sector</span></label>
       <div class="inp"><select id="sector" onchange="if(el('sector').value)el('form-err').textContent=''"><option value="">Select your sector…</option></select></div>
