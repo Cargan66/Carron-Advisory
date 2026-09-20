@@ -156,13 +156,13 @@ export default function HomePage() {
       <section className="border-y border-white/10 bg-emerald-section py-16 sm:py-20">
         <div className="container-luxe">
           <FadeIn className="flex flex-col items-center gap-8 text-center sm:flex-row sm:text-left">
-            <span className="relative h-24 w-24 flex-none overflow-hidden rounded-full border-2 border-gold/50">
+            <span className="relative aspect-[3/2] w-full max-w-xs flex-none overflow-hidden rounded-xl border border-gold/40 sm:w-72">
               <Image
-                src="/images/carel-gangel.png"
-                alt={`${founder.name}, ${founder.role}`}
+                src="/images/carel-gangel-banner.jpg"
+                alt={`${founder.name}, ${founder.role} — Carron Business Advisory`}
                 fill
-                sizes="96px"
-                className="object-cover object-[center_28%]"
+                sizes="(max-width: 640px) 90vw, 288px"
+                className="object-cover"
               />
             </span>
             <div className="flex-1">

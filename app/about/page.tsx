@@ -50,14 +50,14 @@ export default function AboutPage() {
         <div className="container-luxe grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-20">
           <FadeIn>
             <div className="flex flex-col items-center gap-6 rounded-3xl border border-gold/20 bg-emerald-section/50 p-10 text-center">
-              <span className="relative h-36 w-36 overflow-hidden rounded-full border-2 border-gold/50">
+              <span className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-gold/30">
                 <Image
-                  src="/images/carel-gangel.png"
+                  src="/images/carel-gangel-banner.jpg"
                   alt={`${founder.name}, ${founder.role} at Carron Business Advisory`}
                   fill
-                  sizes="144px"
+                  sizes="(max-width: 1024px) 90vw, 460px"
                   priority
-                  className="object-cover object-[center_28%]"
+                  className="object-cover"
                 />
               </span>
               <div>
