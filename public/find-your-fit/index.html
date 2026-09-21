@@ -295,7 +295,6 @@ function show(id){ ['intro','quiz','gate','crunch','result'].forEach(s=>el(s).cl
 const CALC_MS = 6000;
 const CALC_MSGS = ['Reviewing your answers…','Weighing where your numbers really sit…','Matching you to the right level of support…','Finalising your recommendation…'];
 function runCalc(cb){
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ cb(); return; }
   const prog=el('calc-prog'), pct=el('calc-pct'), status=el('calc-status');
   const C=326.726;
   show('crunch');

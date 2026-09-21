@@ -327,8 +327,6 @@ function show(id){ ['intro','calc','gate','crunch','result'].forEach(s=>el(s).cl
 const CALC_MS = 6000;
 const CALC_MSGS = ['Reading your figures…','Benchmarking against your sector…','Scoring your six financial ratios…','Estimating your business value…','Finalising your report…'];
 function runCalc(cb){
-  // Respect reduced-motion preferences — skip straight to the result.
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ cb(); return; }
   const prog=el('calc-prog'), pct=el('calc-pct'), status=el('calc-status');
   const C=326.726;   // 2·π·52
   show('crunch');
