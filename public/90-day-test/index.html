@@ -939,7 +939,7 @@ function unlock(){
 
   runCalc(function(){   // brief dramatic pause, then reveal + record the result
   revealResults();   // draw the result first (sets band-label + print sheet)
-  const rt=el('reftag'); if(rt) rt.innerHTML = 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong> — quote this if you contact us.';
+  const rt=el('reftag'); if(rt) rt.innerHTML = 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong>. Trouble downloading, or a question about your result? Email <a href="mailto:support@carron.co.za" style="color:var(--gold-light);text-decoration:underline">support@carron.co.za</a> and quote it.';
 
   const score=PENDING_SCORE;
   const band=el('band-label').textContent||'';

@@ -514,7 +514,7 @@ function calculate(){
 function renderResult(){
   const r=RESULT;
   show('result');
-  const rt=el('reftag'); if(rt) rt.innerHTML = REF ? 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong> — quote this if you contact us.' : '';
+  const rt=el('reftag'); if(rt) rt.innerHTML = (REF ? 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong>. ' : '') + 'Trouble downloading, or a question about your result? Email <a href="mailto:support@carron.co.za" style="color:var(--gold-light);text-decoration:underline">support@carron.co.za</a>' + (REF ? ' and quote it.' : '.');
   const cb=el('completeness');
   const up=el('upsell'); if(up) up.hidden = r.tooFew || r.noRevenue || !R795_LIVE;   // upsell only when live + scorable
 

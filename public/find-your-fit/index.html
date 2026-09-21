@@ -457,7 +457,7 @@ function unlock(){
     body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Find-Your-Fit lead — '+email,from_name:'Carron Find Your Fit',reference:REF,name:'—',email:email,recommended_tier:tier,answers:picks,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
   runCalc(function(){
     renderFit(PENDING);
-    const rt=el('reftag'); if(rt) rt.innerHTML = 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong> — quote this if you contact us.';
+    const rt=el('reftag'); if(rt) rt.innerHTML = 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong>. Trouble downloading, or a question about your result? Email <a href="mailto:support@carron.co.za" style="color:var(--gold-light);text-decoration:underline">support@carron.co.za</a> and quote it.';
   });   // brief dramatic pause, then reveal
 }
 </script>
