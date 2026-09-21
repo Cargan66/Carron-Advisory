@@ -185,6 +185,31 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     <div class="navrow" style="justify-content:center;margin-top:22px"><button class="btn ghost" onclick="show('quiz')">← Back to the questions</button></div>
   </section>
 
+  <!-- CALCULATING (brief dramatic pause) -->
+  <style>
+    #crunch .calc-wrap{display:flex;flex-direction:column;align-items:center;gap:24px;padding:48px 0 40px;text-align:center}
+    #crunch .calc-title{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,5vw,34px);color:var(--cream)}
+    #crunch .calc-ringwrap{position:relative;width:160px;height:160px}
+    #crunch svg.calc-ring{width:160px;height:160px;transform:rotate(-90deg)}
+    #crunch .calc-ring .track{fill:none;stroke:rgba(200,168,75,.15);stroke-width:8}
+    #crunch .calc-ring .prog{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;stroke-dasharray:326.726;stroke-dashoffset:326.726;filter:drop-shadow(0 0 7px rgba(200,168,75,.55))}
+    #crunch .calc-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:36px;color:var(--cream)}
+    #crunch .calc-status{font-size:15px;color:var(--sage);min-height:22px;letter-spacing:.02em}
+  </style>
+  <section id="crunch" class="panel hidden">
+    <div class="calc-wrap">
+      <div class="calc-title">Finding your fit…</div>
+      <div class="calc-ringwrap">
+        <svg class="calc-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="track" cx="60" cy="60" r="52"></circle>
+          <circle class="prog" id="calc-prog" cx="60" cy="60" r="52"></circle>
+        </svg>
+        <div class="calc-pct" id="calc-pct">0%</div>
+      </div>
+      <div class="calc-status" id="calc-status">Reviewing your answers…</div>
+    </div>
+  </section>
+
   <!-- RESULT -->
   <section id="result" class="panel hidden">
     <div class="rlead">Your recommended starting point</div>
@@ -264,7 +289,29 @@ const TIERS = [
 let idx = 0;
 const answers = new Array(QUESTIONS.length).fill(null);
 const el = id => document.getElementById(id);
-function show(id){ ['intro','quiz','gate','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+function show(id){ ['intro','quiz','gate','crunch','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+
+// Brief "calculating" animation before the result. Change CALC_MS to lengthen/shorten it.
+const CALC_MS = 6000;
+const CALC_MSGS = ['Reviewing your answers…','Weighing where your numbers really sit…','Matching you to the right level of support…','Finalising your recommendation…'];
+function runCalc(cb){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ cb(); return; }
+  const prog=el('calc-prog'), pct=el('calc-pct'), status=el('calc-status');
+  const C=326.726;
+  show('crunch');
+  prog.style.strokeDashoffset=C; pct.textContent='0%'; status.textContent=CALC_MSGS[0];
+  let start=null, mi=0;
+  function frame(t){
+    if(start===null) start=t;
+    const p=Math.min(1,(t-start)/CALC_MS);
+    prog.style.strokeDashoffset=C*(1-p);
+    pct.textContent=Math.round(p*100)+'%';
+    const idx=Math.min(CALC_MSGS.length-1, Math.floor(p*CALC_MSGS.length));
+    if(idx!==mi){ mi=idx; status.textContent=CALC_MSGS[idx]; }
+    if(p<1){ requestAnimationFrame(frame); } else { cb(); }
+  }
+  requestAnimationFrame(frame);
+}
 function start(){ idx=0; show('quiz'); render(); }
 function restart(){ answers.fill(null); idx=0; show('intro'); }
 
@@ -337,7 +384,7 @@ function unlock(){
   try{ fetch('https://api.web3forms.com/submit',{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
     body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Find-Your-Fit lead — '+email,from_name:'Carron Find Your Fit',name:'—',email:email,recommended_tier:tier,answers:picks,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
-  renderFit(PENDING);
+  runCalc(function(){ renderFit(PENDING); });   // brief dramatic pause, then reveal
 }
 </script>
 <script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})})}</script>
