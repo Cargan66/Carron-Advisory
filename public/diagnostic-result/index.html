@@ -113,12 +113,12 @@
     <div class="state" id="pending" hidden>
       <h1>Almost there</h1>
       <p>We're still confirming your payment. It can take a moment to clear.</p>
-      <p class="muted">This page will keep checking. If it doesn't appear, refresh — or email <a href="mailto:info@carron.co.za">info@carron.co.za</a> with your reference and we'll send it over.</p>
+      <p class="muted">This page will keep checking. If it doesn't appear, refresh — or email <a href="mailto:support@carron.co.za">support@carron.co.za</a> with your reference and we'll send it over.</p>
     </div>
 
     <div class="state" id="errored" hidden>
       <h1>We couldn't load your report</h1>
-      <p>Please refresh this page. If it still doesn't appear, email <a href="mailto:info@carron.co.za">info@carron.co.za</a> and we'll sort it out.</p>
+      <p>Please refresh this page. If it still doesn't appear, email <a href="mailto:support@carron.co.za">support@carron.co.za</a> and we'll sort it out.</p>
     </div>
 
     <div id="report" hidden></div>
@@ -134,27 +134,28 @@
   const reference = params.get('reference') || params.get('trxref') || '';
   const el = id => document.getElementById(id);
 
-  function showReport(data){
-    el('report').innerHTML = data.html || '';
-    el('report').hidden = false;
-    el('loading').hidden = true; el('pending').hidden = true;
-    el('actions').hidden = false;
-  }
-  function showPending(){ el('loading').hidden = true; el('pending').hidden = false; }
-  function showError(){ el('loading').hidden = true; el('errored').hidden = false; }
+  // States are mutually exclusive, and once the report is shown nothing can override it
+  // (a late poll must never resurface the "couldn't load" banner over a loaded report).
+  let shown = false;
+  function hideAll(){ el('loading').hidden = true; el('pending').hidden = true; el('errored').hidden = true; }
+  function showReport(data){ if(shown) return; shown = true; el('report').innerHTML = data.html || ''; hideAll(); el('report').hidden = false; el('actions').hidden = false; }
+  function showPending(){ if(shown) return; hideAll(); el('pending').hidden = false; }
+  function showError(){ if(shown) return; hideAll(); el('errored').hidden = false; }
 
   async function poll(tries){
     if(!reference){ showError(); return; }
     try{
       const r = await fetch('/api/diagnostic/get?reference=' + encodeURIComponent(reference)).then(r=>r.json());
       if(r.status === 'paid' && r.html){ showReport(r); return; }
-      if(r.status === 'unknown'){ showError(); return; }
-      if(tries > 0){ setTimeout(()=>poll(tries-1), 2500); } else { showPending(); }
+      // Not ready yet — right after payment the order can briefly read 'unknown'/'pending'.
+      // Keep checking quietly; only decide error vs still-processing once tries run out.
+      if(tries > 0){ setTimeout(()=>poll(tries-1), 2500); return; }
+      if(r.status === 'unknown'){ showError(); } else { showPending(); }
     }catch(e){
       if(tries > 0){ setTimeout(()=>poll(tries-1), 2500); } else { showError(); }
     }
   }
-  poll(10);
+  poll(12);
 </script>
 </body>
 </html>

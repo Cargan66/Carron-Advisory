@@ -774,7 +774,7 @@ function buyDiagnostic(){
   fetch('/api/diagnostic/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:CAPTURED_EMAIL||'', summary})})
     .then(r=>r.json()).then(r=>{
       if(r && r.authorization_url){ location.href=r.authorization_url; }
-      else { note.textContent='Could not start checkout — please try again, or email info@carron.co.za.'; note.style.color='var(--clay)'; btn.disabled=false; }
+      else { note.textContent='Could not start checkout — please try again, or email support@carron.co.za.'; note.style.color='var(--clay)'; btn.disabled=false; }
     }).catch(()=>{ note.textContent='Could not start checkout — please try again.'; note.style.color='var(--clay)'; btn.disabled=false; });
 }
 
