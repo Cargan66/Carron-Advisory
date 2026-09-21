@@ -180,7 +180,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       <input type="email" id="gate-email" placeholder="you@business.co.za" autocomplete="email" style="flex:1;min-width:220px">
       <button class="btn primary" id="gate-btn" onclick="unlock()">Show my result →</button>
     </div>
-    <div class="note" id="gate-note" style="text-align:center">We'll email your result and may follow up. No spam; unsubscribe any time.</div>
+    <div class="note" id="gate-note" style="text-align:center">See your result now — download it on the next screen. We may follow up. No spam; unsubscribe any time.</div>
     <div class="note" style="text-align:center;margin-top:8px">By continuing you agree to our <a href="/privacy" style="color:var(--gold-light);text-decoration:underline">Privacy Notice</a>.</div>
     <div class="navrow" style="justify-content:center;margin-top:22px"><button class="btn ghost" onclick="show('quiz')">← Back to the questions</button></div>
   </section>
@@ -228,16 +228,18 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
     <div class="cta">
       <h3 id="cta-head">Let's confirm your fit.</h3>
-      <p>We've emailed a copy of your recommendation. Want to talk it through? Book a free, no-obligation discovery call to confirm the right level for your business.</p>
+      <p>Download a copy for your records below. Want to talk it through? Book a free, no-obligation discovery call to confirm the right level for your business.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px">
         <a class="btn primary" href="/contact">Book a discovery call</a>
         <a class="btn ghost" href="/health-check/">Try the Financial Health Check</a>
       </div>
     </div>
 
-    <div class="navrow" style="justify-content:center;margin-top:24px">
+    <div class="navrow" style="justify-content:center;margin-top:24px;gap:12px;flex-wrap:wrap">
+      <button class="btn primary" onclick="downloadFit(this)">↓ Download my recommendation (PDF)</button>
       <button class="btn ghost" onclick="restart()">↺ Retake the quiz</button>
     </div>
+    <p id="reftag" style="text-align:center;margin-top:12px;font-size:12.5px;color:var(--sage)"></p>
 
     <div class="footer">
       <span>Carron Business Advisory · info@carron.co.za</span>
@@ -346,7 +348,7 @@ function finish(){
   PENDING = TIERS[tierFor(total)];
   leadBusy=false;
   const gb=el('gate-btn'); if(gb) gb.disabled=false;
-  const gn=el('gate-note'); if(gn){ gn.textContent="We'll email your result and may follow up. No spam; unsubscribe any time."; gn.style.color=''; }
+  const gn=el('gate-note'); if(gn){ gn.textContent="See your result now — download it on the next screen. We may follow up. No spam; unsubscribe any time."; gn.style.color=''; }
   show('gate');   // require a valid email before revealing the result
 }
 function renderFit(t){
@@ -365,6 +367,75 @@ function renderFit(t){
     </div>`).join('');
 }
 
+// ---- Reference number + client-side PDF download (stays on the page) ----
+let REF='';
+function makeRef(prefix){
+  const d=new Date(), p=n=>String(n).padStart(2,'0');
+  const ymd=String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate());
+  return prefix+'-'+ymd+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+}
+let _h2p=false,_h2pLoading=false;
+function withHtml2Pdf(cb,onErr){
+  if(_h2p){ cb(); return; }
+  if(_h2pLoading){ setTimeout(()=>withHtml2Pdf(cb,onErr),150); return; }
+  _h2pLoading=true;
+  const s=document.createElement('script'); s.src='/vendor/html2pdf.bundle.min.js';
+  s.onload=()=>{ _h2p=true; _h2pLoading=false; cb(); };
+  s.onerror=()=>{ _h2pLoading=false; if(onErr) onErr(); };
+  document.head.appendChild(s);
+}
+const PDF_CSS=".pdfdoc{background:#fff;color:#12241a;font-family:'Inter',system-ui,sans-serif;font-size:13px;line-height:1.5;padding:6px 8px}"
+  +".pdfdoc .ps-head{text-align:center;border-bottom:2px solid #16412f;padding-bottom:14px;margin-bottom:18px}"
+  +".pdfdoc .ps-logo{height:48px;width:auto;margin:0 auto 8px;display:block}"
+  +".pdfdoc .ps-tag{font-family:'Fraunces',serif;font-size:16px;color:#9a7d2e}"
+  +".pdfdoc .ps-meta{display:flex;justify-content:space-between;margin-top:10px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5b6b60}"
+  +".pdfdoc .ps-reclead{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9a7d2e;text-align:center}"
+  +".pdfdoc .ps-tier{font-family:'Fraunces',serif;font-size:40px;color:#16412f;text-align:center;margin-top:4px}"
+  +".pdfdoc .ps-time{text-align:center;color:#7a6320;font-weight:600;font-size:14px;margin-top:2px}"
+  +".pdfdoc .ps-desc{font-size:13px;color:#3a4a40;text-align:center;max-width:60ch;margin:10px auto 0;line-height:1.6}"
+  +".pdfdoc h3{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9a7d2e;margin:22px 0 10px;border-bottom:1px solid #e5ddc8;padding-bottom:6px}"
+  +".pdfdoc .ps-list{margin:0;padding:0;list-style:none;columns:2;column-gap:24px}"
+  +".pdfdoc .ps-list li{font-size:12.5px;color:#2a3830;padding:4px 0;break-inside:avoid}"
+  +".pdfdoc .ps-list li:before{content:'\\2014  ';color:#9a7d2e}"
+  +".pdfdoc .ps-scale .r{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #eee;padding:7px 0;font-size:12.5px;color:#2a3830}"
+  +".pdfdoc .ps-scale .r.on{font-weight:600;color:#16412f}.pdfdoc .ps-scale .r .t{color:#7a6320}"
+  +".pdfdoc .ps-disc{font-size:10px;color:#6a776e;margin-top:16px;line-height:1.5}"
+  +".pdfdoc .ps-foot{margin-top:22px;padding-top:12px;border-top:1px solid #16412f;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#5b6b60;display:flex;justify-content:space-between}";
+function buildFitSheet(t){
+  const d=new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
+  const items=t.items.map(i=>'<li>'+i+'</li>').join('');
+  const scale=TIERS.map(x=>'<div class="r'+(x.key===t.key?' on':'')+'"><span>'+x.key+(x.key===t.key?' — your fit':'')+'</span><span class="t">'+x.time+'</span></div>').join('');
+  return '<div class="ps-head"><img class="ps-logo" src="/images/carron-logo-horizontal-emerald.png" alt="Carron Business Advisory">'
+    +'<div class="ps-tag">Find Your Fit — your recommendation</div>'
+    +'<div class="ps-meta"><span>Carron Business Advisory</span><span>'+d+(REF?' · Ref '+REF:'')+'</span></div></div>'
+    +'<div class="ps-reclead">Your recommended starting point</div>'
+    +'<div class="ps-tier">'+t.key+'</div><div class="ps-time">'+t.time+'</div>'
+    +'<p class="ps-desc">'+t.desc+'</p>'
+    +'<h3>What this tier includes</h3><ul class="ps-list">'+items+'</ul>'
+    +'<h3>Where you land</h3><div class="ps-scale">'+scale+'</div>'
+    +'<p class="ps-disc">Indicative guide only — the right level depends on your specific business and can move as it grows. Book a free discovery call to confirm the right fit.</p>'
+    +'<div class="ps-foot"><span>Carron Business Advisory · info@carron.co.za</span><span>Fractional CFO for SA SMEs · Prepared '+d+'</span></div>';
+}
+function downloadFit(btn){
+  if(!PENDING) return;
+  const label=btn?btn.textContent:'';
+  if(btn){ btn.disabled=true; btn.textContent='Preparing your PDF…'; }
+  const restore=()=>{ if(btn){ btn.disabled=false; btn.textContent=label; } };
+  withHtml2Pdf(function(){
+    const stage=document.createElement('div');
+    stage.style.cssText='position:fixed;left:-10000px;top:0;width:794px;background:#fff';
+    stage.innerHTML='<style>'+PDF_CSS+'</style><div class="pdfdoc">'+buildFitSheet(PENDING)+'</div>';
+    document.body.appendChild(stage);
+    const docEl=stage.querySelector('.pdfdoc');
+    const run=()=>{ window.html2pdf().set({margin:[10,10,12,10],filename:'Carron-Find-Your-Fit-'+(REF||'result')+'.pdf',image:{type:'jpeg',quality:0.96},
+        html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}})
+      .from(docEl).save().then(()=>{ stage.remove(); restore(); }).catch(()=>{ stage.remove(); restore(); }); };
+    const img=stage.querySelector('img');
+    const go=()=>{ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,60)); };
+    if(img && !img.complete){ img.onload=img.onerror=go; } else { go(); }
+  }, function(){ restore(); alert('Sorry — the PDF tool could not load. Please check your connection and try again.'); });
+}
+
 function unlock(){
   const email=el('gate-email').value.trim();
   const note=el('gate-note');
@@ -374,16 +445,20 @@ function unlock(){
   }
   if(leadBusy) return; leadBusy=true;
   const btn=el('gate-btn'); if(btn) btn.disabled=true;
+  REF = makeRef('FF');   // one reference for this result: shown on screen, on the PDF, and stored with the lead
   const tier=PENDING.key;
   const picks=answers.map((a,i)=> (i+1)+'. '+QUESTIONS[i].q+' → '+(a===null?'—':QUESTIONS[i].opts[a][0])).join('\n');
   // record the completion to our database (summary only; best-effort)
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({tool:'find-your-fit',name:'',email:email,result:tier,detail:JSON.stringify({tier:tier,answers:picks}),consent:true})}).catch(()=>{}); }catch(e){}
-  // email the recommendation via Web3Forms
+    body:JSON.stringify({tool:'find-your-fit',reference:REF,name:'',email:email,result:tier,detail:JSON.stringify({reference:REF,tier:tier,answers:picks}),consent:true})}).catch(()=>{}); }catch(e){}
+  // notify the owner via Web3Forms
   try{ fetch('https://api.web3forms.com/submit',{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Find-Your-Fit lead — '+email,from_name:'Carron Find Your Fit',name:'—',email:email,recommended_tier:tier,answers:picks,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
-  runCalc(function(){ renderFit(PENDING); });   // brief dramatic pause, then reveal
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Find-Your-Fit lead — '+email,from_name:'Carron Find Your Fit',reference:REF,name:'—',email:email,recommended_tier:tier,answers:picks,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
+  runCalc(function(){
+    renderFit(PENDING);
+    const rt=el('reftag'); if(rt) rt.innerHTML = 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong> — quote this if you contact us.';
+  });   // brief dramatic pause, then reveal
 }
 </script>
 <script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})})}</script>
