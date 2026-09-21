@@ -598,7 +598,7 @@ function printResults(){
     if(!r.earn){ methods+='<br>(Earnings method skipped — '+(r.earnOk?'operating profit is not positive':'operating profit not supplied')+'.)'; }
   }
   const caveat = r.missing.length ? '<p class="ps-caveat"><strong>Partial result</strong> — '+r.missing.length+' of 10 figures weren’t supplied ('+r.missing.join(', ')+'). Based only on the numbers given.</p>' : '';
-  el('printsheet').innerHTML =
+  const sheetHtml =
     '<div class="ps-head"><img src="/images/carron-logo-horizontal-emerald.png" alt="Carron Business Advisory">'
     +'<div class="ps-meta"><strong>Financial Health Check &amp; Valuation</strong>'+(r.sectorLabel?r.sectorLabel+' · ':'')+d+(name?' · '+name:'')+'</div></div>'
     +'<h2>Financial health score: '+r.score+'/100 — '+(r.band||'')+'</h2>'
@@ -612,11 +612,51 @@ function printResults(){
     +'A real valuation depends on your industry, growth, assets, working capital, contracts, risk and buyer appetite, and should be prepared by a qualified adviser.</p>'
     +'<div class="ps-foot"><span>Carron Business Advisory · info@carron.co.za</span>'
     +'<span>Fractional CFO for SA SMEs · Prepared '+d+'</span></div>';
-  // Wait for the logo to load before printing — otherwise the print dialog can
-  // capture the sheet before the (uncached) emerald logo has rendered.
-  const logo = el('printsheet').querySelector('img');
-  if(logo && !logo.complete){ logo.onload = logo.onerror = ()=>window.print(); }
-  else { window.print(); }
+  el('printsheet').innerHTML = sheetHtml;   // kept for the @media print fallback if popups are blocked
+  // Open the report in a NEW window and print there, so the customer keeps their
+  // place on the result page and can carry on to the next step.
+  if(!openReportWindow('Financial Health Check — Carron', sheetHtml)){
+    const logo = el('printsheet').querySelector('img');
+    if(logo && !logo.complete){ logo.onload = logo.onerror = ()=>window.print(); }
+    else { window.print(); }
+  }
+}
+
+// Render a print-ready report into a separate window and trigger its print dialog,
+// leaving the customer's result page untouched. Returns false if the popup was blocked.
+function openReportWindow(title, innerHtml){
+  const css = "@page{margin:16mm}*{box-sizing:border-box}"
+    +"body{margin:0;background:#fff;color:#12241a;font-family:'Inter',system-ui,sans-serif;font-size:13px;line-height:1.5;padding:28px 30px}"
+    +".ps-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #16412f;padding-bottom:12px;margin-bottom:22px}"
+    +".ps-head img{height:50px;width:auto}"
+    +".ps-head .ps-meta{text-align:right;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#5b6b60}"
+    +".ps-head .ps-meta strong{display:block;font-family:'Fraunces',serif;font-size:13px;letter-spacing:.04em;color:#16412f;text-transform:none;margin-bottom:3px}"
+    +"h2{font-family:'Fraunces',serif;font-weight:500;font-size:23px;color:#16412f;margin:0 0 8px}"
+    +".ps-desc{font-size:12.5px;color:#3a4a40;margin:0 0 8px;max-width:64ch}"
+    +".ps-caveat{font-size:11.5px;color:#7a5a1e;background:#faf3dd;border:1px solid #e3d29a;border-radius:5px;padding:9px 12px;margin:12px 0 4px;line-height:1.5}"
+    +".ps-caveat strong{color:#7a5a1e}"
+    +"h3{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9a7d2e;margin:22px 0 8px;border-bottom:1px solid #e5ddc8;padding-bottom:6px}"
+    +".ps-ratio{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;font-size:12.5px;border-bottom:1px solid #eee}"
+    +".ps-ratio .st{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;margin-left:10px}"
+    +".ps-ratio .psb{display:block;font-size:9px;color:#8a978d;margin-top:1px;letter-spacing:.02em}"
+    +".ps-benchnote{font-size:9px;color:#8a978d;line-height:1.5;margin:10px 0 0}"
+    +".ps-val{font-family:'Fraunces',serif;font-size:26px;color:#16412f;margin:2px 0 6px}"
+    +".ps-methods{font-size:11.5px;color:#3a4a40;line-height:1.65}.ps-methods strong{color:#16412f}"
+    +".ps-disc{font-size:10px;color:#6a776e;margin-top:16px;line-height:1.5}"
+    +".ps-foot{margin-top:24px;padding-top:12px;border-top:1px solid #16412f;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#5b6b60;display:flex;justify-content:space-between;gap:12px}"
+    +"@media print{body{padding:0}}";
+  const w = window.open('', '_blank');
+  if(!w){ return false; }
+  const doc = '<!doctype html><html><head><meta charset="utf-8"><title>'+title+'</title>'
+    +'<base href="'+location.origin+'/">'
+    +'<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
+    +'<style>'+css+'</style></head><body>'+innerHtml+'</body></html>';
+  w.document.open(); w.document.write(doc); w.document.close();
+  const go=()=>{ try{ w.focus(); w.print(); }catch(e){} };
+  const start=()=>{ if(w.document.fonts&&w.document.fonts.ready){ w.document.fonts.ready.then(()=>setTimeout(go,80)); } else { setTimeout(go,350); } };
+  const img=w.document.querySelector('img');
+  if(img && !img.complete){ img.onload=img.onerror=start; } else { start(); }
+  return true;
 }
 
 /* record a summary of the result to our D1-backed endpoint (summary only, no raw figures) */

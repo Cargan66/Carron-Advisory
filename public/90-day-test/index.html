@@ -632,7 +632,53 @@ function revealResults(){
   buildPrintSheet(score);
 }
 
-function downloadResult(){ window.print(); }
+function downloadResult(){
+  // Open the report in a NEW window and print there, so the customer keeps their
+  // place on the result page and can carry on to the next step.
+  const sheet = el('print-sheet');
+  const html = sheet ? sheet.innerHTML : '';
+  if(!html || !openReportWindow('90-Day Owner-Independence Test — Carron', html)){
+    window.print();   // popup blocked → fall back to printing the current tab
+  }
+}
+
+function openReportWindow(title, innerHtml){
+  const css = "@page{margin:16mm}*{box-sizing:border-box}"
+    +"body{margin:0;background:#fff;color:#172e26;font-family:'Inter',system-ui,sans-serif;font-size:13px;line-height:1.5;padding:28px 30px}"
+    +".ps-head{text-align:center;border-bottom:2px solid #c8a84b;padding-bottom:16px}"
+    +".ps-logo{height:56px;width:auto;margin:0 auto 10px;display:block}"
+    +".ps-tag{font-family:'Fraunces',serif;font-size:20px;color:#b8952f;letter-spacing:.01em}"
+    +".ps-meta{display:flex;justify-content:space-between;margin-top:14px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#6c7f74}"
+    +".ps-date{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6c7f74}"
+    +".ps-scorerow{display:flex;align-items:center;gap:26px;margin:26px 0 8px}"
+    +".ps-scorebig{font-family:'Fraunces',serif;font-size:88px;line-height:.9;color:#1e4035}"
+    +".ps-of{font-size:11px;letter-spacing:.2em;color:#8a7a3e}"
+    +".ps-band{font-family:'Fraunces',serif;font-size:30px;color:#b8952f;margin-top:4px}"
+    +".ps-banddesc{font-size:13px;color:#3a4a42;max-width:52ch;margin-top:6px;line-height:1.5}"
+    +".ps-secttitle{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b8952f;margin:24px 0 12px;border-top:1px solid #d9cfa8;padding-top:16px}"
+    +".ps-crit{border:1px solid #d8a08f;background:#faf1ee;border-radius:3px;padding:12px 14px;margin-bottom:8px}"
+    +".ps-crit .h{font-weight:600;color:#b3452e;font-size:13px;margin-bottom:3px}.ps-crit .d{font-size:13px;color:#2a3830}"
+    +".ps-dim{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #ece5cf;padding:6px 0;font-size:13px;color:#2a3830}"
+    +".ps-dim .lvl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a3e}"
+    +".ps-bn{margin-bottom:16px}.ps-bn .r{display:flex;justify-content:space-between;font-size:15px;margin-bottom:4px}"
+    +".ps-bn .r b{font-family:'Fraunces',serif;font-weight:500}.ps-bn .r span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a3e}"
+    +".ps-bn ul{margin:6px 0 0 0;padding-left:16px}.ps-bn li{font-size:13px;color:#2a3830;margin-bottom:3px}"
+    +".ps-lock{font-size:12px;color:#6a776e;font-style:italic;margin-top:10px;padding-top:8px;border-top:1px dotted #cbd3c9}"
+    +".ps-foot{display:flex;justify-content:space-between;border-top:1px solid #d9cfa8;margin-top:24px;padding-top:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a9a90}"
+    +"@media print{body{padding:0}}";
+  const w = window.open('', '_blank');
+  if(!w){ return false; }
+  const doc = '<!doctype html><html><head><meta charset="utf-8"><title>'+title+'</title>'
+    +'<base href="'+location.origin+'/">'
+    +'<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
+    +'<style>'+css+'</style></head><body>'+innerHtml+'</body></html>';
+  w.document.open(); w.document.write(doc); w.document.close();
+  const go=()=>{ try{ w.focus(); w.print(); }catch(e){} };
+  const start=()=>{ if(w.document.fonts&&w.document.fonts.ready){ w.document.fonts.ready.then(()=>setTimeout(go,80)); } else { setTimeout(go,350); } };
+  const img=w.document.querySelector('img');
+  if(img && !img.complete){ img.onload=img.onerror=start; } else { start(); }
+  return true;
+}
 
 function drawGauge(score){
   const val = el('gval');
