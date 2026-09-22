@@ -458,6 +458,10 @@ function calculate(){
   const noRevenue = revenue===0;   // genuine zero trading revenue → Limited assessment, no normal classification
   // Genuine R0 monthly opex is unusual — confirm it's real, not an input slip (non-blocking).
   if(has('opex') && opex===0 && !confirm('You entered R0 monthly operating expenses. Please confirm that the business genuinely has no monthly operating cash costs.')){ el('opex').focus(); return; }
+  // Gross profit can't exceed sales; and gross == sales means a 100% margin (no cost of sales) —
+  // valid only for a pure-services business, so confirm it's not a mix-up.
+  if(has('gross') && revenue>0 && gross>revenue){ el('form-err').textContent='Gross profit can’t be more than revenue — please check those two figures.'; el('gross').focus(); return; }
+  if(has('gross') && revenue>0 && gross===revenue && !confirm('You’ve entered the same figure for revenue and gross profit — a 100% gross margin, i.e. no direct cost of sales. That’s correct only for a pure-services business. If you sell or make products, click Cancel and enter gross profit after those costs.')){ el('gross').focus(); return; }
   el('form-err').textContent='';
   const B = SECTORS[sector];
 
@@ -481,13 +485,16 @@ function calculate(){
   const gmMid = Math.round((B.gm[0]+B.gm[1])/2);
   const gmPts = gmPct>=gmMid?2:gmPct>=B.gm[0]?1:0;
   const gmBench = 'Healthy '+gmMid+'%+ · Watch '+B.gm[0]+'–'+gmMid+'% · Act below '+B.gm[0]+'%';
+  // Gross == revenue (100% margin, no cost of sales) isn't a "healthy margin" achievement — it's
+  // just a no-COGS business model. Don't score it; show it labelled instead of a green 100%.
+  const gmNoCogs = has('revenue')&&has('gross')&&revenue>0&&gross>=revenue;
   // operating margin — rated against a STATED Carron operating-margin target (operating vs
   // operating). The sector's StatsSA net margin is passed through as context only, never the rule.
   const omPts = omPct>=12?2:omPct>=5?1:0;
   const omBench = 'Healthy 12%+ · Watch 5–12% · Act below 5% (Carron target)';
   const R = [
-    { name:"Gross margin", ok: has('revenue')&&has('gross')&&revenue>0, val:gmPct.toFixed(0)+'%',
-      bench:gmBench, pts:gmPts },
+    { name:"Gross margin", ok: has('revenue')&&has('gross')&&revenue>0&&!gmNoCogs, val: gmNoCogs?'100%':gmPct.toFixed(0)+'%',
+      note: gmNoCogs?'· no cost of sales — not scored':null, bench:gmBench, pts:gmPts },
     { name:"Operating margin", ok: has('revenue')&&has('opprofit')&&revenue>0, val:omPct.toFixed(0)+'%',
       bench:omBench, pts:omPts },
     { name:"Cash runway", ok: has('cash')&&has('opex')&&opex>0, val: runway>=12?'12+ mo':runway.toFixed(1)+' mo',
@@ -607,8 +614,9 @@ function renderResult(){
 function paintRatios(r){
   el('ratios-title').textContent = 'Your key ratios — benchmarked against '+r.sectorLabel;
   el('ratios').innerHTML = r.R.map(x=>{
-    if(!x.ok){ return '<div class="ratio na"><span class="rn"><span class="rag"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span>'
-      +'<span class="rv" style="color:var(--sage)">— <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· Not supplied</span></span></div>'; }
+    if(!x.ok){ const tail = x.note ? x.note : '· Not supplied'; const lead = x.note ? x.val : '—';
+      return '<div class="ratio na"><span class="rn"><span class="rag"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span>'
+      +'<span class="rv" style="color:var(--sage)">'+lead+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">'+tail+'</span></span></div>'; }
     const [c,lab]=ragDot(x.pts);
     return '<div class="ratio"><span class="rn"><span class="rag" style="background:'+c+'"></span><span>'+x.name+'<span class="bench">'+x.bench+'</span></span></span><span class="rv" style="color:'+c+'">'+x.val+' <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)">· '+lab+'</span></span></div>';
   }).join('');
