@@ -354,10 +354,10 @@ function runCalc(cb){
 
 /* ten inputs — grouped by statement (bs = balance sheet, pl = profit & loss) */
 const INPUTS = [
-  { id:"revenue",  group:"pl", label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT",
-    tip:"Your total sales for the last 12 months, before VAT. It's the top line of your income statement (profit &amp; loss). <b>Annual figure.</b>" },
-  { id:"gross",    group:"pl", label:"Gross profit", hint:"Revenue minus direct costs (COGS)",
-    tip:"Revenue minus the direct cost of what you sold (cost of sales / COGS). On the P&amp;L it's a line or two below revenue. <b>Annual.</b> No cost of sales? Gross profit can equal revenue." },
+  { id:"revenue",  group:"pl", label:"Annual revenue (net turnover)", hint:"Last 12 months — net sales, excl. VAT, discounts & returns",
+    tip:"Your <b>net sales</b> for the last 12 months — after trade/settlement discounts and returns, and excluding VAT. This is the revenue (turnover) line at the top of your income statement, which is already net. Don't use gross sales before discounts. <b>Annual figure.</b>" },
+  { id:"gross",    group:"pl", label:"Gross profit", hint:"Net sales minus direct costs (COGS)",
+    tip:"Net sales minus the direct cost of what you sold (cost of sales / COGS). On the P&amp;L it's a line or two below revenue. <b>Annual.</b> No cost of sales? Gross profit can equal revenue." },
   { id:"opprofit", group:"pl", label:"Operating profit", hint:"Profit before interest & tax (roughly)",
     tip:"Profit from trading before interest and tax — revenue less all operating costs. Near the bottom of the P&amp;L (often &ldquo;operating profit&rdquo; or EBIT). <b>Annual.</b> Enter it as it appears; it doesn't need to equal revenue minus the other boxes here." },
   { id:"ownerpay", group:"pl", label:"Owner's remuneration", hint:"Per year — salary, pension/company contributions and personal costs the business pays for you (i.e. already in operating expenses). Do NOT include dividends or drawings taken from profit.",
