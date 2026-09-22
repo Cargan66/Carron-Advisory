@@ -694,6 +694,17 @@ const PDF_CSS=".pdfdoc{background:#fff;color:#12241a;font-family:'Inter',system-
   +".pdfdoc .ps-methods{font-size:11px;color:#3a4a40;line-height:1.65}.pdfdoc .ps-methods strong{color:#16412f}"
   +".pdfdoc .ps-disc{font-size:10px;color:#6a776e;margin-top:16px;line-height:1.5}"
   +".pdfdoc .ps-foot{margin-top:22px;padding-top:12px;border-top:1px solid #16412f;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#5b6b60;display:flex;justify-content:space-between;gap:12px}";
+// Force a real file download (download attribute on a blob URL) — never opens the PDF
+// in the current tab, so the customer stays on the result page on every browser.
+function saveBlob(blob, filename){
+  try{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  }catch(e){}
+}
 function downloadPdf(filename, innerHtml, btn){
   const label = btn ? btn.textContent : '';
   if(btn){ btn.disabled=true; btn.textContent='Preparing your PDF…'; }
@@ -704,9 +715,10 @@ function downloadPdf(filename, innerHtml, btn){
     stage.innerHTML='<style>'+PDF_CSS+'</style><div class="pdfdoc">'+innerHtml+'</div>';
     document.body.appendChild(stage);
     const doc=stage.querySelector('.pdfdoc');
-    const run=()=>{ window.html2pdf().set({margin:[10,10,12,10],filename:filename,image:{type:'jpeg',quality:0.96},
+    const run=()=>{ window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},
         html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}})
-      .from(doc).save().then(()=>{ stage.remove(); restore(); }).catch(()=>{ stage.remove(); restore(); }); };
+      .from(doc).outputPdf('blob').then(function(blob){ saveBlob(blob, filename); stage.remove(); restore(); })
+      .catch(function(){ stage.remove(); restore(); }); };
     const img=stage.querySelector('img');
     const go=()=>{ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,60)); };
     if(img && !img.complete){ img.onload=img.onerror=go; } else { go(); }

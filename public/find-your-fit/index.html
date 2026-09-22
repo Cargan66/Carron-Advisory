@@ -375,6 +375,15 @@ function makeRef(prefix){
   return prefix+'-'+ymd+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
 }
 let _h2p=false,_h2pLoading=false;
+function saveBlob(blob, filename){
+  try{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  }catch(e){}
+}
 function withHtml2Pdf(cb,onErr){
   if(_h2p){ cb(); return; }
   if(_h2pLoading){ setTimeout(()=>withHtml2Pdf(cb,onErr),150); return; }
@@ -427,9 +436,10 @@ function downloadFit(btn){
     stage.innerHTML='<style>'+PDF_CSS+'</style><div class="pdfdoc">'+buildFitSheet(PENDING)+'</div>';
     document.body.appendChild(stage);
     const docEl=stage.querySelector('.pdfdoc');
-    const run=()=>{ window.html2pdf().set({margin:[10,10,12,10],filename:'Carron-Find-Your-Fit-'+(REF||'result')+'.pdf',image:{type:'jpeg',quality:0.96},
+    const run=()=>{ window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},
         html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}})
-      .from(docEl).save().then(()=>{ stage.remove(); restore(); }).catch(()=>{ stage.remove(); restore(); }); };
+      .from(docEl).outputPdf('blob').then(function(blob){ saveBlob(blob,'Carron-Find-Your-Fit-'+(REF||'result')+'.pdf'); stage.remove(); restore(); })
+      .catch(function(){ stage.remove(); restore(); }); };
     const img=stage.querySelector('img');
     const go=()=>{ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,60)); };
     if(img && !img.complete){ img.onload=img.onerror=go; } else { go(); }
