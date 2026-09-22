@@ -87,18 +87,20 @@ async function ensureLeads(env) {
   await env.DB.prepare(
     `CREATE TABLE IF NOT EXISTS leads (
        id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT NOT NULL, tool TEXT NOT NULL,
-       name TEXT, email TEXT, result TEXT, detail TEXT, consent INTEGER, country TEXT )`
+       reference TEXT, name TEXT, email TEXT, result TEXT, detail TEXT, consent INTEGER, country TEXT )`
   ).run();
+  // Migrate leads tables that predate the reference column (throws once added — ignore).
+  try { await env.DB.prepare("ALTER TABLE leads ADD COLUMN reference TEXT").run(); } catch (e) { /* already there */ }
 }
 
 async function insertLead(env, request, f) {
   await ensureLeads(env);
   await env.DB.prepare(
-    `INSERT INTO leads (created_at, tool, name, email, result, detail, consent, country)
-     VALUES (?,?,?,?,?,?,?,?)`
+    `INSERT INTO leads (created_at, tool, reference, name, email, result, detail, consent, country)
+     VALUES (?,?,?,?,?,?,?,?,?)`
   )
     .bind(
-      new Date().toISOString(), str(f.tool, 40), str(f.name, 120), str(f.email, 200),
+      new Date().toISOString(), str(f.tool, 40), str(f.reference, 40), str(f.name, 120), str(f.email, 200),
       str(f.result, 200), str(f.detail, 8000), f.consent ? 1 : 0, (request.cf && request.cf.country) || ""
     )
     .run();
@@ -111,11 +113,23 @@ async function handleLead(request, env) {
     if (!ALLOWED_TOOLS.includes(tool)) return json({ ok: false, error: "unknown tool" }, 400);
     if (!/.+@.+\..+/.test(email)) return json({ ok: false, error: "invalid email" }, 400);
     if (!data.consent) return json({ ok: false, error: "consent required" }, 400);
-    await insertLead(env, request, { tool, name: data.name, email, result: data.result, detail: data.detail, consent: data.consent });
+    await insertLead(env, request, { tool, reference: data.reference, name: data.name, email, result: data.result, detail: data.detail, consent: data.consent });
     return json({ ok: true });
   } catch (e) {
     return json({ ok: false, error: "server error" }, 500);
   }
+}
+
+async function ensureSubmissions(env) {
+  await env.DB.prepare(
+    `CREATE TABLE IF NOT EXISTS submissions (
+       id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT NOT NULL,
+       reference TEXT, sector TEXT, score INTEGER, band TEXT,
+       value_low INTEGER, value_high INTEGER, net_asset_value INTEGER,
+       ratios TEXT, name TEXT, email TEXT, missing_count INTEGER, consent INTEGER, country TEXT )`
+  ).run();
+  // Migrate submissions tables that predate the reference column (throws once added — ignore).
+  try { await env.DB.prepare("ALTER TABLE submissions ADD COLUMN reference TEXT").run(); } catch (e) { /* already there */ }
 }
 
 async function handleHealthCheck(request, env) {
@@ -125,14 +139,15 @@ async function handleHealthCheck(request, env) {
     if (!/.+@.+\..+/.test(email)) return json({ ok: false, error: "invalid email" }, 400);
     if (!data.consent) return json({ ok: false, error: "consent required" }, 400);
 
+    await ensureSubmissions(env);
     await env.DB.prepare(
       `INSERT INTO submissions
-        (created_at, sector, score, band, value_low, value_high, net_asset_value,
+        (created_at, reference, sector, score, band, value_low, value_high, net_asset_value,
          ratios, name, email, missing_count, consent, country)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
     )
       .bind(
-        new Date().toISOString(), str(data.sector, 80), int(data.score), str(data.band, 40),
+        new Date().toISOString(), str(data.reference, 40), str(data.sector, 80), int(data.score), str(data.band, 40),
         int(data.value_low), int(data.value_high), int(data.net_asset_value), str(data.ratios, 4000),
         str(data.name, 120), email, int(data.missing_count), data.consent ? 1 : 0,
         (request.cf && request.cf.country) || ""
@@ -141,7 +156,7 @@ async function handleHealthCheck(request, env) {
 
     try {
       await insertLead(env, request, {
-        tool: "health-check", name: data.name, email,
+        tool: "health-check", reference: data.reference, name: data.name, email,
         result: int(data.score) + "/100 — " + str(data.band, 40),
         detail: JSON.stringify({
           sector: str(data.sector, 80), value_low: int(data.value_low),
