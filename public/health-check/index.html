@@ -68,6 +68,13 @@
   .col-h span{font-family:'Inter',sans-serif;font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:none;color:var(--sage)}
   .field label{display:block;font-size:14px;color:var(--cream);margin-bottom:6px;font-weight:500}
   .field .hint{color:var(--sage);font-size:12px;font-weight:400}
+  .tipbtn{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;flex:none;vertical-align:middle;border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:50%;font-size:11px;font-weight:700;line-height:1;font-style:normal;cursor:pointer;padding:0;transition:background .15s,color .15s}
+  .tipbtn:hover,.tipbtn[aria-expanded="true"]{background:var(--gold);color:#0f2218}
+  .tip{display:none;margin:0 0 8px;background:rgba(200,168,75,.09);border:1px solid rgba(200,168,75,.32);border-radius:6px;padding:9px 12px;font-size:12.5px;line-height:1.55;color:var(--cream)}
+  .tip.open{display:block;animation:tipin .16s ease}
+  .tip b{color:var(--gold-light);font-weight:600}
+  .tip .warn{color:var(--gold-light);font-weight:700}
+  @keyframes tipin{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
   .inp{display:flex;align-items:center;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);border-radius:2px;padding:0 14px;transition:border-color .18s}
   .inp:focus-within{border-color:var(--gold)}
   .inp .pre{color:var(--sage);font-size:15px;padding-right:8px}
@@ -197,7 +204,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   <!-- CALCULATOR -->
   <section id="calc" class="panel hidden">
     <div class="eyebrow">Your numbers</div>
-    <p class="lede" style="margin-bottom:14px">Annual figures unless noted. Estimates are fine — you can refine later.</p>
+    <p class="lede" style="margin-bottom:14px">Annual figures, <strong style="color:var(--cream)">except monthly operating expenses</strong> (the one monthly box, clearly marked). Take each straight from your accounts — they don't need to add up to each other here. Tap the <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1px solid var(--gold);border-radius:50%;color:var(--gold);font-size:11px;font-weight:700;line-height:1">i</span> on any box for help finding it. Estimates are fine.</p>
     <div style="border:1px solid var(--gold);background:rgba(200,168,75,.07);border-radius:6px;padding:12px 15px;margin-bottom:22px;font-size:13.5px;color:var(--sage);line-height:1.5">
       <strong style="color:var(--gold-light)">Enter <span style="font-family:ui-monospace,monospace;background:rgba(255,255,255,.08);padding:0 5px;border-radius:3px">0</span> where a figure is genuinely nil.</strong>
       A box left <strong style="color:var(--cream)">blank</strong> is treated as “not supplied” and skipped in your score — so if something really is zero (e.g. no debt), type <strong style="color:var(--cream)">0</strong> to record it. That keeps your result accurate.
@@ -347,20 +354,42 @@ function runCalc(cb){
 
 /* ten inputs — grouped by statement (bs = balance sheet, pl = profit & loss) */
 const INPUTS = [
-  { id:"revenue",  group:"pl", label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT" },
-  { id:"gross",    group:"pl", label:"Gross profit", hint:"Revenue minus direct costs (COGS)" },
-  { id:"opprofit", group:"pl", label:"Operating profit", hint:"Profit before interest & tax (roughly)" },
-  { id:"ownerpay", group:"pl", label:"Owner's remuneration", hint:"Per year — salary, pension/company contributions and personal costs the business pays for you (i.e. already in operating expenses). Do NOT include dividends or drawings taken from profit." },
-  { id:"opex",     group:"pl", label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include your own pay), overheads" },
-  { id:"cash",     group:"bs", label:"Cash in the bank", hint:"Right now" },
-  { id:"debtors",  group:"bs", label:"Debtors", hint:"Money customers owe you" },
-  { id:"assets",   group:"bs", label:"Other business assets", hint:"Equipment, vehicles, stock, property — excl. the cash & debtors above" },
-  { id:"creditors",group:"bs", label:"Creditors", hint:"Money you owe suppliers" },
-  { id:"debt",     group:"bs", label:"Total debt / loans", hint:"Outstanding balance" },
+  { id:"revenue",  group:"pl", label:"Annual revenue (turnover)", hint:"Last 12 months, excl. VAT",
+    tip:"Your total sales for the last 12 months, before VAT. It's the top line of your income statement (profit &amp; loss). <b>Annual figure.</b>" },
+  { id:"gross",    group:"pl", label:"Gross profit", hint:"Revenue minus direct costs (COGS)",
+    tip:"Revenue minus the direct cost of what you sold (cost of sales / COGS). On the P&amp;L it's a line or two below revenue. <b>Annual.</b> No cost of sales? Gross profit can equal revenue." },
+  { id:"opprofit", group:"pl", label:"Operating profit", hint:"Profit before interest & tax (roughly)",
+    tip:"Profit from trading before interest and tax — revenue less all operating costs. Near the bottom of the P&amp;L (often &ldquo;operating profit&rdquo; or EBIT). <b>Annual.</b> Enter it as it appears; it doesn't need to equal revenue minus the other boxes here." },
+  { id:"ownerpay", group:"pl", label:"Owner's remuneration", hint:"Per year — salary, pension/company contributions and personal costs the business pays for you (i.e. already in operating expenses). Do NOT include dividends or drawings taken from profit.",
+    tip:"What the business pays <b>you</b> in a year — salary, pension/medical it pays for you, and personal costs it covers. This already sits inside operating expenses. <b>Annual.</b> Do NOT include dividends or drawings taken from profit. None? Enter 0." },
+  { id:"opex",     group:"pl", label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include your own pay), overheads",
+    tip:"<b class='warn'>This box is MONTHLY, not annual.</b> Your total monthly running costs — rent, salaries (including your own pay), overheads. We use it to work out how many months your cash would last. Easiest way: take annual operating expenses and divide by 12." },
+  { id:"cash",     group:"bs", label:"Cash in the bank", hint:"Right now",
+    tip:"Money in your business bank account(s) right now. From your latest balance sheet or bank balance." },
+  { id:"debtors",  group:"bs", label:"Debtors", hint:"Money customers owe you",
+    tip:"Money customers owe you but haven't paid yet (accounts receivable / trade debtors). From the balance sheet. Cash-only business? Enter 0." },
+  { id:"assets",   group:"bs", label:"Other business assets", hint:"Equipment, vehicles, stock, property — excl. the cash & debtors above",
+    tip:"Everything else the business owns — equipment, vehicles, stock/inventory, property. <b>Exclude</b> the cash and debtors you've already entered above. From the balance sheet." },
+  { id:"creditors",group:"bs", label:"Creditors", hint:"Money you owe suppliers",
+    tip:"Money you owe suppliers but haven't paid yet (accounts payable / trade creditors). From the balance sheet. None outstanding? Enter 0." },
+  { id:"debt",     group:"bs", label:"Total debt / loans", hint:"Outstanding balance",
+    tip:"The outstanding balance on loans, overdraft, financing and credit facilities. From the balance sheet. No debt? Enter 0." },
 ];
 const fieldHTML = f =>
-  '<div class="field"><label for="'+f.id+'">'+f.label+' <span class="hint">· '+f.hint+'</span></label>'
+  '<div class="field"><label for="'+f.id+'">'+f.label+' <span class="hint">· '+f.hint+'</span>'
+  + (f.tip ? ' <button type="button" class="tipbtn" aria-label="Help with '+f.label.replace(/"/g,'')+'" aria-expanded="false" onclick="toggleTip(this)">i</button>' : '')
+  + '</label>'
+  + (f.tip ? '<div class="tip" role="note">'+f.tip+'</div>' : '')
   +'<div class="inp"><span class="pre">R</span><input id="'+f.id+'" inputmode="numeric" placeholder="—  (type 0 if nil)" oninput="fmtField(this)"></div></div>';
+function toggleTip(btn){
+  const field = btn.closest('.field');
+  const tip = field ? field.querySelector('.tip') : null;
+  if(!tip) return;
+  const willOpen = !tip.classList.contains('open');
+  document.querySelectorAll('.tip.open').forEach(t=>t.classList.remove('open'));
+  document.querySelectorAll('.tipbtn[aria-expanded="true"]').forEach(b=>b.setAttribute('aria-expanded','false'));
+  if(willOpen){ tip.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+}
 const COLS = [
   { key:"bs", title:"Balance sheet", note:"What you own & owe" },
   { key:"pl", title:"Profit &amp; loss", note:"How you trade" },
