@@ -286,7 +286,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     <div class="valbox">
       <div class="vr" id="val-range"></div>
       <div class="vm" id="val-methods"></div>
-      <div class="valdisc">Indicative and educational only — a very rough guide from simple rules of thumb, not a valuation. A real valuation depends on your industry, growth, assets, working capital, contracts, risk and buyer appetite, and should be prepared by a qualified adviser.</div>
+      <div class="valdisc"><strong style="color:var(--cream)">Indicative only — not a valuation.</strong> This is a rough planning guide from simple rules of thumb, and it could change materially under a formal review. Its purpose is to show where value is being built or lost so you can <strong style="color:var(--cream)">strengthen the business</strong> — not to put a price on it, and it should not be taken at face value. Please don't rely on this figure for selling, raising finance or any transaction; a formal valuation by a qualified adviser depends on your industry, growth, how reliable the profit is, assets, working capital, contracts, risk and buyer appetite.</div>
     </div>
     </div>
 
@@ -748,8 +748,9 @@ function printResults(btn){
     +'<p class="ps-benchnote">Benchmarks: operating margin vs your sector’s net profit margin (net profit after tax / turnover) from '+SRC_SA+'. Gross margin, cash, debt, liquidity and solvency use generally-accepted standards (StatsSA does not publish these by sector). StatsSA excludes agriculture, financial services and education — those use a proxy or generally-accepted standard. Reviewed '+REVIEW.done+' · next review '+REVIEW.next+'.</p>'
     +'<h3>Indicative business value</h3><div class="ps-val">'+rangeTxt+'</div>'
     +'<div class="ps-methods">'+methods+'</div>'
-    +'<p class="ps-disc">Indicative and educational only — a very rough guide from simple rules of thumb, not a valuation. '
-    +'A real valuation depends on your industry, growth, assets, working capital, contracts, risk and buyer appetite, and should be prepared by a qualified adviser.</p>'
+    +'<p class="ps-disc"><strong>Indicative only — not a valuation.</strong> A rough planning guide from simple rules of thumb that could change materially under a formal review. '
+    +'Its purpose is to show where value is being built or lost so you can strengthen the business — not to put a price on it, and it should not be taken at face value. '
+    +'Don’t rely on this figure for selling, raising finance or any transaction; a formal valuation by a qualified adviser depends on your industry, growth, profit reliability, assets, working capital, contracts, risk and buyer appetite.</p>'
     +'<div class="ps-foot"><span>Carron Business Advisory · info@carron.co.za</span>'
     +'<span>Fractional CFO for SA SMEs · Prepared '+d+'</span></div>';
   // Download the report as a FILE — the customer stays on the result page (works on phone).

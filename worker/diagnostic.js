@@ -636,7 +636,7 @@ function renderValuation(report, valTxt) {
     <p class="dg-val-top"><strong>Indicative operating-business value ${valTxt}</strong> — the value of the operating business <em>before</em> debt and buyer adjustments; set by the most defensible method for your numbers, not simply the highest.</p>
     <ul class="dg-val-list">${rows.join("")}</ul>
     ${revWhy}${addback}${debtNote}
-    <p class="dg-val-note">Indicative and educational only — a planning range from standard rules of thumb, not a formal valuation. The multiples reflect a small owner-managed business; a real buyer's offer depends on growth, how reliable the profit is, the assets, contracts, debt, and how much of it depends on you personally.</p>
+    <p class="dg-val-note">Indicative and educational only — a planning range from standard rules of thumb, not a formal valuation, and it could change materially under a formal review. Its purpose is to show where value is being built or lost so you can strengthen the business; it should not be taken at face value for selling, raising finance or any transaction. The multiples reflect a small owner-managed business; a real buyer's offer depends on growth, how reliable the profit is, the assets, contracts, debt, and how much of it depends on you personally.</p>
   </div>`;
 }
 
