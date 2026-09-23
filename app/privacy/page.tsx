@@ -50,7 +50,7 @@ export default function PrivacyPage() {
                   info@carron.co.za
                 </a>
                 <br />
-                <span className="text-bone-dim">A postal address is available on request.</span>
+                <strong className="text-white">Postal address:</strong> Postnet Box 161, Private Bag X31, Knysna, 6570
               </address>
             </Block>
 
@@ -227,7 +227,7 @@ export default function PrivacyPage() {
                 <a href="mailto:info@carron.co.za" className="text-gold hover:text-gold-light">
                   info@carron.co.za
                 </a>
-                . A postal address is available on request.
+                , or by post at Postnet Box 161, Private Bag X31, Knysna, 6570.
               </p>
               <p>
                 You also have the right to lodge a complaint with the regulator:

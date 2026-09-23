@@ -89,7 +89,7 @@ export default function PaiaPage() {
                   carron.co.za
                 </a>
                 <br />
-                <span className="text-bone-dim">A postal address is available on request.</span>
+                <strong className="text-white">Postal address:</strong> Postnet Box 161, Private Bag X31, Knysna, 6570
               </address>
               <p>
                 All PAIA requests and privacy queries should be directed to the Information Officer at
