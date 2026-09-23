@@ -65,6 +65,8 @@ export default {
       return request.method === "POST" ? handleHealthCheck(request, env) : methodNotAllowed();
     if (p === "/api/lead")
       return request.method === "POST" ? handleLead(request, env) : methodNotAllowed();
+    if (p === "/api/admin/backfill")
+      return handleBackfill(request, env);
 
     // Paid-product flow, shared across products (diagnostic, plan).
     const m = p.match(/^\/api\/(diagnostic|plan)\/(create|get|webhook|testpay)$/);
@@ -87,20 +89,24 @@ async function ensureLeads(env) {
   await env.DB.prepare(
     `CREATE TABLE IF NOT EXISTS leads (
        id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT NOT NULL, tool TEXT NOT NULL,
-       reference TEXT, name TEXT, email TEXT, result TEXT, detail TEXT, consent INTEGER, country TEXT )`
+       reference TEXT, score INTEGER, band TEXT,
+       name TEXT, email TEXT, result TEXT, detail TEXT, consent INTEGER, country TEXT )`
   ).run();
-  // Migrate leads tables that predate the reference column (throws once added — ignore).
-  try { await env.DB.prepare("ALTER TABLE leads ADD COLUMN reference TEXT").run(); } catch (e) { /* already there */ }
+  // Migrate older leads tables — each ALTER throws once the column exists (ignore).
+  const cols = ["reference TEXT", "score INTEGER", "band TEXT"];
+  for (const c of cols) { try { await env.DB.prepare("ALTER TABLE leads ADD COLUMN " + c).run(); } catch (e) { /* already there */ } }
 }
 
 async function insertLead(env, request, f) {
   await ensureLeads(env);
+  // score: 90-Day /100 or Health score (NULL for Find Your Fit). band: the band or fit tier.
+  const score = (f.score === null || f.score === undefined || f.score === "") ? null : int(f.score);
   await env.DB.prepare(
-    `INSERT INTO leads (created_at, tool, reference, name, email, result, detail, consent, country)
-     VALUES (?,?,?,?,?,?,?,?,?)`
+    `INSERT INTO leads (created_at, tool, reference, score, band, name, email, result, detail, consent, country)
+     VALUES (?,?,?,?,?,?,?,?,?,?,?)`
   )
     .bind(
-      new Date().toISOString(), str(f.tool, 40), str(f.reference, 40), str(f.name, 120), str(f.email, 200),
+      new Date().toISOString(), str(f.tool, 40), str(f.reference, 40), score, str(f.band, 60), str(f.name, 120), str(f.email, 200),
       str(f.result, 200), str(f.detail, 8000), f.consent ? 1 : 0, (request.cf && request.cf.country) || ""
     )
     .run();
@@ -113,7 +119,7 @@ async function handleLead(request, env) {
     if (!ALLOWED_TOOLS.includes(tool)) return json({ ok: false, error: "unknown tool" }, 400);
     if (!/.+@.+\..+/.test(email)) return json({ ok: false, error: "invalid email" }, 400);
     if (!data.consent) return json({ ok: false, error: "consent required" }, 400);
-    await insertLead(env, request, { tool, reference: data.reference, name: data.name, email, result: data.result, detail: data.detail, consent: data.consent });
+    await insertLead(env, request, { tool, reference: data.reference, score: data.score, band: data.band, name: data.name, email, result: data.result, detail: data.detail, consent: data.consent });
     return json({ ok: true });
   } catch (e) {
     return json({ ok: false, error: "server error" }, 500);
@@ -164,7 +170,7 @@ async function handleHealthCheck(request, env) {
 
     try {
       await insertLead(env, request, {
-        tool: "health-check", reference: data.reference, name: data.name, email,
+        tool: "health-check", reference: data.reference, score: data.score, band: data.band, name: data.name, email,
         result: int(data.score) + "/100 — " + str(data.band, 40),
         detail: JSON.stringify({
           sector: str(data.sector, 80), value_low: int(data.value_low),
@@ -178,6 +184,75 @@ async function handleHealthCheck(request, env) {
     return json({ ok: true });
   } catch (e) {
     return json({ ok: false, error: "server error" }, 500);
+  }
+}
+
+// One-off backfill: populate the new index columns on historical rows from the data
+// already stored (submissions.ratios JSON; leads.result string). Idempotent — only
+// touches rows still missing the values. Gated by the ADMIN_KEY Cloudflare secret;
+// returns 404 unless it's set and matches, and returns only counts (no personal data).
+function firstNum(v) {
+  const m = String(v == null ? "" : v).replace(/[, ]/g, "").match(/-?\d+(\.\d+)?/);
+  return m ? parseFloat(m[0]) : null;
+}
+function parseRatios(jsonStr) {
+  let arr;
+  try { arr = JSON.parse(jsonStr); } catch (e) { return null; }
+  if (!Array.isArray(arr)) return null;
+  const out = { g: null, o: null, r: null, d: null, l: null, s: null };
+  for (const it of arr) {
+    if (!it || !it.name || !it.status || it.status === "Not supplied") continue;
+    const n = String(it.name).toLowerCase(), v = firstNum(it.val);
+    if (n.indexOf("gross margin") > -1) out.g = v;
+    else if (n.indexOf("operating margin") > -1) out.o = v;
+    else if (n.indexOf("cash runway") > -1) out.r = v;
+    else if (n.indexOf("debt to revenue") > -1) out.d = v;
+    else if (n.indexOf("liquidity") > -1) out.l = v;
+    else if (n.indexOf("solvency") > -1) out.s = v;
+  }
+  return out;
+}
+function parseResult(result) {
+  const s = String(result || "").trim();
+  const m = s.match(/^(\d+)\s*\/\s*100\s*[—–-]\s*(.+)$/);
+  if (m) return { score: parseInt(m[1], 10), band: m[2].trim().slice(0, 60) };
+  return { score: null, band: s ? s.slice(0, 60) : null };
+}
+async function handleBackfill(request, env) {
+  const key = new URL(request.url).searchParams.get("key") || "";
+  if (!env.ADMIN_KEY || key !== env.ADMIN_KEY) return new Response("Not found", { status: 404 });
+  try {
+    await ensureSubmissions(env);
+    await ensureLeads(env);
+    let subs = 0, leads = 0;
+
+    const s = await env.DB.prepare(
+      `SELECT id, ratios FROM submissions
+        WHERE ratios IS NOT NULL AND gross_margin_pct IS NULL AND operating_margin_pct IS NULL
+          AND cash_runway_months IS NULL AND debt_to_revenue IS NULL
+          AND liquidity_cover IS NULL AND solvency_ratio IS NULL`
+    ).all();
+    for (const row of (s.results || [])) {
+      const ix = parseRatios(row.ratios);
+      if (!ix) continue;
+      await env.DB.prepare(
+        `UPDATE submissions SET gross_margin_pct=?, operating_margin_pct=?, cash_runway_months=?,
+           debt_to_revenue=?, liquidity_cover=?, solvency_ratio=? WHERE id=?`
+      ).bind(ix.g, ix.o, ix.r, ix.d, ix.l, ix.s, row.id).run();
+      subs++;
+    }
+
+    const l = await env.DB.prepare(
+      "SELECT id, result FROM leads WHERE result IS NOT NULL AND score IS NULL AND band IS NULL"
+    ).all();
+    for (const row of (l.results || [])) {
+      const pr = parseResult(row.result);
+      await env.DB.prepare("UPDATE leads SET score=?, band=? WHERE id=?").bind(pr.score, pr.band, row.id).run();
+      leads++;
+    }
+    return json({ ok: true, submissions_updated: subs, leads_updated: leads });
+  } catch (e) {
+    return json({ ok: false, error: String((e && e.message) || e) }, 500);
   }
 }
 

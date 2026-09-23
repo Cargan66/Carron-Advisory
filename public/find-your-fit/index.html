@@ -460,7 +460,7 @@ function unlock(){
   const picks=answers.map((a,i)=> (i+1)+'. '+QUESTIONS[i].q+' → '+(a===null?'—':QUESTIONS[i].opts[a][0])).join('\n');
   // record the completion to our database (summary only; best-effort)
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({tool:'find-your-fit',reference:REF,name:'',email:email,result:tier,detail:JSON.stringify({reference:REF,tier:tier,answers:picks}),consent:true})}).catch(()=>{}); }catch(e){}
+    body:JSON.stringify({tool:'find-your-fit',reference:REF,band:tier,name:'',email:email,result:tier,detail:JSON.stringify({reference:REF,tier:tier,answers:picks}),consent:true})}).catch(()=>{}); }catch(e){}
   // notify the owner via Web3Forms
   try{ fetch('https://api.web3forms.com/submit',{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},

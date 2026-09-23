@@ -957,7 +957,7 @@ function unlock(){
 
   // record the completion to our database (summary only; best-effort)
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({tool:'90-day-test',reference:REF,name:'',email:email,result:score+'/100 — '+band,detail:JSON.stringify({reference:REF,score:score,band:band,summary:resultSummary()}),consent:true})}).catch(()=>{}); }catch(e){}
+    body:JSON.stringify({tool:'90-day-test',reference:REF,score:score,band:band,name:'',email:email,result:score+'/100 — '+band,detail:JSON.stringify({reference:REF,score:score,band:band,summary:resultSummary()}),consent:true})}).catch(()=>{}); }catch(e){}
 
   if(R795_PLAN_LIVE){
     // Paid mode: offer the full plan for R795.
