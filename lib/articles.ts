@@ -39,6 +39,180 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "you-bought-the-stock",
+    cover: "/images/you-bought-the-stock.png",
+    ogImage: "/images/you-bought-the-stock.png",
+    pdf: "/articles/Carron_You_Bought_the_Stock.pdf",
+    title: "You Bought the Stock. Can You Turn It Back Into Cash?",
+    category: "Cash Flow",
+    excerpt:
+      "Our September 2026 special report: inventory can support reliable delivery and profitable sales — or quietly absorb cash, conceal poor purchasing decisions and preserve margins that will never be realised. A practical framework for SME owners: the three tests every stockholding must pass, why stock accumulates, recorded cost versus recoverable value, and a monthly stock and cash review.",
+    date: "2026-09-23",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `When inventory stops moving, cash stops moving. The objective is not the lowest possible stock level. It is the right stock, in the right quantity, for a reason management can defend.
+
+## Executive summary
+
+Inventory can support reliable delivery and profitable sales. It can also absorb cash quietly, conceal poor purchasing decisions and preserve margins that will never be realised. The warning sign is not simply that stock has increased. It is that management cannot explain which sales the additional stock protects, how quickly it should convert to cash, or what it is realistically worth today.
+
+- Separate operationally necessary stock from excess, slow-moving, customer-specific and obsolete stock.
+- Measure ageing, movement, margin and cash exposure together rather than relying on the total stock value.
+- Assign a commercial action and an owner to every material stock exception before it becomes a year-end write-off.
+
+**Decision principle:** do not ask only whether the stock exists. Ask what demand supports it, what cash remains tied up in it, and what the business could recover if it had to sell it now.
+
+## Stock has two jobs
+
+It must support the operation and still convert into cash at an acceptable margin.
+
+**Inventory is not automatically a problem.** A product business cannot operate with no stock. Raw materials may protect a production schedule. Spare parts may protect service commitments. Finished goods may protect delivery promises. Imported components may require longer lead times and larger orders than management would prefer.
+
+The financial mistake is to treat every rand of stock as equally useful. Two items can carry the same accounting value while one sells every week and the other has not moved for a year. One protects profitable customer demand. The other consumes funding, space and management attention while its recoverable value declines.
+
+| Test | Question management must answer |
+| --- | --- |
+| Operational | Which sale, production requirement or service commitment does this stock protect? |
+| Commercial | At what selling price and contribution can it realistically be converted? |
+| Financial | How much cash is tied up, for how long, and what else could that funding support? |
+
+**The hidden funding decision.** Every purchase order is also a funding decision. Cash leaves before the stock is sold and, where customers buy on credit, before the eventual invoice is collected. The business therefore funds both the days in stock and the days in debtors. A purchasing saving can be overwhelmed by the additional time that cash remains unavailable.
+
+**CFO test:** if management cannot connect a material stockholding to expected demand, lead time, service risk or a documented strategic reason, it is not yet a controlled investment.
+
+## Why stock accumulates
+
+Excess inventory is usually the result of several reasonable decisions that were never reviewed together.
+
+| Cause | What happens | Financial risk |
+| --- | --- | --- |
+| Buying for a discount | A larger order lowers the unit price | Cash, storage and obsolescence can cost more than the discount saved |
+| Forecast optimism | Purchasing follows sales expectations that do not materialise | Stock cover rises while demand and cash collection remain weaker |
+| Minimum order quantities | The supplier will not accept the quantity actually required | The business funds the supplier's production economics |
+| Customer-specific orders | Stock is bought before the customer commitment is secure | Cancellation or delay leaves material with a narrow resale market |
+| Poor records | The system balance is trusted without regular counts and movement review | Management buys stock it already owns or discovers shortages too late |
+| Avoiding a difficult decision | Old stock stays at full value because a write-down feels like admitting a mistake | Profit and assets remain overstated while the recovery options become worse |
+
+**Buying ahead is not always wrong.** A deliberate buffer can be commercially sound where lead times are long, supply is unreliable, price risk is material or the cost of a stock-out is high. The discipline is to document the reason, maximum quantity, review date and exit plan. "We may need it" is not enough when the business is borrowing to carry it.
+
+South African producers also face changing input prices and uneven demand. In that environment, a stock decision should be based on the economics of the specific item rather than a general instruction to buy ahead or cut stock.
+
+## The value in the accounts may not be recoverable
+
+Cost records what the business spent. It does not guarantee what the business can recover.
+
+Inventory accounting is subject to formal rules. Under IFRS principles, inventory is measured at the lower of cost and net realisable value. Net realisable value reflects the expected selling price in the ordinary course of business, less the costs still required to complete and sell the item. A slow-moving item does not automatically have no value, but its historical cost cannot be defended merely because it is still physically present.
+
+**Evidence management should assemble:**
+
+- Ageing and last movement date by item, not only by broad category.
+- Recent selling prices, discounts, returns and actual gross contribution.
+- Demand forecasts supported by orders, customer discussions or consumption history.
+- Costs still required to finish, repair, repackage, transport or sell the item.
+- Alternative uses, substitute demand and credible disposal routes.
+- Physical condition, shelf life, technical changes and regulatory restrictions.
+
+**The tax result may differ.** This report does not provide tax advice. A write-down in management or accounting records does not by itself settle the income-tax treatment. SARS requires objective support for a diminution in the value of closing stock and warns against arbitrary write-off percentages for slow-moving or obsolete items. Proper tax advice must be sought from a registered tax practitioner before a business relies on a stock write-down or adopts a tax treatment.
+
+| Value | What it means |
+| --- | --- |
+| Recorded cost | What was capitalised under the applicable accounting policy |
+| Net realisable value | Expected selling price less the estimated costs to complete and sell |
+| Cash recovery | What the business expects to collect, and when, after clearance costs and customer terms |
+| Tax value | The amount supportable under the relevant tax rules and evidence |
+
+**Important:** this article does not determine the accounting or tax value of a specific item and does not provide tax advice. Material adjustments require item-level evidence, and proper tax advice must be sought from a registered tax practitioner.
+
+## Worked example: a discount that absorbs cash
+
+A lower unit cost is not automatically a better commercial outcome.
+
+A distributor normally buys 1,000 units at R200 each and sells them steadily. A supplier offers a 10% unit discount if the business buys 2,500 units. Management focuses on the R50,000 purchase-price saving and approves the larger order.
+
+| Item | Normal order | Discount order | Difference |
+| --- | --- | --- | --- |
+| Units purchased | 1,000 | 2,500 | 1,500 more |
+| Unit cost | R200 | R180 | R20 lower |
+| Cash paid | R200,000 | R450,000 | R250,000 more |
+| Expected units sold in 90 days | 1,000 | 1,300 | 300 more |
+| Units still held after 90 days | 0 | 1,200 | 1,200 |
+| Cash still tied up in remaining stock | R0 | R216,000 | R216,000 |
+
+**What the discount calculation omitted.** The business did save R20 on every unit purchased. It also committed R250,000 more cash immediately. After 90 days, R216,000 remains tied up before storage, insurance, funding cost, damage or markdowns are considered. If 400 of the remaining units later require a R40 discount to sell, another R16,000 of expected margin disappears.
+
+The original decision may still be sound if supply risk is high, demand is credible and the business can carry the cash exposure. But the supplier discount is only one input. The decision must compare the full cash requirement with the expected saving and the downside if sales are slower.
+
+**Decision question:** would management still approve the larger order if the proposal were presented as "invest an additional R250,000 today to save up to R50,000, with R216,000 likely to remain tied up after 90 days"?
+
+## Classify before acting
+
+A blanket stock reduction target can damage service while leaving the real problem untouched.
+
+| Category | Management response |
+| --- | --- |
+| Core and fast-moving | Protect availability; monitor margin, lead time and supplier reliability |
+| Fast-moving but low margin | Review price, rebates, freight, wastage and purchasing terms |
+| Slow-moving but strategically necessary | Set an explicit minimum, maximum and review trigger |
+| Customer-specific | Tie purchasing to a firm order, deposit, cancellation clause or agreed commitment |
+| Excess but saleable | Set a controlled clearance route, target date and minimum acceptable recovery |
+| Obsolete, damaged or expired | Confirm valuation, recognise the loss where required and dispose responsibly |
+| Unverified | Count, reconcile and investigate before ordering or reporting value |
+
+**Do not let percentage targets replace judgement.** "Reduce stock by 20%" sounds decisive, but it can cut the wrong items. A product with dependable demand and an eight-week import lead time needs a different policy from a local item available within two days. Start with value, movement and commercial purpose. Then set item-level or category-level actions.
+
+**Clearance has a cost, but delay can cost more.** Discounting old stock can protect cash even when it reduces reported margin. The comparison is not the clearance price against the original expected selling price. It is the cash recoverable now against the realistic future recovery, further holding costs and the risk that the item becomes unsaleable.
+
+**Management rule:** no material exception should remain in "review" indefinitely. Record the chosen action, minimum recovery, responsible owner and decision date.
+
+## The monthly stock and cash review
+
+The useful meeting is short, item-specific and connected to purchasing, sales and finance. Review exceptions rather than reading a stock report aloud.
+
+| View | Minimum question |
+| --- | --- |
+| Value | Which items make up most of the cash invested in inventory? |
+| Movement | Which material items have not moved within the expected selling cycle? |
+| Cover | Where do days or months of stock materially exceed lead time and credible demand? |
+| Margin | Which items sell but no longer produce an acceptable contribution? |
+| Accuracy | Which differences between the system and physical count remain unresolved? |
+| Commitments | What has been ordered but not yet received or paid for? |
+| Action | Which exceptions require repricing, supplier negotiation, return, transfer, clearance or write-off? |
+
+**A workable monthly sequence:**
+
+1. Finance prepares the high-value, ageing, no-movement and negative-margin exceptions.
+2. Sales confirms evidence of demand, customer commitments and credible clearance channels.
+3. Operations confirms lead times, substitute uses, quality, condition and stock-out consequences.
+4. Purchasing stops or changes replenishment where the evidence no longer supports the order pattern.
+5. Management records the financial exposure, action, owner and next decision date.
+
+**Use AI carefully.** AI can help group items by movement, compare forecasts with actual sales, identify unusual purchasing patterns and prepare questions for the review. It cannot confirm physical condition, customer intent or the real market for an old product. The source records, stock count and accountable manager remain the control.
+
+**Review output:** the meeting should end with fewer unexplained exceptions, not merely an updated report. Every material exception needs a decision or a dated action to obtain the missing evidence.
+
+## Stock should earn its place in the business
+
+Inventory is not waste simply because it is on a shelf. It earns its place when it supports profitable demand, protects a defined operational risk or creates a commercial advantage that exceeds its funding and holding cost.
+
+The danger begins when the original reason has disappeared but the accounting value remains. Management then risks protecting yesterday's decision instead of today's cash. A delayed write-down does not restore the value, and a large clearance discount is not necessarily the loss. The economic loss may already have occurred when the stock stopped having a realistic route to sale.
+
+**The bottom line.** Start with the items carrying the most cash, not the most units. Establish their last movement, expected demand, lead time, realistic selling price and remaining costs. Separate stock needed for a defensible reason from stock held because nobody has made the decision. Then act while return, transfer, repurposing or clearance options are still available.
+
+**Questions for the owner:**
+
+- Can we identify the ten items carrying the most cash today?
+- How much stock has not moved within its normal commercial cycle?
+- Which purchases depend on forecasts rather than firm demand?
+- Where are supplier discounts encouraging quantities we cannot convert quickly?
+- What stock value would be difficult to defend if we had to sell it within 90 days?
+
+*This report provides general business and financial education and does not provide tax advice. Proper tax advice must be sought from a registered tax practitioner. Accounting, contractual, disposal and regulatory requirements must also be confirmed for the specific facts before action is taken.*
+
+**Related reading:** Profitable But No Money in the Bank · Can Your Business Afford to Grow?
+
+The full report includes a one-page **Inventory Decision Record** — to complete for each material stock exception before approving further purchases or a disposal decision — available in the downloadable PDF.`,
+  },
+  {
     slug: "invoice-was-real-bank-account-wasnt",
     cover: "/images/invoice-was-real-bank-account-wasnt.png",
     ogImage: "/images/invoice-was-real-bank-account-wasnt.png",
