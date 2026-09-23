@@ -533,7 +533,17 @@ function calculate(){
   if(navOk && nav>0){ head = [Math.max(head[0], nav), Math.max(head[1], nav)]; }
   const valTooSmall = head[1] < 10000;                     // figures too small to value sensibly
 
-  RESULT = { revenue, score, R, applicCount: applic.length, op, ownerpay, sde, earn, earnOk, rev, nav, navOk, head,
+  // Structured indices for aggregate analytics — the raw number per ratio, or null when
+  // that ratio wasn't assessed. R order: 0 gross, 1 operating, 2 runway, 3 debt, 4 liquidity, 5 solvency.
+  const indices = {
+    gross_margin_pct:     R[0].ok ? Math.round(gmPct*10)/10   : null,
+    operating_margin_pct: R[1].ok ? Math.round(omPct*10)/10   : null,
+    cash_runway_months:   R[2].ok ? Math.round(runway*100)/100 : null,
+    debt_to_revenue:      R[3].ok ? Math.round(debtRev*1000)/1000 : null,
+    liquidity_cover:      R[4].ok ? Math.round(liquidity*1000)/1000 : null,
+    solvency_ratio:       R[5].ok ? Math.round(solvency*1000)/1000 : null
+  };
+  RESULT = { revenue, score, R, indices, applicCount: applic.length, op, ownerpay, sde, earn, earnOk, rev, nav, navOk, head,
              gross, cash, opex, debtors, assets, creditors, debt, omPct, gmPct, saNet: (B.saNet!=null?B.saNet:null),
              missing, keyMissing, tooFew, noRevenue, valTooSmall, suppliedCount: 10-missing.length,
              ownerpaySupplied: has('ownerpay'), sector, sectorLabel: B.label };
@@ -778,7 +788,7 @@ function recordSubmission(name, email, lo, hi){
     fetch('/api/health-check',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({ reference:REF||'', sector:r.sectorLabel, score:r.score, band:r.band||'', value_low:lo, value_high:hi,
-        net_asset_value:Math.round(r.nav), ratios:JSON.stringify(ratios), name:name||'', email:email,
+        net_asset_value:Math.round(r.nav), ratios:JSON.stringify(ratios), indices:r.indices, name:name||'', email:email,
         missing_count:r.missing.length, consent:true })
     }).catch(()=>{});   // endpoint may not be live yet — never block the lead
   }catch(e){}

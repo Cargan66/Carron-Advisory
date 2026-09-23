@@ -126,10 +126,14 @@ async function ensureSubmissions(env) {
        id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT NOT NULL,
        reference TEXT, sector TEXT, score INTEGER, band TEXT,
        value_low INTEGER, value_high INTEGER, net_asset_value INTEGER,
+       gross_margin_pct REAL, operating_margin_pct REAL, cash_runway_months REAL,
+       debt_to_revenue REAL, liquidity_cover REAL, solvency_ratio REAL,
        ratios TEXT, name TEXT, email TEXT, missing_count INTEGER, consent INTEGER, country TEXT )`
   ).run();
-  // Migrate submissions tables that predate the reference column (throws once added — ignore).
-  try { await env.DB.prepare("ALTER TABLE submissions ADD COLUMN reference TEXT").run(); } catch (e) { /* already there */ }
+  // Migrate older submissions tables — each ALTER throws once the column exists (ignore).
+  const cols = ["reference TEXT", "gross_margin_pct REAL", "operating_margin_pct REAL",
+    "cash_runway_months REAL", "debt_to_revenue REAL", "liquidity_cover REAL", "solvency_ratio REAL"];
+  for (const c of cols) { try { await env.DB.prepare("ALTER TABLE submissions ADD COLUMN " + c).run(); } catch (e) { /* already there */ } }
 }
 
 async function handleHealthCheck(request, env) {
@@ -140,16 +144,20 @@ async function handleHealthCheck(request, env) {
     if (!data.consent) return json({ ok: false, error: "consent required" }, 400);
 
     await ensureSubmissions(env);
+    const ix = data.indices || {};
     await env.DB.prepare(
       `INSERT INTO submissions
         (created_at, reference, sector, score, band, value_low, value_high, net_asset_value,
+         gross_margin_pct, operating_margin_pct, cash_runway_months, debt_to_revenue, liquidity_cover, solvency_ratio,
          ratios, name, email, missing_count, consent, country)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
     )
       .bind(
         new Date().toISOString(), str(data.reference, 40), str(data.sector, 80), int(data.score), str(data.band, 40),
-        int(data.value_low), int(data.value_high), int(data.net_asset_value), str(data.ratios, 4000),
-        str(data.name, 120), email, int(data.missing_count), data.consent ? 1 : 0,
+        int(data.value_low), int(data.value_high), int(data.net_asset_value),
+        numOrNull(ix.gross_margin_pct), numOrNull(ix.operating_margin_pct), numOrNull(ix.cash_runway_months),
+        numOrNull(ix.debt_to_revenue), numOrNull(ix.liquidity_cover), numOrNull(ix.solvency_ratio),
+        str(data.ratios, 4000), str(data.name, 120), email, int(data.missing_count), data.consent ? 1 : 0,
         (request.cf && request.cf.country) || ""
       )
       .run();
@@ -399,4 +407,10 @@ function str(v, n) {
 function int(v) {
   const n = parseInt(v, 10);
   return Number.isFinite(n) ? n : 0;
+}
+// Nullable real — keeps "not assessed" as NULL (don't coerce to 0) so averages stay honest.
+function numOrNull(v) {
+  if (v === null || v === undefined || v === "") return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
 }
