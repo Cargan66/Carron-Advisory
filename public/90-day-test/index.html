@@ -686,7 +686,32 @@ function makeRef(prefix){
   const ymd=String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate());
   return prefix+'-'+ymd+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
 }
-let _h2p=false,_h2pLoading=false;
+// Reliable VECTOR PDF via jsPDF (self-hosted, lazy-loaded) — crisp, selectable text, no
+// html2canvas rasterisation, so downloads render consistently on every device.
+let _jspdf=false,_jspdfLoading=false;
+function withJsPdf(cb, onErr){
+  if(_jspdf){ cb(); return; }
+  if(_jspdfLoading){ setTimeout(()=>withJsPdf(cb,onErr),150); return; }
+  _jspdfLoading=true;
+  const s=document.createElement('script'); s.src='/vendor/jspdf.umd.min.js';
+  s.onload=()=>{ _jspdf=true; _jspdfLoading=false; cb(); };
+  s.onerror=()=>{ _jspdfLoading=false; if(onErr) onErr(); };
+  document.head.appendChild(s);
+}
+let _logoData=null;
+function loadLogoData(cb){
+  if(_logoData!==null){ cb(_logoData); return; }
+  const img=new Image();
+  img.onload=function(){ try{ const c=document.createElement('canvas'); c.width=img.naturalWidth; c.height=img.naturalHeight; c.getContext('2d').drawImage(img,0,0); _logoData={data:c.toDataURL('image/png'),w:img.naturalWidth,h:img.naturalHeight}; }catch(e){ _logoData=false; } cb(_logoData); };
+  img.onerror=function(){ _logoData=false; cb(_logoData); };
+  img.src='/images/carron-logo-horizontal-emerald.png';
+}
+// --- jsPDF layout helpers (pt units). Each returns the y cursor after the block. ---
+function pdfWrap(doc,text,x,y,maxW,lh){ const ls=doc.splitTextToSize(String(text),maxW); for(let i=0;i<ls.length;i++) doc.text(ls[i],x,y+i*lh); return y+ls.length*lh; }
+function pdfWrapH(doc,text,maxW,lh){ return doc.splitTextToSize(String(text),maxW).length*lh; }
+function pdfHeading(doc,text,x,y,cw,color){ doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(color[0],color[1],color[2]); doc.text(String(text).toUpperCase(),x,y); doc.setDrawColor(229,221,200); doc.setLineWidth(0.6); doc.line(x,y+5,x+cw,y+5); return y+20; }
+// Force a real file download (download attribute on a blob URL) — never opens the PDF
+// in the current tab, so the customer stays on the result page on every browser.
 function saveBlob(blob, filename){
   try{
     const url = URL.createObjectURL(blob);
@@ -696,59 +721,108 @@ function saveBlob(blob, filename){
     setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
   }catch(e){}
 }
-function withHtml2Pdf(cb,onErr){
-  if(_h2p){ cb(); return; }
-  if(_h2pLoading){ setTimeout(()=>withHtml2Pdf(cb,onErr),150); return; }
-  _h2pLoading=true;
-  const s=document.createElement('script'); s.src='/vendor/html2pdf.bundle.min.js';
-  s.onload=()=>{ _h2p=true; _h2pLoading=false; cb(); };
-  s.onerror=()=>{ _h2pLoading=false; if(onErr) onErr(); };
-  document.head.appendChild(s);
+function buildNinetyPdf(r, logo){
+  const JsPDF = window.jspdf.jsPDF;
+  const doc = new JsPDF({unit:'pt', format:'a4', compress:true});
+  const PW=doc.internal.pageSize.getWidth(), PH=doc.internal.pageSize.getHeight();
+  const M=44, CW=PW-2*M;
+  const GOLD=[154,125,46];
+  const RAG={dep:[179,88,63], mid:[176,138,46], good:[47,125,85]};
+  const ragCol=(avg)=> avg<1?RAG.dep:avg<2?RAG.mid:RAG.good;
+  const dstr=new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
+  const name=CAPTURED_EMAIL||'';
+  // jsPDF's standard fonts use WinAnsi encoding — strip symbols/emoji (e.g. the ⚠ used on screen)
+  // that fall outside it, which would otherwise corrupt the whole text run in the PDF.
+  const safe=(s)=>String(s==null?'':s).replace(/[☀-➿←-⇿︀-️\u{1F000}-\u{1FAFF}]/gu,'').replace(/\s{2,}/g,' ').trim();
+  let y=M+2;
+  const need=(h)=>{ if(y+h>PH-46){ doc.addPage(); y=M; } };
+  // header
+  let logoBottom=y;
+  if(logo && logo.data){ const lw=128, lh=lw*(logo.h/logo.w); doc.addImage(logo.data,'PNG',M,y,lw,lh); logoBottom=y+lh; }
+  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(22,65,47);
+  doc.text('The 90-Day Test · Owner-Independence Result', PW-M, y+8, {align:'right'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(91,107,96);
+  const meta=[dstr]; if(name) meta.push(name); if(REF) meta.push('Ref '+REF);
+  doc.text(meta.join('  ·  '), PW-M, y+22, {align:'right'});
+  y=Math.max(logoBottom, y+26)+10;
+  doc.setDrawColor(22,65,47); doc.setLineWidth(1.4); doc.line(M,y,PW-M,y); y+=26;
+  // score title
+  doc.setFont('helvetica','bold'); doc.setFontSize(17); doc.setTextColor(22,65,47);
+  y=pdfWrap(doc,'Owner-independence score: '+r.score+'/100 — '+safe(r.band),M,y,CW,21);
+  if(r.bandDesc){ doc.setFont('helvetica','normal'); doc.setFontSize(10.5); doc.setTextColor(26,45,34); y=pdfWrap(doc,safe(r.bandDesc),M,y+8,CW,14)+4; }
+  // critical gaps
+  if(r.crit && r.crit.length){
+    need(40); y=pdfHeading(doc,'Critical gaps — these break the 90 days on their own',M,y+6,CW,RAG.dep);
+    r.crit.forEach(function(c){
+      const bodyH=pdfWrapH(doc,safe(c.action),CW-24,12);
+      need(bodyH+30);
+      doc.setFillColor(250,241,238); doc.setDrawColor(216,160,143); doc.setLineWidth(0.7);
+      doc.roundedRect(M,y-4,CW,bodyH+26,4,4,'FD');
+      doc.setFont('helvetica','bold'); doc.setFontSize(10.5); doc.setTextColor(179,69,46);
+      doc.text(safe(c.domain),M+12,y+11);
+      doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(42,56,48);
+      pdfWrap(doc,safe(c.action),M+12,y+25,CW-24,12);
+      y+=bodyH+26+10;
+    });
+  }
+  // area by area
+  need(40); y=pdfHeading(doc,'Where you stand, area by area',M,y+6,CW,GOLD);
+  r.dims.forEach(function(d){
+    need(20);
+    const col=ragCol(d.avg);
+    doc.setFillColor(col[0],col[1],col[2]); doc.circle(M+3,y-2,3,'F');
+    doc.setFont('helvetica','normal'); doc.setFontSize(10.5); doc.setTextColor(26,45,34);
+    doc.text(d.name,M+14,y+2);
+    doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(col[0],col[1],col[2]);
+    doc.text((d.label+' · '+Math.round(d.pct*100)+'%').toUpperCase(),PW-M,y+2,{align:'right'});
+    y+=11; doc.setDrawColor(233,233,229); doc.setLineWidth(0.5); doc.line(M,y,PW-M,y); y+=10;
+  });
+  // most exposed
+  need(40); y=pdfHeading(doc,'Where you’re most exposed',M,y+6,CW,GOLD);
+  if(!r.bottlenecks.length){
+    doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(58,74,64);
+    y=pdfWrap(doc,'No material gaps — every area is at least delegated. Confirm it for real with the one-week phone-off test: whatever stops, waits, or comes back to you is your remaining bottleneck.',M,y,CW,12)+8;
+  } else {
+    r.bottlenecks.forEach(function(o){
+      need(16);
+      doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(26,45,34);
+      doc.text(o.name,M,y+2);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(140,151,141);
+      doc.text((Math.round(o.pct*100)+'% in place').toUpperCase(),PW-M,y+2,{align:'right'});
+      y+=13;
+    });
+    const lock='The specific fix for each area — the exact authority, limit or hand-over to put in place, in priority order — is in your full 90-day plan.';
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(106,119,110);
+    need(pdfWrapH(doc,lock,CW,11)+8); y=pdfWrap(doc,lock,M,y+6,CW,11)+8;
+  }
+  // note
+  const note='A snapshot from your answers on '+dstr+'. It shows how much of the business can run without you and where it still depends on you — a guide to help you strengthen the business, not a formal assessment.';
+  doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(106,119,110);
+  need(pdfWrapH(doc,note,CW,10.5)+12); y=pdfWrap(doc,note,M,y+4,CW,10.5)+10;
+  // footer
+  need(22); doc.setDrawColor(22,65,47); doc.setLineWidth(1); doc.line(M,y,PW-M,y); y+=13;
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(91,107,96);
+  doc.text('Carron Business Advisory · info@carron.co.za', M, y);
+  doc.text('Prepared '+dstr, PW-M, y, {align:'right'});
+  saveBlob(doc.output('blob'), 'Carron-90-Day-Test-'+(REF||'result')+'.pdf');
 }
-const PDF_CSS=".pdfdoc{background:#fff;color:#172e26;font-family:'Inter',system-ui,sans-serif;font-size:13px;line-height:1.5;padding:6px 8px}"
-  +".pdfdoc .ps-head{text-align:center;border-bottom:2px solid #c8a84b;padding-bottom:16px}"
-  +".pdfdoc .ps-logo{height:56px;width:auto;margin:0 auto 10px;display:block}"
-  +".pdfdoc .ps-tag{font-family:'Fraunces',serif;font-size:20px;color:#b8952f;letter-spacing:.01em}"
-  +".pdfdoc .ps-meta{display:flex;justify-content:space-between;margin-top:14px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#6c7f74}"
-  +".pdfdoc .ps-date{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6c7f74}"
-  +".pdfdoc .ps-scorerow{display:flex;align-items:center;gap:26px;margin:26px 0 8px}"
-  +".pdfdoc .ps-scorebig{font-family:'Fraunces',serif;font-size:88px;line-height:.9;color:#1e4035}"
-  +".pdfdoc .ps-of{font-size:11px;letter-spacing:.2em;color:#8a7a3e}"
-  +".pdfdoc .ps-band{font-family:'Fraunces',serif;font-size:30px;color:#b8952f;margin-top:4px}"
-  +".pdfdoc .ps-banddesc{font-size:13px;color:#3a4a42;max-width:52ch;margin-top:6px;line-height:1.5}"
-  +".pdfdoc .ps-secttitle{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b8952f;margin:24px 0 12px;border-top:1px solid #d9cfa8;padding-top:16px}"
-  +".pdfdoc .ps-crit{border:1px solid #d8a08f;background:#faf1ee;border-radius:3px;padding:12px 14px;margin-bottom:8px}"
-  +".pdfdoc .ps-crit .h{font-weight:600;color:#b3452e;font-size:13px;margin-bottom:3px}.pdfdoc .ps-crit .d{font-size:13px;color:#2a3830}"
-  +".pdfdoc .ps-dim{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #ece5cf;padding:6px 0;font-size:13px;color:#2a3830}"
-  +".pdfdoc .ps-dim .lvl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a3e}"
-  +".pdfdoc .ps-bn{margin-bottom:16px}.pdfdoc .ps-bn .r{display:flex;justify-content:space-between;font-size:15px;margin-bottom:4px}"
-  +".pdfdoc .ps-bn .r b{font-family:'Fraunces',serif;font-weight:500}.pdfdoc .ps-bn .r span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a3e}"
-  +".pdfdoc .ps-bn ul{margin:6px 0 0 0;padding-left:16px}.pdfdoc .ps-bn li{font-size:13px;color:#2a3830;margin-bottom:3px}"
-  +".pdfdoc .ps-lock{font-size:12px;color:#6a776e;font-style:italic;margin-top:10px;padding-top:8px;border-top:1px dotted #cbd3c9}"
-  +".pdfdoc .ps-foot{display:flex;justify-content:space-between;border-top:1px solid #d9cfa8;margin-top:24px;padding-top:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a9a90}";
+
 function downloadResult(btn){
-  const sheet=el('print-sheet');
-  const html=sheet ? sheet.innerHTML : '';
-  if(!html){ return; }
-  const label=btn?btn.textContent:'';
-  if(btn){ btn.disabled=true; btn.textContent='Preparing your PDF…'; }
-  const restore=()=>{ if(btn){ btn.disabled=false; btn.textContent=label; } };
-  withHtml2Pdf(function(){
-    const stage=document.createElement('div');
-    stage.style.cssText='position:fixed;left:-10000px;top:0;width:794px;background:#fff';
-    stage.innerHTML='<style>'+PDF_CSS+'</style><div class="pdfdoc">'+html+'</div>';
-    document.body.appendChild(stage);
-    const docEl=stage.querySelector('.pdfdoc');
-    // Render to a fixed-width canvas FIRST (locks layout at 794px), then build the PDF from that
-    // canvas — avoids html2pdf re-rendering at the page width and inflating short reports with a gap.
-    const run=()=>{ window.html2pdf().set({html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:794}})
-      .from(docEl).toCanvas().get('canvas')
-      .then(function(canvas){ return window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(canvas,'canvas').outputPdf('blob'); })
-      .then(function(blob){ saveBlob(blob,'Carron-90-Day-Test-'+(REF||'result')+'.pdf'); stage.remove(); restore(); })
-      .catch(function(){ stage.remove(); restore(); }); };
-    const img=stage.querySelector('img');
-    const go=()=>{ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,60)); };
-    if(img && !img.complete){ img.onload=img.onerror=go; } else { go(); }
+  const score=currentScore();
+  const band=el('band-label').textContent||'';
+  const bandDesc=el('band-desc').textContent||'';
+  const crit=criticals().map(function(o){ return {domain:o.q.domain, action:o.q.action}; });
+  const dims=dimStats().map(function(d){ return {name:d.name, label:ragLabel(d.avg), avg:d.avg, pct:d.pct}; });
+  const bottlenecks=dimStats().filter(function(d){return d.pct<0.67;}).sort(function(a,b){return a.pct-b.pct;}).slice(0,3)
+    .map(function(o){ return {name:o.name, pct:o.pct}; });
+  const r={score:score, band:band, bandDesc:bandDesc, crit:crit, dims:dims, bottlenecks:bottlenecks};
+  const label=btn?btn.textContent:''; if(btn){ btn.disabled=true; btn.textContent='Preparing your PDF…'; }
+  const restore=function(){ if(btn){ btn.disabled=false; btn.textContent=label; } };
+  withJsPdf(function(){
+    loadLogoData(function(logo){
+      try{ buildNinetyPdf(r, logo); }catch(e){ alert('Sorry — could not build the PDF just now. Please try again.'); }
+      restore();
+    });
   }, function(){ restore(); alert('Sorry — the PDF tool could not load. Please check your connection and try again.'); });
 }
 
