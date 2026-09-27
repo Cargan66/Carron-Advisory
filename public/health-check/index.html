@@ -725,9 +725,12 @@ function downloadPdf(filename, innerHtml, btn){
     stage.innerHTML='<style>'+PDF_CSS+'</style><div class="pdfdoc">'+innerHtml+'</div>';
     document.body.appendChild(stage);
     const doc=stage.querySelector('.pdfdoc');
-    const run=()=>{ window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},
-        html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}})
-      .from(doc).outputPdf('blob').then(function(blob){ saveBlob(blob, filename); stage.remove(); restore(); })
+    // Render to a fixed-width canvas FIRST (locks layout at 794px), then build the PDF from that
+    // canvas — avoids html2pdf re-rendering at the page width and inflating short reports with a gap.
+    const run=()=>{ window.html2pdf().set({html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:794}})
+      .from(doc).toCanvas().get('canvas')
+      .then(function(canvas){ return window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(canvas,'canvas').outputPdf('blob'); })
+      .then(function(blob){ saveBlob(blob, filename); stage.remove(); restore(); })
       .catch(function(){ stage.remove(); restore(); }); };
     const img=stage.querySelector('img');
     const go=()=>{ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,60)); };
@@ -799,7 +802,8 @@ let CAPTURED_EMAIL='';
 function unlock(){
   const email=el('gate-email').value.trim();
   const note=el('gate-note');
-  if(!email || !/.+@.+\..+/.test(email)){ note.textContent='Please enter a valid email address to see your result.'; note.style.color='var(--clay)'; return; }
+  if(!email || !/.+@.+\..+/.test(email)){ note.textContent='⚠ Please enter a valid email address to see your result.'; note.style.color='var(--clay)'; const gi=el('gate-email'); if(gi){ gi.style.borderColor='var(--clay)'; gi.style.boxShadow='0 0 0 2px rgba(196,106,84,.35)'; gi.focus(); } return; }
+  { const gi=el('gate-email'); if(gi){ gi.style.borderColor=''; gi.style.boxShadow=''; } }
   if(!RESULT) return;
   const btn=el('gate-btn'); if(btn) btn.disabled=true;
   CAPTURED_EMAIL=email;

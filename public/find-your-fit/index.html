@@ -175,7 +175,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   <section id="gate" class="panel hidden">
     <div class="rlead">Your result is ready</div>
     <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,4vw,34px);color:var(--cream);text-align:center;margin:8px 0 10px">See the level of finance support that fits your business</h2>
-    <p style="color:var(--sage);text-align:center;max-width:52ch;margin:0 auto 22px;font-size:15px">Enter your email to see your recommendation now — we'll send you a copy too. It's free; we only ask for a valid email address.</p>
+    <p style="color:var(--sage);text-align:center;max-width:52ch;margin:0 auto 22px;font-size:15px">Enter your email to see your recommendation now. It's free — we only ask for a valid email address, and you can download a copy on the next screen.</p>
     <div class="form" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto">
       <input type="email" id="gate-email" placeholder="you@business.co.za" autocomplete="email" style="flex:1;min-width:220px">
       <button class="btn primary" id="gate-btn" onclick="unlock()">Show my result →</button>
@@ -436,9 +436,12 @@ function downloadFit(btn){
     stage.innerHTML='<style>'+PDF_CSS+'</style><div class="pdfdoc">'+buildFitSheet(PENDING)+'</div>';
     document.body.appendChild(stage);
     const docEl=stage.querySelector('.pdfdoc');
-    const run=()=>{ window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},
-        html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}})
-      .from(docEl).outputPdf('blob').then(function(blob){ saveBlob(blob,'Carron-Find-Your-Fit-'+(REF||'result')+'.pdf'); stage.remove(); restore(); })
+    // Render to a fixed-width canvas FIRST (locks layout at 794px), then build the PDF from that
+    // canvas — avoids html2pdf re-rendering at the page width and inflating short reports with a gap.
+    const run=()=>{ window.html2pdf().set({html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:794}})
+      .from(docEl).toCanvas().get('canvas')
+      .then(function(canvas){ return window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(canvas,'canvas').outputPdf('blob'); })
+      .then(function(blob){ saveBlob(blob,'Carron-Find-Your-Fit-'+(REF||'result')+'.pdf'); stage.remove(); restore(); })
       .catch(function(){ stage.remove(); restore(); }); };
     const img=stage.querySelector('img');
     const go=()=>{ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,60)); };
@@ -449,10 +452,14 @@ function downloadFit(btn){
 function unlock(){
   const email=el('gate-email').value.trim();
   const note=el('gate-note');
+  const inp=el('gate-email');
   if(!email || !/.+@.+\..+/.test(email)){
-    note.textContent='Please enter a valid email address to see your result.';
-    note.style.color='var(--clay)'; return;
+    note.textContent='⚠ Please enter a valid email address to see your result.';
+    note.style.color='var(--clay)';
+    if(inp){ inp.style.borderColor='var(--clay)'; inp.style.boxShadow='0 0 0 2px rgba(196,106,84,.35)'; inp.focus(); }
+    return;
   }
+  if(inp){ inp.style.borderColor=''; inp.style.boxShadow=''; }
   if(leadBusy) return; leadBusy=true;
   const btn=el('gate-btn'); if(btn) btn.disabled=true;
   REF = makeRef('FF');   // one reference for this result: shown on screen, on the PDF, and stored with the lead
