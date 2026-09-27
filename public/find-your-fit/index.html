@@ -228,15 +228,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
     <div class="cta">
       <h3 id="cta-head">Let's confirm your fit.</h3>
-      <p>Download a copy for your records below. Want to talk it through? Book a free, no-obligation discovery call to confirm the right level for your business.</p>
+      <p>Want to talk it through? Book a free, no-obligation discovery call to confirm the right level for your business.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px">
         <a class="btn primary" href="/contact">Book a discovery call</a>
         <a class="btn ghost" href="/health-check/">Try the Financial Health Check</a>
       </div>
     </div>
 
-    <div class="navrow" style="justify-content:center;margin-top:24px;gap:12px;flex-wrap:wrap">
-      <button class="btn primary" onclick="downloadFit(this)">↓ Download my recommendation (PDF)</button>
+    <div class="navrow" style="justify-content:center;margin-top:24px">
       <button class="btn ghost" onclick="restart()">↺ Retake the quiz</button>
     </div>
     <p id="reftag" style="text-align:center;margin-top:12px;font-size:12.5px;color:var(--sage)"></p>
@@ -474,7 +473,7 @@ function unlock(){
     body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New Find-Your-Fit lead — '+email,from_name:'Carron Find Your Fit',reference:REF,name:'—',email:email,recommended_tier:tier,answers:picks,submitted:new Date().toISOString()})}).catch(()=>{}); }catch(e){}
   runCalc(function(){
     renderFit(PENDING);
-    const rt=el('reftag'); if(rt) rt.innerHTML = 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong>. Trouble downloading, or a question about your result? Email <a href="mailto:support@carron.co.za" style="color:var(--gold-light);text-decoration:underline">support@carron.co.za</a> and quote it.';
+    const rt=el('reftag'); if(rt) rt.innerHTML = 'Your reference: <strong style="color:var(--gold-light)">'+REF+'</strong>. A question about your result? Email <a href="mailto:support@carron.co.za" style="color:var(--gold-light);text-decoration:underline">support@carron.co.za</a> and quote it.';
   });   // brief dramatic pause, then reveal
 }
 </script>

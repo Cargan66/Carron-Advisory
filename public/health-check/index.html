@@ -677,33 +677,30 @@ function makeRef(prefix){
   const ymd=String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate());
   return prefix+'-'+ymd+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
 }
-let _h2p=false,_h2pLoading=false;
-function withHtml2Pdf(cb, onErr){
-  if(_h2p){ cb(); return; }
-  if(_h2pLoading){ setTimeout(()=>withHtml2Pdf(cb,onErr),150); return; }
-  _h2pLoading=true;
-  const s=document.createElement('script'); s.src='/vendor/html2pdf.bundle.min.js';
-  s.onload=()=>{ _h2p=true; _h2pLoading=false; cb(); };
-  s.onerror=()=>{ _h2pLoading=false; if(onErr) onErr(); };
+// Reliable VECTOR PDF via jsPDF (self-hosted, lazy-loaded) — crisp, selectable text, no
+// html2canvas rasterisation, so downloads render consistently on every device.
+let _jspdf=false,_jspdfLoading=false;
+function withJsPdf(cb, onErr){
+  if(_jspdf){ cb(); return; }
+  if(_jspdfLoading){ setTimeout(()=>withJsPdf(cb,onErr),150); return; }
+  _jspdfLoading=true;
+  const s=document.createElement('script'); s.src='/vendor/jspdf.umd.min.js';
+  s.onload=()=>{ _jspdf=true; _jspdfLoading=false; cb(); };
+  s.onerror=()=>{ _jspdfLoading=false; if(onErr) onErr(); };
   document.head.appendChild(s);
 }
-const PDF_CSS=".pdfdoc{background:#fff;color:#12241a;font-family:'Inter',system-ui,sans-serif;font-size:13px;line-height:1.5;padding:6px 8px}"
-  +".pdfdoc .ps-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #16412f;padding-bottom:12px;margin-bottom:20px}"
-  +".pdfdoc .ps-head img{height:48px;width:auto}"
-  +".pdfdoc .ps-head .ps-meta{text-align:right;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5b6b60}"
-  +".pdfdoc .ps-head .ps-meta strong{display:block;font-family:'Fraunces',serif;font-size:13px;letter-spacing:.04em;color:#16412f;text-transform:none;margin-bottom:3px}"
-  +".pdfdoc h2{font-family:'Fraunces',serif;font-weight:500;font-size:22px;color:#16412f;margin:0 0 8px}"
-  +".pdfdoc .ps-desc{font-size:12px;color:#3a4a40;margin:0 0 8px;max-width:64ch}"
-  +".pdfdoc .ps-caveat{font-size:11px;color:#7a5a1e;background:#faf3dd;border:1px solid #e3d29a;border-radius:5px;padding:9px 12px;margin:12px 0 4px;line-height:1.5}.pdfdoc .ps-caveat strong{color:#7a5a1e}"
-  +".pdfdoc h3{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9a7d2e;margin:20px 0 8px;border-bottom:1px solid #e5ddc8;padding-bottom:6px}"
-  +".pdfdoc .ps-ratio{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;font-size:12px;border-bottom:1px solid #eee}"
-  +".pdfdoc .ps-ratio .st{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;margin-left:10px}"
-  +".pdfdoc .ps-ratio .psb{display:block;font-size:9px;color:#8a978d;margin-top:1px;letter-spacing:.02em}"
-  +".pdfdoc .ps-benchnote{font-size:9px;color:#8a978d;line-height:1.5;margin:10px 0 0}"
-  +".pdfdoc .ps-val{font-family:'Fraunces',serif;font-size:26px;color:#16412f;margin:2px 0 6px}"
-  +".pdfdoc .ps-methods{font-size:11px;color:#3a4a40;line-height:1.65}.pdfdoc .ps-methods strong{color:#16412f}"
-  +".pdfdoc .ps-disc{font-size:10px;color:#6a776e;margin-top:16px;line-height:1.5}"
-  +".pdfdoc .ps-foot{margin-top:22px;padding-top:12px;border-top:1px solid #16412f;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#5b6b60;display:flex;justify-content:space-between;gap:12px}";
+let _logoData=null;
+function loadLogoData(cb){
+  if(_logoData!==null){ cb(_logoData); return; }
+  const img=new Image();
+  img.onload=function(){ try{ const c=document.createElement('canvas'); c.width=img.naturalWidth; c.height=img.naturalHeight; c.getContext('2d').drawImage(img,0,0); _logoData={data:c.toDataURL('image/png'),w:img.naturalWidth,h:img.naturalHeight}; }catch(e){ _logoData=false; } cb(_logoData); };
+  img.onerror=function(){ _logoData=false; cb(_logoData); };
+  img.src='/images/carron-logo-horizontal-emerald.png';
+}
+// --- jsPDF layout helpers (pt units). Each returns the y cursor after the block. ---
+function pdfWrap(doc,text,x,y,maxW,lh){ const ls=doc.splitTextToSize(String(text),maxW); for(let i=0;i<ls.length;i++) doc.text(ls[i],x,y+i*lh); return y+ls.length*lh; }
+function pdfWrapH(doc,text,maxW,lh){ return doc.splitTextToSize(String(text),maxW).length*lh; }
+function pdfHeading(doc,text,x,y,cw,color){ doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(color[0],color[1],color[2]); doc.text(String(text).toUpperCase(),x,y); doc.setDrawColor(229,221,200); doc.setLineWidth(0.6); doc.line(x,y+5,x+cw,y+5); return y+20; }
 // Force a real file download (download attribute on a blob URL) — never opens the PDF
 // in the current tab, so the customer stays on the result page on every browser.
 function saveBlob(blob, filename){
@@ -715,71 +712,112 @@ function saveBlob(blob, filename){
     setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
   }catch(e){}
 }
-function downloadPdf(filename, innerHtml, btn){
-  const label = btn ? btn.textContent : '';
-  if(btn){ btn.disabled=true; btn.textContent='Preparing your PDF…'; }
-  const restore=()=>{ if(btn){ btn.disabled=false; btn.textContent=label; } };
-  withHtml2Pdf(function(){
-    const stage=document.createElement('div');
-    stage.style.cssText='position:fixed;left:-10000px;top:0;width:794px;background:#fff';
-    stage.innerHTML='<style>'+PDF_CSS+'</style><div class="pdfdoc">'+innerHtml+'</div>';
-    document.body.appendChild(stage);
-    const doc=stage.querySelector('.pdfdoc');
-    // Render to a fixed-width canvas FIRST (locks layout at 794px), then build the PDF from that
-    // canvas — avoids html2pdf re-rendering at the page width and inflating short reports with a gap.
-    const run=()=>{ window.html2pdf().set({html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:794}})
-      .from(doc).toCanvas().get('canvas')
-      .then(function(canvas){ return window.html2pdf().set({margin:[10,10,12,10],image:{type:'jpeg',quality:0.96},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(canvas,'canvas').outputPdf('blob'); })
-      .then(function(blob){ saveBlob(blob, filename); stage.remove(); restore(); })
-      .catch(function(){ stage.remove(); restore(); }); };
-    const img=stage.querySelector('img');
-    const go=()=>{ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,60)); };
-    if(img && !img.complete){ img.onload=img.onerror=go; } else { go(); }
-  }, function(){ restore(); alert('Sorry — the PDF tool could not load. Please check your connection and try again.'); });
+function buildHealthPdf(r, logo){
+  const JsPDF = window.jspdf.jsPDF;
+  const doc = new JsPDF({unit:'pt', format:'a4', compress:true});
+  const PW=doc.internal.pageSize.getWidth(), PH=doc.internal.pageSize.getHeight();
+  const M=44, CW=PW-2*M;
+  const GOLD=[154,125,46], INK=[26,45,34], LGRAY=[140,151,141];
+  const RAG={Healthy:[47,125,85], Watch:[176,138,46], Act:[179,88,63]};
+  const dstr=new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
+  const name=CAPTURED_EMAIL||'';
+  let y=M+2;
+  const need=(h)=>{ if(y+h>PH-46){ doc.addPage(); y=M; } };
+  // header
+  let logoBottom=y;
+  if(logo && logo.data){ const lw=128, lh=lw*(logo.h/logo.w); doc.addImage(logo.data,'PNG',M,y,lw,lh); logoBottom=y+lh; }
+  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(22,65,47);
+  doc.text('Financial Health Check & Valuation', PW-M, y+8, {align:'right'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(91,107,96);
+  const meta=[]; if(r.sectorLabel) meta.push(r.sectorLabel); meta.push(dstr); if(name) meta.push(name); if(REF) meta.push('Ref '+REF);
+  doc.text(meta.join('  ·  '), PW-M, y+22, {align:'right'});
+  y=Math.max(logoBottom, y+26)+10;
+  doc.setDrawColor(22,65,47); doc.setLineWidth(1.4); doc.line(M,y,PW-M,y); y+=26;
+  // score title
+  doc.setFont('helvetica','bold'); doc.setFontSize(17); doc.setTextColor(22,65,47);
+  y=pdfWrap(doc,'Financial health score: '+r.score+'/100 — '+(r.band||''),M,y,CW,21);
+  if(r.bandDesc){ doc.setFont('helvetica','normal'); doc.setFontSize(10.5); doc.setTextColor(26,45,34); y=pdfWrap(doc,r.bandDesc,M,y+8,CW,14)+4; }
+  // caveat
+  if(r.missing && r.missing.length){
+    const cav='Partial result — '+r.missing.length+' of 10 figures weren’t supplied ('+r.missing.join(', ')+'). Based only on the numbers given.';
+    doc.setFont('helvetica','normal'); doc.setFontSize(9.5);
+    const ih=pdfWrapH(doc,cav,CW-20,12); need(ih+18);
+    doc.setFillColor(250,243,221); doc.setDrawColor(227,210,154); doc.setLineWidth(0.7);
+    doc.roundedRect(M,y+2,CW,ih+16,4,4,'FD');
+    doc.setTextColor(122,90,30); pdfWrap(doc,cav,M+10,y+17,CW-20,12);
+    y+=ih+18+12;
+  }
+  // ratios
+  need(40); y=pdfHeading(doc,'Key ratios — vs '+(r.sectorLabel||'sector'),M,y+6,CW,GOLD);
+  r.R.forEach(function(x){
+    need(30);
+    doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(26,45,34);
+    doc.text(x.name.replace(/\s*\(.*/,''),M,y+3);
+    let lab,col,val;
+    if(!x.ok){ val=x.note?x.val:'—'; lab=x.note?'Not scored':'Not supplied'; col=LGRAY; }
+    else { const a=ragDot(x.pts); lab=a[1]; col=RAG[lab]||INK; val=x.val; }
+    doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(col[0],col[1],col[2]);
+    const labTxt=' · '+String(lab).toUpperCase(); const labW=doc.getTextWidth(labTxt);
+    doc.text(labTxt,PW-M,y+3,{align:'right'});
+    doc.setFont('helvetica','bold'); doc.setFontSize(11);
+    doc.text(String(val),PW-M-labW-3,y+3,{align:'right'});
+    y+=14;
+    if(x.bench){ doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(140,151,141); y=pdfWrap(doc,x.bench,M,y,CW-150,10); }
+    y+=6; doc.setDrawColor(233,233,229); doc.setLineWidth(0.5); doc.line(M,y,PW-M,y); y+=9;
+  });
+  // bench note
+  const bn='Benchmarks: operating margin vs your sector’s net profit margin (net profit after tax / turnover) from '+SRC_SA+'. Gross margin, cash, debt, liquidity and solvency use generally-accepted standards (StatsSA does not publish these by sector). Reviewed '+REVIEW.done+' · next review '+REVIEW.next+'.';
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(140,151,141);
+  need(pdfWrapH(doc,bn,CW,10)+6); y=pdfWrap(doc,bn,M,y+2,CW,10)+10;
+  // value
+  const noRev=r.noRevenue;
+  need(64); y=pdfHeading(doc,noRev?'Indicative net asset value':'Indicative business value',M,y,CW,GOLD);
+  let valTxt, methods;
+  if(noRev){
+    valTxt = r.navOk ? fmtR(r.nav) : '—';
+    methods = r.navOk
+      ? 'We can’t estimate a normal operating-business value while annual revenue is R0. Based on the balance-sheet figures supplied, net assets are approximately '+fmtR(r.nav)+'. This is not a valuation of a trading business.'
+      : 'We can’t estimate a normal operating-business value while annual revenue is R0, and the balance-sheet figures supplied are incomplete, so net assets can’t be calculated reliably either.';
+  } else {
+    const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
+    valTxt = r.valTooSmall ? '—' : (lo===hi?fmtR(lo):fmtR(lo)+' – '+fmtR(hi));
+    if(r.valTooSmall){ methods='Your figures are too small to value sensibly — please check them.'; }
+    else { let mm='';
+      if(r.earn){ mm+='Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'. '; }
+      mm+='Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'. ';
+      mm+= r.navOk ? ('Net asset value: '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.')) : 'Net asset value: not calculated — no balance-sheet figures supplied.';
+      if(!r.earn){ mm+=' (Earnings method skipped — '+(r.earnOk?'operating profit is not positive':'operating profit not supplied')+'.)'; }
+      methods=mm;
+    }
+  }
+  doc.setFont('helvetica','bold'); doc.setFontSize(21); doc.setTextColor(22,65,47);
+  doc.text(valTxt, M, y+13); y+=26;
+  doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(58,74,64);
+  need(pdfWrapH(doc,methods,CW,12)+4); y=pdfWrap(doc,methods,M,y,CW,12)+12;
+  // disclaimer
+  const disc='Indicative only — not a valuation. A rough planning guide from simple rules of thumb that could change materially under a formal review. Its purpose is to show where value is being built or lost so you can strengthen the business — not to put a price on it, and it should not be taken at face value. Don’t rely on this figure for selling, raising finance or any transaction; a formal valuation by a qualified adviser depends on your industry, growth, profit reliability, assets, working capital, contracts, risk and buyer appetite.';
+  doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(106,119,110);
+  need(pdfWrapH(doc,disc,CW,10.5)+12); y=pdfWrap(doc,disc,M,y+4,CW,10.5)+10;
+  // footer
+  need(22); doc.setDrawColor(22,65,47); doc.setLineWidth(1); doc.line(M,y,PW-M,y); y+=13;
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(91,107,96);
+  doc.text('Carron Business Advisory · info@carron.co.za', M, y);
+  doc.text('Prepared '+dstr, PW-M, y, {align:'right'});
+  saveBlob(doc.output('blob'), 'Carron-Health-Check-'+(REF||'result')+'.pdf');
 }
 
 function printResults(btn){
   if(!RESULT){ return; }
   const r=RESULT;
   if(r.tooFew){ alert('Please add a few more numbers before saving — we need at least '+(r.keyMissing.join(', ')||'the core figures')+'.'); return; }
-  const name=CAPTURED_EMAIL||'';
-  const d=new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
-  const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
-  const rangeTxt = r.valTooSmall ? '—' : (lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi));
-  const ratios = r.R.map(x=>{
-    const nm='<span>'+x.name+'<span class="psb">'+(x.bench||'')+'</span></span>';
-    if(!x.ok){ return '<div class="ps-ratio">'+nm+'<span style="color:#8a978d">— <span class="st" style="color:#8a978d">Not supplied</span></span></div>'; }
-    const a=ragDot(x.pts); const lab=a[1]; const c=psStatusColor(lab);
-    return '<div class="ps-ratio">'+nm+'<span><strong>'+x.val+'</strong>'
-      +'<span class="st" style="color:'+c+'">● '+lab+'</span></span></div>'; }).join('');
-  // rebuild the methods text (don't copy the dark-theme markup — its inline colours vanish on white)
-  let methods='<strong>How we got there</strong><br>';
-  if(r.valTooSmall){ methods+='Your figures are too small to value sensibly — please check them.'; }
-  else {
-    if(r.earn){ methods+='Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
-    methods+='Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
-    if(r.navOk){ methods+='Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.'); }
-    else { methods+='Net asset value: not calculated — no balance-sheet figures supplied.'; }
-    if(!r.earn){ methods+='<br>(Earnings method skipped — '+(r.earnOk?'operating profit is not positive':'operating profit not supplied')+'.)'; }
-  }
-  const caveat = r.missing.length ? '<p class="ps-caveat"><strong>Partial result</strong> — '+r.missing.length+' of 10 figures weren’t supplied ('+r.missing.join(', ')+'). Based only on the numbers given.</p>' : '';
-  const sheetHtml =
-    '<div class="ps-head"><img src="/images/carron-logo-horizontal-emerald.png" alt="Carron Business Advisory">'
-    +'<div class="ps-meta"><strong>Financial Health Check &amp; Valuation</strong>'+(r.sectorLabel?r.sectorLabel+' · ':'')+d+(name?' · '+name:'')+(REF?' · Ref '+REF:'')+'</div></div>'
-    +'<h2>Financial health score: '+r.score+'/100 — '+(r.band||'')+'</h2>'
-    +'<p class="ps-desc">'+(r.bandDesc||'')+'</p>'
-    +caveat
-    +'<h3>Key ratios — vs '+(r.sectorLabel||'sector')+'</h3>'+ratios
-    +'<p class="ps-benchnote">Benchmarks: operating margin vs your sector’s net profit margin (net profit after tax / turnover) from '+SRC_SA+'. Gross margin, cash, debt, liquidity and solvency use generally-accepted standards (StatsSA does not publish these by sector). StatsSA excludes agriculture, financial services and education — those use a proxy or generally-accepted standard. Reviewed '+REVIEW.done+' · next review '+REVIEW.next+'.</p>'
-    +'<h3>Indicative business value</h3><div class="ps-val">'+rangeTxt+'</div>'
-    +'<div class="ps-methods">'+methods+'</div>'
-    +'<p class="ps-disc"><strong>Indicative only — not a valuation.</strong> A rough planning guide from simple rules of thumb that could change materially under a formal review. '
-    +'Its purpose is to show where value is being built or lost so you can strengthen the business — not to put a price on it, and it should not be taken at face value. '
-    +'Don’t rely on this figure for selling, raising finance or any transaction; a formal valuation by a qualified adviser depends on your industry, growth, profit reliability, assets, working capital, contracts, risk and buyer appetite.</p>'
-    +'<div class="ps-foot"><span>Carron Business Advisory · info@carron.co.za</span>'
-    +'<span>Fractional CFO for SA SMEs · Prepared '+d+'</span></div>';
-  // Download the report as a FILE — the customer stays on the result page (works on phone).
-  downloadPdf('Carron-Health-Check-'+(REF||'result')+'.pdf', sheetHtml, btn);
+  const label=btn?btn.textContent:''; if(btn){ btn.disabled=true; btn.textContent='Preparing your PDF…'; }
+  const restore=function(){ if(btn){ btn.disabled=false; btn.textContent=label; } };
+  withJsPdf(function(){
+    loadLogoData(function(logo){
+      try{ buildHealthPdf(r, logo); }catch(e){ alert('Sorry — could not build the PDF just now. Please try again.'); }
+      restore();
+    });
+  }, function(){ restore(); alert('Sorry — the PDF tool could not load. Please check your connection and try again.'); });
 }
 
 
