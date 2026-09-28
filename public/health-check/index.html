@@ -370,10 +370,10 @@ const INPUTS = [
     tip:"Money customers owe you but haven't paid yet (accounts receivable / trade debtors). From the balance sheet. Cash-only business? Enter 0." },
   { id:"assets",   group:"bs", label:"Other business assets", hint:"Equipment, vehicles, stock, property — excl. the cash & debtors above",
     tip:"Everything the business owns beyond cash and debtors — equipment, vehicles, stock/inventory, property, at balance-sheet (book) value. <b>Exclude</b> the cash and debtors already entered above. Rough figure is fine." },
-  { id:"creditors",group:"bs", label:"Creditors", hint:"Money you owe suppliers",
-    tip:"Money you owe suppliers but haven't paid yet (accounts payable / trade creditors). From the balance sheet. None outstanding? Enter 0." },
-  { id:"debt",     group:"bs", label:"Total debt / loans", hint:"Outstanding balance",
-    tip:"The outstanding balance on loans, overdraft, financing and credit facilities. From the balance sheet. No debt? Enter 0." },
+  { id:"creditors",group:"bs", label:"Creditors", hint:"Suppliers + other short-term amounts owed (e.g. SARS)",
+    tip:"Short-term amounts you owe that are <b>not borrowings</b> — trade creditors/suppliers (accounts payable), <b>plus SARS (VAT/PAYE), accruals and similar</b>. Loans and overdraft go in <b>Total debt</b> below, not here. From the balance sheet. None? Enter 0." },
+  { id:"debt",     group:"bs", label:"Total debt / loans", hint:"Money borrowed — overdraft & loans (not the creditors above)",
+    tip:"What the business has <b>borrowed</b> — bank overdraft, short- and long-term loans (including the current portion), instalment-sale/finance leases, mortgage bonds and shareholder/director loans. <b>Don't include trade creditors</b> — those go in the <b>Creditors</b> box above, and SARS/accruals go there too. No borrowings? Enter 0." },
 ];
 const fieldHTML = f =>
   '<div class="field"><label for="'+f.id+'">'+f.label+' <span class="hint">· '+f.hint+'</span>'
