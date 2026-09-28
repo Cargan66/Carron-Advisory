@@ -795,12 +795,12 @@ function buildNinetyPdf(r, logo){
     doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(106,119,110);
     need(pdfWrapH(doc,lock,CW,11)+8); y=pdfWrap(doc,lock,M,y+6,CW,11)+8;
   }
-  // note
+  // note + footer, kept together so the footer never orphans onto a near-empty page
   const note='A snapshot from your answers on '+dstr+'. It shows how much of the business can run without you and where it still depends on you — a guide to help you strengthen the business, not a formal assessment.';
   doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(106,119,110);
-  need(pdfWrapH(doc,note,CW,10.5)+12); y=pdfWrap(doc,note,M,y+4,CW,10.5)+10;
+  need(pdfWrapH(doc,note,CW,10.5)+12+26); y=pdfWrap(doc,note,M,y+4,CW,10.5)+10;
   // footer
-  need(22); doc.setDrawColor(22,65,47); doc.setLineWidth(1); doc.line(M,y,PW-M,y); y+=13;
+  doc.setDrawColor(22,65,47); doc.setLineWidth(1); doc.line(M,y,PW-M,y); y+=13;
   doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(91,107,96);
   doc.text('Carron Business Advisory · info@carron.co.za', M, y);
   doc.text('Prepared '+dstr, PW-M, y, {align:'right'});

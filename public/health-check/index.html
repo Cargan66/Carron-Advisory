@@ -362,8 +362,8 @@ const INPUTS = [
     tip:"Profit from trading before interest and tax — revenue less all operating costs. Near the bottom of the P&amp;L (often &ldquo;operating profit&rdquo; or EBIT). <b>Annual.</b> Enter it as it appears; it doesn't need to equal revenue minus the other boxes here." },
   { id:"ownerpay", group:"pl", label:"Owner's remuneration", hint:"Per year — salary, pension/company contributions and personal costs the business pays for you (i.e. already in operating expenses). Do NOT include dividends or drawings taken from profit.",
     tip:"What the business pays <b>you</b> in a year — salary, pension/medical it pays for you, and personal costs it covers. This already sits inside operating expenses. <b>Annual.</b> Do NOT include dividends or drawings taken from profit. None? Enter 0." },
-  { id:"opex",     group:"pl", label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include your own pay), overheads",
-    tip:"<b class='warn'>This box is MONTHLY, not annual.</b> Your total monthly running costs — rent, salaries (including your own pay), overheads. We use it to work out how many months your cash would last. Easiest way: take annual operating expenses and divide by 12." },
+  { id:"opex",     group:"pl", label:"Monthly operating expenses", hint:"Total monthly cash costs — rent, salaries (include the owner's remuneration listed above), overheads",
+    tip:"<b class='warn'>This box is MONTHLY, not annual.</b> Your total monthly running costs — rent, salaries (including the owner's remuneration listed above), overheads. We use it to work out how many months your cash would last. Easiest way: take annual operating expenses and divide by 12." },
   { id:"cash",     group:"bs", label:"Cash in the bank", hint:"Right now",
     tip:"Money in your business bank account(s) right now. From your latest balance sheet or bank balance." },
   { id:"debtors",  group:"bs", label:"Debtors", hint:"Money customers owe you",
@@ -797,9 +797,9 @@ function buildHealthPdf(r, logo){
   // disclaimer
   const disc='Indicative only — not a valuation. A rough planning guide from simple rules of thumb that could change materially under a formal review. Its purpose is to show where value is being built or lost so you can strengthen the business — not to put a price on it, and it should not be taken at face value. Don’t rely on this figure for selling, raising finance or any transaction; a formal valuation by a qualified adviser depends on your industry, growth, profit reliability, assets, working capital, contracts, risk and buyer appetite.';
   doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(106,119,110);
-  need(pdfWrapH(doc,disc,CW,10.5)+12); y=pdfWrap(doc,disc,M,y+4,CW,10.5)+10;
-  // footer
-  need(22); doc.setDrawColor(22,65,47); doc.setLineWidth(1); doc.line(M,y,PW-M,y); y+=13;
+  need(pdfWrapH(doc,disc,CW,10.5)+12+26); y=pdfWrap(doc,disc,M,y+4,CW,10.5)+10;
+  // footer (reserved with the disclaimer above so it never orphans onto a near-empty page)
+  doc.setDrawColor(22,65,47); doc.setLineWidth(1); doc.line(M,y,PW-M,y); y+=13;
   doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(91,107,96);
   doc.text('Carron Business Advisory · info@carron.co.za', M, y);
   doc.text('Prepared '+dstr, PW-M, y, {align:'right'});
