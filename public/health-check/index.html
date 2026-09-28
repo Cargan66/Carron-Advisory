@@ -74,6 +74,7 @@
   .tip.open{display:block;animation:tipin .16s ease}
   .tip b{color:var(--gold-light);font-weight:600}
   .tip .warn{color:var(--gold-light);font-weight:700}
+  .negwarn{display:none;margin:6px 0 0;font-size:12px;line-height:1.5;color:var(--clay);font-weight:500}
   @keyframes tipin{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
   .inp{display:flex;align-items:center;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);border-radius:2px;padding:0 14px;transition:border-color .18s}
   .inp:focus-within{border-color:var(--gold)}
@@ -431,8 +432,19 @@ el('sector').insertAdjacentHTML('beforeend',
   Object.keys(SECTORS).map(k=>'<option value="'+k+'">'+SECTORS[k].label+'</option>').join(''));
 
 function fmtField(inp){
-  const raw = inp.value.replace(/[^0-9]/g,'');
+  const hadNeg = inp.value.indexOf('-') !== -1;   // user tried to type a negative
+  const raw = inp.value.replace(/[^0-9]/g,'');     // digits only — no minus can survive
   inp.value = raw ? Number(raw).toLocaleString('en-ZA') : '';
+  const field = inp.closest('.field');
+  if(field){
+    let w = field.querySelector('.negwarn');
+    if(hadNeg){
+      if(!w){ w = document.createElement('div'); w.className='negwarn'; field.appendChild(w); }
+      w.textContent = '↑ Please enter a positive number. In overdraft or a negative balance? Leave this at 0 (or the amount in credit) and add the overdraft to Total debt / loans instead.';
+      w.style.display = 'block';
+      clearTimeout(inp._negT); inp._negT = setTimeout(function(){ if(w) w.style.display='none'; }, 7000);
+    } else if(w){ w.style.display = 'none'; }
+  }
 }
 function num(id){ return parseFloat(String(el(id).value).replace(/[^0-9.\-]/g,'')) || 0; }
 function has(id){ return /\d/.test(el(id).value); }   // supplied? blank => no; a typed "0" counts as supplied
