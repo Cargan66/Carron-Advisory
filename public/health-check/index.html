@@ -659,12 +659,13 @@ function renderValue(r){
     el('val-methods').innerHTML = m;
     return;
   }
-  el('val-range').textContent = lo===hi ? fmtR(lo) : fmtR(lo)+' – '+fmtR(hi);
-  if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'<br>'; }
-  m += 'Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'<br>';
+  el('val-range').textContent = lo===hi ? fmtR(lo) : fmtR(lo)+' to '+fmtR(hi);
+  if(r.earn){ m += 'Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × a multiple of 2.5 to 4.0 = '+fmtR(round(r.earn[0],10000))+' to '+fmtR(round(r.earn[1],10000))+'<br>'; }
+  m += 'Revenue method: turnover of '+fmtR(r.revenue)+' × a multiple of 0.4 to 0.8 = '+fmtR(round(r.rev[0],10000))+' to '+fmtR(round(r.rev[1],10000))+'<br>';
   if(r.navOk){ m += 'Net asset value (what you own minus what you owe): '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.'); }
   else { m += 'Net asset value: not calculated — no balance-sheet figures supplied.'; }
   if(!r.earn){ m += '<br>(Earnings method skipped — '+(r.earnOk?'operating profit is not positive':'operating profit not supplied')+'.)'; }
+  m += '<br><em style="color:var(--sage)">What the multiples mean: “a multiple of 2.5 to 4.0” is a <strong style="color:var(--cream)">range</strong>, not a subtraction — the value lands somewhere between 2.5 and 4 times that figure (and 0.4 to 0.8 times turnover for the revenue method). A business that runs without the owner, with steady, reliable profits and lower risk, sits nearer the top of the range.</em>';
   el('val-methods').innerHTML = m;
 }
 
@@ -780,12 +781,13 @@ function buildHealthPdf(r, logo){
       : 'We can’t estimate a normal operating-business value while annual revenue is R0, and the balance-sheet figures supplied are incomplete, so net assets can’t be calculated reliably either.';
   } else {
     const lo=round(r.head[0],10000), hi=round(r.head[1],10000);
-    valTxt = r.valTooSmall ? '—' : (lo===hi?fmtR(lo):fmtR(lo)+' – '+fmtR(hi));
+    valTxt = r.valTooSmall ? '—' : (lo===hi?fmtR(lo):fmtR(lo)+' to '+fmtR(hi));
     if(r.valTooSmall){ methods='Your figures are too small to value sensibly — please check them.'; }
     else { let mm='';
-      if(r.earn){ mm+='Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × 2.5–4.0 = '+fmtR(round(r.earn[0],10000))+' – '+fmtR(round(r.earn[1],10000))+'. '; }
-      mm+='Revenue method: turnover of '+fmtR(r.revenue)+' × 0.4–0.8 = '+fmtR(round(r.rev[0],10000))+' – '+fmtR(round(r.rev[1],10000))+'. ';
+      if(r.earn){ mm+='Earnings method: adjusted owner-earnings of '+fmtR(r.sde)+' (operating profit '+fmtR(r.op)+(r.ownerpaySupplied?' + owner’s pay '+fmtR(r.ownerpay)+' added back':'')+') × a multiple of 2.5 to 4.0 = '+fmtR(round(r.earn[0],10000))+' to '+fmtR(round(r.earn[1],10000))+'. '; }
+      mm+='Revenue method: turnover of '+fmtR(r.revenue)+' × a multiple of 0.4 to 0.8 = '+fmtR(round(r.rev[0],10000))+' to '+fmtR(round(r.rev[1],10000))+'. ';
       mm+= r.navOk ? ('Net asset value: '+fmtR(r.nav)+(r.nav>0?' — used as a floor under the range.':' — negative, so the range rests on earnings.')) : 'Net asset value: not calculated — no balance-sheet figures supplied.';
+      mm+=' What the multiples mean: “a multiple of 2.5 to 4.0” is a range, not a subtraction — the value lands somewhere between 2.5 and 4 times that figure (and 0.4 to 0.8 times turnover). A business that runs without the owner, with steady profits and lower risk, sits nearer the top of the range.';
       if(!r.earn){ mm+=' (Earnings method skipped — '+(r.earnOk?'operating profit is not positive':'operating profit not supplied')+'.)'; }
       methods=mm;
     }
