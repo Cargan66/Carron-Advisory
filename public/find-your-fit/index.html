@@ -98,8 +98,14 @@
   .scale .row.on{border-color:var(--gold);background:rgba(200,168,75,.10)}
   .scale .rn{font-family:'Fraunces',serif;font-size:18px;color:var(--cream);min-width:104px}
   .scale .row.on .rn{color:var(--gold-light)}
-  .scale .rt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
-  .scale .rd{font-size:13.5px;color:var(--sage);flex:1;min-width:210px}
+  .scale .rt{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+  .scale .rd{font-size:14px;color:var(--sage);flex:1;min-width:210px}
+  .why{list-style:none;display:flex;flex-direction:column;gap:11px;max-width:60ch;margin:0 auto}
+  .why li{display:flex;gap:11px;font-size:15px;line-height:1.5;color:var(--cream)}
+  .why .a{color:var(--gold);flex:none;font-weight:600}
+  .nextsteps{color:var(--cream);font-size:15px;line-height:1.62;max-width:60ch;margin:0 auto;text-align:center}
+  .nextsteps b{color:var(--gold-light);font-weight:600}
+  .nextsteps .muted{display:block;margin-top:10px;color:var(--sage);font-size:13.5px}
 
   .cta{margin-top:36px;padding:clamp(22px,4vw,32px);background:linear-gradient(180deg,rgba(200,168,75,.08),rgba(200,168,75,.02));border:1px solid var(--line);border-radius:4px;text-align:center}
   .cta h3{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,3.5vw,26px);margin-bottom:10px}
@@ -108,7 +114,7 @@
   .form input{flex:1;min-width:180px;max-width:260px;background:rgba(15,34,24,.6);border:1px solid var(--line-soft);border-radius:2px;padding:14px 16px;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px}
   .form input::placeholder{color:rgba(157,196,176,.6)}
   .form input:focus{outline:none;border-color:var(--gold)}
-  .note{font-size:12px;color:var(--sage);margin-top:14px;opacity:.85}
+  .note{font-size:13px;color:var(--sage);margin-top:14px;opacity:.92}
   .footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   .hidden{display:none}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -149,6 +155,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     <h1>Which level of finance support does your business <em>actually</em> need?</h1>
     <p class="lede">Advisory, Growth or Strategic — the right fit depends on your stage, your decisions and how much of the numbers you want off your plate.</p>
     <p class="lede tight">Answer ten quick questions and we'll point you to the tier that fits — and what it includes.</p>
+    <p class="lede tight" style="font-size:14px;opacity:.9">Built for owner-run SMEs. If a question mentions a board or investors, just read it as "your bank or funder" where that fits you better.</p>
     <div class="meta-row">
       <div class="meta"><div class="k">10</div><div class="v">Questions</div></div>
       <div class="meta"><div class="k">3</div><div class="v">Tiers</div></div>
@@ -219,12 +226,21 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     <p class="tierdesc" id="tier-desc"></p>
 
     <hr class="divider">
+    <div class="sec-title">Why this fits you</div>
+    <p class="tierdesc" id="why-lead" style="margin-top:0;margin-bottom:16px"></p>
+    <ul class="why" id="why-list"></ul>
+
+    <hr class="divider">
     <div class="sec-title">What this tier includes</div>
     <ul class="delivs" id="tier-delivs"></ul>
 
     <hr class="divider">
     <div class="sec-title">Where you land</div>
     <div class="scale" id="scale"></div>
+
+    <hr class="divider">
+    <div class="sec-title">What to do next</div>
+    <p class="nextsteps" id="next-block"></p>
 
     <div class="cta">
       <h3 id="cta-head">Let's confirm your fit.</h3>
@@ -253,7 +269,7 @@ const QUESTIONS = [
   { q:"How often does your business face a big financial decision — pricing, a key hire, funding, a large order?",
     opts:[["Rarely; things run steadily",0],["Every so often",1],["Most months",2],["Constantly — they're make-or-break",3]] },
   { q:"Your financial reporting today is…",
-    opts:[["A bookkeeper handling the basics",0],["Monthly management accounts, after the fact",1],["I want forward-looking forecasts and KPIs",2],["I need board- or investor-grade reporting",3]] },
+    opts:[["A bookkeeper handling the basics",0],["Monthly management accounts, after the fact",1],["I want forward-looking forecasts and KPIs",2],["I need bank-, funder- or board-ready reporting",3]] },
   { q:"How's your cash flow?",
     opts:[["Comfortable, rarely tight",0],["Occasionally tight",1],["Often tight — I need to see weeks ahead",2],["Funding growth; cash is a constant juggle",3]] },
   { q:"Funding plans in the next 12 months?",
@@ -280,7 +296,7 @@ const TIERS = [
   { key:"Growth", time:"~2–4 days / month", pct:66,
     desc:"Hands-on financial leadership a few days a month — forecasting, reporting, pricing and the decisions that come with scaling.",
     line:"Hands-on, a few days a month.",
-    items:["Budgeting & forecasting","13-week cash-flow forecast","Board & bank reporting","Pricing & margin strategy","Working-capital management","Scenario & what-if modelling"] },
+    items:["Budgeting & forecasting","Rolling 13-week cash-flow forecast","Bank & funder reporting","Pricing & margin strategy","Working-capital management","Scenario & what-if modelling"] },
   { key:"Strategic", time:"Full fractional CFO seat", pct:100,
     desc:"A full fractional CFO seat — funding, deals, governance and building the finance function, without the full-time salary.",
     line:"A full fractional CFO seat.",
@@ -350,6 +366,34 @@ function finish(){
   const gn=el('gate-note'); if(gn){ gn.textContent="See your result now — download it on the next screen. We may follow up. No spam; unsubscribe any time."; gn.style.color=''; }
   show('gate');   // require a valid email before revealing the result
 }
+/* Personalised "why this fits you" — reasons drawn from the actual answers.
+   Each question maps its chosen option (by value) to a plain-language reason; we surface
+   the strongest signals (value 3 first, then 2, then 1) and cap the list so it stays tight. */
+const REASONS = [
+  {1:"financial decisions come up every so often",2:"you're facing big financial calls most months",3:"big, make-or-break decisions are near-constant"},
+  {1:"your reporting is monthly, but it looks backwards",2:"you want forward-looking forecasts and KPIs, not just history",3:"you need bank-, funder- or board-ready reporting"},
+  {1:"cash gets tight now and then",2:"cash is often tight and you need to see weeks ahead",3:"you're funding growth and cash is a constant juggle"},
+  {1:"a bank facility or overdraft may be on the cards",2:"you're actively raising debt or capital",3:"a raise, acquisition or sale is on the horizon"},
+  {1:"your pricing and margins could use a check",2:"pricing and margins need a proper review",3:"pricing is complex across many products or customers"},
+  {1:"you have a bookkeeper and an accountant, but no financial lead",2:"you have some finance staff but no one leading them",3:"you're building a finance team that needs direction"},
+  {1:"you're growing, carefully",2:"you're planning to scale",3:"you're heading for transformation, acquisition or exit"},
+  {1:"the business spans a few lines or sites",2:"you're multi-product or multi-site",3:"you're cross-border, or the tax and structure are complex"},
+  {1:"a bit of your time each month goes into the numbers",2:"too much of your time goes into the numbers — you need a financial right-hand",3:"the finance gap is really a full-time role you can't fill"},
+  {1:"you want regular forecasting and reporting",2:"you want hands-on financial leadership",3:"you want a full CFO seat, without the full-time cost"},
+];
+function whyReasons(){
+  const picked=[];
+  for(const v of [3,2,1]){
+    answers.forEach((a,i)=>{ if(a!==null){ const val=QUESTIONS[i].opts[a][1]; if(val===v && REASONS[i] && REASONS[i][v]) picked.push(REASONS[i][v]); } });
+    if(picked.length>=4) break;
+  }
+  return picked.slice(0,4);
+}
+const NEXT_STEPS = [
+  "A short monthly rhythm is enough to keep you clear — you don't need a full-time finance person. <b>Next:</b> book a free discovery call and we'll set up a simple monthly review and the two or three numbers worth watching.",
+  "You're at the point where forward-looking numbers start paying for themselves. <b>Next:</b> book a free call and we'll begin with a rolling cash-flow view and a budget-vs-actual you'll actually use — no jargon, no bloat.",
+  "You need a hand on the wheel, not just another report. <b>Next:</b> book a free call to scope a fractional CFO seat around your funding, growth or exit plans — the senior help, without the full-time salary.",
+];
 function renderFit(t){
   show('result');
   el('tier-name').textContent = t.key;
@@ -358,6 +402,16 @@ function renderFit(t){
   requestAnimationFrame(()=>{ el('tier-bar').style.transition='width 1s cubic-bezier(.34,1.2,.4,1)'; el('tier-bar').style.width = t.pct+'%'; });
   el('cta-head').textContent = `${t.key} looks like your fit.`;
   el('tier-delivs').innerHTML = t.items.map(i=>`<li><span class="d"></span>${i}</li>`).join('');
+  // personalised "why this fits you"
+  const reasons = whyReasons();
+  const wl=el('why-lead'), wb=el('why-list');
+  if(wl) wl.textContent = reasons.length
+    ? 'Based on what you told us, this level fits because:'
+    : 'This is the lightest-touch level — a good place to start and step up later if things change.';
+  if(wb) wb.innerHTML = reasons.map(r=>`<li><span class="a">→</span><span>${r}</span></li>`).join('');
+  // tier-tailored "what to do next"
+  const nb=el('next-block'); const ti=TIERS.indexOf(t);
+  if(nb) nb.innerHTML = (NEXT_STEPS[ti]||NEXT_STEPS[0]) + ' <span class="muted">The call is free and there’s no obligation — we’ll confirm the right level together.</span>';
   el('scale').innerHTML = TIERS.map(x=>`
     <div class="row${x.key===t.key?' on':''}">
       <span class="rn">${x.key}</span>
