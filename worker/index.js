@@ -425,7 +425,10 @@ async function fulfil(env, order) {
     .bind("paid", new Date().toISOString(), JSON.stringify({ report, html, meta }), order.reference)
     .run();
 
-  // Best-effort owner notification (a sale happened).
+  // Best-effort owner notification (a sale happened). Includes a direct link to the full
+  // report — click it to view the customer's report and Save/print it as a PDF (no login;
+  // the report is retrievable by its reference). Works with no extra services set up.
+  const report_url = "https://carron.co.za" + cfg.result + "?reference=" + encodeURIComponent(order.reference);
   try {
     await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -435,7 +438,7 @@ async function fulfil(env, order) {
         subject: cfg.label + " purchased — " + (order.email || ""),
         from_name: "Carron",
         email: order.email, score: report.score + "/100",
-        reference: order.reference, submitted: new Date().toISOString(),
+        reference: order.reference, view_report: report_url, submitted: new Date().toISOString(),
         ...cfg.context(summary),
       }),
     });
