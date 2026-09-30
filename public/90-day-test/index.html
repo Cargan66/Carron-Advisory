@@ -572,7 +572,7 @@ function show(id){['intro','quiz','gate','crunch','results'].forEach(s=>el(s).cl
 
 // Brief "calculating" animation before the result — a filling ring + staged status
 // messages. Change CALC_MS to lengthen/shorten it (e.g. 10000 for a full 10 seconds).
-const CALC_MS = 6000;
+const CALC_MS = 5000;
 const CALC_MSGS = ['Reviewing your answers…','Weighting the survival-critical areas…','Scoring ten areas of the business…','Finding where it still depends on you…','Finalising your result…'];
 function runCalc(cb){
   const prog=el('calc-prog'), pct=el('calc-pct'), status=el('calc-status');

@@ -309,7 +309,7 @@ const el = id => document.getElementById(id);
 function show(id){ ['intro','quiz','gate','crunch','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // Brief "calculating" animation before the result. Change CALC_MS to lengthen/shorten it.
-const CALC_MS = 6000;
+const CALC_MS = 5000;
 const CALC_MSGS = ['Reviewing your answers…','Weighing where your numbers really sit…','Matching you to the right level of support…','Finalising your recommendation…'];
 function runCalc(cb){
   const prog=el('calc-prog'), pct=el('calc-pct'), status=el('calc-status');

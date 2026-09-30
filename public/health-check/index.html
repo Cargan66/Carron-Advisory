@@ -333,7 +333,7 @@ function show(id){ ['intro','calc','gate','crunch','result'].forEach(s=>el(s).cl
 // Brief "calculating" animation before the scored result — a filling ring + staged
 // status messages, so the result feels considered rather than instant. Change CALC_MS
 // to lengthen/shorten it (e.g. 10000 for a full 10 seconds).
-const CALC_MS = 6000;
+const CALC_MS = 5000;
 const CALC_MSGS = ['Reading your figures…','Benchmarking against your sector…','Scoring your six financial ratios…','Estimating your business value…','Finalising your report…'];
 function runCalc(cb){
   const prog=el('calc-prog'), pct=el('calc-pct'), status=el('calc-status');
