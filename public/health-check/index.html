@@ -724,6 +724,17 @@ function saveBlob(blob, filename){
     setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
   }catch(e){}
 }
+// Best-effort: send a copy of the generated PDF to the owner (server emails it via Resend if
+// configured; a harmless no-op otherwise). Once per result reference, so repeat downloads don't spam.
+let _copySentRef=null;
+function sendReportCopy(tool, filename, b64){
+  try{
+    if(!b64 || _copySentRef===REF) return;
+    _copySentRef=REF;
+    fetch('/api/report-copy',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({tool:tool,reference:REF,email:(CAPTURED_EMAIL||''),filename:filename,pdf_base64:b64})}).catch(()=>{});
+  }catch(e){}
+}
 function buildHealthPdf(r, logo){
   const JsPDF = window.jspdf.jsPDF;
   const doc = new JsPDF({unit:'pt', format:'a4', compress:true});
@@ -815,7 +826,9 @@ function buildHealthPdf(r, logo){
   doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(91,107,96);
   doc.text('Carron Business Advisory · info@carron.co.za', M, y);
   doc.text('Prepared '+dstr, PW-M, y, {align:'right'});
-  saveBlob(doc.output('blob'), 'Carron-Health-Check-'+(REF||'result')+'.pdf');
+  const _fn='Carron-Health-Check-'+(REF||'result')+'.pdf';
+  saveBlob(doc.output('blob'), _fn);
+  try{ sendReportCopy('health-check', _fn, doc.output('datauristring').split(',')[1]); }catch(e){}
 }
 
 function printResults(btn){

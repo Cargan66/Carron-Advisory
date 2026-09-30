@@ -67,6 +67,8 @@ export default {
       return request.method === "POST" ? handleLead(request, env) : methodNotAllowed();
     if (p === "/api/admin/backfill")
       return handleBackfill(request, env);
+    if (p === "/api/report-copy")
+      return request.method === "POST" ? handleReportCopy(request, env) : methodNotAllowed();
 
     // Paid-product flow, shared across products (diagnostic, plan).
     const m = p.match(/^\/api\/(diagnostic|plan)\/(create|get|webhook|testpay)$/);
@@ -120,6 +122,40 @@ async function handleLead(request, env) {
     if (!/.+@.+\..+/.test(email)) return json({ ok: false, error: "invalid email" }, 400);
     if (!data.consent) return json({ ok: false, error: "consent required" }, 400);
     await insertLead(env, request, { tool, reference: data.reference, score: data.score, band: data.band, name: data.name, email, result: data.result, detail: data.detail, consent: data.consent });
+    return json({ ok: true });
+  } catch (e) {
+    return json({ ok: false, error: "server error" }, 500);
+  }
+}
+
+/* Owner copy of a generated report PDF — free tools (Health Check, 90-Day) and the paid
+   result viewers all POST their finished PDF here. Sends the owner a copy via Resend, with
+   the PDF attached. NO-OP unless RESEND_API_KEY is configured (returns ok:true, skipped),
+   so this is safe to ship before the Resend account/domain/secret are set up.
+   From/To are overridable via REPORTS_FROM / REPORTS_TO Worker vars. */
+async function handleReportCopy(request, env) {
+  try {
+    const data = await request.json().catch(() => ({}));
+    const email = str(data.email, 200);
+    const tool = str(data.tool, 40);
+    const reference = str(data.reference, 40);
+    const paid = !!data.paid;
+    const filename = (str(data.filename, 160) || ("Carron-report-" + (reference || "copy") + ".pdf")).replace(/[^A-Za-z0-9._-]/g, "-");
+    const b64 = typeof data.pdf_base64 === "string" ? data.pdf_base64 : "";
+    if (!b64) return json({ ok: false, error: "no pdf" }, 400);
+    if (b64.length > 6_000_000) return json({ ok: false, error: "pdf too large" }, 413); // ~4.5MB decoded
+    if (!env.RESEND_API_KEY) return json({ ok: true, skipped: "no sender configured" });
+    const from = env.REPORTS_FROM || "Carron reports <reports@carron.co.za>";
+    const to = env.REPORTS_TO || "info@carron.co.za";
+    const subject = (paid ? "Paid report copy — " : "Report copy — ") + (tool || "tool") + (reference ? " · " + reference : "") + (email ? " · " + email : "");
+    const html = "<p>A " + (paid ? "<b>paid</b> " : "") + "report was generated on carron.co.za. The customer's PDF is attached.</p>"
+      + "<ul><li><b>Tool:</b> " + esc(tool) + "</li><li><b>Reference:</b> " + esc(reference) + "</li><li><b>Customer email:</b> " + esc(email) + "</li></ul>";
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to, subject, html, reply_to: email || undefined, attachments: [{ filename, content: b64 }] }),
+    });
+    if (!r.ok) { const t = await r.text().catch(() => ""); return json({ ok: false, error: "send failed", detail: t.slice(0, 300) }, 502); }
     return json({ ok: true });
   } catch (e) {
     return json({ ok: false, error: "server error" }, 500);
@@ -405,6 +441,26 @@ async function fulfil(env, order) {
     });
   } catch (e) { /* non-critical */ }
 
+  // Best-effort: email the owner a copy of the full paid report (via Resend, if configured).
+  // The paid result page prints via the browser, so there's no PDF file to attach — we send the
+  // rendered report HTML as the email body, which the owner can read or print to PDF. No-op until
+  // RESEND_API_KEY is set. Runs inside fulfil(), which fires once per order.
+  try {
+    if (env.RESEND_API_KEY) {
+      const from = env.REPORTS_FROM || "Carron reports <reports@carron.co.za>";
+      const to = env.REPORTS_TO || "info@carron.co.za";
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from, to, reply_to: order.email || undefined,
+          subject: "Paid report copy — " + cfg.label + " · " + order.reference + (order.email ? " · " + order.email : ""),
+          html: "<p>Paid report generated for <b>" + esc(order.email || "") + "</b> — " + esc(cfg.label) + ", ref " + esc(order.reference) + ". Full report below.</p><hr>" + html,
+        }),
+      });
+    }
+  } catch (e) { /* non-critical */ }
+
   // Record in the unified leads table too.
   try {
     await insertLeadRaw(env, {
@@ -478,6 +534,9 @@ function json(obj, status = 200) {
 }
 function str(v, n) {
   return v == null ? "" : String(v).slice(0, n);
+}
+function esc(v) {
+  return String(v == null ? "" : v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 function int(v) {
   const n = parseInt(v, 10);
