@@ -1040,15 +1040,19 @@ function unlock(){
   try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({tool:'90-day-test',reference:REF,score:score,band:band,name:'',email:email,result:score+'/100 — '+band,detail:JSON.stringify({reference:REF,score:score,band:band,summary:resultSummary()}),consent:true})}).catch(()=>{}); }catch(e){}
 
+  // Notify the owner of EVERY completion (lead) via Web3Forms — always, regardless of
+  // paid/free mode. This was previously trapped in the free-mode branch, so once the R795
+  // upsell went live no lead email fired for the 90-Day (Health Check + Find Your Fit still did).
+  try{ fetch('https://api.web3forms.com/submit',{
+    method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New 90-Day Test lead — '+email,from_name:'Carron 90-Day Test',reference:REF,name:'—',email:email,score:score+'/100',band:band,summary:resultSummary(),answers:JSON.stringify(answers),submitted:ts})}).catch(()=>{}); }catch(e){}
+
   if(R795_PLAN_LIVE){
     // Paid mode: offer the full plan for R795.
     const up=el('upsell'); if(up) up.hidden=false;
   } else {
-    // Free mode (until Paystack is live): email the full plan, as before.
+    // Free mode (until Paystack is live): full plan promised by email.
     const up=el('upsell'); if(up) up.hidden=true;
-    try{ fetch('https://api.web3forms.com/submit',{
-      method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
-      body:JSON.stringify({access_key:'dc0870f4-27e1-4787-8fb0-ab76fdcc861f',subject:'New 90-Day Test lead — '+email,from_name:'Carron 90-Day Test',reference:REF,name:'—',email:email,score:score+'/100',band:band,summary:resultSummary(),answers:JSON.stringify(answers),submitted:ts})}).catch(()=>{}); }catch(e){}
     const t=el('cta-title'); if(t) t.textContent='Your full 90-day action plan is on its way';
     const n=el('cta-note'); if(n){ n.innerHTML='We’ve emailed your complete owner-independence plan to <strong style="color:var(--gold-light)">'+email+'</strong> — including the full 40-question assessment and the authorities, limits and hand-overs to put in place for every area you scored low, in priority order.'; }
   }
