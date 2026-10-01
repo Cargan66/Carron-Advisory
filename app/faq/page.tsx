@@ -243,7 +243,7 @@ const allFaqs = faqGroups.flatMap((g) =>
 
 function ArrowLink({ href, label, raw }: FaqLink) {
   const className =
-    "inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-light";
+    "inline-flex items-center gap-2 text-sm font-medium text-gold-deep hover:text-gold";
   const inner = (
     <>
       {label}
@@ -286,31 +286,31 @@ export default function FaqPage() {
         description="Straight answers for South African SME owners weighing up a fractional CFO — what it does, what it costs, what you receive, and the real problems it solves. Written to be genuinely useful whether you found us on Google or asked an AI assistant."
       />
 
-      <section className="bg-emerald-base py-24 sm:py-32">
+      <section className="bg-bone py-24 text-emerald-base sm:py-32">
         <div className="container-luxe max-w-4xl">
-          <p className="mb-14 border-l-2 border-gold/40 pl-4 text-sm text-bone-dim">
+          <p className="mb-14 border-l-2 border-gold-deep/50 pl-4 text-sm text-emerald-base/60">
             {`Reviewed by ${REVIEWED.by} · 30+ years in CFO and finance-director roles · Last reviewed ${REVIEWED.date}.`}
           </p>
 
           {faqGroups.map((group, gi) => (
             <div key={group.title} className={gi > 0 ? "mt-16" : ""}>
               <div className="flex items-baseline gap-4">
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">
                   {group.eyebrow}
                 </span>
-                <span className="h-px flex-1 bg-white/10" aria-hidden />
+                <span className="h-px flex-1 bg-emerald-base/15" aria-hidden />
               </div>
-              <h2 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
+              <h2 className="mt-4 text-2xl font-bold text-emerald-deep sm:text-3xl">
                 {group.title}
               </h2>
 
-              <dl className="mt-6 divide-y divide-white/10 border-t border-white/10">
+              <dl className="mt-6 divide-y divide-emerald-base/12 border-t border-emerald-base/12">
                 {group.items.map((f) => (
                   <FadeIn key={f.q} className="py-7">
-                    <dt className="text-lg font-semibold leading-snug text-white">
+                    <dt className="text-lg font-semibold leading-snug text-emerald-deep">
                       {f.q}
                     </dt>
-                    <dd className="mt-3 text-base leading-relaxed text-stone-300/90">
+                    <dd className="mt-3 text-base leading-relaxed text-emerald-base/85">
                       {f.a}
                       {f.links && (
                         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
