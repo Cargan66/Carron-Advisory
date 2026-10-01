@@ -342,12 +342,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Insights teaser */}
-      <section className="bg-emerald-section py-24 sm:py-32">
+      {/* Insights teaser — LIGHT section */}
+      <section className="bg-bone py-24 sm:py-32">
         <div className="container-luxe">
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading
               align="left"
+              tone="light"
               eyebrow="Insights"
               title="Recent articles"
               description="Short, practical reads for SME owners — click any one to read it in full."
@@ -355,7 +356,7 @@ export default function HomePage() {
             <FadeIn>
               <Link
                 href="/insights"
-                className="inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-light"
+                className="inline-flex items-center gap-2 text-sm font-medium text-gold-deep hover:text-gold"
               >
                 View all articles
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
@@ -370,7 +371,7 @@ export default function HomePage() {
               <FadeInItem key={a.slug} className="h-full">
                 <Link
                   href={`/insights/${a.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-emerald-base/60 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold/40"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-emerald-base/10 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-deep/40 hover:shadow-md"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <Image
@@ -382,19 +383,19 @@ export default function HomePage() {
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-7">
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">
                       {a.category}
                     </span>
-                    <h3 className="mt-3 text-lg font-semibold leading-snug text-white transition-colors group-hover:text-gold-light">
+                    <h3 className="mt-3 text-lg font-semibold leading-snug text-emerald-deep transition-colors group-hover:text-gold-deep">
                       {a.title}
                     </h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-bone-muted">
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-emerald-base/75">
                       {a.excerpt}
                     </p>
-                    <span className="mt-5 text-xs text-bone-dim">
+                    <span className="mt-5 text-xs text-emerald-base/55">
                       {formatArticleDate(a.date)} · {a.readTime}
                     </span>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold transition-colors group-hover:text-gold-light">
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold-deep transition-colors group-hover:text-gold">
                       Read article
                       <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
                         <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
