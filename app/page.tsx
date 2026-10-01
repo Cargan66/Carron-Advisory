@@ -265,10 +265,11 @@ export default function HomePage() {
           Q3 · What will I receive? — the CFO work, then the output
           ============================================================ */}
 
-      {/* Services overview */}
-      <section className="bg-emerald-base py-24 sm:py-32">
+      {/* Services overview — LIGHT section */}
+      <section className="bg-bone py-24 sm:py-32">
         <div className="container-luxe">
           <SectionHeading
+            tone="light"
             eyebrow="What an Experienced CFO Adds"
             title="Six places senior financial leadership pays for itself"
             description="The CFO role flexes to what your business needs most right now — and shifts as you grow. You don't buy a fixed product; you get judgement applied where it counts."
@@ -277,13 +278,13 @@ export default function HomePage() {
           <FadeInStagger className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <FadeInItem key={service.slug} className="h-full">
-                <ServiceCard service={service} href={`/services#${service.slug}`} />
+                <ServiceCard service={service} href={`/services#${service.slug}`} tone="light" />
               </FadeInItem>
             ))}
           </FadeInStagger>
 
           <FadeIn className="mt-12 flex justify-center">
-            <Button href="/services" variant="secondary" size="lg">
+            <Button href="/services" variant="primary" size="lg">
               See What a CFO Adds
             </Button>
           </FadeIn>
