@@ -77,10 +77,10 @@ export default function ArticlePage({ params }: Params) {
         description={article.excerpt}
       />
 
-      <article className="bg-emerald-base py-20 sm:py-28">
+      <article className="bg-bone py-20 text-emerald-base sm:py-28">
         <div className="container-luxe max-w-3xl">
           <FadeIn>
-            <div className="mb-8 aspect-[16/9] overflow-hidden rounded-3xl border border-white/10">
+            <div className="mb-8 aspect-[16/9] overflow-hidden rounded-3xl border border-emerald-base/10">
               <Image
                 src={article.cover}
                 alt={article.title}
@@ -91,7 +91,7 @@ export default function ArticlePage({ params }: Params) {
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="flex items-center gap-3 text-sm text-bone-dim">
+            <div className="flex items-center gap-3 text-sm text-emerald-base/60">
               <span>{article.author}</span>
               <span aria-hidden>·</span>
               <span>{formatArticleDate(article.date)}</span>
@@ -102,17 +102,17 @@ export default function ArticlePage({ params }: Params) {
 
             {/* PDF-primary report: prominent open/download card above a teaser body */}
             {article.pdf && article.pdfPrimary && (
-              <div className="mb-10 flex flex-col items-start gap-5 rounded-2xl border border-gold/30 bg-emerald-section/60 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mb-10 flex flex-col items-start gap-5 rounded-2xl border border-gold-deep/30 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-4">
-                  <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl border border-gold/30 bg-gold/5 text-gold">
+                  <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl border border-gold-deep/30 bg-gold/10 text-gold-deep">
                     <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden>
                       <path d="M14 3v5h5" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                   <div>
-                    <p className="font-semibold text-white">Full report (PDF)</p>
-                    <p className="text-sm text-bone-muted">Open it in your browser or download it to read.</p>
+                    <p className="font-semibold text-emerald-deep">Full report (PDF)</p>
+                    <p className="text-sm text-emerald-base/70">Open it in your browser or download it to read.</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -130,7 +130,7 @@ export default function ArticlePage({ params }: Params) {
                   <a
                     href={article.pdf}
                     download
-                    className="inline-flex items-center gap-2 rounded-full border border-gold/60 px-6 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+                    className="inline-flex items-center gap-2 rounded-full border border-gold-deep/50 px-6 py-2.5 text-sm font-medium text-gold-deep transition-colors hover:bg-gold/10"
                   >
                     Download
                     <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
@@ -145,22 +145,22 @@ export default function ArticlePage({ params }: Params) {
 
             {/* Full text is on the page: PDF is a secondary offline download */}
             {article.pdf && !article.pdfPrimary && (
-              <div className="mt-10 flex flex-col items-start gap-4 rounded-2xl border border-white/10 bg-emerald-section/40 p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mt-10 flex flex-col items-start gap-4 rounded-2xl border border-emerald-base/10 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-gold/30 bg-gold/5 text-gold">
+                  <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-gold-deep/30 bg-gold/10 text-gold-deep">
                     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden>
                       <path d="M14 3v5h5" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
-                  <p className="text-sm text-bone-muted">
+                  <p className="text-sm text-emerald-base/80">
                     Prefer it offline? Download this report as a formatted PDF.
                   </p>
                 </div>
                 <a
                   href={article.pdf}
                   download
-                  className="inline-flex flex-none items-center gap-2 rounded-full border border-gold/60 px-6 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+                  className="inline-flex flex-none items-center gap-2 rounded-full border border-gold-deep/50 px-6 py-2.5 text-sm font-medium text-gold-deep transition-colors hover:bg-gold/10"
                 >
                   Download as PDF
                   <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
@@ -171,28 +171,28 @@ export default function ArticlePage({ params }: Params) {
             )}
           </FadeIn>
 
-          <FadeIn className="mt-12 rounded-2xl border border-white/10 bg-emerald-section/40 p-6">
-            <p className="text-sm leading-relaxed text-bone-muted">
+          <FadeIn className="mt-12 rounded-2xl border border-emerald-base/10 bg-white p-6 shadow-sm">
+            <p className="text-sm leading-relaxed text-emerald-base/80">
               This is the kind of decision a{" "}
-              <Link href="/services/fractional-cfo" className="font-medium text-gold hover:text-gold-light">
+              <Link href="/services/fractional-cfo" className="font-medium text-gold-deep hover:text-gold">
                 fractional CFO
               </Link>{" "}
               helps owner-managed businesses work through. Explore{" "}
-              <Link href="/services" className="font-medium text-gold hover:text-gold-light">
+              <Link href="/services" className="font-medium text-gold-deep hover:text-gold">
                 what a CFO adds
               </Link>
               , or see{" "}
-              <Link href="/testimonials-case-studies" className="font-medium text-gold hover:text-gold-light">
+              <Link href="/testimonials-case-studies" className="font-medium text-gold-deep hover:text-gold">
                 how we&apos;ve helped other owners
               </Link>
               .
             </p>
           </FadeIn>
 
-          <FadeIn className="mt-8 border-t border-white/10 pt-8">
+          <FadeIn className="mt-8 border-t border-emerald-base/10 pt-8">
             <Link
               href="/insights"
-              className="inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-light"
+              className="inline-flex items-center gap-2 text-sm font-medium text-gold-deep hover:text-gold"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
                 <path d="M19 12H5M11 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -267,14 +267,14 @@ function renderBlock(block: string, key: number): ReactNode {
 
   if (trimmed.startsWith("### ")) {
     return (
-      <h3 key={key} className="pt-1 text-lg font-bold text-white sm:text-xl">
+      <h3 key={key} className="pt-1 text-lg font-bold text-emerald-deep sm:text-xl">
         {inline(trimmed.slice(4))}
       </h3>
     );
   }
   if (trimmed.startsWith("## ")) {
     return (
-      <h2 key={key} className="pt-2 text-2xl font-bold text-white sm:text-[1.75rem]">
+      <h2 key={key} className="pt-2 text-2xl font-bold text-emerald-deep sm:text-[1.75rem]">
         {inline(trimmed.slice(3))}
       </h2>
     );
@@ -287,12 +287,12 @@ function renderBlock(block: string, key: number): ReactNode {
     const header = cells(lines[0]);
     const rows = lines.slice(2).filter((l) => l.includes("|")).map(cells);
     return (
-      <div key={key} className="overflow-x-auto rounded-2xl border border-white/10">
+      <div key={key} className="overflow-x-auto rounded-2xl border border-emerald-base/12 bg-white shadow-sm">
         <table className="w-full border-collapse text-left text-sm">
           <thead>
-            <tr className="bg-emerald-section/60">
+            <tr className="bg-emerald-base/[0.05]">
               {header.map((h, hi) => (
-                <th key={hi} className="border-b border-white/10 px-4 py-3 font-semibold text-gold">
+                <th key={hi} className="border-b border-emerald-base/12 px-4 py-3 font-semibold text-gold-deep">
                   {inline(h)}
                 </th>
               ))}
@@ -300,9 +300,9 @@ function renderBlock(block: string, key: number): ReactNode {
           </thead>
           <tbody>
             {rows.map((row, ri) => (
-              <tr key={ri} className={ri % 2 ? "bg-white/[0.02]" : ""}>
+              <tr key={ri} className={ri % 2 ? "bg-emerald-base/[0.03]" : ""}>
                 {row.map((c, ci) => (
-                  <td key={ci} className="border-b border-white/10 px-4 py-3 align-top text-bone/90">
+                  <td key={ci} className="border-b border-emerald-base/10 px-4 py-3 align-top text-emerald-base/90">
                     {inline(c)}
                   </td>
                 ))}
@@ -319,8 +319,8 @@ function renderBlock(block: string, key: number): ReactNode {
     return (
       <ul key={key} className="space-y-2.5">
         {lines.map((l, li) => (
-          <li key={li} className="flex gap-3 text-base leading-relaxed text-bone/90 sm:text-lg">
-            <span className="mt-[0.6rem] h-1.5 w-1.5 flex-none rounded-full bg-gold" aria-hidden />
+          <li key={li} className="flex gap-3 text-base leading-relaxed text-emerald-base/90 sm:text-lg">
+            <span className="mt-[0.6rem] h-1.5 w-1.5 flex-none rounded-full bg-gold-deep" aria-hidden />
             <span>{inline(l.trimStart().slice(2))}</span>
           </li>
         ))}
@@ -333,8 +333,8 @@ function renderBlock(block: string, key: number): ReactNode {
     return (
       <ol key={key} className="space-y-2.5">
         {lines.map((l, li) => (
-          <li key={li} className="flex gap-3 text-base leading-relaxed text-bone/90 sm:text-lg">
-            <span className="flex-none font-semibold text-gold">{li + 1}.</span>
+          <li key={li} className="flex gap-3 text-base leading-relaxed text-emerald-base/90 sm:text-lg">
+            <span className="flex-none font-semibold text-gold-deep">{li + 1}.</span>
             <span>{inline(l.replace(/^\s*\d+\.\s/, ""))}</span>
           </li>
         ))}
@@ -344,7 +344,7 @@ function renderBlock(block: string, key: number): ReactNode {
 
   // Paragraph (preserve soft line breaks inside a block)
   return (
-    <p key={key} className="text-base leading-relaxed text-bone/90 sm:text-lg">
+    <p key={key} className="text-base leading-relaxed text-emerald-base/90 sm:text-lg">
       {lines.map((l, li) => (
         <Fragment key={li}>
           {li > 0 && <br />}
@@ -364,7 +364,7 @@ function inline(text: string): ReactNode[] {
       if (link) {
         const [, label, href] = link;
         const cls =
-          "font-medium text-gold underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold-light";
+          "font-medium text-gold-deep underline decoration-gold-deep/40 underline-offset-2 transition-colors hover:text-gold";
         return href.startsWith("/") ? (
           <Link key={i} href={href} className={cls}>
             {label}
@@ -377,7 +377,7 @@ function inline(text: string): ReactNode[] {
       }
       if (part.startsWith("**") && part.endsWith("**")) {
         return (
-          <strong key={i} className="font-semibold text-white">
+          <strong key={i} className="font-semibold text-emerald-deep">
             {part.slice(2, -2)}
           </strong>
         );
