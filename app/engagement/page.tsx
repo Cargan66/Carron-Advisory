@@ -32,27 +32,27 @@ export default function EngagementPage() {
       <EngagementTiers />
 
       {/* Models */}
-      <section className="bg-emerald-base py-24 sm:py-32">
+      <section className="bg-bone py-24 sm:py-32">
         <div className="container-luxe">
           <FadeInStagger className="grid gap-6 lg:grid-cols-3">
             {engagementModels.map((m) => (
               <FadeInItem key={m.name} className="h-full">
-                <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-emerald-section/60 p-8 transition-colors duration-300 hover:border-gold/30">
-                  <h2 className="text-xl font-bold text-white">{m.name}</h2>
-                  <p className="mt-2 text-sm font-medium text-gold">{m.best}</p>
-                  <p className="mt-4 text-sm leading-relaxed text-bone-muted">
+                <div className="flex h-full flex-col rounded-2xl border border-emerald-base/10 bg-white p-8 shadow-sm transition-colors duration-300 hover:border-gold-deep/40">
+                  <h2 className="text-xl font-bold text-emerald-deep">{m.name}</h2>
+                  <p className="mt-2 text-sm font-medium text-gold-deep">{m.best}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-emerald-base/75">
                     {m.href
                       ? "A focused, independent review of cash, profitability, reporting, forecasting, and financial risk. You leave with clear priorities and a practical 90-day action plan."
                       : m.description}
                   </p>
-                  <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-6">
+                  <ul className="mt-6 space-y-2.5 border-t border-emerald-base/12 pt-6">
                     {m.includes.map((inc) => (
                       <li
                         key={inc}
-                        className="flex items-start gap-2.5 text-sm text-bone/90"
+                        className="flex items-start gap-2.5 text-sm text-emerald-base/90"
                       >
                         <svg
-                          className="mt-0.5 h-4 w-4 flex-none text-gold"
+                          className="mt-0.5 h-4 w-4 flex-none text-gold-deep"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
@@ -71,7 +71,7 @@ export default function EngagementPage() {
                   </ul>
                   {m.href && (
                     <div className="mt-auto pt-7">
-                      <Button href={m.href} variant="secondary" className="w-full">
+                      <Button href={m.href} variant="primary" className="w-full">
                         {m.cta}
                       </Button>
                     </div>
@@ -82,7 +82,7 @@ export default function EngagementPage() {
           </FadeInStagger>
 
           <FadeIn className="mt-10">
-            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-bone-dim">
+            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-emerald-base/60">
               Not sure which fits? Most owners aren&apos;t at first. A discovery
               call usually makes it obvious — and there&apos;s no pressure to
               commit to anything ongoing.
@@ -92,9 +92,9 @@ export default function EngagementPage() {
       </section>
 
       {/* Partnership image */}
-      <section className="bg-emerald-base pb-24 sm:pb-32">
+      <section className="bg-bone pb-24 sm:pb-32">
         <FadeIn className="container-luxe">
-          <div className="overflow-hidden rounded-3xl border border-white/10">
+          <div className="overflow-hidden rounded-3xl border border-emerald-base/10">
             <Image
               src="/images/partnership.jpg"
               alt="Two professionals shaking hands after agreeing to work together"

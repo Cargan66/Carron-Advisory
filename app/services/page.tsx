@@ -28,13 +28,13 @@ export default function ServicesPage() {
         description="You don't buy a fixed package. The role moves to where the business needs it most — and shifts as you grow. These are the six areas where it earns its keep."
       />
 
-      <section className="bg-emerald-base py-24 sm:py-32">
+      <section className="bg-bone py-24 sm:py-32">
         <div className="container-luxe">
           <FadeInStagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <FadeInItem key={service.slug} className="h-full">
                 <div id={service.slug} className="h-full scroll-mt-28">
-                  <ServiceCard service={service} detailed />
+                  <ServiceCard service={service} detailed tone="light" />
                 </div>
               </FadeInItem>
             ))}
@@ -43,9 +43,9 @@ export default function ServicesPage() {
       </section>
 
       {/* Advisory in action */}
-      <section className="bg-emerald-base pb-24 sm:pb-32">
+      <section className="bg-bone pb-24 sm:pb-32">
         <FadeIn className="container-luxe">
-          <div className="overflow-hidden rounded-3xl border border-white/10">
+          <div className="overflow-hidden rounded-3xl border border-emerald-base/10">
             <Image
               src="/images/advisory-review.jpg"
               alt="A CFO and a business owner reviewing the numbers together at a desk"

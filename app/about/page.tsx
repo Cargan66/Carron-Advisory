@@ -46,11 +46,11 @@ export default function AboutPage() {
       />
 
       {/* Founder */}
-      <section className="border-b border-white/10 bg-emerald-base py-24 sm:py-32">
+      <section className="border-b border-emerald-base/10 bg-bone py-24 sm:py-32">
         <div className="container-luxe grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-20">
           <FadeIn>
-            <div className="flex flex-col items-center gap-6 rounded-3xl border border-gold/20 bg-emerald-section/50 p-10 text-center">
-              <span className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-gold/30">
+            <div className="flex flex-col items-center gap-6 rounded-3xl border border-emerald-base/10 bg-white p-10 text-center shadow-sm">
+              <span className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-gold-deep/30">
                 <Image
                   src="/images/carel-gangel-banner.jpg"
                   alt={`${founder.name}, ${founder.role} at Carron Business Advisory`}
@@ -61,8 +61,8 @@ export default function AboutPage() {
                 />
               </span>
               <div>
-                <p className="text-xl font-bold text-white">{founder.name}</p>
-                <p className="mt-1 text-sm font-medium text-gold">
+                <p className="text-xl font-bold text-emerald-deep">{founder.name}</p>
+                <p className="mt-1 text-sm font-medium text-gold-deep">
                   {founder.role}
                 </p>
               </div>
@@ -70,7 +70,7 @@ export default function AboutPage() {
                 href={siteConfig.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/50 px-5 py-2 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+                className="inline-flex items-center gap-2 rounded-full border border-gold-deep/50 px-5 py-2 text-sm font-medium text-gold-deep transition-colors hover:bg-gold/10"
               >
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
                   <path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.6c0-1.34-.03-3.06-1.9-3.06-1.9 0-2.2 1.46-2.2 2.97V21h-4z" />
@@ -83,11 +83,12 @@ export default function AboutPage() {
           <div>
             <SectionHeading
               align="left"
+              tone="light"
               eyebrow="Who Leads Carron"
               title="Led by Carel Gangel"
               className="mb-8"
             />
-            <FadeIn className="space-y-5 text-base leading-relaxed text-bone/90 sm:text-lg">
+            <FadeIn className="space-y-5 text-base leading-relaxed text-emerald-base/85 sm:text-lg">
               {founder.bio.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
@@ -96,7 +97,7 @@ export default function AboutPage() {
               {founder.credentials.map((c) => (
                 <span
                   key={c}
-                  className="rounded-full border border-gold/25 bg-gold/5 px-4 py-1.5 text-xs font-medium text-bone"
+                  className="rounded-full border border-gold-deep/25 bg-gold/10 px-4 py-1.5 text-xs font-medium text-emerald-base"
                 >
                   {c}
                 </span>
@@ -107,16 +108,17 @@ export default function AboutPage() {
       </section>
 
       {/* Story */}
-      <section className="bg-emerald-base py-24 sm:py-32">
+      <section className="bg-bone py-24 sm:py-32">
         <div className="container-luxe grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
           <div>
             <SectionHeading
               align="left"
+              tone="light"
               eyebrow="Our Story"
               title="Built for the gap most SMEs fall into"
               className="mb-8"
             />
-            <FadeIn className="space-y-5 text-base leading-relaxed text-bone/90 sm:text-lg">
+            <FadeIn className="space-y-5 text-base leading-relaxed text-emerald-base/85 sm:text-lg">
             <p>
               Most South African SMEs run on a bookkeeper and the owner&apos;s
               instinct. That carries a business a long way — until the decisions
@@ -142,7 +144,7 @@ export default function AboutPage() {
           </div>
 
           <FadeIn delay={0.1}>
-            <div className="overflow-hidden rounded-3xl border border-white/10">
+            <div className="overflow-hidden rounded-3xl border border-emerald-base/10">
               <Image
                 src="/images/collaboration.jpg"
                 alt="A business owner and advisor working through the numbers together"
