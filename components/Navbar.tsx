@@ -40,9 +40,7 @@ export function Navbar() {
         <ul className="hidden items-center gap-5 lg:flex xl:gap-4">
           {navLinks.map((link) => {
             const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
+              pathname === link.href || pathname.startsWith(link.href + "/");
             return (
               <li key={link.href}>
                 <Link
@@ -111,9 +109,7 @@ export function Navbar() {
             <ul className="container-luxe flex flex-col gap-1 pb-6 pt-2">
               {navLinks.map((link) => {
                 const active =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(link.href);
+                  pathname === link.href || pathname.startsWith(link.href + "/");
                 return (
                   <li key={link.href}>
                     <Link

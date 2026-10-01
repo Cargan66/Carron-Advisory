@@ -17,11 +17,9 @@ export const siteConfig = {
 };
 
 export const navLinks = [
-  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "What a CFO Adds", href: "/services" },
   { label: "Engagement", href: "/engagement" },
-  { label: "Case Studies", href: "/testimonials-case-studies" },
   { label: "Insights", href: "/insights" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },

@@ -117,40 +117,62 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Value proposition */}
-      <section className="bg-emerald-base py-24 sm:py-32">
-        <div className="container-luxe grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <SectionHeading
-            align="left"
-            eyebrow="Why Carron"
-            title={
-              <>
-                The difference between keeping books and{" "}
-                <span className="text-gold-gradient">running a business</span>.
-              </>
-            }
-            description="A bookkeeper tells you what happened. An auditor checks it after the fact. A CFO looks forward — at cash, margin, funding, and the next big decision. Carron gives owner-managed businesses that financial leadership, sized and priced for an SME."
-          />
+      {/* ============================================================
+          Q1 · Is this you? — the signs, then who we work best with
+          ============================================================ */}
 
-          <FadeInStagger className="grid gap-5">
-            {values.map((v) => (
-              <FadeInItem key={v.title}>
-                <div className="flex gap-5 rounded-2xl border border-white/10 bg-emerald-section/50 p-6 transition-colors duration-300 hover:border-gold/30">
-                  <span className="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-gold-gradient" />
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">
-                      {v.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-bone-muted">
-                      {v.description}
-                    </p>
-                  </div>
-                </div>
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
+      {/* Is it time for a CFO? (Six signs) */}
+      <CFOSigns />
+
+      {/* Who we work best with — LIGHT section (first cream/bone trial) */}
+      <section className="bg-bone py-24 sm:py-32">
+        <div className="container-luxe">
+          <SectionHeading
+            tone="light"
+            eyebrow="Who We Work Best With"
+            title="Built for established, owner-managed businesses"
+            description="Carron adds the most value where the numbers have outgrown a bookkeeper — typically owner-managed businesses with a bookkeeper, accountant or finance manager, but no strategic finance leader."
+          />
+          <div className="mt-16 grid gap-6 lg:grid-cols-2">
+            <FadeIn>
+              <div className="h-full rounded-2xl border border-emerald-base/10 bg-white p-8 shadow-sm">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">
+                  Sectors we know well
+                </h3>
+                <ul className="mt-6 space-y-3.5">
+                  {clientSectors.map((s) => (
+                    <li key={s} className="flex items-start gap-3 text-emerald-base/90">
+                      <svg className="mt-1 h-4 w-4 flex-none text-gold-deep" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+                        <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <div className="h-full rounded-2xl border border-emerald-base/10 bg-white p-8 shadow-sm">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">
+                  When owners call us
+                </h3>
+                <ul className="mt-6 space-y-3.5">
+                  {clientSituations.map((s) => (
+                    <li key={s} className="flex items-start gap-3 text-emerald-base/90">
+                      <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-gold-deep" />
+                      &ldquo;{s}&rdquo;
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
+
+      {/* ============================================================
+          Q2 · Why trust Carron? — Carel, then one consolidated "why"
+          ============================================================ */}
 
       {/* Founder strip */}
       <section className="border-y border-white/10 bg-emerald-section py-16 sm:py-20">
@@ -180,53 +202,68 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Is it time for a CFO? */}
-      <CFOSigns />
-
-      {/* Who we work best with */}
+      {/* Why Carron — credentials + ethos, consolidated into ONE section
+          (replaces the former separate "Why Carron" and "Why Choose Carron" blocks). */}
       <section className="bg-emerald-base py-24 sm:py-32">
         <div className="container-luxe">
           <SectionHeading
-            eyebrow="Who We Work Best With"
-            title="Built for established, owner-managed businesses"
-            description="Carron adds the most value where the numbers have outgrown a bookkeeper — typically owner-managed businesses with a bookkeeper, accountant or finance manager, but no strategic finance leader."
+            eyebrow="Why Carron"
+            title={
+              <>
+                Senior financial leadership,{" "}
+                <span className="text-gold-gradient">sized for an SME</span>
+              </>
+            }
+            description="The judgement of a full-time CFO, on a fractional basis — and a way of working built around decisions you can act on this week, not admin that gathers dust."
           />
-          <div className="mt-16 grid gap-6 lg:grid-cols-2">
-            <FadeIn>
-              <div className="h-full rounded-2xl border border-white/10 bg-emerald-section/50 p-8">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                  Sectors we know well
-                </h3>
-                <ul className="mt-6 space-y-3.5">
-                  {clientSectors.map((s) => (
-                    <li key={s} className="flex items-start gap-3 text-bone/90">
-                      <svg className="mt-1 h-4 w-4 flex-none text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
-                        <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <div className="h-full rounded-2xl border border-white/10 bg-emerald-section/50 p-8">
-                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-                  When owners call us
-                </h3>
-                <ul className="mt-6 space-y-3.5">
-                  {clientSituations.map((s) => (
-                    <li key={s} className="flex items-start gap-3 text-bone/90">
-                      <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-gold-gradient" />
-                      &ldquo;{s}&rdquo;
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeIn>
-          </div>
+
+          <FadeInStagger className="mt-16 grid gap-6 lg:grid-cols-3">
+            {whyCarron.map((w, i) => (
+              <FadeInItem key={w.title} className="h-full">
+                <div className="h-full rounded-2xl border border-white/10 bg-emerald-section/50 p-8">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-gold/5 text-lg font-bold text-gold">
+                    {i + 1}
+                  </span>
+                  <h3 className="mt-5 text-lg font-semibold text-white">{w.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-bone-muted">
+                    {w.description}
+                  </p>
+                </div>
+              </FadeInItem>
+            ))}
+          </FadeInStagger>
+
+          {/* How we work — the ethos, kept compact so it reads once, not as a repeat section */}
+          <FadeIn className="mt-14 border-t border-white/10 pt-10">
+            <h3 className="text-center text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+              How we work
+            </h3>
+            <div className="mx-auto mt-8 grid max-w-5xl gap-x-8 gap-y-6 sm:grid-cols-3">
+              {values.map((v) => (
+                <div key={v.title} className="flex gap-4">
+                  <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-gold-gradient" />
+                  <div>
+                    <h4 className="text-base font-semibold text-white">{v.title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-bone-muted">
+                      {v.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+
+          <FadeIn className="mt-12 flex justify-center">
+            <Button href="/services/fractional-cfo" variant="secondary" size="lg">
+              Explore Fractional CFO Services
+            </Button>
+          </FadeIn>
         </div>
       </section>
+
+      {/* ============================================================
+          Q3 · What will I receive? — the CFO work, then the output
+          ============================================================ */}
 
       {/* Services overview */}
       <section className="bg-emerald-base py-24 sm:py-32">
@@ -286,37 +323,6 @@ export default function HomePage() {
                 className="h-52 w-full object-cover object-[center_72%]"
               />
             </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Why choose Carron — 3-column value prop */}
-      <section className="border-y border-white/10 bg-emerald-section py-24 sm:py-32">
-        <div className="container-luxe">
-          <SectionHeading
-            eyebrow="Why Choose Carron"
-            title="Senior financial leadership, without the full-time cost"
-            description="Three reasons owner-managed businesses bring Carron in — and stay."
-          />
-          <FadeInStagger className="mt-16 grid gap-6 lg:grid-cols-3">
-            {whyCarron.map((w, i) => (
-              <FadeInItem key={w.title} className="h-full">
-                <div className="h-full rounded-2xl border border-white/10 bg-emerald-base/60 p-8">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-gold/5 text-lg font-bold text-gold">
-                    {i + 1}
-                  </span>
-                  <h3 className="mt-5 text-lg font-semibold text-white">{w.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-bone-muted">
-                    {w.description}
-                  </p>
-                </div>
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
-          <FadeIn className="mt-12 flex justify-center">
-            <Button href="/services/fractional-cfo" variant="secondary" size="lg">
-              Explore Fractional CFO Services
-            </Button>
           </FadeIn>
         </div>
       </section>
