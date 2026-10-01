@@ -39,6 +39,137 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "you-fixed-the-problem",
+    cover: "/images/you-fixed-the-problem.webp",
+    ogImage: "/images/you-fixed-the-problem.webp",
+    pdf: "/articles/Carron_You_Fixed_the_Problem_Why_Did_It_Come_Back.pdf",
+    title: "You Fixed the Problem. Why Did It Come Back?",
+    category: "Profitability",
+    excerpt:
+      "Our October 2026 special report: a cost can fall, a margin can recover and overdue debtors can be collected — yet the same problem returns a few months later. A practical route from a recurring financial symptom to an operating change that lasts: separating the quick fix from the permanent control, the evidence that proves a problem is really solved, and a 30/60/90-day test for whether an EBITDA improvement will hold.",
+    date: "2026-10-01",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `A cost can fall, a margin can recover and overdue debtors can be collected — yet the same problem returns a few months later. That usually means you treated the number, but the way the business works did not change. The practical test is not whether the first result looked good. It is whether the improvement still holds when your attention moves elsewhere, normal pressure returns and the team follows the new routine without you chasing it.
+
+## Executive summary
+
+- Separate the quick intervention from the permanent operating change.
+- Track one early-warning figure as well as the later financial result.
+- Test the improvement after 30, 60 and 90 days — under normal business pressure.
+
+**Decision principle:** do not close an improvement action because the task was completed. Close it when the evidence shows the result continues without continual owner rescue.
+
+## The recurring problem
+
+You challenge the overtime bill. It falls. You push for collections. Debtors improve. You stop a discounting habit. Margin recovers. Then your attention moves to the next urgent issue — and the old number creeps back.
+
+That does not necessarily mean the first action was wrong. It often means the action depended on your presence. The business responded to pressure, but it did not yet build a routine that could hold the improvement on its own.
+
+**The useful distinction:**
+
+- **The symptom** is the financial result you can see: overtime, margin, stock losses, rework or overdue debtors.
+- **The cause** is the operating behaviour beneath it: weak scheduling, unclear approval, missing ownership or a report that arrives too late.
+- **The control** is the repeatable routine that prevents, detects or corrects the problem before it becomes expensive.
+
+## Three levels of response
+
+Most improvements move through three levels. Confusing them is why a completed task can look like a solved problem.
+
+| Level | What it looks like | What it proves |
+| --- | --- | --- |
+| 1 · Immediate intervention | You stop the spend, chase the debtor or approve every exception yourself. | The number can move quickly. |
+| 2 · Corrective action | You change a roster, price, workflow, responsibility or approval rule. | A likely cause has been addressed. |
+| 3 · Lasting control | The team follows the routine, exceptions are visible and someone acts before you step in. | The improvement can hold without owner rescue. |
+
+The goal is not to eliminate judgement. It is to stop the same preventable problem from needing the same emergency intervention every few months.
+
+## Why sensible fixes fade
+
+**The cause was never clear.** You acted on the most visible cost, but the real trigger sat elsewhere — in planning, pricing, purchasing, quality or collections.
+
+**The fix lived in one person's head.** The new way worked while the owner or one strong manager watched it. There was no simple rule, owner or exception report.
+
+**The team was measured on the wrong outcome.** People protected delivery, volume or customer response time, even when doing so recreated the cost you were trying to remove.
+
+## What evidence shows the problem was fixed
+
+A lasting improvement leaves a trail. You should be able to see evidence in four places — not just in the month-end accounts.
+
+| Evidence | Owner's question | Example |
+| --- | --- | --- |
+| Cause | Do we know what repeatedly triggered the cost or shortfall? | Late production changes created extra shifts. |
+| Changed behaviour | What now happens differently in the normal workflow? | The weekly plan is frozen unless an exception is approved. |
+| Early warning | What will move before the financial result deteriorates? | Unplanned hours and schedule changes are reviewed weekly. |
+| Accountability | Who sees the exception and acts without waiting for me? | The operations lead explains every breach on Friday. |
+| Outcome | Has the saving or margin held through normal pressure? | The result remains within range for three review points. |
+
+## Worked example: overtime falls, then returns
+
+A fictional South African light manufacturer is spending R120,000 a month on overtime. The owner requires personal approval for every extra shift. Overtime falls to R65,000, so the action is marked complete.
+
+Two months later the owner focuses on sales and a supplier problem. Overtime rises to R105,000. The first saving was real, but it depended on the owner's attention. The business had not changed the planning behaviour that created the extra hours.
+
+| Stage | Monthly overtime | What was really happening |
+| --- | --- | --- |
+| Before action | R120,000 | Late schedule changes and weak shift planning were normal. |
+| Owner approval | R65,000 | The owner blocked exceptions personally; the underlying routine stayed weak. |
+| Attention moves | R105,000 | The old behaviour returned when the owner stopped checking every request. |
+| Process change | R68,000–R75,000 | A frozen weekly plan, a named exception owner and a weekly early-warning review replaced owner chasing. |
+
+**What changed the result:**
+
+- The weekly production plan could only be changed for a recorded customer, equipment or staffing exception.
+- Unplanned hours were reviewed every Friday — before payroll converted them into a month-end cost.
+- The operations lead owned the explanation and response; the owner only saw unresolved exceptions.
+- The comparison was adjusted for output volume, annual wage increases and unusual disruption.
+
+At R75,000 a month, the saving is R45,000 a month, or R540,000 a year. But that is only a worthwhile EBITDA improvement if it does not reappear as late deliveries, lost output, rework or quality claims.
+
+**South African reality check:** if load-shedding or another disruption forces catch-up work, record it separately. A distorted month should be explained — not used to declare the fix a failure.
+
+## The 90-day improvement test
+
+Ninety days is not a universal rule. It is a practical review rhythm: long enough for attention to move, pressure to return and the new routine to be tested more than once.
+
+| Review | What to check | Sign the fix is holding |
+| --- | --- | --- |
+| Day 5 | Owner, baseline, target and first action are clear. | The team knows what changed and who owns it. |
+| Day 30 | The new routine is being followed; exceptions are visible. | The early-warning figure moves in the expected direction. |
+| Day 60 | The result survives a busy period or normal disruption. | The owner is no longer the routine control. |
+| Day 90 | Operating and financial evidence still agree. | The gain holds without creating a new cost elsewhere. |
+
+**Use AI as a tracker, not as proof.** AI can help pull early-warning figures from scheduling, payroll, stock or debtor data, compare them with the agreed range and flag exceptions for review. It does not prove the cause or replace your judgement. Check the source data and the operating context before acting.
+
+**Keep profit, EBITDA and cash separate.** A cost reduction may improve EBITDA — the operating profit measure before interest, tax, depreciation and amortisation — but cash can move at a different time. Confirm both: did the underlying operating result improve, and did the cash benefit actually reach the bank?
+
+**Comparison discipline:** compare like with like. Adjust for output, mix, wage increases, seasonality and one-off disruption before deciding whether the improvement held.
+
+## When you can call it fixed
+
+You do not need a perfect process. You need enough evidence to know that the business has stopped relying on repeated intervention for the same preventable issue.
+
+**Ask these owner questions:**
+
+- What was the real cause — and what evidence supports that view?
+- What now happens differently, and who owns the exceptions?
+- Which figure will warn us before the month-end result deteriorates?
+- Has the result survived pressure without damaging delivery, quality, customers or cash?
+- Does this still work when I stop asking about it every day?
+
+## Closing perspective
+
+A better number is encouraging. A changed operating habit is more valuable. When the rule is clear, exceptions have an owner and your attention is no longer the control, a temporary saving has a far better chance of becoming lasting EBITDA improvement.
+
+**The bottom line.** Do not close the action when the task is done. Close it only when the operating evidence and the financial result both hold — without continual owner rescue, and without shifting the cost elsewhere.
+
+*General business and financial education only. The examples are illustrative and should be tested against your business, agreements, accounting treatment and professional advice.*
+
+**Related reading:** Your Management Accounts Arrived. Now What? · Can Your Business Afford to Grow?
+
+The full report includes a one-page **Improvement That Sticks Review Record** — to complete for each material improvement, from the problem and likely cause through to the evidence at closure — available in the downloadable PDF.`,
+  },
+  {
     slug: "you-bought-the-stock",
     cover: "/images/you-bought-the-stock.png",
     ogImage: "/images/you-bought-the-stock.png",
