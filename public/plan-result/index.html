@@ -18,6 +18,7 @@
   .spinner{width:34px;height:34px;border:3px solid #e5e0d2;border-top-color:#16412f;border-radius:50%;margin:0 auto 18px;animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px;padding-top:22px;border-top:1px solid #eee}
+  .savehint{font-size:13px;color:#6a776e;text-align:center;margin-top:14px;line-height:1.5}
   .btn{font-weight:600;font-size:14px;border:none;border-radius:4px;padding:12px 22px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
   .btn.primary{background:#16412f;color:#fff}
   .btn.ghost{background:#fff;color:#16412f;border:1px solid #cdd6cd}
@@ -82,7 +83,7 @@
   @media print{
     body{background:#fff;padding:0}
     .sheet{box-shadow:none;border-radius:0;max-width:none;padding:0}
-    .actions,.state{display:none!important}
+    .actions,.state,.savehint{display:none!important}
     @page{margin:16mm}
   }
 </style>
@@ -109,9 +110,10 @@
     <div id="report" hidden></div>
 
     <div class="actions" id="actions" hidden>
-      <button class="btn primary" onclick="window.print()">⤓ Save / print (PDF)</button>
+      <button class="btn primary" onclick="window.print()">⤓ Download as PDF</button>
       <a class="btn ghost" href="/contact">Book a discovery call</a>
     </div>
+    <p class="savehint" id="savehint" hidden>Tip: in the dialog, set the destination to <strong>“Save as PDF”</strong> to keep your own copy.</p>
   </div>
 
 <script>
@@ -122,7 +124,7 @@
   // States are mutually exclusive, and once the plan is shown nothing can override it.
   let shown = false;
   function hideAll(){ el('loading').hidden = true; el('pending').hidden = true; el('errored').hidden = true; }
-  function showReport(data){ if(shown) return; shown = true; el('report').innerHTML = data.html || ''; hideAll(); el('report').hidden = false; el('actions').hidden = false; }
+  function showReport(data){ if(shown) return; shown = true; el('report').innerHTML = data.html || ''; hideAll(); el('report').hidden = false; el('actions').hidden = false; const sh=el('savehint'); if(sh) sh.hidden = false; }
   function showPending(){ if(shown) return; hideAll(); el('pending').hidden = false; }
   function showError(){ if(shown) return; hideAll(); el('errored').hidden = false; }
 
