@@ -34,19 +34,19 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Free tools — all three lead magnets, visible up top */}
-      <section className="border-y border-gold/15 bg-emerald-section py-16 sm:py-20">
+      {/* Free tools — all three lead magnets, visible up top (cream backdrop, dark cards) */}
+      <section className="bg-bone py-16 sm:py-20">
         <div className="container-luxe">
           <FadeIn className="max-w-2xl">
-            <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold">
+            <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-gold-deep">
               <span className="gold-rule" aria-hidden />
               Free tools · Start here
             </span>
-            <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
+            <h2 className="mt-6 text-3xl font-bold leading-tight text-emerald-deep sm:text-4xl">
               See where your business stands —{" "}
-              <span className="text-gold-gradient">free</span>.
+              <span className="text-gold-deep">free</span>.
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-bone/90">
+            <p className="mt-4 text-base leading-relaxed text-emerald-base/80">
               Three quick, practical checks. Start with whichever fits — each takes
               just a couple of minutes.
             </p>
@@ -100,13 +100,13 @@ export default function HomePage() {
             ))}
           </FadeInStagger>
 
-          <FadeIn className="mt-12 flex flex-col items-center gap-3 border-t border-white/10 pt-10 text-center">
-            <p className="text-base text-bone/90">
+          <FadeIn className="mt-12 flex flex-col items-center gap-3 border-t border-emerald-base/15 pt-10 text-center">
+            <p className="text-base text-emerald-base/80">
               Ready for a deeper, advisor-verified review?
             </p>
             <Link
               href="/diagnostic"
-              className="inline-flex items-center gap-2 rounded-full border border-gold/60 px-6 py-3 text-sm font-semibold text-gold transition-colors hover:bg-gold/10"
+              className="inline-flex items-center gap-2 rounded-full border border-gold-deep/60 px-6 py-3 text-sm font-semibold text-gold-deep transition-colors hover:bg-gold/10"
             >
               See the Financial Performance Diagnostic
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
