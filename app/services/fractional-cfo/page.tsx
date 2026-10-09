@@ -143,11 +143,11 @@ export default function FractionalCfoPage() {
               </p>
               <p>
                 A full-time CFO commands a senior executive salary plus
-                benefits, which few SMEs can justify until they're much larger.
+                benefits, which few SMEs can justify until they’re much larger.
                 Fractional closes the gap: you get the same calibre of judgement
                 for a fraction of the cost and commitment, dialled up during a
                 funding round or a tough quarter and dialled back when things are
-                steady. For many South African owners it's the difference
+                steady. For many South African owners it’s the difference
                 between flying blind and running the business on numbers they
                 trust.
               </p>
@@ -328,11 +328,11 @@ export default function FractionalCfoPage() {
               </span>{" "}
               or{" "}
               <span className="font-semibold text-bone">fractional CFO</span>{" "}
-              emphasises that you use a portion of a CFO's time, scaled to what
+              emphasises that you use a portion of a CFO’s time, scaled to what
               the business needs right now.
             </p>
             <p>
-              What matters isn't the label — it's the shape of the engagement.
+              What matters isn’t the label — it’s the shape of the engagement.
               Carron offers all three through one relationship: an ongoing{" "}
               <Link href="/engagement" className="font-medium text-gold hover:text-gold-light">
                 monthly retainer, a fixed-scope project, or ad-hoc advisory
@@ -344,7 +344,7 @@ export default function FractionalCfoPage() {
               and it can change as you grow.
             </p>
             <p>
-              If you're still weighing whether you need senior finance support
+              If you’re still weighing whether you need senior finance support
               at all — or whether a full-time hire makes more sense — these two
               reads help:{" "}
               <Link href="/insights/what-a-fractional-cfo-actually-does" className="font-medium text-gold hover:text-gold-light">
