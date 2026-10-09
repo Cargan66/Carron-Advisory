@@ -39,6 +39,143 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "cost-cutting-without-damaging-the-business",
+    cover: "/images/cost-cutting-without-damaging-the-business.webp",
+    ogImage: "/images/cost-cutting-without-damaging-the-business.webp",
+    pdf: "/articles/Carron_Cost_Cutting_Without_Damaging_the_Business.pdf",
+    title: "Cost Cutting Without Damaging the Business",
+    category: "Profitability",
+    excerpt:
+      "Our October 2026 special report: when margins tighten, every expense line looks like an opportunity — but a lower cost only helps if the business keeps the capability, contribution and control it needs. A practical framework for removing genuine waste first, classifying each cost (stop, redesign, renegotiate or protect), measuring the net economic effect of a cut, and making the saving survive normal operations.",
+    date: "2026-10-09",
+    readTime: "PDF report",
+    author: "Carel Gangel",
+    body: `When margins tighten, every expense line can look like an opportunity. The danger is treating all costs as equal. A lower expense is useful only if the business keeps the capability, contribution and control needed to operate well after the cut.
+
+## Executive summary
+
+Remove waste first. Redesign cost second. Cut productive capacity only when the economics still improve after the consequence is counted.
+
+Cost reduction should improve the business, not merely make one expense line smaller. The practical task is to identify what each material cost buys, separate genuine waste from productive capacity, quantify the direct saving and the secondary effect, and then verify that the expected benefit actually survives normal operations.
+
+- Start with unused, duplicated and avoidable spend before touching productive capacity.
+- For every material cut, quantify both the direct saving and the operational consequence.
+- Track the result after implementation; a saving that shifts cost elsewhere is not a saving.
+
+**Decision principle:** judge a proposed cut by its net economic effect, not by the expense line alone.
+
+## Cost discipline is not the same as cost cutting
+
+The objective is not the lowest possible cost base. It is a cost base the business can defend commercially.
+
+Business conditions remain uneven. The RMB/BER Business Confidence Index was 38 in Q3 2026; separate BER surveys put manufacturing confidence at 27 and Other Services at 48. Statistics SA reported August 2026 consumer inflation of 4.4% year on year and headline producer inflation for final manufactured goods of 5.0% year on year. These indicators do not describe every SME, but they support a disciplined review of costs rather than indiscriminate cuts.
+
+## Cut the problem, not the capability
+
+Blanket reductions are attractive because they are quick to communicate: cut every department by 10%, freeze all overtime, stop travel, reduce stock, remove vacant roles. The spreadsheet responds immediately. The business may not. Different costs perform different jobs, and the same percentage cut can remove waste in one area and revenue capacity in another.
+
+| Cost signal | Management response |
+| --- | --- |
+| Waste — unused, duplicated or obsolete spend | Stop it, and confirm the saving reaches the accounts and cash. |
+| Inefficient activity — the outcome is needed but the process is expensive | Redesign the process before cutting the budget. |
+| Commercial commitment — the activity is needed but price, scope or terms are weak | Renegotiate, resize or restructure the agreement. |
+| Productive capacity / control — the spend supports contribution, delivery, quality or risk | Protect it until the consequence of removal is quantified. |
+
+**The first distinction.** Do not begin with "what can we cut?" Begin with "what does this cost enable, and is that outcome still worth buying?" This changes the conversation from line-item reduction to commercial design. Large costs are not automatically bad costs, and small recurring costs are not automatically harmless — a necessary activity may still be performed in an unnecessarily expensive way.
+
+## Classify the cost before deciding — stop, redesign, renegotiate or protect
+
+A cost review is easier when management separates the decision into four actions. The accounting classification — fixed, variable, overhead or direct cost — does not answer this question by itself. A fixed maintenance contract can protect production capacity; a variable freight cost can be waste if it is caused by avoidable late dispatches.
+
+| Action | When it fits | Typical examples | Evidence before approval |
+| --- | --- | --- | --- |
+| **Stop** | The activity no longer creates enough value to justify any spend. | Unused licences, duplicate reports, obsolete services, unnecessary storage. | Usage, owner, cancellation terms and replacement need. |
+| **Redesign** | The outcome is required but the process creates avoidable cost. | Rework, emergency freight, manual admin, repeated overtime. | Root cause, process change, implementation cost and owner. |
+| **Renegotiate** | The activity is needed but the commercial arrangement is weak. | Supplier pricing, lease scope, telecoms, service contracts. | Alternatives, switching cost, quality/service requirement. |
+| **Protect** | The cost supports contribution, capacity, quality or critical control. | Key operational roles, preventive maintenance, credit control, quality checks. | Contribution supported, risk avoided and viable alternative. |
+
+A useful cost review starts with evidence, not with a percentage target. Management should be able to explain why the spend exists, what result it buys, and what would replace that result if the spend disappeared.
+
+**Owner question:** are we removing the activity, or only removing the budget while the work and risk remain?
+
+## Measure the net economic effect
+
+The visible saving is only the starting point. For a management decision, test the proposed reduction against the contribution it may remove, the replacement work it may create, the transition cost and any new risk exposure. This is not a new accounting metric; it is a decision lens for avoiding false savings.
+
+| Proposed action | Visible monthly saving | What must be tested | Initial view |
+| --- | --- | --- | --- |
+| Cancel unused software and duplicate licences | R12,000 | Usage confirmed; no process depends on the licences. | Stop |
+| Reduce avoidable express freight | R18,000 | Late planning is fixed so normal delivery is still achieved. | Redesign |
+| Reduce recurring overtime | R25,000 | Scheduling and late-change causes are corrected; output is protected. | Redesign |
+| Renegotiate packaging / supplier specification | R15,000 | Quality, lead time and customer requirements remain intact. | Renegotiate |
+| Remove a technical coordination role | R45,000 | Effect on service throughput, response time, rework and retention. | Do not approve yet |
+
+The first four actions identify **R70,000** of potential monthly saving without deliberately removing core capacity. The technical role lifts the visible total to R115,000 — but the decision is not complete. Suppose the role supports service work contributing R4,000 per completed job. If its removal results in 12 fewer completed or retained jobs a month, **R48,000 of contribution is lost against a R45,000 cost saving** — before transition or recovery costs.
+
+Management may therefore bank the R70,000, redesign the remaining cost base, and find the final R30,000 elsewhere rather than force the target through one damaging decision. A cost target does not override the economics.
+
+**Threshold test:** at what loss of volume, margin, service or control does this saving stop being financially worthwhile?
+
+## Protect the costs that protect the business
+
+The biggest line items deserve scrutiny, not automatic removal. People, stock, premises, vehicles, systems and equipment can support operating capacity. Management must distinguish excess capacity from the capability needed to protect revenue and deliver work already sold.
+
+| Area | What can go wrong with a blunt cut | Better question |
+| --- | --- | --- |
+| Revenue capacity | Sales follow-up or service throughput may fall. | What contribution does this cost enable? |
+| Quality and delivery | Fewer checks can increase rework, returns or complaints. | What failure cost are we accepting? |
+| Maintenance and reliability | Spend falls now; downtime or failure risk may rise later. | Saving, or deferred cost? |
+| Financial control | Collections or approvals may weaken; leakage may be harder to detect. | Which cash or control risk becomes less visible? |
+| Management bandwidth | Work may shift to the owner or a scarce manager. | Who absorbs it, and what stops? |
+
+**Headcount needs its own discipline.** Payroll is often a material cost line, so it may form part of a financial cost review. The financial model can test only the economic effect — what work, capacity, customer relationship or control is associated with the role, whether the activity still needs to be performed, and what alternative cost could appear elsewhere. It does not determine whether an employment action should be taken or how it may be implemented. If a proposed reduction affects employees or employment terms, use this framework only for the financial assessment and refer the employment matter to appropriately qualified HR and South African labour-law specialists before any decision or communication.
+
+**Do not confuse** a large salary cost with a bad role, or a vacant role with a saving if the work is simply transferred to already-stretched people.
+
+## Separate savings from delayed costs
+
+Not every action that improves this month's bank balance reduces the underlying cost base, and not every P&L saving releases cash immediately. The timing matters.
+
+| Apparent saving | What it may really be | Management treatment |
+| --- | --- | --- |
+| Delay paying a supplier | A cash-timing change, not a cost reduction. | Model creditor impact, relationship risk and due dates separately. |
+| Lower inventory holdings | A working-capital release rather than an operating cost reduction. | Track cash tied up, stock availability, service levels and any write-downs. |
+| Defer maintenance | A postponed cost that may increase operating risk. | Quantify failure probability, downtime and catch-up requirement. |
+| Cancel a contract | A net saving only after verified effective dates and exit terms. | Confirm notice periods, penalties and what replaces the service. |
+
+## Make the saving survive normal operations
+
+A cost programme is not complete when a purchase order is cancelled or a budget is reduced. It is complete when the cost stays lower and the business still performs. The review needs both a financial measure and an operating measure.
+
+| Review point | Financial evidence | Operating evidence |
+| --- | --- | --- |
+| 30 days | Has the spend actually reduced by the expected amount? | Are service, quality, workload and controls behaving as planned? |
+| 60 days | Is the saving recurring rather than a timing effect? | Has work moved elsewhere, overtime returned or exceptions increased? |
+| 90 days | Has the recurring operating result and cash improved after transition costs? | Has customer delivery, capacity or risk deteriorated? |
+
+**A simple cost-reduction review:**
+
+1. Baseline the current monthly cost and the operating output linked to it.
+2. Approve the proposed change, expected saving, effective date and once-off cost.
+3. Set one or two indicators that would show damage early — turnaround time, rework, lost jobs, complaints, debtor ageing or downtime.
+4. Assign an owner and a review date, and don't allow the saving to exist only inside the budget.
+5. If the operating evidence deteriorates beyond the agreed threshold, change course before the financial damage becomes larger than the saving.
+
+**Use AI to challenge the spend, not to make the decision.** AI can help group supplier spend, identify duplicate subscriptions, compare vendor movements and organise the numbers for review. It cannot judge which capability protects the business — check the source data and the operating context before acting.
+
+## Closing perspective
+
+Lower cost is useful only when the business is stronger. Cost reduction is necessary when spend no longer earns its place, the process is inefficient or the commercial arrangement is weak. It becomes damaging when it quietly removes the capacity, quality, control or management attention that produces margin, cash and reliable delivery.
+
+The objective is to remove spend the business cannot defend while preserving the capability that produces the result. A smaller expense line is evidence of activity. A stronger recurring operating result and cash position, without avoidable operating damage, is better evidence that the saving is real.
+
+*General business and financial education only. This report does not provide HR, labour-law, legal or tax advice. Employment actions, contractual changes and tax consequences require appropriate specialist advice based on the specific circumstances.*
+
+**Related reading:** You Fixed the Problem. Why Did It Come Back? · The Business Can Afford Every Decision — But Not All at Once.
+
+The full report includes a one-page **Cost Reduction Decision Record** — to complete for each material cut before approval, from the cost and what it buys through to the net effect and review owner — available in the downloadable PDF.`,
+  },
+  {
     slug: "you-fixed-the-problem",
     cover: "/images/you-fixed-the-problem.webp",
     ogImage: "/images/you-fixed-the-problem.webp",
