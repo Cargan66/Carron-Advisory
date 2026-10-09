@@ -6,6 +6,7 @@ import { CTASection } from "@/components/CTASection";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
 import { founder, values } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
+import { PersonJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "About",
@@ -35,6 +36,13 @@ const fractionalReasons = [
 export default function AboutPage() {
   return (
     <>
+      <PersonJsonLd />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
+      />
       <PageHeader
         eyebrow="About Carron"
         title={

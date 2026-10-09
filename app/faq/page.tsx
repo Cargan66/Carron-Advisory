@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn } from "@/components/FadeIn";
-import { FaqJsonLd } from "@/components/JsonLd";
+import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Fractional CFO FAQ",
@@ -355,6 +355,12 @@ export default function FaqPage() {
     <>
       <FaqJsonLd items={allFaqs} />
 
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "FAQ", path: "/faq" },
+        ]}
+      />
       <PageHeader
         eyebrow="FAQ"
         title={

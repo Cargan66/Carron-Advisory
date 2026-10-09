@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Privacy Notice (POPIA)",
@@ -14,6 +15,12 @@ const UPDATED = "18 September 2026";
 export default function PrivacyPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Privacy Notice", path: "/privacy" },
+        ]}
+      />
       <PageHeader
         eyebrow="Legal"
         title={

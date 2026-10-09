@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
 import { getAllArticles, getCategories, formatArticleDate } from "@/lib/articles";
@@ -22,6 +23,12 @@ export default function InsightsPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+        ]}
+      />
       <PageHeader
         eyebrow="Insights"
         title={

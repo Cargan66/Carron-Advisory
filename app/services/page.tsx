@@ -7,6 +7,7 @@ import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/Button";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
 import { services } from "@/lib/content";
+import { ServiceJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "What a CFO Adds",
@@ -18,6 +19,18 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <ServiceJsonLd
+        name="Fractional CFO services"
+        description="Senior financial leadership for South African SMEs across cash flow, profit and pricing, funding, reporting, risk and governance, and growth strategy."
+        path="/services"
+        serviceType="Fractional and outsourced CFO services"
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "What a CFO Adds", path: "/services" },
+        ]}
+      />
       <PageHeader
         eyebrow="What a CFO Adds"
         title={
@@ -70,9 +83,12 @@ export default function ServicesPage() {
                 title="Flexible by design — retainer, project, or ad-hoc"
                 description="The CFO role can flex across all six areas, or zero in on one. Whether you need an ongoing right-hand or a single piece of work, there's an engagement that fits — all delivered remotely."
               />
-              <FadeIn className="flex lg:justify-end">
+              <FadeIn className="flex flex-col gap-3 lg:items-end">
                 <Button href="/engagement" size="lg">
                   See Engagement Models
+                </Button>
+                <Button href="/services/fractional-cfo" size="lg" variant="secondary">
+                  What a fractional CFO does
                 </Button>
               </FadeIn>
             </div>

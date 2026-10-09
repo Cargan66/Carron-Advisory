@@ -56,8 +56,11 @@ export function Footer() {
           </FooterColumn>
 
           <FooterColumn title="What a CFO Adds">
+            <FooterLink href="/services/fractional-cfo">
+              Fractional CFO services
+            </FooterLink>
             {services.slice(0, 6).map((s) => (
-              <FooterLink key={s.slug} href="/services">
+              <FooterLink key={s.slug} href={`/services#${s.slug}`}>
                 {s.title}
               </FooterLink>
             ))}

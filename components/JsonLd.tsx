@@ -102,18 +102,126 @@ export function OrganizationJsonLd() {
  */
 export function FaqJsonLd({
   items,
+  path = "/faq",
 }: {
   items: { question: string; answer: string }[];
+  /** Page the FAQ section lives on — keeps the @id/URL correct when a second
+   *  FAQ section exists outside /faq (e.g. the Fractional CFO page). */
+  path?: string;
 }) {
   const data = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": `${siteConfig.url}/faq#faqpage`,
+    "@id": `${siteConfig.url}${path}#faqpage`,
     inLanguage: "en-ZA",
     mainEntity: items.map((it) => ({
       "@type": "Question",
       name: it.question,
       acceptedAnswer: { "@type": "Answer", text: it.answer },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+/**
+ * Person schema for Carel Gangel, tied to the Organization. Rendered on /about
+ * for E-E-A-T (search + answer engines can attribute authorship and expertise).
+ */
+export function PersonJsonLd() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${siteConfig.url}/about#carel-gangel`,
+    name: "Carel Gangel",
+    jobTitle: "Founder & Fractional CFO",
+    description:
+      "Finance executive with more than 30 years' experience across South Africa, Germany and the United Kingdom, in senior finance and CFO roles.",
+    url: `${siteConfig.url}/about`,
+    image: ogImage,
+    worksFor: { "@id": `${siteConfig.url}/#organization` },
+    sameAs: [siteConfig.social.linkedin, siteConfig.social.x],
+    knowsAbout: [
+      "Fractional CFO services",
+      "Cash flow forecasting",
+      "Profitability and pricing",
+      "Business funding and bank facilities",
+      "Financial governance and controls",
+      "Corporate finance",
+    ],
+    // TODO(Carel): add alumniOf / hasCredential (e.g. UNISA B.Com, UNISA MBL,
+    // CGISA membership) here if you want your formal qualifications surfaced in
+    // structured data — I left them out so the schema matches what's on the page.
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+/**
+ * Service schema for the services pages. Ties the offering to the Organization
+ * as provider and states the area served (South Africa).
+ */
+export function ServiceJsonLd({
+  name,
+  description,
+  path,
+  serviceType = "Fractional CFO services",
+}: {
+  name: string;
+  description: string;
+  path: string;
+  serviceType?: string;
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    serviceType,
+    url: `${siteConfig.url}${path}`,
+    provider: { "@id": `${siteConfig.url}/#organization` },
+    areaServed: { "@type": "Country", name: "South Africa" },
+    audience: {
+      "@type": "BusinessAudience",
+      name: "Owner-managed South African SMEs",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+/**
+ * BreadcrumbList schema. Pass the trail from Home to the current page as
+ * {name, path} pairs (Home first). Rendered on non-home pages.
+ */
+export function BreadcrumbJsonLd({
+  items,
+}: {
+  items: { name: string; path: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: `${siteConfig.url}${it.path}`,
     })),
   };
 

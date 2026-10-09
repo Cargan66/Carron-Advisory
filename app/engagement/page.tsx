@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/Button";
@@ -18,6 +19,12 @@ export const metadata: Metadata = {
 export default function EngagementPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Engagement Models", path: "/engagement" },
+        ]}
+      />
       <PageHeader
         eyebrow="Engagement Models"
         title={

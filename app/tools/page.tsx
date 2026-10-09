@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { CalculatorSection } from "@/components/CalculatorSection";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn } from "@/components/FadeIn";
@@ -14,6 +15,12 @@ export const metadata: Metadata = {
 export default function ToolsPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Finance Tools", path: "/tools" },
+        ]}
+      />
       <PageHeader
         eyebrow="Finance Tools"
         title={

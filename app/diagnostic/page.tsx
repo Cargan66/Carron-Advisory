@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn, FadeInItem, FadeInStagger } from "@/components/FadeIn";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { SectionHeading } from "@/components/SectionHeading";
 
 export const metadata: Metadata = {
@@ -151,6 +152,12 @@ const fitSignals = [
 export default function DiagnosticPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Diagnostic", path: "/diagnostic" },
+        ]}
+      />
       <PageHeader
         eyebrow="Diagnostic"
         title={

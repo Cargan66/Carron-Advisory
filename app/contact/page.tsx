@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ContactForm } from "@/components/ContactForm";
 import { FadeIn } from "@/components/FadeIn";
 import { siteConfig } from "@/lib/site";
@@ -51,6 +52,12 @@ const details = [
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
+      />
       <PageHeader
         eyebrow="Contact"
         title={

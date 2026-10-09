@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "PAIA Manual",
@@ -14,6 +15,12 @@ const UPDATED = "18 September 2026";
 export default function PaiaPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "PAIA Manual", path: "/paia" },
+        ]}
+      />
       <PageHeader
         eyebrow="Legal"
         title={

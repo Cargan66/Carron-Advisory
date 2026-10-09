@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { CTASection } from "@/components/CTASection";
 import { FadeIn } from "@/components/FadeIn";
-import { ArticleJsonLd } from "@/components/JsonLd";
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import {
   articles,
   getArticle,
@@ -70,6 +70,13 @@ export default function ArticlePage({ params }: Params) {
         date={article.date}
         author={article.author}
         image={article.cover}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+          { name: article.title, path: `/insights/${article.slug}` },
+        ]}
       />
       <PageHeader
         eyebrow={article.category}

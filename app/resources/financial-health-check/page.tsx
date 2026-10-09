@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { HealthCheckForm } from "@/components/HealthCheckForm";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
 
@@ -155,6 +156,12 @@ const scoreBands = [
 export default function FinancialHealthCheckPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Financial Health Check", path: "/resources/financial-health-check" },
+        ]}
+      />
       <PageHeader
         eyebrow="Free Resource"
         title={

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { CTASection } from "@/components/CTASection";
 import { FadeInStagger, FadeInItem } from "@/components/FadeIn";
 import {
@@ -37,6 +38,13 @@ export default function CategoryPage({ params }: Params) {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+          { name: category, path: `/insights/category/${params.category}` },
+        ]}
+      />
       <PageHeader
         eyebrow="Insights"
         title={
