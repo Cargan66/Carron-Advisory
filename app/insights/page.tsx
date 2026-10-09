@@ -13,7 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function InsightsPage() {
-  const [featured, ...rest] = getAllArticles();
+  const all = getAllArticles();
+  const featured = all[0]; // newest — large card
+  const grid = all.slice(1, 7); // next 6 — full cards (7 "visible" in total)
+  const more = all.slice(7); // the rest — compact list with a short description
   const categories = getCategories();
 
   return (
@@ -86,9 +89,9 @@ export default function InsightsPage() {
             ))}
           </FadeIn>
 
-          {/* Article grid */}
+          {/* Article grid — the next six (7 shown in full with the featured one) */}
           <FadeInStagger className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.map((a) => (
+            {grid.map((a) => (
               <FadeInItem key={a.slug} className="h-full">
                 <Link
                   href={`/insights/${a.slug}`}
@@ -123,6 +126,43 @@ export default function InsightsPage() {
               </FadeInItem>
             ))}
           </FadeInStagger>
+
+          {/* More reports — older articles, listed with a short description */}
+          {more.length > 0 && (
+            <FadeIn className="mt-20">
+              <div className="flex items-baseline gap-4">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  More reports
+                </span>
+                <span className="h-px flex-1 bg-white/10" aria-hidden />
+              </div>
+              <ul className="mt-6 divide-y divide-white/10 border-t border-white/10">
+                {more.map((a) => (
+                  <li key={a.slug}>
+                    <Link
+                      href={`/insights/${a.slug}`}
+                      className="group flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8"
+                    >
+                      <div className="flex-1">
+                        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold">
+                          {a.category}
+                        </span>
+                        <h3 className="mt-1 text-lg font-semibold leading-snug text-white transition-colors group-hover:text-gold-light">
+                          {a.title}
+                        </h3>
+                        <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-bone-muted">
+                          {a.excerpt}
+                        </p>
+                      </div>
+                      <span className="flex-none text-xs text-bone-dim sm:w-32 sm:pt-1 sm:text-right">
+                        {formatArticleDate(a.date)}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </FadeIn>
+          )}
         </div>
       </section>
 
