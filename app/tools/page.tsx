@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Finance Tools",
   description:
     "Free tools for South African business owners — the 90-Day Owner-Independence Test, plus loan-repayment and settlement calculators in ZAR.",
+  alternates: { canonical: "/tools" },
 };
 
 export default function ToolsPage() {

@@ -7,7 +7,7 @@ import { FadeIn, FadeInStagger, FadeInItem } from "@/components/FadeIn";
 export const metadata: Metadata = {
   title: { absolute: "SME Financial Health Check: 10-Point Diagnostic | Carron" },
   description:
-    "Diagnose your business in 20 minutes. A 10-point check across cash position, receivables, margins, profitability and growth — with a downloadable checklist to track quarterly.",
+    "Diagnose your business in 20 minutes — a 10-point check across cash, receivables, margins, profitability and growth, with a downloadable checklist.",
   keywords: [
     "financial health check SME",
     "SME financial diagnostic",

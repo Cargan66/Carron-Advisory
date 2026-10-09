@@ -10,7 +10,7 @@ import { services, engagementModels } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Fractional CFO Services",
   description:
-    "Fractional CFO services for South African SMEs — senior financial leadership on a part-time basis. What it is, how it works, our approach, and pricing. Book a financial diagnostic call.",
+    "Fractional CFO services for South African SMEs — senior financial leadership part-time. What it is, when you need one, how it works, and pricing.",
   alternates: { canonical: "/services/fractional-cfo" },
 };
 

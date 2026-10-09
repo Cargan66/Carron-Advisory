@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -107,7 +106,6 @@ export default function RootLayout({
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
-        <Analytics />
         <ServiceWorkerRegister />
       </body>
     </html>

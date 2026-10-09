@@ -23,7 +23,7 @@ import { getRecentArticles, formatArticleDate } from "@/lib/articles";
 
 export const metadata: Metadata = {
   description:
-    "Fractional CFO advisory for SMEs in South Africa. Strategic financial leadership, cash flow forecasting, margin and pricing, funding and KPI dashboards — remote, countrywide.",
+    "Fractional CFO services for South African SMEs — strategic financial leadership on cash flow, margin, funding and reporting. Remote, countrywide.",
   alternates: { canonical: "/" },
 };
 

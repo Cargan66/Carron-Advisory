@@ -11,7 +11,8 @@ import { services } from "@/lib/content";
 export const metadata: Metadata = {
   title: "What a CFO Adds",
   description:
-    "Cash flow, profit and pricing, funding, reporting, risk and governance, and growth strategy — the six areas where a fractional CFO turns numbers into better decisions for South African SMEs.",
+    "The six areas where a fractional CFO adds value for SA SMEs — cash flow, profit and pricing, funding, reporting, risk and governance, and growth.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {

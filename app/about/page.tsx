@@ -10,7 +10,8 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Carron Business Advisory is led by Carel Gangel — a finance executive with 30+ years across South Africa, Germany and the UK. CFO-level financial leadership for owner-managed SMEs, delivered remotely, countrywide.",
+    "Carron Business Advisory is led by Carel Gangel — a finance executive with 30+ years of CFO-level experience, serving South African SMEs remotely.",
+  alternates: { canonical: "/about" },
 };
 
 const fractionalReasons = [

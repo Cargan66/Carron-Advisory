@@ -6,9 +6,9 @@ import { FadeIn } from "@/components/FadeIn";
 import { FaqJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "FAQ — Fractional CFO Questions Answered",
+  title: "Fractional CFO FAQ",
   description:
-    "Straight answers for South African SME owners weighing up a fractional CFO — what it costs, what you receive each month, the first 30 days, who does the work, scope boundaries, and the real business problems Carron Business Advisory solves.",
+    "Straight answers for SA SME owners weighing up a fractional CFO — what it costs, what you get each month, the first 30 days, scope, and more.",
   alternates: { canonical: "/faq" },
 };
 

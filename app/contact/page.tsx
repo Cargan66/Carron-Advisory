@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Book a free discovery call with Carron Business Advisory. Fractional CFO services for South African SMEs, delivered remotely, countrywide.",
+  alternates: { canonical: "/contact" },
 };
 
 const details = [

@@ -37,3 +37,5 @@ next-env.d.ts
 # project scratch / non-site folders
 /tools/
 /deliverables/
+/.wrangler/
+/90 Day Diagnostic/

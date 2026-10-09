@@ -17,7 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact": 0.8,
     "/faq": 0.8,
     "/about": 0.8,
-    "/testimonials-case-studies": 0.8,
     "/insights": 0.8,
     "/tools": 0.7,
     "/privacy": 0.3,

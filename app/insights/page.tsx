@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Insights",
   description:
     "Practical writing on cash flow, funding, profitability, and tax for South African SME owners — grounded in how a fractional CFO actually works.",
+  alternates: { canonical: "/insights" },
 };
 
 export default function InsightsPage() {

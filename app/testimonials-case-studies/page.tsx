@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   description:
     "Client success stories from Carron Business Advisory — how South African SME owners put a fractional CFO to work on cash flow, margin, funding and growth.",
   alternates: { canonical: "/testimonials-case-studies" },
+  // Illustrative outcomes only — kept out of the index and sitemap until real,
+  // named client stories exist (avoids indexing non-attributable content).
+  robots: { index: false, follow: true },
 };
 
 export default function CaseStudiesPage() {

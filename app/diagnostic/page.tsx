@@ -9,7 +9,8 @@ import { SectionHeading } from "@/components/SectionHeading";
 export const metadata: Metadata = {
   title: "Diagnostic",
   description:
-    "Start free: an instant financial health check and valuation, a R1,295 Financial Health Action Plan, or a full CFO-level review. Fixed-scope financial clarity for established South African SMEs.",
+    "Start free with an instant financial health check and valuation, then an action plan or a full CFO-level review — fixed-scope clarity for SA SMEs.",
+  alternates: { canonical: "/diagnostic" },
 };
 
 // The three-tier ladder. Tier 1 and Tier 2 tools are not live yet — their

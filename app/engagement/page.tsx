@@ -11,7 +11,8 @@ import { engagementModels, engagementSteps } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Engagement Models",
   description:
-    "How fractional CFO services work in practice — monthly retainer, fixed-scope project diagnostics, or ad-hoc advisory. Flexible, remote, and right-sized for your SME.",
+    "How fractional CFO engagements work — monthly retainer, fixed-scope diagnostic, or ad-hoc advisory. Flexible, remote and right-sized for your SME.",
+  alternates: { canonical: "/engagement" },
 };
 
 export default function EngagementPage() {
