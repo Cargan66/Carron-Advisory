@@ -28,6 +28,9 @@ const faqGroups: FaqGroup[] = [
       {
         q: "What is a fractional CFO?",
         a: "A fractional CFO is an experienced finance executive who works with your business part-time — a few days a month, a fixed project, or on demand — instead of as a full-time hire. You get senior financial leadership on cash flow, margin, funding, reporting and strategy without carrying a full-time executive salary. Carron Business Advisory provides fractional (outsourced) CFO services to South African SMEs, remotely and countrywide.",
+        links: [
+          { href: "/insights/fractional-cfo-services-south-africa", label: "Read: fractional CFO services in South Africa — complete guide" },
+        ],
       },
       {
         q: "What does “fractional” mean in fractional CFO?",
@@ -36,6 +39,9 @@ const faqGroups: FaqGroup[] = [
       {
         q: "What does a fractional CFO actually do?",
         a: "A fractional CFO turns your numbers into decisions: managing cash flow and forecasting, improving margins and pricing, preparing management reporting and board packs, raising or restructuring funding, and reducing financial risk. Unlike a bookkeeper or accountant who records what already happened, a CFO is forward-looking — focused on what is coming and the next big decision.",
+        links: [
+          { href: "/insights/what-a-fractional-cfo-actually-does", label: "Read: what a fractional CFO actually does" },
+        ],
       },
       {
         q: "What is the difference between a bookkeeper, an accountant and a CFO?",
@@ -58,6 +64,13 @@ const faqGroups: FaqGroup[] = [
       {
         q: "When should an SME hire a fractional CFO?",
         a: "Common triggers are: the business is profitable on paper but cash is always tight; you are planning growth, a big investment or a funding round; margins are slipping and you are not sure why; reporting arrives late or you do not trust the numbers; or you are making major decisions on gut feel. If the business has outgrown a bookkeeper but cannot justify a full-time CFO (often R1 million or more a year in South Africa), a fractional CFO fills the gap.",
+      },
+      {
+        q: "Should I hire a fractional CFO or a full-time CFO?",
+        a: "It comes down to how much senior finance work the business genuinely has, and what it can afford. A full-time CFO makes sense once the role is a full week's work every week and the salary — commonly R1 million or more a year in South Africa, plus benefits — is comfortably covered. Below that, a fractional CFO gives you the same calibre of judgement for the few days a month you actually need: no idle salary in the quiet months, and you can scale up during a funding round or a tough quarter. Most owner-managed South African SMEs are well served fractionally for years before a full-time hire is justified.",
+        links: [
+          { href: "/insights/fractional-vs-full-time-cfo", label: "Read: fractional vs full-time CFO — which do you need?" },
+        ],
       },
     ],
   },
@@ -160,6 +173,20 @@ const faqGroups: FaqGroup[] = [
           { href: "/health-check/", label: "Start with the free check", raw: true },
         ],
       },
+      {
+        q: "The VAT registration threshold has changed — should I deregister or change how I price?",
+        a: "Treat it as a commercial and cash-flow decision first, and a tax-compliance decision second. Whether to register, deregister or restructure around the VAT threshold affects your pricing, margins, cash timing and customers — especially whether they can claim the VAT back — not just your SARS obligations. Carron can model the financial effect of each option so you decide with the numbers in front of you, but the registration and compliance decision itself needs a registered tax practitioner. Do not change anything on the strength of the threshold alone until both sides have been checked.",
+        links: [
+          { href: "/insights/below-the-new-vat-threshold", label: "Read: below the new VAT threshold? Do not change anything yet" },
+        ],
+      },
+      {
+        q: "How do I plan cash for provisional tax so it doesn't catch me out?",
+        a: "The tax calculation is your tax practitioner's work; funding it is a CFO question. Provisional tax lands in predictable windows but still catches owners out, because the money was never set aside while it was being earned. The fix is to estimate the liability early, build it into a rolling cash-flow forecast, and reserve for it each month so the payment is funded when it falls due — rather than scrambled for at the deadline. Carron builds that into your cash planning; confirm the actual tax numbers with a registered tax practitioner.",
+        links: [
+          { href: "/insights/provisional-tax-without-the-panic", label: "Read: provisional tax without the panic" },
+        ],
+      },
     ],
   },
   {
@@ -171,6 +198,7 @@ const faqGroups: FaqGroup[] = [
         a: "Because profit and cash are not the same thing. Profit is an accounting result; cash is what actually lands in the bank — and it gets tied up in debtors, stock, VAT and tax timing, and loan repayments, so a profitable business can still run dry. Carron Business Advisory builds a rolling cash-flow forecast, finds where cash is trapped, and puts a plan in place so you can see and fund what is coming.",
         links: [
           { href: "/insights/profitable-but-no-money-in-the-bank", label: "Read: profitable, but no cash" },
+          { href: "/insights/profitable-no-cash-why", label: "Read: profitable business, no money? Here's why" },
           { href: "/insights/the-13-week-cash-flow-forecast", label: "Read: the 13-week forecast" },
         ],
       },
@@ -186,6 +214,7 @@ const faqGroups: FaqGroup[] = [
         a: "You can test it before you commit. The real question is not whether you can pay the first month, but what the decision does to your break-even point, your cash low point and your total fixed commitments once revenue is uncertain. Carron models the full cost — upfront cash, monthly run rate and exit cost — and the sales needed to carry it, so you decide with the numbers in front of you.",
         links: [
           { href: "/insights/can-your-business-afford-to-grow", label: "Read: can your business afford to grow?" },
+          { href: "/insights/5-signs-your-sme-is-ready-to-hire", label: "Read: 5 signs your SME is ready to hire" },
           { href: "/insights/business-can-afford-every-decision", label: "Read: every decision, but not all at once" },
         ],
       },
@@ -194,6 +223,7 @@ const faqGroups: FaqGroup[] = [
         a: "A 13-week cash-flow forecast is a rolling, week-by-week view of the cash you expect to receive and pay over the next quarter. It is the standard tool for managing short-term liquidity because it shows the low points early — while you still have time to act — rather than after a payment bounces. If cash is tight or seasonal, or you are funding growth, it is one of the most useful things a fractional CFO can put in place, and Carron builds and maintains it with you.",
         links: [
           { href: "/insights/the-13-week-cash-flow-forecast", label: "Read: the 13-week cash-flow forecast" },
+          { href: "/insights/cash-flow-framework", label: "Read: a 7-step cash-flow framework" },
         ],
       },
       {
@@ -201,6 +231,7 @@ const faqGroups: FaqGroup[] = [
         a: "First by making the numbers trustworthy and timely, then by turning them into decisions. If reporting is late or you do not trust it, Carron works with your bookkeeper or accountant to fix the reporting foundation, then adds the CFO layer on top — a concise monthly management pack, the key ratios, and the two or three actions they point to. Reliable, on-time reporting is the base every other improvement depends on.",
         links: [
           { href: "/insights/management-accounts-arrived-now-what", label: "Read: your management accounts arrived. Now what?" },
+          { href: "/insights/management-accounts-that-earn-their-keep", label: "Read: management accounts that earn their keep" },
         ],
       },
       {
@@ -251,6 +282,20 @@ const faqGroups: FaqGroup[] = [
         a: "Equal ownership answers who holds the shares — not who must put in more money, who should earn what, or who carries the greater personal risk when the business needs support. Problems arise when a loan is remembered as money someone 'put in', a reduced salary as a 'sacrifice', or a personal surety stays invisible until it is called. The fix is to keep six things separate — ownership, funding, personal capacity, work, benefits and risk — and to agree the rules (loan versus equity, interest, sureties, remuneration) before the company needs emergency funding. This is governance and financial-structuring work, not legal advice.",
         links: [
           { href: "/insights/when-shareholders-contribute-unequally", label: "Read: when shareholders contribute unequally" },
+        ],
+      },
+      {
+        q: "How risky is it to depend on one or two big customers?",
+        a: "More than most owners price in. A customer that makes up a large share of revenue also controls a large share of your cash flow, your pricing power and your negotiating position — and losing them, or having them stretch payment terms, can turn a profitable business into a distressed one quickly. The point is not to drop big customers, but to know the concentration, protect the relationship, and reduce the damage a loss would do. Carron helps you measure customer and revenue concentration and build a plan to make the business more resilient.",
+        links: [
+          { href: "/insights/the-customer-you-cannot-afford-to-lose", label: "Read: the customer you cannot afford to lose" },
+        ],
+      },
+      {
+        q: "Should my SME be using AI, and how does it fit with the finance side?",
+        a: "For most South African SMEs, AI is now a practical tool rather than a future question — it can speed up admin, analysis, drafting and customer work. On the finance side it can help group spend, flag anomalies, compare forecasts to actuals and prepare questions for review, but it does not replace judgement and it must work from reliable source data. The sensible approach is to adopt it deliberately where it saves real time or improves a decision, with a person owning the outcome. Carron helps you use it to sharpen the numbers, not to outsource the thinking.",
+        links: [
+          { href: "/insights/ai-is-no-longer-optional", label: "Read: AI is no longer optional for SA SMEs" },
         ],
       },
     ],
