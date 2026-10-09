@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/faq" },
 };
 
-const REVIEWED = { by: "Carel Gangel", date: "14 September 2026" };
+const REVIEWED = { by: "Carel Gangel", date: "9 October 2026" };
 
 // raw:true renders a plain <a> — required for the static tool pages
 // (/health-check/, /find-your-fit/, /90-day-test/), which a Next <Link> breaks.
@@ -216,6 +216,41 @@ const faqGroups: FaqGroup[] = [
         links: [
           { href: "/insights/could-you-actually-sell-your-business", label: "Read: could you actually sell your business?" },
           { href: "/health-check/", label: "Free Health Check & Valuation", raw: true },
+        ],
+      },
+      {
+        q: "How do I cut costs without damaging the business?",
+        a: "Carefully — because a blanket cut can quietly remove the capacity, service or control that produces margin and cash. The disciplined approach is to remove genuine waste first, then classify every material cost as one of four actions — stop, redesign, renegotiate or protect — and test the net economic effect of a cut (the contribution, extra work and risk it removes), not just the expense line. Then confirm the saving actually survives 30, 60 and 90 days of normal operations. Carron helps you separate waste from productive capacity and avoid false savings.",
+        links: [
+          { href: "/insights/cost-cutting-without-damaging-the-business", label: "Read: cost cutting without damaging the business" },
+        ],
+      },
+      {
+        q: "We fixed the problem, but it came back a few months later — why?",
+        a: "Usually because the fix depended on the owner's attention rather than a changed way of working. The cost fell or the margin recovered while you watched it; when your focus moved to the next issue, the old behaviour returned. A saving or improvement only holds when the real cause is addressed, the new routine has a named owner, an early-warning number is tracked, and the result survives 30/60/90 days under normal pressure. Carron helps turn a one-off improvement into a lasting operating control.",
+        links: [
+          { href: "/insights/you-fixed-the-problem", label: "Read: you fixed the problem — why did it come back?" },
+        ],
+      },
+      {
+        q: "Why is so much of my cash tied up in stock?",
+        a: "Because inventory has two jobs — supporting delivery and sales, and converting back into cash at an acceptable margin — and it is easy for stock to quietly do the first while failing the second. Slow-moving, customer-specific, over-ordered or obsolete stock absorbs cash, storage and management attention while its recoverable value falls. The test for each stockholding is which demand it supports, how quickly it should convert to cash, and what it is realistically worth today. Carron helps you separate working stock from excess and release trapped cash.",
+        links: [
+          { href: "/insights/you-bought-the-stock", label: "Read: can you turn stock back into cash?" },
+        ],
+      },
+      {
+        q: "How do I protect my business from payment or banking-detail fraud?",
+        a: "Most payment fraud does not break into the bank — it changes a supplier's banking details through a compromised or spoofed email and relies on a busy team to treat the payment as routine. The protection is a process, not vigilance: verify every new or changed beneficiary through an independent, trusted channel obtained separately from the request; separate who captures, approves and releases payments; and treat urgency, secrecy or an unusual instruction as a reason to pause, not to rush. Carron helps design practical payment controls that fit an SME.",
+        links: [
+          { href: "/insights/invoice-was-real-bank-account-wasnt", label: "Read: the invoice was real, the bank account wasn't" },
+        ],
+      },
+      {
+        q: "What happens when business partners or shareholders contribute unequally?",
+        a: "Equal ownership answers who holds the shares — not who must put in more money, who should earn what, or who carries the greater personal risk when the business needs support. Problems arise when a loan is remembered as money someone 'put in', a reduced salary as a 'sacrifice', or a personal surety stays invisible until it is called. The fix is to keep six things separate — ownership, funding, personal capacity, work, benefits and risk — and to agree the rules (loan versus equity, interest, sureties, remuneration) before the company needs emergency funding. This is governance and financial-structuring work, not legal advice.",
+        links: [
+          { href: "/insights/when-shareholders-contribute-unequally", label: "Read: when shareholders contribute unequally" },
         ],
       },
     ],
