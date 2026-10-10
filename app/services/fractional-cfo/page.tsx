@@ -151,6 +151,11 @@ export default function FractionalCfoPage() {
                 between flying blind and running the business on numbers they
                 trust.
               </p>
+              <p>
+                Based in Knysna, Carron supports businesses throughout South
+                Africa through remote financial leadership and scheduled on-site
+                engagements.
+              </p>
             </div>
           </div>
           <FadeIn className="rounded-3xl border border-white/10 bg-emerald-section/50 p-8 sm:p-10">

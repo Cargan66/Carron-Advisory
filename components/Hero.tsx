@@ -20,7 +20,7 @@ const item = {
 
 const marks = [
   "Fractional CFO leadership",
-  "Remote · SA, UK & Europe",
+  "Knysna-based · Nationwide CFO Support",
   "30+ years' CFO experience",
 ];
 
@@ -93,10 +93,16 @@ export function Hero() {
           variants={item}
           className="mt-7 max-w-2xl text-lg leading-relaxed text-bone/90 sm:text-xl"
         >
-          Over 30 years of financial leadership experience, including Regional
-          CFO responsibilities across Northern Europe. Based in South Africa,
-          providing fractional CFO and strategic financial advisory to
-          established businesses in South Africa, the UK and Europe.
+          Over 30 years of senior financial leadership, including Regional CFO
+          responsibilities across Northern Europe and proven experience leading
+          international finance operations remotely from South Africa.
+        </motion.p>
+        <motion.p
+          variants={item}
+          className="mt-4 max-w-2xl text-lg leading-relaxed text-bone/90 sm:text-xl"
+        >
+          Based in Knysna, Carron provides Fractional CFO and strategic financial
+          advisory services to established businesses throughout South Africa.
         </motion.p>
 
         <motion.div

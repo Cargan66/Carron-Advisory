@@ -218,7 +218,7 @@ export const whyCarron: WhyPoint[] = [
   {
     title: "Financial leadership tailored to your business",
     description:
-      "Right-sized to what your business actually needs — a retainer, a project, or ad-hoc, with scope and fee agreed in plain language and no tie-ins.",
+      "Scope, deliverables and fees are tailored to your business and agreed up front, in plain language — whether a retainer, a project, or ad-hoc, with no tie-ins.",
     icon: "profit",
   },
   {
@@ -343,11 +343,11 @@ export const founder = {
   initials: "CG",
   role: "Founder & Fractional CFO",
   short:
-    "Carron is led by Carel Gangel — a finance executive with more than 30 years' experience, including Regional CFO responsibilities across Northern Europe. Based in South Africa, he serves established businesses here, in the UK and across Europe.",
+    "Carron is led by Carel Gangel — a finance executive with more than 30 years' experience, including Regional CFO responsibilities across Northern Europe and a track record of leading international operations remotely. Based in Knysna, serving established businesses nationwide across South Africa.",
   bio: [
-    "Carron Business Advisory is led by Carel Gangel, a finance executive with more than 30 years' experience, including Regional CFO responsibilities across Northern Europe. Carel has held senior finance and CFO roles in international businesses, with hands-on experience in cash-flow management, strategic planning, financial control, governance, tax, funding discussions, commercial decision-making and growth strategy.",
+    "Carron Business Advisory is led by Carel Gangel, a finance executive with more than 30 years of senior financial management experience — including Regional CFO responsibilities across Northern Europe and financial management experience in South Africa, the United Kingdom and Germany. Carel has held senior finance and CFO roles in international businesses, with hands-on experience in cash-flow management, strategic planning, financial control, governance, tax, funding discussions, commercial decision-making and growth strategy.",
     "That background spans corporate-finance leadership, SARS-audit exposure, tax and transfer-pricing knowledge, governance credentials, and real experience dealing with banks, management teams and cross-border operations. Carron brings that level of financial leadership to owner-managed businesses that have outgrown bookkeeping — but don't yet need, or can't yet justify, a full-time CFO.",
-    "Having managed international financial operations remotely, Carel combines that cross-border perspective with practical commercial judgement — providing fractional CFO and strategic financial advisory to established businesses in South Africa, the UK and Europe, with scheduled on-site engagements where they add value.",
+    "Carel successfully provided financial leadership to international operations while working remotely from South Africa — maintaining financial oversight, supporting management teams and contributing to strategic decisions without being on-site every day. Based in Knysna, Carron brings that same discipline to established businesses nationwide across South Africa, combining remote financial leadership with scheduled on-site visits where they add value.",
   ],
   credentials: [
     "30+ years' experience",

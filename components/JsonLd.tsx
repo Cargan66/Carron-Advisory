@@ -141,7 +141,7 @@ export function PersonJsonLd() {
     name: "Carel Gangel",
     jobTitle: "Founder & Fractional CFO",
     description:
-      "Finance executive with more than 30 years' experience, including Regional CFO responsibilities across Northern Europe. Serves established businesses in South Africa, the UK and Europe with fractional CFO and strategic financial advisory.",
+      "Finance executive with more than 30 years' experience, including Regional CFO responsibilities across Northern Europe and financial management across South Africa, the United Kingdom and Germany. Provides fractional CFO and strategic financial advisory to established businesses across South Africa.",
     url: `${siteConfig.url}/about`,
     image: ogImage,
     worksFor: { "@id": `${siteConfig.url}/#organization` },
