@@ -32,8 +32,6 @@ next-env.d.ts
 # local Claude Code settings (machine-specific)
 .claude/settings.local.json
 
-.vercel
-
 # project scratch / non-site folders
 /tools/
 /deliverables/

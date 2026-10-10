@@ -154,9 +154,31 @@ export function PersonJsonLd() {
       "Financial governance and controls",
       "Corporate finance",
     ],
-    // TODO(Carel): add alumniOf / hasCredential (e.g. UNISA B.Com, UNISA MBL,
-    // CGISA membership) here if you want your formal qualifications surfaced in
-    // structured data — I left them out so the schema matches what's on the page.
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of South Africa (UNISA)",
+    },
+    memberOf: {
+      "@type": "Organization",
+      name: "Chartered Governance Institute of Southern Africa",
+    },
+    hasCredential: [
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "degree",
+        name: "B.Com, University of South Africa",
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "degree",
+        name: "Master of Business Leadership (MBL), University of South Africa",
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "professional membership",
+        name: "Associate, Chartered Governance Institute (ICSA)",
+      },
+    ],
   };
 
   return (

@@ -356,6 +356,11 @@ export const founder = {
     "Governance & financial control",
     "Banks, funding & M&A",
   ],
+  qualifications: [
+    "B.Com — University of South Africa (1995)",
+    "MBL (Master of Business Leadership) — UNISA (2000)",
+    "Associate, Chartered Governance Institute (ICSA) — 1997",
+  ],
 };
 
 // Who Carron works best with — sectors and situations. Qualifies leads and

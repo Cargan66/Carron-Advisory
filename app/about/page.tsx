@@ -112,6 +112,19 @@ export default function AboutPage() {
                 </span>
               ))}
             </FadeIn>
+            <FadeIn className="mt-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">
+                Qualifications
+              </p>
+              <ul className="mt-3 space-y-2 text-sm text-emerald-base/85">
+                {founder.qualifications.map((q) => (
+                  <li key={q} className="flex items-start gap-2.5">
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-gold-deep" aria-hidden />
+                    {q}
+                  </li>
+                ))}
+              </ul>
+            </FadeIn>
           </div>
         </div>
       </section>

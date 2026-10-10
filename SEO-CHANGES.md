@@ -39,10 +39,10 @@ Also: added `/.wrangler/` and `/90 Day Diagnostic/` to `.gitignore` (local build
 
 ---
 
-## Notes, caveats & `TODO(Carel):`
-- **`TODO(Carel):` Person schema credentials.** `PersonJsonLd` (in `components/JsonLd.tsx`) deliberately lists only experience and areas of expertise — not formal qualifications — so the schema matches what's visible on `/about`. If you'd like your B.Com / MBL (UNISA) and CGISA membership surfaced in structured data, say so and I'll add `alumniOf` / `hasCredential` (ideally also shown on the About page, so schema and page agree).
+## Notes, caveats & follow-ups
+- **Qualifications — done (10 Oct 2026).** Carel's formal qualifications now appear both on `/about` (a "Qualifications" list under the credential pills) and in the `Person` JSON-LD (`alumniOf` University of South Africa, `memberOf` Chartered Governance Institute of Southern Africa, and `hasCredential` for the B.Com, MBL and Chartered Governance Institute (ICSA) associateship) — so page and schema agree. Source: `lib/content.ts` `founder.qualifications`.
+- **Vercel — fully removed (10 Oct 2026).** `@vercel/analytics` uninstalled (gone from `package.json` + `package-lock.json`), and the duplicate `.vercel` entry in `.gitignore` tidied. The dead `/_vercel/insights/script.js` request no longer appears in the build output.
 - **Pricing figures.** I did not invent any fractional-CFO rand figures. The transcribed reports keep the exact figures printed in the source PDFs (e.g. tool price ranges, R30.23 minimum wage). The new Fractional CFO page copy keeps pricing qualitative.
-- **`@vercel/analytics`** is still listed in `package.json` dependencies (only the import was removed). It's harmless/unused; it can be pruned from `package.json` in a later housekeeping pass if you like.
 - **Updated-date on the two converted articles:** the article template shows author + publish date + read time; it does not yet track a separate "updated" date. If you want a visible "Updated 9 Oct 2026" line (and `dateModified` in schema), that's a small follow-up — flagged rather than done to avoid touching the article data model.
 - **Numeric Lighthouse pass** (P2) still outstanding — the dead-script fix should lift the Best-Practices score; worth a real mobile run once this is live.
 
