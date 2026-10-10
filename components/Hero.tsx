@@ -20,7 +20,7 @@ const item = {
 
 const marks = [
   "Fractional CFO leadership",
-  "Remote, countrywide",
+  "Remote · SA, UK & Europe",
   "30+ years' CFO experience",
 ];
 
@@ -93,10 +93,10 @@ export function Hero() {
           variants={item}
           className="mt-7 max-w-2xl text-lg leading-relaxed text-bone/90 sm:text-xl"
         >
-          You&apos;ve outgrown a bookkeeper and need senior financial leadership
-          built for an owner-managed business. Carron gives South African SMEs an
-          experienced CFO on tap — the difference between keeping books and
-          running a business.
+          Over 30 years of financial leadership experience, including Regional
+          CFO responsibilities across Northern Europe. Based in South Africa,
+          providing fractional CFO and strategic financial advisory to
+          established businesses in South Africa, the UK and Europe.
         </motion.p>
 
         <motion.div
