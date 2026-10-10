@@ -125,6 +125,17 @@ export function ContactForm() {
       });
       const result = await res.json();
       if (!res.ok || !result.success) throw new Error("Request failed");
+      // GA4 lead event — genuine prospect enquiries only (not supplier/sales),
+      // and only when consent was granted (gaEvent is the consent gate).
+      if (!supplier) {
+        const w = window as unknown as {
+          gaEvent?: (n: string, p?: Record<string, unknown>) => void;
+        };
+        w.gaEvent?.("generate_lead", {
+          method: "contact_form",
+          enquiry_type: data.enquiry,
+        });
+      }
       setIsSupplier(supplier);
       setStatus("success");
       form.reset();
