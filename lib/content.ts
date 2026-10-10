@@ -343,14 +343,15 @@ export const founder = {
   initials: "CG",
   role: "Founder & Fractional CFO",
   short:
-    "Carron is led by Carel Gangel — a finance executive with more than 30 years' experience across South Africa, Germany and the United Kingdom.",
+    "Carron is led by Carel Gangel — a finance executive with more than 30 years' experience, including Regional CFO responsibilities across Northern Europe. Based in South Africa, he serves established businesses here, in the UK and across Europe.",
   bio: [
-    "Carron Business Advisory is led by Carel Gangel, a finance executive with more than 30 years' experience across South Africa, Germany and the United Kingdom. Carel has held senior finance and CFO roles in international businesses, with hands-on experience in cash-flow management, strategic planning, financial control, governance, tax, funding discussions, commercial decision-making and growth strategy.",
+    "Carron Business Advisory is led by Carel Gangel, a finance executive with more than 30 years' experience, including Regional CFO responsibilities across Northern Europe. Carel has held senior finance and CFO roles in international businesses, with hands-on experience in cash-flow management, strategic planning, financial control, governance, tax, funding discussions, commercial decision-making and growth strategy.",
     "That background spans corporate-finance leadership, SARS-audit exposure, tax and transfer-pricing knowledge, governance credentials, and real experience dealing with banks, management teams and cross-border operations. Carron brings that level of financial leadership to owner-managed businesses that have outgrown bookkeeping — but don't yet need, or can't yet justify, a full-time CFO.",
+    "Having managed international financial operations remotely, Carel combines that cross-border perspective with practical commercial judgement — providing fractional CFO and strategic financial advisory to established businesses in South Africa, the UK and Europe, with scheduled on-site engagements where they add value.",
   ],
   credentials: [
     "30+ years' experience",
-    "South Africa · Germany · UK",
+    "SA · UK · Northern Europe",
     "CFO & corporate finance",
     "SARS-audit, tax & transfer-pricing exposure",
     "Governance & financial control",
