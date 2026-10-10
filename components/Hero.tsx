@@ -21,7 +21,7 @@ const item = {
 const marks = [
   "Fractional CFO leadership",
   "Remote, countrywide",
-  "No full-time salary",
+  "30+ years' CFO experience",
 ];
 
 export function Hero() {
@@ -93,9 +93,10 @@ export function Hero() {
           variants={item}
           className="mt-7 max-w-2xl text-lg leading-relaxed text-bone/90 sm:text-xl"
         >
-          You&apos;ve outgrown a bookkeeper but a full-time CFO doesn&apos;t add
-          up yet. Carron gives South African SMEs an experienced CFO on tap — the
-          difference between keeping books and running a business.
+          You&apos;ve outgrown a bookkeeper and need senior financial leadership
+          built for an owner-managed business. Carron gives South African SMEs an
+          experienced CFO on tap — the difference between keeping books and
+          running a business.
         </motion.p>
 
         <motion.div

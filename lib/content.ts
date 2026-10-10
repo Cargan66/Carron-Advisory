@@ -216,9 +216,9 @@ export const whyCarron: WhyPoint[] = [
     icon: "governance",
   },
   {
-    title: "Sized and priced for an SME",
+    title: "Financial leadership tailored to your business",
     description:
-      "The judgement of a full-time CFO, on a fractional basis — a retainer, a project, or ad-hoc, with scope and fee in plain language and no tie-ins.",
+      "Right-sized to what your business actually needs — a retainer, a project, or ad-hoc, with scope and fee agreed in plain language and no tie-ins.",
     icon: "profit",
   },
   {
