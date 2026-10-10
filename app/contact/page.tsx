@@ -66,7 +66,7 @@ export default function ContactPage() {
             <span className="text-gold-gradient">numbers</span>.
           </>
         }
-        description="Tell us a little about your business and what's prompting the call. We'll come back within one business day to set up a free, no-obligation discovery call."
+        description="For established, owner-managed businesses looking for experienced financial leadership. Tell us about your company and what's prompting the conversation — we'll reply within one business day."
       />
 
       <section className="bg-emerald-base py-24 sm:py-32">
@@ -75,12 +75,14 @@ export default function ContactPage() {
           <FadeIn className="space-y-10">
             <div>
               <h2 className="text-2xl font-bold text-white">
-                Start the conversation
+                A confidential discussion about your numbers
               </h2>
               <p className="mt-3 leading-relaxed text-bone/90">
-                Whether you need an ongoing financial right-hand or just a second
-                opinion on one decision, we&apos;re glad to talk — straight, and
-                without obligation.
+                Are you an owner or managing director looking for experienced
+                financial leadership? Arrange a confidential, no-obligation
+                discussion about your company&apos;s financial challenges and how
+                Carron can help. Suppliers and partners are welcome too — just
+                pick the matching option on the form.
               </p>
             </div>
 

@@ -4,13 +4,45 @@ import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./Button";
 
-type Errors = Partial<Record<"name" | "email" | "message", string>>;
+type Errors = Partial<Record<"name" | "email" | "enquiry" | "message", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
 
 // Web3Forms access key — get a free one in seconds at https://web3forms.com
 // (enter the inbox address where enquiries should land; they email you the key).
-// Paste it here to start receiving contact-form submissions.
 const WEB3FORMS_ACCESS_KEY = "dc0870f4-27e1-4787-8fb0-ab76fdcc861f";
+
+// The qualifier that separates genuine prospects from suppliers/sales approaches.
+const ENQUIRY_TYPES = [
+  "Fractional CFO services",
+  "Financial Diagnostic",
+  "General business advisory",
+  "Partnership opportunity",
+  "Supplier or sales enquiry",
+];
+
+const ROLES = [
+  "Owner / Founder",
+  "Managing Director / CEO",
+  "Financial Manager / FD",
+  "Other",
+];
+
+const TURNOVER = [
+  "Under R10 million",
+  "R10 – R50 million",
+  "R50 – R200 million",
+  "Over R200 million",
+  "Prefer not to say",
+];
+
+const INDUSTRIES = [
+  "Distribution, wholesale & imports",
+  "Manufacturing & product",
+  "Professional & business services",
+  "Multi-site, hospitality & property",
+  "Cross-border or complex-tax",
+  "Other",
+];
 
 const fieldClasses =
   "w-full rounded-xl border border-white/10 bg-emerald-deep/60 px-4 py-3 text-white placeholder:text-stone-500 transition-colors duration-200 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/40";
@@ -18,10 +50,12 @@ const fieldClasses =
 export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [isSupplier, setIsSupplier] = useState(false);
 
   const validate = (data: {
     name: string;
     email: string;
+    enquiry: string;
     message: string;
   }): Errors => {
     const next: Errors = {};
@@ -31,6 +65,7 @@ export function ContactForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
       next.email = "Please enter a valid email address.";
     }
+    if (!data.enquiry) next.enquiry = "Please tell us what this is about.";
     if (!data.message.trim()) {
       next.message = "Please tell us a little about your business.";
     } else if (data.message.trim().length < 10) {
@@ -47,6 +82,10 @@ export function ContactForm() {
       name: String(formData.get("name") ?? ""),
       business: String(formData.get("business") ?? ""),
       email: String(formData.get("email") ?? ""),
+      role: String(formData.get("role") ?? ""),
+      turnover: String(formData.get("turnover") ?? ""),
+      industry: String(formData.get("industry") ?? ""),
+      enquiry: String(formData.get("enquiry") ?? ""),
       interest: String(formData.get("interest") ?? ""),
       message: String(formData.get("message") ?? ""),
     };
@@ -54,6 +93,12 @@ export function ContactForm() {
     const found = validate(data);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
+
+    // Label the inbox so prospects and suppliers are easy to tell apart at a glance.
+    const supplier = data.enquiry === "Supplier or sales enquiry";
+    const subject = supplier
+      ? "Supplier / sales enquiry — Carron website"
+      : `New ${data.enquiry} enquiry — Carron website`;
 
     setStatus("submitting");
     try {
@@ -65,17 +110,22 @@ export function ContactForm() {
         },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: "New enquiry — Carron Business Advisory",
+          subject,
           from_name: "Carron website",
+          enquiry_about: data.enquiry,
           name: data.name,
+          role: data.role || "—",
           business: data.business || "—",
           email: data.email,
-          interest: data.interest || "—",
+          annual_turnover: data.turnover || "—",
+          industry: data.industry || "—",
+          priority: data.interest || "—",
           message: data.message,
         }),
       });
       const result = await res.json();
       if (!res.ok || !result.success) throw new Error("Request failed");
+      setIsSupplier(supplier);
       setStatus("success");
       form.reset();
     } catch {
@@ -97,8 +147,9 @@ export function ContactForm() {
         </span>
         <h3 className="mt-6 text-2xl font-bold text-white">Thank you.</h3>
         <p className="mt-3 max-w-sm text-bone-muted">
-          Your message has been received. We&apos;ll be in touch within one
-          business day to set up your discovery call.
+          {isSupplier
+            ? "Your message has been received. We'll review it and respond if it's a fit."
+            : "Your message has been received. We'll be in touch within one business day to set up your confidential discovery call."}
         </p>
         <button
           type="button"
@@ -114,7 +165,7 @@ export function ContactForm() {
   return (
     <form noValidate onSubmit={onSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Your name" htmlFor="name" error={errors.name}>
+        <Field label="Your name" htmlFor="name" error={errors.name} required>
           <input
             id="name"
             name="name"
@@ -125,6 +176,19 @@ export function ContactForm() {
             className={fieldClasses}
           />
         </Field>
+        <Field label="Your role" htmlFor="role">
+          <select id="role" name="role" className={fieldClasses} defaultValue="">
+            <option value="" disabled>
+              Select your role
+            </option>
+            {ROLES.map((r) => (
+              <option key={r}>{r}</option>
+            ))}
+          </select>
+        </Field>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Business name" htmlFor="business">
           <input
             id="business"
@@ -135,10 +199,7 @@ export function ContactForm() {
             className={fieldClasses}
           />
         </Field>
-      </div>
-
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Email" htmlFor="email" error={errors.email}>
+        <Field label="Email" htmlFor="email" error={errors.email} required>
           <input
             id="email"
             name="email"
@@ -149,29 +210,69 @@ export function ContactForm() {
             className={fieldClasses}
           />
         </Field>
-        <Field label="What's the priority?" htmlFor="interest">
-          <select id="interest" name="interest" className={fieldClasses} defaultValue="">
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Annual turnover" htmlFor="turnover">
+          <select id="turnover" name="turnover" className={fieldClasses} defaultValue="">
             <option value="" disabled>
-              Select an area
+              Select a range
             </option>
-            <option>Cash flow</option>
-            <option>Profit &amp; pricing</option>
-            <option>Funding &amp; banks</option>
-            <option>Reporting &amp; systems</option>
-            <option>Risk &amp; governance</option>
-            <option>Growth &amp; strategy</option>
-            <option>Financial Performance Diagnostic</option>
-            <option>Not sure yet</option>
+            {TURNOVER.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+        </Field>
+        <Field label="Industry" htmlFor="industry">
+          <select id="industry" name="industry" className={fieldClasses} defaultValue="">
+            <option value="" disabled>
+              Select your industry
+            </option>
+            {INDUSTRIES.map((i) => (
+              <option key={i}>{i}</option>
+            ))}
           </select>
         </Field>
       </div>
 
-      <Field label="Tell us about your business" htmlFor="message" error={errors.message}>
+      <Field label="What are you contacting us about?" htmlFor="enquiry" error={errors.enquiry} required>
+        <select
+          id="enquiry"
+          name="enquiry"
+          className={fieldClasses}
+          defaultValue=""
+          aria-invalid={!!errors.enquiry}
+        >
+          <option value="" disabled>
+            Select one
+          </option>
+          {ENQUIRY_TYPES.map((t) => (
+            <option key={t}>{t}</option>
+          ))}
+        </select>
+      </Field>
+
+      <Field label="What's prompting the call?" htmlFor="interest">
+        <select id="interest" name="interest" className={fieldClasses} defaultValue="">
+          <option value="" disabled>
+            Select an area (optional)
+          </option>
+          <option>Cash flow</option>
+          <option>Profit &amp; pricing</option>
+          <option>Funding &amp; banks</option>
+          <option>Reporting &amp; systems</option>
+          <option>Risk &amp; governance</option>
+          <option>Growth &amp; strategy</option>
+          <option>Not sure yet</option>
+        </select>
+      </Field>
+
+      <Field label="Tell us about your business" htmlFor="message" error={errors.message} required>
         <textarea
           id="message"
           name="message"
           rows={5}
-          placeholder="A line or two about your business, roughly your turnover, and what's prompting you to reach out…"
+          placeholder="A line or two about your business, your current finance setup, and what's prompting you to reach out…"
           aria-invalid={!!errors.message}
           className={`${fieldClasses} resize-none`}
         />
@@ -193,7 +294,7 @@ export function ContactForm() {
 
       <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <Button type="submit" size="lg" disabled={status === "submitting"}>
-          {status === "submitting" ? "Sending…" : "Book a Discovery Call"}
+          {status === "submitting" ? "Sending…" : "Request a confidential call"}
         </Button>
         <p className="text-xs text-bone-dim">
           We respect your privacy — see our{" "}
@@ -211,11 +312,13 @@ function Field({
   label,
   htmlFor,
   error,
+  required,
   children,
 }: {
   label: string;
   htmlFor: string;
   error?: string;
+  required?: boolean;
   children: React.ReactNode;
 }) {
   return (
@@ -225,6 +328,7 @@ function Field({
         className="mb-2 block text-sm font-medium text-bone/90"
       >
         {label}
+        {required && <span className="ml-1 text-gold" aria-hidden>*</span>}
       </label>
       {children}
       {error && (
