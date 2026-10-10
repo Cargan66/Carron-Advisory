@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-const UPDATED = "18 September 2026";
+const UPDATED = "10 October 2026";
 
 export default function PrivacyPage() {
   return (
@@ -150,9 +150,10 @@ export default function PrivacyPage() {
                   reports.
                 </li>
                 <li>
-                  <strong className="text-white">Advertising and analytics providers</strong> (for
-                  example Google and Meta) — only where you have consented to non-essential
-                  analytics/advertising cookies. Until then, no advertising trackers are loaded.
+                  <strong className="text-white">Google Analytics 4</strong> (Google LLC) — measures,
+                  in aggregate, how visitors use the site. It loads only after you accept analytics on
+                  our consent banner; until then nothing is sent to Google, and no advertising trackers
+                  are loaded.
                 </li>
               </ul>
               <p>
@@ -215,9 +216,31 @@ export default function PrivacyPage() {
 
             <Block n="10" title="Cookies and tracking">
               <p>
-                We use only essential cookies needed for the site to function. Non-essential
-                analytics and advertising cookies (such as those used to measure ad campaigns) are
-                loaded only if and when you give consent, and you can change your choice at any time.
+                We use only essential cookies needed for the site to function. For analytics we use{" "}
+                <strong className="text-white">Google Analytics 4</strong> (provided by Google LLC),
+                which helps us understand, in aggregate, how the site is used and — once we run
+                campaigns — which referrals lead to enquiries. It collects usage data such as the pages
+                viewed, an approximate location (derived from your IP address, which Google truncates),
+                and device and browser type. We do not send Google your name, email address, or any
+                answers you enter into our tools.
+              </p>
+              <p>
+                Google Analytics loads <strong className="text-white">only after you accept</strong> it
+                on the consent banner shown on your first visit. If you decline, it is never loaded. You
+                can change or withdraw your choice at any time using the{" "}
+                <strong className="text-white">“Cookie preferences”</strong> link in the website footer.
+                Google processes this data on our behalf and on servers outside South Africa (see
+                section 6); see Google’s{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold hover:text-gold-light"
+                >
+                  Privacy Policy
+                </a>{" "}
+                for how it handles information. No advertising or remarketing trackers are used at this
+                stage.
               </p>
             </Block>
 
