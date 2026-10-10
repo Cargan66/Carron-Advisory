@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) — GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZQR7L8MWZ"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XZQR7L8MWZ');</script>
+<!-- POPIA-gated analytics — consent.js loads GA4 only after the visitor accepts -->
+<script src="/consent.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0f2218">
@@ -309,7 +308,7 @@ const TIERS = [
 let idx = 0;
 const answers = new Array(QUESTIONS.length).fill(null);
 const el = id => document.getElementById(id);
-function show(id){ if(id==='quiz'&&!window.__qs){window.__qs=1;if(window.gtag)gtag('event','questionnaire_start',{questionnaire:'find-your-fit'});} if(id==='result'&&!window.__ql){window.__ql=1;if(window.gtag)gtag('event','generate_lead',{questionnaire:'find-your-fit'});} ['intro','quiz','gate','crunch','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+function show(id){ if(id==='quiz'&&!window.__qs){window.__qs=1;if(window.gaEvent)gaEvent('questionnaire_start',{questionnaire:'find-your-fit'});} if(id==='result'&&!window.__ql){window.__ql=1;if(window.gaEvent)gaEvent('generate_lead',{questionnaire:'find-your-fit'});} ['intro','quiz','gate','crunch','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // Brief "calculating" animation before the result. Change CALC_MS to lengthen/shorten it.
 const CALC_MS = 5000;

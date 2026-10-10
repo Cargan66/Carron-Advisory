@@ -2,6 +2,7 @@ import Link from "next/link";
 import { navLinks, siteConfig } from "@/lib/site";
 import { services } from "@/lib/content";
 import { Logo } from "./Logo";
+import { CookiePreferences } from "./CookiePreferences";
 
 const socials = [
   {
@@ -108,7 +109,9 @@ export function Footer() {
             ·{" "}
             <Link href="/paia" className="text-bone-muted transition-colors hover:text-gold">
               PAIA
-            </Link>
+            </Link>{" "}
+            ·{" "}
+            <CookiePreferences />
           </p>
           <p className="max-w-xl text-center sm:text-right">
             Serving SMEs remotely across South Africa. Information on this site

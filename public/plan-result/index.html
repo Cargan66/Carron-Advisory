@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) — GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZQR7L8MWZ"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XZQR7L8MWZ');</script>
+<!-- POPIA-gated analytics — consent.js loads GA4 only after the visitor accepts -->
+<script src="/consent.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your 90-Day Owner-Independence Plan · Carron Business Advisory</title>
@@ -127,7 +126,7 @@
   // States are mutually exclusive, and once the plan is shown nothing can override it.
   let shown = false;
   function hideAll(){ el('loading').hidden = true; el('pending').hidden = true; el('errored').hidden = true; }
-  function showReport(data){ if(shown) return; shown = true; el('report').innerHTML = data.html || ''; hideAll(); el('report').hidden = false; el('actions').hidden = false; const sh=el('savehint'); if(sh) sh.hidden = false; if(window.gtag)gtag('event','purchase',{transaction_id:reference,value:795,currency:'ZAR',questionnaire:'90-day-test',items:[{item_name:'90-Day Owner-Independence Plan',price:795,quantity:1}]}); }
+  function showReport(data){ if(shown) return; shown = true; el('report').innerHTML = data.html || ''; hideAll(); el('report').hidden = false; el('actions').hidden = false; const sh=el('savehint'); if(sh) sh.hidden = false; if(window.gaEvent)gaEvent('purchase',{transaction_id:reference,value:795,currency:'ZAR',questionnaire:'90-day-test',items:[{item_name:'90-Day Owner-Independence Plan',price:795,quantity:1}]}); }
   function showPending(){ if(shown) return; hideAll(); el('pending').hidden = false; }
   function showError(){ if(shown) return; hideAll(); el('errored').hidden = false; }
 
