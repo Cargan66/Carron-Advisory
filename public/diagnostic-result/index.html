@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) — GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZQR7L8MWZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XZQR7L8MWZ');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Financial Health Action Plan · Carron Business Advisory</title>
@@ -140,7 +143,7 @@
   // (a late poll must never resurface the "couldn't load" banner over a loaded report).
   let shown = false;
   function hideAll(){ el('loading').hidden = true; el('pending').hidden = true; el('errored').hidden = true; }
-  function showReport(data){ if(shown) return; shown = true; el('report').innerHTML = data.html || ''; hideAll(); el('report').hidden = false; el('actions').hidden = false; const sh=el('savehint'); if(sh) sh.hidden = false; }
+  function showReport(data){ if(shown) return; shown = true; el('report').innerHTML = data.html || ''; hideAll(); el('report').hidden = false; el('actions').hidden = false; const sh=el('savehint'); if(sh) sh.hidden = false; if(window.gtag)gtag('event','purchase',{transaction_id:reference,value:1295,currency:'ZAR',questionnaire:'health-check',items:[{item_name:'Financial Health Action Plan',price:1295,quantity:1}]}); }
   function showPending(){ if(shown) return; hideAll(); el('pending').hidden = false; }
   function showError(){ if(shown) return; hideAll(); el('errored').hidden = false; }
 

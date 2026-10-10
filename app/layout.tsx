@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { OrganizationJsonLd } from "@/components/JsonLd";
@@ -96,6 +97,14 @@ export default function RootLayout({
   return (
     <html lang="en-ZA" className={poppins.variable}>
       <body className="min-h-screen font-sans">
+        {/* Google tag (gtag.js) — GA4, loads on every app route */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XZQR7L8MWZ"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XZQR7L8MWZ');`}
+        </Script>
         <OrganizationJsonLd />
         <a
           href="#main"

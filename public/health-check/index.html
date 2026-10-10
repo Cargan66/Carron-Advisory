@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) — GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZQR7L8MWZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XZQR7L8MWZ');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0f2218">
@@ -328,7 +331,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 <script>
 const el = id => document.getElementById(id);
-function show(id){ ['intro','calc','gate','crunch','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
+function show(id){ if(id==='calc'&&!window.__qs){window.__qs=1;if(window.gtag)gtag('event','questionnaire_start',{questionnaire:'health-check'});} if(id==='result'&&!window.__ql){window.__ql=1;if(window.gtag)gtag('event','generate_lead',{questionnaire:'health-check'});} ['intro','calc','gate','crunch','result'].forEach(s=>el(s).classList.add('hidden')); el(id).classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
 
 // Brief "calculating" animation before the scored result — a filling ring + staged
 // status messages, so the result feels considered rather than instant. Change CALC_MS
