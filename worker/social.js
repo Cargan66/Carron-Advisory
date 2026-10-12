@@ -16,7 +16,7 @@
  *   META_PAGE_TOKEN   (secret) long-lived Facebook Page access token
  *   META_IG_USER_ID   Instagram Business account id (not the @handle)
  *   META_FB_PAGE_ID   Facebook Page id
- *   META_API_VERSION  optional, e.g. "v23.0" — bump as Meta deprecates versions
+ *   META_API_VERSION  optional, e.g. "v26.0" — bump as Meta deprecates versions
  *   SOCIAL_LIVE       must be "true" before anything is actually published
  *   ADMIN_KEY         (secret) already used elsewhere; gates the admin routes
  *
@@ -28,7 +28,7 @@
  *   GET /api/social/run?id=<id>      publishes one post now, ignoring its schedule
  */
 
-const DEFAULT_API_VERSION = "v23.0";
+const DEFAULT_API_VERSION = "v26.0";
 const SITE = "https://carron.co.za";
 const QUEUE_URL = SITE + "/social/queue.json";
 const MAX_ATTEMPTS = 3; // give up on a post after this many failures

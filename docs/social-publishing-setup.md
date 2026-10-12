@@ -110,7 +110,7 @@ Cloudflare dashboard → **Workers & Pages** → `carron-advisory` → **Setting
 | `META_IG_USER_ID` | Text | `17841410048614355` |
 | `META_FB_PAGE_ID` | Text | `61594832251843` |
 | `SOCIAL_LIVE` | Text | `false` for now — `true` when you're ready |
-| `META_API_VERSION` | Text | optional; e.g. `v23.0`. Set it if Meta deprecates that version |
+| `META_API_VERSION` | Text | optional; the code defaults to `v26.0` (current as at Oct 2026). Set it only when Meta retires that version |
 
 `ADMIN_KEY` and `RESEND_API_KEY` are already set and are reused here (admin
 access, and the "it posted" / "it failed" email to info@carron.co.za).
