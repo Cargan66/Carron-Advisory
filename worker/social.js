@@ -210,7 +210,10 @@ async function fbPublish(env, post, images) {
 function igCaption(post) {
   const parts = [String(post.caption || "").trim()];
   if (post.cta) parts.push(post.cta);
-  if (post.url) parts.push("Full piece — link in bio.");
+  // Instagram captions cannot carry a clickable link, so give a short address
+  // people can actually type, and point at the one link that is clickable.
+  if (post.shortUrl) parts.push(post.shortUrl + "  ·  link in bio");
+  else if (post.url) parts.push("Full piece — link in bio.");
   const tags = (post.hashtags || []).join(" ");
   if (tags) parts.push(tags);
   return parts.filter(Boolean).join("\n\n").slice(0, 2200);

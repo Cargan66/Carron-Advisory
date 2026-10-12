@@ -6,24 +6,30 @@
     "fields": {
       "id": "stable, unique; the D1 key and the card filename stem — never reuse or rename after publishing",
       "scheduled": "UTC ISO. The cron fires 05:30 and 10:00 UTC on weekdays (07:30 / 12:00 SAST); a post publishes at the first firing at or after this time",
-      "slides": "one per card image; 1 slide = single post, 2-10 = Instagram carousel. Rendered by scripts/social_cards.py",
-      "images": "must match the rendered files exactly, in order",
+      "slides": "one per card image; 1 slide = single post, 2-10 = Instagram carousel. Each slide names a `bg` photograph from public/images/, which the renderer crops square, grades to the brand emerald and darkens behind the copy. Rendered by scripts/social_cards.py",
+      "images": "the creative that actually publishes, in order. When `artwork` is \"supplied\" these are finished 1080x1350 cards under /social/art/ and scripts/social_cards.py leaves them alone; otherwise they are generated into /social/cards/ from `slides`.",
       "caption": "the body of the caption, used on both platforms",
       "cta": "one line appended after the caption",
       "url": "Instagram gets 'link in bio', Facebook gets this URL in full",
-      "hashtags": "all of them on Instagram; the first five on Facebook"
+      "hashtags": "all of them on Instagram; the first five on Facebook",
+      "shortUrl": "a short typeable address shown in the Instagram caption, since IG captions cannot carry a clickable link. Facebook gets the full `url` instead."
     },
     "regenerate_cards": "python scripts/social_cards.py [id ...]"
   },
-
   "defaults": {
     "hashtags": [
-      "#FractionalCFO", "#SMESouthAfrica", "#CashFlow", "#BusinessOwner",
-      "#SouthAfricanBusiness", "#FinancialManagement", "#BusinessAdvisory",
-      "#SmallBusinessSA", "#Knysna", "#CFOServices"
+      "#FractionalCFO",
+      "#SMESouthAfrica",
+      "#CashFlow",
+      "#BusinessOwner",
+      "#SouthAfricanBusiness",
+      "#FinancialManagement",
+      "#BusinessAdvisory",
+      "#SmallBusinessSA",
+      "#Knysna",
+      "#CFOServices"
     ]
   },
-
   "posts": [
     {
       "id": "ins-cost-cutting",
@@ -31,39 +37,68 @@
       "scheduled": "2026-10-14T05:30:00Z",
       "approved": false,
       "url": "/insights/cost-cutting-without-damaging-the-business",
-      "images": ["/social/cards/ins-cost-cutting-1.jpg"],
+      "images": [
+        "/social/art/ins-cost-cutting-1.jpg"
+      ],
       "slides": [
         {
           "eyebrow": "Profitability",
           "headline": "A smaller expense line is not the same as a stronger business.",
-          "body": "Remove waste first. Redesign cost second. Cut productive capacity last — and only if the economics still improve after the consequence is counted."
+          "body": "Remove waste first. Redesign cost second. Cut productive capacity last — and only if the economics still improve after the consequence is counted.",
+          "bg": "advisory-review.jpg"
         }
       ],
       "caption": "When margins tighten, every expense line starts to look like an opportunity. That is where the damage usually begins.\n\nThe question is never \"can we spend less here?\" It is \"what does this cost actually buy us, and what happens to the business without it?\"\n\nThree things each material cost buys: capability, contribution, and control. A cut that removes genuine waste improves the business. A cut that quietly removes one of those three makes next quarter harder and the saving does not survive the year.\n\nOur October special report sets out how to classify every cost — stop, redesign, renegotiate or protect — and how to measure the net economic effect before you commit.",
-      "cta": "Read the full report on the Insights page.",
-      "hashtags": ["#CostManagement", "#Profitability", "#FractionalCFO", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#FinancialManagement", "#BusinessAdvisory", "#SmallBusinessSA", "#CFOServices"]
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#CostManagement",
+        "#Profitability",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FinancialManagement",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
     },
-
     {
-      "id": "tool-health-check",
-      "title": "Free Financial Health Check",
+      "id": "myth-cfo-size",
+      "title": "Myth — a CFO is for big companies",
       "scheduled": "2026-10-16T05:30:00Z",
       "approved": false,
-      "url": "/health-check/",
-      "images": ["/social/cards/tool-health-check-1.jpg"],
+      "url": "/services",
+      "images": [
+        "/social/art/myth-cfo-size-1.jpg"
+      ],
       "slides": [
         {
-          "eyebrow": "Free tool",
-          "headline": "Ten numbers. One honest read on your business.",
-          "body": "A score out of 100, six ratios measured against your own sector, and an indicative value range.",
-          "cta": "carron.co.za/health-check"
+          "eyebrow": "Myth",
+          "headline": "“A CFO is something you get once you are big.”",
+          "body": "By the time a business can comfortably carry a full-time CFO, most of the decisions that needed one have already been made.",
+          "bg": "boardroom.jpg"
         }
       ],
-      "caption": "Most owners know roughly how the business is doing. Far fewer can say which number is actually causing the pressure.\n\nThe Financial Health Check takes ten figures off your balance sheet and income statement and gives you a straight diagnosis: a score out of 100, six ratios scored against benchmarks for your sector, and an indicative value range for the business.\n\nIt is free, it takes about five minutes, and it tells you where the pressure is sitting. What you do about it is a separate conversation — but you cannot have that conversation without this first.",
-      "cta": "Run it free at carron.co.za/health-check",
-      "hashtags": ["#FinancialHealth", "#SMESouthAfrica", "#CashFlow", "#BusinessOwner", "#SouthAfricanBusiness", "#FractionalCFO", "#BusinessAdvisory", "#SmallBusinessSA", "#Knysna", "#FinancialManagement"]
+      "caption": "The decisions that need senior financial judgement do not wait until you can afford a full-time salary.\n\nPricing. Whether to take the big order. Whether the funding on offer is worth its terms. Which customer is quietly costing you money. Whether this is the year to hire.\n\nThose are not bookkeeping questions, and they do not need forty hours a week of attention. They need a few days a month from someone who has made the call before.\n\nThat is the whole idea behind fractional CFO work: the seniority without the salary.",
+      "cta": "What a CFO adds, and when it is worth it.",
+      "hashtags": [
+        "#FractionalCFO",
+        "#CFOServices",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#FinancialManagement",
+        "#SmallBusinessSA",
+        "#Knysna",
+        "#OwnerManaged"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/services"
     },
-
     {
       "id": "car-profitable-no-cash",
       "title": "Carousel — profitable but no cash",
@@ -71,198 +106,323 @@
       "approved": false,
       "url": "/insights/profitable-no-cash-why",
       "images": [
-        "/social/cards/car-profitable-no-cash-1.jpg",
-        "/social/cards/car-profitable-no-cash-2.jpg",
-        "/social/cards/car-profitable-no-cash-3.jpg",
-        "/social/cards/car-profitable-no-cash-4.jpg",
-        "/social/cards/car-profitable-no-cash-5.jpg"
+        "/social/art/car-profitable-no-cash-1.jpg",
+        "/social/art/car-profitable-no-cash-2.jpg",
+        "/social/art/car-profitable-no-cash-3.jpg",
+        "/social/art/car-profitable-no-cash-4.jpg",
+        "/social/art/car-profitable-no-cash-5.jpg"
       ],
       "slides": [
         {
           "eyebrow": "Cash flow",
           "headline": "Profitable on paper. Empty in the bank.",
-          "body": "Four places the money actually went."
+          "body": "Four places the money actually went.",
+          "bg": "cash-counting.jpg"
         },
         {
           "eyebrow": "One",
           "headline": "Your debtors are being funded by you.",
-          "body": "Every day of unpaid invoice is a day you have lent a customer money at zero interest. Profit was recorded on invoice. Cash was not."
+          "body": "Every day of unpaid invoice is a day you have lent a customer money at zero interest. Profit was recorded on invoice. Cash was not.",
+          "bg": "customer-risk.jpg"
         },
         {
           "eyebrow": "Two",
           "headline": "Stock is cash you are not allowed to spend.",
-          "body": "It shows as an asset, not an expense, so the income statement looks fine while the bank account carries the cost."
+          "body": "It shows as an asset, not an expense, so the income statement looks fine while the bank account carries the cost.",
+          "bg": "retail-pricing.jpg"
         },
         {
           "eyebrow": "Three",
           "headline": "Growth consumes cash before it produces any.",
-          "body": "Bigger orders mean more stock, more wages and longer debtor days — all paid before the customer pays you."
+          "body": "Bigger orders mean more stock, more wages and longer debtor days — all paid before the customer pays you.",
+          "bg": "coins-growth.jpg"
         },
         {
           "eyebrow": "Four",
           "headline": "Profit is taxed before it reaches you.",
           "body": "Provisional tax, VAT and loan capital all come out of cash the income statement never showed as a cost.",
-          "cta": "carron.co.za/health-check"
+          "cta": "carron.co.za/health-check",
+          "bg": "tax-paperwork.jpg"
         }
       ],
       "caption": "\"We are profitable. So why is there never any money?\"\n\nIt is the most common question we hear from owner-managed businesses, and the answer is almost never that the accountant got it wrong. Profit and cash measure two different things, and the gap between them is where most SMEs run into trouble.\n\nSwipe for the four places the money usually goes: debtors, stock, growth and tax.\n\nIf you are living this, the free Financial Health Check will show you which of the four is doing the damage in your business.",
-      "cta": "Free Health Check at carron.co.za/health-check",
-      "hashtags": ["#CashFlow", "#WorkingCapital", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#FractionalCFO", "#FinancialManagement", "#BusinessAdvisory", "#SmallBusinessSA", "#CFOServices"]
-    },
-
-    {
-      "id": "myth-cfo-size",
-      "title": "Myth — a CFO is for big companies",
-      "scheduled": "2026-10-23T05:30:00Z",
-      "approved": false,
-      "url": "/insights/fractional-vs-full-time-cfo",
-      "images": ["/social/cards/myth-cfo-size-1.jpg"],
-      "slides": [
-        {
-          "eyebrow": "Myth",
-          "headline": "“A CFO is something you get once you are big.”",
-          "body": "By the time a business can comfortably carry a full-time CFO, most of the decisions that needed one have already been made."
-        }
+      "cta": "The free Health Check shows which of the four is doing the damage.",
+      "hashtags": [
+        "#CashFlow",
+        "#WorkingCapital",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FractionalCFO",
+        "#FinancialManagement",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
       ],
-      "caption": "The decisions that need senior financial judgement do not wait until you can afford a full-time salary.\n\nPricing. Whether to take the big order. Whether the funding on offer is worth its terms. Which customer is quietly costing you money. Whether this is the year to hire.\n\nThose are not bookkeeping questions, and they do not need forty hours a week of attention. They need a few days a month from someone who has made the call before.\n\nThat is the whole idea behind fractional CFO work: the seniority without the salary.",
-      "cta": "What a CFO adds — carron.co.za/services",
-      "hashtags": ["#FractionalCFO", "#CFOServices", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#BusinessAdvisory", "#FinancialManagement", "#SmallBusinessSA", "#Knysna", "#OwnerManaged"]
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/health-check"
     },
-
     {
       "id": "ins-stock-to-cash",
       "title": "You bought the stock",
-      "scheduled": "2026-10-28T05:30:00Z",
+      "scheduled": "2026-10-23T05:30:00Z",
       "approved": false,
       "url": "/insights/you-bought-the-stock",
-      "images": ["/social/cards/ins-stock-to-cash-1.jpg"],
+      "images": [
+        "/social/art/ins-stock-to-cash-1.jpg"
+      ],
       "slides": [
         {
           "eyebrow": "Cash flow",
           "headline": "You bought the stock. Can you turn it back into cash?",
-          "body": "Stock that does not move is not inventory. It is cash you have already spent, sitting on a shelf, quietly costing you more every month."
+          "body": "Stock that does not move is not inventory. It is cash you have already spent, sitting on a shelf, quietly costing you more every month.",
+          "bg": "retail-pricing.jpg"
         }
       ],
       "caption": "Stock is the easiest asset in an SME to overvalue, because the balance sheet carries it at what you paid rather than what you can get.\n\nThree questions worth asking this month:\n\nWhich lines have not moved in 90 days? Those are the ones funding your overdraft.\n\nWhat would you actually accept today to clear them? That number — not cost — is the honest value.\n\nWhat did you learn about how you buy? Most stock problems are purchasing decisions that have not been revisited.\n\nClearing slow stock at a discount usually beats holding it at full price. The discount is visible. The holding cost is not.",
-      "cta": "Read the full piece on the Insights page.",
-      "hashtags": ["#Inventory", "#CashFlow", "#WorkingCapital", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#FractionalCFO", "#BusinessAdvisory", "#SmallBusinessSA", "#Retail"]
+      "cta": "The full piece is on the Insights page.",
+      "hashtags": [
+        "#Inventory",
+        "#CashFlow",
+        "#WorkingCapital",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#Retail"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
     },
-
+    {
+      "id": "tool-health-check",
+      "title": "Free Financial Health Check",
+      "scheduled": "2026-10-28T05:30:00Z",
+      "approved": false,
+      "url": "/health-check/",
+      "images": [
+        "/social/art/tool-health-check-1.jpg"
+      ],
+      "slides": [
+        {
+          "eyebrow": "Free tool",
+          "headline": "Ten numbers. One honest read on your business.",
+          "body": "A score out of 100, six ratios measured against your own sector, and an indicative value range.",
+          "cta": "carron.co.za/health-check",
+          "bg": "reporting-dashboard.jpg"
+        }
+      ],
+      "caption": "Most owners know roughly how the business is doing. Far fewer can say which number is actually causing the pressure.\n\nThe Financial Health Check takes ten figures off your balance sheet and income statement and gives you a straight diagnosis: a score out of 100, six ratios scored against benchmarks for your sector, and an indicative value range for the business.\n\nIt is free, it takes about five minutes, and it tells you where the pressure is sitting. What you do about it is a separate conversation — but you cannot have that conversation without this first.",
+      "cta": "Free, and it takes about five minutes.",
+      "hashtags": [
+        "#FinancialHealth",
+        "#SMESouthAfrica",
+        "#CashFlow",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#Knysna",
+        "#FinancialManagement"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/health-check"
+    },
     {
       "id": "ins-invoice-fraud",
       "title": "The invoice was real, the bank account was not",
       "scheduled": "2026-10-30T05:30:00Z",
       "approved": false,
       "url": "/insights/invoice-was-real-bank-account-wasnt",
-      "images": ["/social/cards/ins-invoice-fraud-1.jpg"],
+      "images": [
+        "/social/art/ins-invoice-fraud-1.jpg"
+      ],
       "slides": [
         {
           "eyebrow": "Risk",
           "headline": "The invoice was real. The bank account wasn’t.",
-          "body": "Payment redirection fraud does not break into your systems. It waits for a supplier to email new banking details, and for one person to be too busy to check."
+          "body": "Payment redirection fraud does not break into your systems. It waits for a supplier to email new banking details, and for one person to be too busy to check.",
+          "bg": "insights-desk.jpg"
         }
       ],
       "caption": "This is the fraud that is hitting South African SMEs hardest right now, and it needs no hacking at all.\n\nA genuine supplier invoice arrives. The amount is right, the reference is right, the logo is right. Only the banking details have changed — and the email asking for the change looks exactly like the ones before it.\n\nThe control that stops it costs nothing: no change of banking details is ever actioned from an email. You phone a number you already hold, not the number in the message, and you confirm with a person you have spoken to before.\n\nPut it in writing, tell the person who pays, and make it a rule that cannot be overridden by urgency.",
       "cta": "The full piece is on the Insights page.",
-      "hashtags": ["#FraudPrevention", "#BusinessRisk", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#InternalControls", "#FractionalCFO", "#BusinessAdvisory", "#SmallBusinessSA", "#CyberSecurity"]
-    },
-
-    {
-      "id": "tool-90-day-test",
-      "title": "Free 90-Day Test",
-      "scheduled": "2026-11-04T05:30:00Z",
-      "approved": false,
-      "url": "/90-day-test/",
-      "images": ["/social/cards/tool-90-day-test-1.jpg"],
-      "slides": [
-        {
-          "eyebrow": "Free tool",
-          "headline": "Could the business run for 90 days without you?",
-          "body": "Twenty questions, and an honest answer about how much of it still runs through one person.",
-          "cta": "carron.co.za/90-day-test"
-        }
+      "hashtags": [
+        "#FraudPrevention",
+        "#BusinessRisk",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#InternalControls",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CyberSecurity"
       ],
-      "caption": "Not a holiday question. A value question.\n\nA business that cannot run without the owner is worth less than the same business with the owner removed from the critical path — and it is a great deal harder to live with in the meantime.\n\nThe 90-Day Test asks twenty questions about where decisions, relationships, knowledge and approvals actually sit. It takes a few minutes and it tells you how dependent the business still is on you, and which part of that dependence is doing the most damage.\n\nFree, no obligation, and uncomfortably clarifying.",
-      "cta": "Take it at carron.co.za/90-day-test",
-      "hashtags": ["#BusinessOwner", "#OwnerIndependence", "#SMESouthAfrica", "#SouthAfricanBusiness", "#BusinessValue", "#SuccessionPlanning", "#FractionalCFO", "#BusinessAdvisory", "#SmallBusinessSA", "#Knysna"]
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
     },
-
     {
       "id": "car-13-week-forecast",
       "title": "Carousel — the 13-week cash flow forecast",
-      "scheduled": "2026-11-06T05:30:00Z",
+      "scheduled": "2026-11-04T05:30:00Z",
       "approved": false,
       "url": "/insights/the-13-week-cash-flow-forecast",
       "images": [
-        "/social/cards/car-13-week-forecast-1.jpg",
-        "/social/cards/car-13-week-forecast-2.jpg",
-        "/social/cards/car-13-week-forecast-3.jpg",
-        "/social/cards/car-13-week-forecast-4.jpg"
+        "/social/art/car-13-week-forecast-1.jpg",
+        "/social/art/car-13-week-forecast-2.jpg",
+        "/social/art/car-13-week-forecast-3.jpg",
+        "/social/art/car-13-week-forecast-4.jpg"
       ],
       "slides": [
         {
           "eyebrow": "Cash flow",
           "headline": "The one report that ends month-end surprises.",
-          "body": "Thirteen weeks. One page. Updated every Friday."
+          "body": "Thirteen weeks. One page. Updated every Friday.",
+          "bg": "ai-report.jpg"
         },
         {
           "eyebrow": "Step one",
           "headline": "Start from the bank balance, not the budget.",
-          "body": "A forecast built off last year’s plan tells you what you hoped would happen. One built off today’s balance tells you whether Friday’s wages clear."
+          "body": "A forecast built off last year’s plan tells you what you hoped would happen. One built off today’s balance tells you whether Friday’s wages clear.",
+          "bg": "insights-desk.jpg"
         },
         {
           "eyebrow": "Step two",
           "headline": "Separate what is certain from what is merely expected.",
-          "body": "Committed outflows are facts. Customer receipts are forecasts. Mixing them is how a business runs out of money while looking fine on paper."
+          "body": "Committed outflows are facts. Customer receipts are forecasts. Mixing them is how a business runs out of money while looking fine on paper.",
+          "bg": "cash-counting.jpg"
         },
         {
           "eyebrow": "Step three",
           "headline": "Update it weekly, or do not bother.",
           "body": "The value is not the spreadsheet. It is seeing the squeeze four weeks before it arrives, while you still have options.",
-          "cta": "carron.co.za/insights"
+          "cta": "carron.co.za/insights",
+          "bg": "collaboration.jpg"
         }
       ],
       "caption": "Thirteen weeks is the sweet spot for an owner-managed business: far enough out to give you room to act, close enough in that the numbers are still real.\n\nIt is one page. Opening bank balance, committed payments, expected receipts, closing balance, week by week. No modelling, no assumptions you cannot defend.\n\nWhat it buys you is time. The business that spots a shortfall in week nine can negotiate, delay a purchase or chase a debtor. The business that discovers it on the day has to accept whatever terms are available.\n\nSwipe for the three rules that make it work.",
-      "cta": "Full framework on the Insights page.",
-      "hashtags": ["#CashFlowForecast", "#CashFlow", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#FinancialManagement", "#FractionalCFO", "#BusinessAdvisory", "#SmallBusinessSA", "#CFOServices"]
+      "cta": "The full framework is on the Insights page.",
+      "hashtags": [
+        "#CashFlowForecast",
+        "#CashFlow",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FinancialManagement",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
     },
-
     {
       "id": "myth-growth-fixes-cash",
       "title": "Myth — growth fixes cash",
-      "scheduled": "2026-11-11T05:30:00Z",
+      "scheduled": "2026-11-06T05:30:00Z",
       "approved": false,
       "url": "/insights/can-your-business-afford-to-grow",
-      "images": ["/social/cards/myth-growth-fixes-cash-1.jpg"],
+      "images": [
+        "/social/art/myth-growth-fixes-cash-1.jpg"
+      ],
       "slides": [
         {
           "eyebrow": "Myth",
           "headline": "“We’ll grow our way out of it.”",
-          "body": "Growth consumes cash long before it produces any. A business with a working-capital problem does not outgrow it — it scales it."
+          "body": "Growth consumes cash long before it produces any. A business with a working-capital problem does not outgrow it — it scales it.",
+          "bg": "funding-towers.jpg"
         }
       ],
       "caption": "Growth is not a cash flow strategy. It is a cash flow event.\n\nMore sales means more stock, more wages, more debtor days and often more equipment — all of it paid before a single new customer pays you. The faster you grow, the bigger the gap, and the gap is funded by whatever cash the business already had.\n\nThis is why profitable businesses fail while growing. Not because the strategy was wrong, but because nobody asked what the growth would cost in cash before it started.\n\nBefore the next push: how much working capital does each extra million in turnover consume, and where is it coming from?",
-      "cta": "Can your business afford to grow? Read it on the Insights page.",
-      "hashtags": ["#BusinessGrowth", "#WorkingCapital", "#CashFlow", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#FractionalCFO", "#BusinessAdvisory", "#SmallBusinessSA", "#Funding"]
+      "cta": "Can your business afford to grow? Full piece on Insights.",
+      "hashtags": [
+        "#BusinessGrowth",
+        "#WorkingCapital",
+        "#CashFlow",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#Funding"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
     },
-
+    {
+      "id": "tool-90-day-test",
+      "title": "Free 90-Day Test",
+      "scheduled": "2026-11-11T05:30:00Z",
+      "approved": false,
+      "url": "/90-day-test/",
+      "images": [
+        "/social/art/tool-90-day-test-1.jpg"
+      ],
+      "slides": [
+        {
+          "eyebrow": "Free tool",
+          "headline": "Could the business run for 90 days without you?",
+          "body": "Twenty questions, and an honest answer about how much of it still runs through one person.",
+          "cta": "carron.co.za/90-day-test",
+          "bg": "office-team.jpg"
+        }
+      ],
+      "caption": "Not a holiday question. A value question.\n\nA business that cannot run without the owner is worth less than the same business with the owner removed from the critical path — and it is a great deal harder to live with in the meantime.\n\nThe 90-Day Test asks twenty questions about where decisions, relationships, knowledge and approvals actually sit. It takes a few minutes and it tells you how dependent the business still is on you, and which part of that dependence is doing the most damage.\n\nFree, no obligation, and uncomfortably clarifying.",
+      "cta": "Twenty questions, free, no obligation.",
+      "hashtags": [
+        "#BusinessOwner",
+        "#OwnerIndependence",
+        "#SMESouthAfrica",
+        "#SouthAfricanBusiness",
+        "#BusinessValue",
+        "#SuccessionPlanning",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#Knysna"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/90-day-test"
+    },
     {
       "id": "ins-sell-your-business",
       "title": "Could you actually sell your business?",
       "scheduled": "2026-11-13T05:30:00Z",
       "approved": false,
       "url": "/insights/could-you-actually-sell-your-business",
-      "images": ["/social/cards/ins-sell-your-business-1.jpg"],
+      "images": [
+        "/social/art/ins-sell-your-business-1.jpg"
+      ],
       "slides": [
         {
           "eyebrow": "Strategy",
           "headline": "Could you actually sell your business?",
-          "body": "Most owner-managed businesses are not unsellable. They are simply not yet buyable — and the difference is usually two years of unglamorous work."
+          "body": "Most owner-managed businesses are not unsellable. They are simply not yet buyable — and the difference is usually two years of unglamorous work.",
+          "bg": "partnership.jpg"
         }
       ],
       "caption": "A buyer is not purchasing your turnover. They are purchasing the part of it that will still be there after you leave.\n\nThat is why the same business can be worth very different amounts depending on how it is held together. Customer concentration, owner dependence, undocumented processes, numbers that cannot be reconciled, informal arrangements with family or staff — each one moves the price, and all of them are fixable.\n\nThe work takes time, which is why it should start years before you intend to sell. The businesses that get a good price are rarely the biggest. They are the ones that were ready.",
       "cta": "The full piece is on the Insights page.",
-      "hashtags": ["#BusinessValuation", "#ExitPlanning", "#SellingYourBusiness", "#SMESouthAfrica", "#BusinessOwner", "#SouthAfricanBusiness", "#FractionalCFO", "#BusinessAdvisory", "#SmallBusinessSA", "#SuccessionPlanning"]
+      "hashtags": [
+        "#BusinessValuation",
+        "#ExitPlanning",
+        "#SellingYourBusiness",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#SuccessionPlanning"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
     }
   ]
 }

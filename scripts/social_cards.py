@@ -8,6 +8,11 @@ an Instagram carousel (slide 1 hooks, the last slide carries the call to action)
     python scripts/social_cards.py              # render every post
     python scripts/social_cards.py ins-cost-01  # render just these ids
 
+Backgrounds must be PHOTOGRAPHS from public/images/ — never the article cover
+images (afford-to-grow.png, sell-your-business.png, the og-*.png share images and
+friends). Those already carry headline type, and setting our copy over them gives
+two competing headlines on one card.
+
 Images land in public/social/cards/<post-id>-<n>.jpg and are referenced from the
 queue's "images" array, so they deploy with the site and Instagram can fetch
 them over HTTPS (the Graph API will not accept a local file).
@@ -16,12 +21,13 @@ them over HTTPS (the Graph API will not accept a local file).
 import json
 import os
 import sys
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, "public", "social", "queue.json")
 OUTDIR = os.path.join(ROOT, "public", "social", "cards")
 LOGO = os.path.join(ROOT, "public", "images", "carron-logo-horizontal-white.png")
+IMGDIR = os.path.join(ROOT, "public", "images")
 
 SIZE = 1080
 PAD = 92
@@ -89,31 +95,37 @@ def fit_lines(draw, s, path, max_w, max_h, hi, lo, leading=1.16):
     return f, wrap(draw, s, f, max_w)
 
 
-def background():
-    """Emerald gradient with the brand's instrument-circle arcs."""
-    img = Image.new("RGB", (SIZE, SIZE), EMERALD_MID)
-    d = ImageDraw.Draw(img)
-    for y in range(SIZE):
-        t = y / (SIZE - 1)
-        if t < 0.55:
-            k = t / 0.55
-            a, b = EMERALD_TOP, EMERALD_MID
-        else:
-            k = (t - 0.55) / 0.45
-            a, b = EMERALD_MID, EMERALD_DEEP
-        d.line([(0, y), (SIZE, y)], fill=tuple(round(a[i] + (b[i] - a[i]) * k) for i in range(3)))
+def photo_ground(bg_name):
+    """Cover-crop the photograph to the square, then grade it to brand:
+    a darkening emerald wash over the whole frame so the top stays readable,
+    and a deep gradient rising from the bottom where the copy sits."""
+    src = Image.open(os.path.join(IMGDIR, bg_name)).convert("RGB")
+    w, h = src.size
+    side = min(w, h)
+    # centre crop, biased slightly above centre — faces and subjects sit high
+    left = (w - side) // 2
+    top = max(0, int((h - side) * 0.38))
+    img = src.crop((left, top, left + side, top + side)).resize((SIZE, SIZE), Image.LANCZOS)
 
-    # Instrument circles: thin gold rings, low opacity, anchored off-canvas.
-    ring = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    rd = ImageDraw.Draw(ring)
-    for cx, cy, r, alpha, w in (
-        (980, 1010, 430, 34, 2),
-        (980, 1010, 330, 22, 2),
-        (980, 1010, 230, 14, 2),
-        (70, 120, 250, 16, 2),
-    ):
-        rd.ellipse([cx - r, cy - r, cx + r, cy + r], outline=GOLD + (alpha,), width=w)
-    return Image.alpha_composite(img.convert("RGBA"), ring).convert("RGB")
+    # Brand wash: multiply toward emerald so any photograph reads as ours.
+    wash = Image.new("RGB", (SIZE, SIZE), EMERALD_MID)
+    img = Image.blend(img, wash, 0.42)
+    img = ImageEnhance.Color(img).enhance(0.78)      # pull saturation back
+    img = ImageEnhance.Brightness(img).enhance(0.94)
+    return img
+
+
+def scrim(img, top_y):
+    """Deep emerald gradient from `top_y` to the foot of the card, so the copy
+    sits on near-solid colour while the upper frame keeps the photograph."""
+    layer = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    span = max(SIZE - top_y, 1)
+    for y in range(max(top_y, 0), SIZE):
+        t = (y - top_y) / span
+        a = int(252 * (t ** 0.72))                   # ease in, near-solid at the foot
+        d.line([(0, y), (SIZE, y)], fill=EMERALD_DEEP + (min(a, 250),))
+    return Image.alpha_composite(img.convert("RGBA"), layer).convert("RGB")
 
 
 def footer(img, d, slide_no=None, slide_total=None):
@@ -136,37 +148,41 @@ def footer(img, d, slide_no=None, slide_total=None):
 
 
 def render_slide(slide, n, total, out_path):
-    """Measure the whole content block first, then draw it optically centred."""
-    img = background()
-    d = ImageDraw.Draw(img)
+    """Photograph, graded to brand, with the copy anchored to the foot of the card."""
+    img = photo_ground(slide["bg"])
+    measure = ImageDraw.Draw(img)
     box_w = SIZE - 2 * PAD
-    top_limit = PAD + (40 if total > 1 else 0)   # leave room for the "n / total"
-    bottom_limit = SIZE - PAD - 150              # footer rule + lock-up
 
     eyebrow = (slide.get("eyebrow") or "").upper()
     headline = slide.get("headline") or ""
     body = slide.get("body") or ""
     cta = slide.get("cta") or ""
 
-    # --- measure
-    h_eyebrow = 100 if eyebrow else 0            # label + gold rule + gap
+    # --- measure the block, bottom up
+    h_eyebrow = 100 if eyebrow else 0
     bf = font(F_BODY, 34)
-    body_lines = wrap(d, body, bf, box_w) if body else []
+    body_lines = wrap(measure, body, bf, box_w) if body else []
     h_body = len(body_lines) * 48 + (22 if body_lines else 0)
     h_cta = 106 if cta else 0
 
-    avail = bottom_limit - top_limit - h_eyebrow - h_body - h_cta
+    foot = SIZE - PAD - 72            # the hairline rule
+    bottom = foot - 44                # copy stops above it
+    ceiling = PAD + (46 if total > 1 else 0)
+    avail = bottom - ceiling - h_eyebrow - h_body - h_cta
+
     hf, h_lines = fit_lines(
-        d, headline, F_DISPLAY, box_w, avail,
-        92 if len(headline) < 70 else 72, 40,
+        measure, headline, F_DISPLAY, box_w, avail,
+        84 if len(headline) < 70 else 68, 38,
     )
     lead = hf.size * 1.17
     h_head = len(h_lines) * lead + 18
-
     block = h_eyebrow + h_head + h_body + h_cta
-    y = max(top_limit, top_limit + (bottom_limit - top_limit - block) / 2 - 16)
+    y = bottom - block
 
-    # --- draw
+    # --- grade, then draw over it
+    img = scrim(img, int(y - 190))
+    d = ImageDraw.Draw(img)
+
     if eyebrow:
         draw_tracked(d, (PAD, y), eyebrow, font(F_DISPLAY, 25), GOLD, tracking=4.5)
         y += 46
@@ -206,6 +222,9 @@ def main():
     made = 0
     for post in queue.get("posts", []):
         if want and post["id"] not in want:
+            continue
+        if post.get("artwork") == "supplied":
+            print("-- %s: supplied artwork, left alone" % post["id"])
             continue
         slides = post.get("slides") or []
         if not slides:
