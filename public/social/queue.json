@@ -32,43 +32,9 @@
   },
   "posts": [
     {
-      "id": "ins-cost-cutting",
-      "title": "Cost cutting without damaging the business",
-      "scheduled": "2026-10-14T05:30:00Z",
-      "approved": false,
-      "url": "/insights/cost-cutting-without-damaging-the-business",
-      "images": [
-        "/social/art/ins-cost-cutting-1.jpg"
-      ],
-      "slides": [
-        {
-          "eyebrow": "Profitability",
-          "headline": "A smaller expense line is not the same as a stronger business.",
-          "body": "Remove waste first. Redesign cost second. Cut productive capacity last — and only if the economics still improve after the consequence is counted.",
-          "bg": "advisory-review.jpg"
-        }
-      ],
-      "caption": "When margins tighten, every expense line starts to look like an opportunity. That is where the damage usually begins.\n\nThe question is never \"can we spend less here?\" It is \"what does this cost actually buy us, and what happens to the business without it?\"\n\nThree things each material cost buys: capability, contribution, and control. A cut that removes genuine waste improves the business. A cut that quietly removes one of those three makes next quarter harder and the saving does not survive the year.\n\nOur October special report sets out how to classify every cost — stop, redesign, renegotiate or protect — and how to measure the net economic effect before you commit.",
-      "cta": "The full report is on the Insights page.",
-      "hashtags": [
-        "#CostManagement",
-        "#Profitability",
-        "#FractionalCFO",
-        "#SMESouthAfrica",
-        "#BusinessOwner",
-        "#SouthAfricanBusiness",
-        "#FinancialManagement",
-        "#BusinessAdvisory",
-        "#SmallBusinessSA",
-        "#CFOServices"
-      ],
-      "artwork": "supplied",
-      "shortUrl": "carron.co.za/insights"
-    },
-    {
       "id": "myth-cfo-size",
       "title": "Myth — a CFO is for big companies",
-      "scheduled": "2026-10-16T05:30:00Z",
+      "scheduled": "2026-10-14T05:30:00Z",
       "approved": false,
       "url": "/services",
       "images": [
@@ -102,7 +68,7 @@
     {
       "id": "car-profitable-no-cash",
       "title": "Carousel — profitable but no cash",
-      "scheduled": "2026-10-21T05:30:00Z",
+      "scheduled": "2026-10-16T05:30:00Z",
       "approved": false,
       "url": "/insights/profitable-no-cash-why",
       "images": [
@@ -163,35 +129,35 @@
       "shortUrl": "carron.co.za/health-check"
     },
     {
-      "id": "ins-stock-to-cash",
-      "title": "You bought the stock",
-      "scheduled": "2026-10-23T05:30:00Z",
+      "id": "ins-cost-cutting",
+      "title": "Cost cutting without damaging the business",
+      "scheduled": "2026-10-21T05:30:00Z",
       "approved": false,
-      "url": "/insights/you-bought-the-stock",
+      "url": "/insights/cost-cutting-without-damaging-the-business",
       "images": [
-        "/social/art/ins-stock-to-cash-1.jpg"
+        "/social/art/ins-cost-cutting-1.jpg"
       ],
       "slides": [
         {
-          "eyebrow": "Cash flow",
-          "headline": "You bought the stock. Can you turn it back into cash?",
-          "body": "Stock that does not move is not inventory. It is cash you have already spent, sitting on a shelf, quietly costing you more every month.",
-          "bg": "retail-pricing.jpg"
+          "eyebrow": "Profitability",
+          "headline": "A smaller expense line is not the same as a stronger business.",
+          "body": "Remove waste first. Redesign cost second. Cut productive capacity last — and only if the economics still improve after the consequence is counted.",
+          "bg": "advisory-review.jpg"
         }
       ],
-      "caption": "Stock is the easiest asset in an SME to overvalue, because the balance sheet carries it at what you paid rather than what you can get.\n\nThree questions worth asking this month:\n\nWhich lines have not moved in 90 days? Those are the ones funding your overdraft.\n\nWhat would you actually accept today to clear them? That number — not cost — is the honest value.\n\nWhat did you learn about how you buy? Most stock problems are purchasing decisions that have not been revisited.\n\nClearing slow stock at a discount usually beats holding it at full price. The discount is visible. The holding cost is not.",
-      "cta": "The full piece is on the Insights page.",
+      "caption": "When margins tighten, every expense line starts to look like an opportunity. That is where the damage usually begins.\n\nThe question is never \"can we spend less here?\" It is \"what does this cost actually buy us, and what happens to the business without it?\"\n\nThree things each material cost buys: capability, contribution, and control. A cut that removes genuine waste improves the business. A cut that quietly removes one of those three makes next quarter harder and the saving does not survive the year.\n\nOur October special report sets out how to classify every cost — stop, redesign, renegotiate or protect — and how to measure the net economic effect before you commit.",
+      "cta": "The full report is on the Insights page.",
       "hashtags": [
-        "#Inventory",
-        "#CashFlow",
-        "#WorkingCapital",
+        "#CostManagement",
+        "#Profitability",
+        "#FractionalCFO",
         "#SMESouthAfrica",
         "#BusinessOwner",
         "#SouthAfricanBusiness",
-        "#FractionalCFO",
+        "#FinancialManagement",
         "#BusinessAdvisory",
         "#SmallBusinessSA",
-        "#Retail"
+        "#CFOServices"
       ],
       "artwork": "supplied",
       "shortUrl": "carron.co.za/insights"
@@ -199,7 +165,7 @@
     {
       "id": "tool-health-check",
       "title": "Free Financial Health Check",
-      "scheduled": "2026-10-28T05:30:00Z",
+      "scheduled": "2026-10-23T05:30:00Z",
       "approved": false,
       "url": "/health-check/",
       "images": [
@@ -230,6 +196,40 @@
       ],
       "artwork": "supplied",
       "shortUrl": "carron.co.za/health-check"
+    },
+    {
+      "id": "ins-stock-to-cash",
+      "title": "You bought the stock",
+      "scheduled": "2026-10-28T05:30:00Z",
+      "approved": false,
+      "url": "/insights/you-bought-the-stock",
+      "images": [
+        "/social/art/ins-stock-to-cash-1.jpg"
+      ],
+      "slides": [
+        {
+          "eyebrow": "Cash flow",
+          "headline": "You bought the stock. Can you turn it back into cash?",
+          "body": "Stock that does not move is not inventory. It is cash you have already spent, sitting on a shelf, quietly costing you more every month.",
+          "bg": "retail-pricing.jpg"
+        }
+      ],
+      "caption": "Stock is the easiest asset in an SME to overvalue, because the balance sheet carries it at what you paid rather than what you can get.\n\nThree questions worth asking this month:\n\nWhich lines have not moved in 90 days? Those are the ones funding your overdraft.\n\nWhat would you actually accept today to clear them? That number — not cost — is the honest value.\n\nWhat did you learn about how you buy? Most stock problems are purchasing decisions that have not been revisited.\n\nClearing slow stock at a discount usually beats holding it at full price. The discount is visible. The holding cost is not.",
+      "cta": "The full piece is on the Insights page.",
+      "hashtags": [
+        "#Inventory",
+        "#CashFlow",
+        "#WorkingCapital",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#Retail"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
     },
     {
       "id": "ins-invoice-fraud",
