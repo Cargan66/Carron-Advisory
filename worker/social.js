@@ -271,10 +271,17 @@ async function checkCredentials(env) {
     const me = await graph(env, "me/permissions", {}, "GET");
     const granted = (me.data || []).filter((p) => p.status === "granted").map((p) => p.permission);
     out.permissions = granted;
-    out.missing_permissions = [
-      "instagram_basic", "instagram_content_publish",
-      "pages_manage_posts", "pages_read_engagement",
-    ].filter((p) => !granted.includes(p));
+    // Meta's console labels the publishing permission "instagram_content_publishing"
+    // while the API grants "instagram_content_publish" — accept either spelling.
+    const need = [
+      ["instagram_basic"],
+      ["instagram_content_publish", "instagram_content_publishing"],
+      ["pages_manage_posts"],
+      ["pages_read_engagement"],
+    ];
+    out.missing_permissions = need
+      .filter((names) => !names.some((n) => granted.includes(n)))
+      .map((names) => names[0]);
   } catch (e) { out.permissions_error = String(e.message || e); }
   return out;
 }
