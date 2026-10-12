@@ -30,6 +30,13 @@ party holding a token to the brand accounts.
 | Business portfolio | `1455522220968718` (Carron Business Advisory) |
 | Facebook Page id | `61594832251843` |
 | Instagram account id | `17841410048614355` (`@carronadvisory`) |
+| Meta app | `Carron Publisher`, App ID `2791575114547787` (created 12 Oct 2026) |
+
+The app was created with two use cases — **Manage messaging & content on
+Instagram** and **Manage everything on your Page** — which together grant
+`instagram_basic`, `instagram_content_publish`, `pages_manage_posts` and
+`pages_read_engagement`. Meta reported no publishing requirements, so no App
+Review or Business Verification is needed to post to our own accounts.
 
 ## Part 1 — things only you can do (needs your Facebook login)
 
