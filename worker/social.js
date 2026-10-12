@@ -26,6 +26,7 @@
  *   GET /api/social/run              publishes anything due now (same as cron)
  *   GET /api/social/run?dry=1        says what it would publish, posts nothing
  *   GET /api/social/run?id=<id>      publishes one post now, ignoring its schedule
+ *   GET /api/social/mirror?id=<id>   re-runs only the Facebook half after a mirror failure
  */
 
 const DEFAULT_API_VERSION = "v26.0";
@@ -43,6 +44,7 @@ export async function handleSocial(request, env, action) {
 
   if (action === "status") return json(await status(env));
   if (action === "check") return json(await checkCredentials(env));
+  if (action === "mirror") return json(await mirrorToFacebook(env, url.searchParams.get("id")));
   if (action === "run")
     return json(await publishDue(env, {
       dry: url.searchParams.get("dry") === "1",
@@ -183,24 +185,59 @@ async function igWaitReady(env, containerId) {
   throw new Error("Instagram container still processing after " + IG_STATUS_TRIES * 2 + "s");
 }
 
+/* Publishing TO a Page needs the PAGE's own access token, not the user/system-user
+   token that Instagram publishing uses. Posting with the wrong one fails with a
+   misleading "publish_actions ... has been deprecated" (#200). So we exchange for
+   the Page token first — it is derived from META_PAGE_TOKEN and needs no extra
+   secret. */
+async function pageAccessToken(env) {
+  const page = required(env.META_FB_PAGE_ID, "META_FB_PAGE_ID");
+  const r = await graph(env, page, { fields: "access_token" }, "GET");
+  if (!r.access_token)
+    throw new Error("no Page access token for " + page + " — check the token's user administers the Page");
+  return r.access_token;
+}
+
 /* Facebook Page: one image → /photos (published immediately). Several images →
    upload each unpublished, then one feed post carrying them all. */
 async function fbPublish(env, post, images) {
   const page = required(env.META_FB_PAGE_ID, "META_FB_PAGE_ID");
   const message = fbMessage(post);
+  const tok = await pageAccessToken(env);
 
   if (images.length === 1) {
-    const r = await graph(env, page + "/photos", { url: images[0], message, published: "true" });
+    const r = await graph(env, page + "/photos", { url: images[0], message, published: "true" }, "POST", tok);
     return r.post_id || r.id;
   }
   const params = { message, published: "true" };
   let i = 0;
   for (const url of images.slice(0, 10)) {
-    const up = await graph(env, page + "/photos", { url, published: "false" });
+    const up = await graph(env, page + "/photos", { url, published: "false" }, "POST", tok);
     params["attached_media[" + i++ + "]"] = JSON.stringify({ media_fbid: up.id });
   }
-  const r = await graph(env, page + "/feed", params);
+  const r = await graph(env, page + "/feed", params, "POST", tok);
   return r.id;
+}
+
+/** Re-run only the Facebook half for a post Instagram already carries. Used when
+    the mirror failed on its own — the post stays published, fb_id gets filled in. */
+async function mirrorToFacebook(env, id) {
+  if (!id) return { ok: false, error: "no id" };
+  await ensureSocialPosts(env);
+  const post = (await loadQueue(env)).find((p) => p.id === id);
+  if (!post) return { ok: false, error: "no queued post with id " + id };
+  const state = (await readState(env))[id];
+  if (!state || state.status !== "published")
+    return { ok: false, error: "post has not been published yet — use run" };
+  if (state.fb_id) return { ok: false, error: "already on Facebook", fb_id: state.fb_id };
+  if (!isLive(env)) return { ok: false, error: "SOCIAL_LIVE is not true" };
+  try {
+    const fb = await fbPublish(env, post, (post.images || []).map(absolute));
+    await recordState(env, post, { status: "published", ig_id: state.ig_id, fb_id: fb });
+    return { ok: true, id, fb_id: fb };
+  } catch (e) {
+    return { ok: false, id, error: String((e && e.message) || e) };
+  }
 }
 
 /* ------------------------------------------------------------------ captions */
@@ -230,8 +267,8 @@ function fbMessage(post) {
 
 /* ------------------------------------------------------------------ Graph API */
 
-async function graph(env, path, params, method = "POST") {
-  const token = required(env.META_PAGE_TOKEN, "META_PAGE_TOKEN");
+async function graph(env, path, params, method = "POST", asToken) {
+  const token = asToken || required(env.META_PAGE_TOKEN, "META_PAGE_TOKEN");
   const v = env.META_API_VERSION || DEFAULT_API_VERSION;
   const base = "https://graph.facebook.com/" + v + "/" + path;
   const body = new URLSearchParams({ ...params, access_token: token });
@@ -270,6 +307,10 @@ async function checkCredentials(env) {
     const ig = await graph(env, env.META_IG_USER_ID, { fields: "username,name" }, "GET");
     out.instagram = "@" + ig.username;
   } catch (e) { out.ok = false; out.instagram_error = String(e.message || e); }
+  try {
+    await pageAccessToken(env);
+    out.page_token = "derivable";
+  } catch (e) { out.ok = false; out.page_token_error = String(e.message || e); }
   try {
     const me = await graph(env, "me/permissions", {}, "GET");
     const granted = (me.data || []).filter((p) => p.status === "granted").map((p) => p.permission);
