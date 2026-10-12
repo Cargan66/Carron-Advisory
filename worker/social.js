@@ -27,6 +27,7 @@
  *   GET /api/social/run?dry=1        says what it would publish, posts nothing
  *   GET /api/social/run?id=<id>      publishes one post now, ignoring its schedule
  *   GET /api/social/mirror?id=<id>   re-runs only the Facebook half after a mirror failure
+ *   GET /api/social/alert            sends a test alert email and reports the result
  */
 
 const DEFAULT_API_VERSION = "v26.0";
@@ -44,6 +45,11 @@ export async function handleSocial(request, env, action) {
 
   if (action === "status") return json(await status(env));
   if (action === "check") return json(await checkCredentials(env));
+  if (action === "alert")
+    return json(await notify(env, {
+      published: [{ id: "test-alert", ig_id: "(none — this is a test)", fb_id: null }],
+      failed: [{ id: "test-alert", error: "This is a test of the alert path. Nothing is wrong." }],
+    }, "TEST — "));
   if (action === "mirror") return json(await mirrorToFacebook(env, url.searchParams.get("id")));
   if (action === "run")
     return json(await publishDue(env, {
@@ -400,12 +406,12 @@ async function status(env) {
 
 /* ------------------------------------------------------------------ notify */
 
-async function notify(env, result) {
-  if (!env.RESEND_API_KEY) return;
+async function notify(env, result, subjectPrefix = "") {
+  if (!env.RESEND_API_KEY) return { sent: false, reason: "RESEND_API_KEY is not set" };
   const from = env.REPORTS_FROM || "Carron reports <reports@carron.co.za>";
   const to = env.REPORTS_TO || "info@carron.co.za";
   const ok = result.published.length, bad = result.failed.length;
-  const subject = bad ? "Social post FAILED (" + bad + ")" : "Posted to Instagram + Facebook";
+  const subject = subjectPrefix + (bad ? "Social post FAILED (" + bad + ")" : "Posted to Instagram + Facebook");
   const lines = []
     .concat(result.published.map((p) =>
       "<li>" + esc(p.id) + " — Instagram " + esc(p.ig_id || "?") +
@@ -413,14 +419,21 @@ async function notify(env, result) {
       (p.fb_error ? " <b>(Facebook failed: " + esc(p.fb_error) + ")</b>" : "") + "</li>"))
     .concat(result.failed.map((p) =>
       "<li><b>" + esc(p.id) + " failed:</b> " + esc(p.error) + "</li>"));
-  await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from, to, subject,
-      html: "<p>" + ok + " published, " + bad + " failed.</p><ul>" + lines.join("") + "</ul>",
-    }),
-  }).catch(() => {});
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from, to, subject,
+        html: "<p>" + ok + " published, " + bad + " failed.</p><ul>" + lines.join("") + "</ul>",
+      }),
+    });
+    const body = await r.json().catch(() => ({}));
+    return r.ok ? { sent: true, id: body.id, from, to }
+                : { sent: false, status: r.status, error: body.message || body.name || "unknown", from, to };
+  } catch (e) {
+    return { sent: false, error: String((e && e.message) || e) };
+  }
 }
 
 /* ------------------------------------------------------------------ helpers */

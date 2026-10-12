@@ -11,7 +11,7 @@
  *       GET  /api/diagnostic/testpay  → dev-only bypass (active ONLY until PAYSTACK_SECRET is set)
  *
  *   - Instagram/Facebook publishing from the approved content queue:
- *       GET /api/social/{status,check,run,mirror}  (ADMIN_KEY) and a cron trigger
+ *       GET /api/social/{status,check,run,mirror,alert}  (ADMIN_KEY) and a cron trigger
  *
  * Payment/generation happen server-side (the paywall). The diagnostic engine
  * lives in ./diagnostic.js. Raw financial inputs are never stored — only the
@@ -75,7 +75,7 @@ export default {
       return request.method === "POST" ? handleReportCopy(request, env) : methodNotAllowed();
 
     // Instagram + Facebook publishing: queue status, credential check, publish run.
-    const soc = p.match(/^\/api\/social\/(status|check|run|mirror)$/);
+    const soc = p.match(/^\/api\/social\/(status|check|run|mirror|alert)$/);
     if (soc) return handleSocial(request, env, soc[1]);
 
     // Paid-product flow, shared across products (diagnostic, plan).
