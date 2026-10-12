@@ -35,7 +35,7 @@
       "id": "myth-cfo-size",
       "title": "Myth — a CFO is for big companies",
       "scheduled": "2026-10-14T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/services",
       "images": [
         "/social/art/myth-cfo-size-1.jpg"
@@ -69,7 +69,7 @@
       "id": "car-profitable-no-cash",
       "title": "Carousel — profitable but no cash",
       "scheduled": "2026-10-16T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/profitable-no-cash-why",
       "images": [
         "/social/art/car-profitable-no-cash-1.jpg",
@@ -132,7 +132,7 @@
       "id": "ins-cost-cutting",
       "title": "Cost cutting without damaging the business",
       "scheduled": "2026-10-21T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/cost-cutting-without-damaging-the-business",
       "images": [
         "/social/art/ins-cost-cutting-1.jpg"
@@ -166,7 +166,7 @@
       "id": "tool-health-check",
       "title": "Free Financial Health Check",
       "scheduled": "2026-10-23T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/health-check/",
       "images": [
         "/social/art/tool-health-check-1.jpg"
