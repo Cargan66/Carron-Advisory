@@ -37,3 +37,19 @@ CREATE TABLE IF NOT EXISTS leads (
 CREATE INDEX IF NOT EXISTS idx_leads_created ON leads (created_at);
 CREATE INDEX IF NOT EXISTS idx_leads_tool    ON leads (tool);
 CREATE INDEX IF NOT EXISTS idx_leads_email   ON leads (email);
+
+-- Instagram/Facebook publishing state. The Worker auto-creates this on first
+-- run; it is listed here for reference. Content lives in public/social/queue.json
+-- (git-approved); this table records only what was actually published, so a
+-- post can never go out twice.
+CREATE TABLE IF NOT EXISTS social_posts (
+  post_id      TEXT PRIMARY KEY,   -- matches `id` in queue.json
+  status       TEXT NOT NULL,      -- 'published' | 'failed'
+  ig_id        TEXT,               -- Instagram media id
+  fb_id        TEXT,               -- Facebook post id
+  attempts     INTEGER NOT NULL DEFAULT 0,
+  error        TEXT,
+  scheduled_at TEXT,
+  published_at TEXT,
+  updated_at   TEXT NOT NULL
+);

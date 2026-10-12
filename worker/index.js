@@ -10,6 +10,9 @@
  *       POST /api/diagnostic/webhook  → Paystack payment notification (signed)
  *       GET  /api/diagnostic/testpay  → dev-only bypass (active ONLY until PAYSTACK_SECRET is set)
  *
+ *   - Instagram/Facebook publishing from the approved content queue:
+ *       GET /api/social/{status,check,run}  (ADMIN_KEY) and a cron trigger
+ *
  * Payment/generation happen server-side (the paywall). The diagnostic engine
  * lives in ./diagnostic.js. Raw financial inputs are never stored — only the
  * computed summary the browser sends.
@@ -17,6 +20,7 @@
 
 import { generateDiagnostic, renderDiagnosticHTML } from "./diagnostic.js";
 import { generatePlan, renderPlanHTML } from "./plan.js";
+import { handleSocial, runScheduled } from "./social.js";
 
 const ALLOWED_TOOLS = ["health-check", "90-day-test", "find-your-fit"];
 const WEB3FORMS_KEY = "dc0870f4-27e1-4787-8fb0-ab76fdcc861f";
@@ -70,6 +74,10 @@ export default {
     if (p === "/api/report-copy")
       return request.method === "POST" ? handleReportCopy(request, env) : methodNotAllowed();
 
+    // Instagram + Facebook publishing: queue status, credential check, publish run.
+    const soc = p.match(/^\/api\/social\/(status|check|run)$/);
+    if (soc) return handleSocial(request, env, soc[1]);
+
     // Paid-product flow, shared across products (diagnostic, plan).
     const m = p.match(/^\/api\/(diagnostic|plan)\/(create|get|webhook|testpay)$/);
     if (m) {
@@ -82,6 +90,12 @@ export default {
 
     // Everything else: serve the static site.
     return env.ASSETS.fetch(request);
+  },
+
+  // Cron trigger (see wrangler.jsonc "triggers"): publish any social post that
+  // is approved and due. Takes one post per firing and is a no-op otherwise.
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(runScheduled(env));
   },
 };
 

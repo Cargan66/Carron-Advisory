@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       // Note: we intentionally do NOT disallow /_next — it holds the CSS/JS
       // Googlebot needs to render the pages. Blocking it would hurt indexing.
-      disallow: ["/admin"],
+      disallow: ["/admin", "/social/"],
     },
     sitemap: `${siteConfig.url}/sitemap.xml`,
     host: siteConfig.url,

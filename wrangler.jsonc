@@ -25,6 +25,12 @@
       "database_id": "1457ab6a-858a-4df8-a76d-7ef1d5d0c0c2"
     }
   ],
+  // Cron triggers: fire the Instagram/Facebook publisher. The queue's own
+  // "scheduled" timestamps decide which post goes out; these firings only give
+  // the Worker a chance to act. 05:30 and 10:00 UTC = 07:30 and 12:00 SAST.
+  "triggers": {
+    "crons": ["30 5 * * 1-5", "0 10 * * 1-5"]
+  },
   // Attach the live domain. `custom_domain: true` makes Cloudflare create the
   // routing DNS record + SSL automatically on deploy. (Static-asset Workers
   // can't add domains via the dashboard Triggers screen, so we do it here.)
