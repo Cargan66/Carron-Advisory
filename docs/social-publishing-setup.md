@@ -112,6 +112,13 @@ Cloudflare dashboard → **Workers & Pages** → `carron-advisory` → **Setting
 | `SOCIAL_LIVE` | Text | `false` for now — `true` when you're ready |
 | `META_API_VERSION` | Text | optional; the code defaults to `v26.0` (current as at Oct 2026). Set it only when Meta retires that version |
 
+> **The three plain vars also live in `wrangler.jsonc`.** A deploy replaces the
+> Worker's vars with that block, so anything set only in the dashboard is wiped
+> on the next `git push carron main`. Secrets are managed separately and are not
+> affected. Practical effect: flipping `SOCIAL_LIVE` in the dashboard stops
+> publishing *instantly* but only until the next deploy — change it in
+> `wrangler.jsonc` as well to make it permanent.
+
 `ADMIN_KEY` and `RESEND_API_KEY` are already set and are reused here (admin
 access, and the "it posted" / "it failed" email to info@carron.co.za).
 
