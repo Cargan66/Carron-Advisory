@@ -201,7 +201,7 @@
       "id": "ins-stock-to-cash",
       "title": "You bought the stock",
       "scheduled": "2026-10-28T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/you-bought-the-stock",
       "images": [
         "/social/art/ins-stock-to-cash-1.jpg"
@@ -235,7 +235,7 @@
       "id": "ins-invoice-fraud",
       "title": "The invoice was real, the bank account was not",
       "scheduled": "2026-10-30T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/invoice-was-real-bank-account-wasnt",
       "images": [
         "/social/art/ins-invoice-fraud-1.jpg"
@@ -269,7 +269,7 @@
       "id": "car-13-week-forecast",
       "title": "Carousel — the 13-week cash flow forecast",
       "scheduled": "2026-11-04T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/the-13-week-cash-flow-forecast",
       "images": [
         "/social/art/car-13-week-forecast-1.jpg",
@@ -325,7 +325,7 @@
       "id": "myth-growth-fixes-cash",
       "title": "Myth — growth fixes cash",
       "scheduled": "2026-11-06T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/can-your-business-afford-to-grow",
       "images": [
         "/social/art/myth-growth-fixes-cash-1.jpg"
@@ -359,7 +359,7 @@
       "id": "tool-90-day-test",
       "title": "Free 90-Day Test",
       "scheduled": "2026-11-11T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/90-day-test/",
       "images": [
         "/social/art/tool-90-day-test-1.jpg"
@@ -394,7 +394,7 @@
       "id": "ins-sell-your-business",
       "title": "Could you actually sell your business?",
       "scheduled": "2026-11-13T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/could-you-actually-sell-your-business",
       "images": [
         "/social/art/ins-sell-your-business-1.jpg"
