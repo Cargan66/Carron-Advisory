@@ -68,36 +68,36 @@ Review. (If Meta ever prompts for Advanced Access on
 `instagram_content_publish`, that needs Business Verification — tell me and
 we'll work through it.)
 
-### 3. Generate a long-lived Page access token
+### 3. Generate the access token — use a System User
 
-Open the **Graph API Explorer**
-([developers.facebook.com/tools/explorer](https://developers.facebook.com/tools/explorer)),
-pick the `Carron Publisher` app, and add these permissions:
+There are two ways to get a token that can publish. We use the second.
 
-```
-instagram_basic   instagram_content_publish   pages_show_list
-pages_read_engagement   pages_manage_posts   business_management
-```
+**Not this:** a Page token exchanged from your personal login. It works, but it
+is tied to *you* — it dies when you change your Facebook password or Meta forces
+a re-auth, it needs the app secret to mint, and it expires if the exchange is
+done wrong. It also silently stops the posting at some future date nobody
+remembers to plan for.
 
-Click **Generate Access Token** and approve. Then, in the Explorer's URL bar,
-run these three calls in order:
+**This:** a **System User** token. A system user is a non-human member of the
+business portfolio that exists to hold API credentials. Its token **never
+expires**, survives your password changes, needs no app secret, and can be
+revoked on its own without touching your login.
 
-```
-# a) swap the 1-hour token for a 60-day one
-#    (app id + secret are on your app's Settings → Basic page)
-GET /oauth/access_token
-      ?grant_type=fb_exchange_token
-      &client_id=<APP_ID>
-      &client_secret=<APP_SECRET>
-      &fb_exchange_token=<THE_TOKEN_FROM_THE_EXPLORER>
+Business Suite → **Settings** → **Users** → **System users**
+([direct link](https://business.facebook.com/latest/settings/system_users?business_id=1455522220968718)):
 
-# b) with the long-lived token from (a) pasted into the Explorer, get the
-#    Page token — Page tokens derived this way do not expire
-GET /me/accounts
-```
+1. **Add** → name it `Carron Publisher Bot`, role **Admin** → Create.
+2. **Assign assets** → *Pages* → **Carron Business Advisory** → enable full
+   control (it must include creating content) → Save.
+3. **Assign assets** again → *Instagram accounts* → **@carronadvisory** → full
+   control → Save.
+4. **Generate new token** → app **Carron Publisher** → expiry **Never** → tick:
+   `instagram_basic`, `instagram_content_publish`, `pages_show_list`,
+   `pages_read_engagement`, `pages_manage_posts`, `business_management`.
+5. Copy the token **immediately** — Meta shows it once and never again. If you
+   lose it, generate another; there is no way to read an existing one back.
 
-Keep one thing from this: the **`access_token`** for the Carron Page from (b).
-That is the only secret in the whole setup.
+That token is the only secret in this setup.
 
 ### 4. Put them on the Worker
 
@@ -106,7 +106,7 @@ Cloudflare dashboard → **Workers & Pages** → `carron-advisory` → **Setting
 
 | Name | Type | Value |
 |---|---|---|
-| `META_PAGE_TOKEN` | Secret | the Page token from 3(b) |
+| `META_PAGE_TOKEN` | Secret | the system user token from step 3 |
 | `META_IG_USER_ID` | Text | `17841410048614355` |
 | `META_FB_PAGE_ID` | Text | `1455381374316136` |
 | `SOCIAL_LIVE` | Text | `false` for now — `true` when you're ready |
@@ -170,10 +170,11 @@ what it would have done, but publishes nothing.
 
 ## Maintenance
 
-- **The token.** A Page token derived from a long-lived user token does not
-  expire on a timer, but it dies if you change your Facebook password, remove
-  the app, or Meta forces a re-auth. The symptom is a failure email saying
-  `Graph 190`. Redo step 3 and update `META_PAGE_TOKEN` — five minutes.
+- **The token.** A system user token does not expire and is not tied to your
+  personal login, so it should outlive everything else here. It dies only if the
+  system user is deleted, its asset access is removed, or the token is manually
+  revoked. The symptom is a failure email saying `Graph 190`. Generate a new
+  token for the same system user and update `META_PAGE_TOKEN` — two minutes.
 - **API versions.** Meta retires a Graph API version roughly every two years.
   If posts start failing with a version error, set `META_API_VERSION` to the
   current one. No code change.
