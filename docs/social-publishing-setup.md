@@ -23,25 +23,28 @@ party holding a token to the brand accounts.
 
 ---
 
-## Part 1 — things only you can do (about 30–40 minutes, once)
+## The ids (confirmed in Meta Business Suite, 12 Oct 2026)
 
-I cannot do any of this: it needs your Facebook login, and creating accounts or
-entering credentials is off-limits for me.
+| | |
+|---|---|
+| Business portfolio | `1455522220968718` (Carron Business Advisory) |
+| Facebook Page id | `61594832251843` |
+| Instagram account id | `17841410048614355` (`@carronadvisory`) |
 
-### 1. Make sure Instagram is a Business account linked to the Page
+## Part 1 — things only you can do (needs your Facebook login)
 
-In the **Instagram app**, as `@carronadvisory`:
+**All of this is on the laptop.** The phone is not needed.
 
-1. Settings → **Account type and tools** → *Switch to professional account* →
-   **Business** (not Creator — Creator accounts cannot use all publishing
-   features). If it already says Business, skip this.
-2. Settings → **Accounts Centre** → *Connected experiences* → **Accounts** →
-   add the **Carron Business Advisory** Facebook Page.
+### 1. Instagram as a Business account, linked to the Page — ALREADY DONE
+
+Verified in Business Suite: `@carronadvisory` is a professional Instagram
+account, it sits inside the Carron Business Advisory business portfolio, and its
+*Connected assets* tab shows the Carron Business Advisory Facebook Page. Nothing
+to do here.
 
 > Your Page being administered from your personal Facebook profile is **normal
 > and required** — every Facebook Page is owned by a personal profile. It does
 > not expose your private profile to visitors and it does not block any of this.
-> Nothing needs to change there.
 
 ### 2. Create a Meta app
 
@@ -73,10 +76,7 @@ Click **Generate Access Token** and approve. Then, in the Explorer's URL bar,
 run these three calls in order:
 
 ```
-# a) confirm the Page id and find the linked Instagram account id
-GET /61594832251843?fields=name,instagram_business_account
-
-# b) swap the 1-hour token for a 60-day one
+# a) swap the 1-hour token for a 60-day one
 #    (app id + secret are on your app's Settings → Basic page)
 GET /oauth/access_token
       ?grant_type=fb_exchange_token
@@ -84,16 +84,13 @@ GET /oauth/access_token
       &client_secret=<APP_SECRET>
       &fb_exchange_token=<THE_TOKEN_FROM_THE_EXPLORER>
 
-# c) with the long-lived token from (b) pasted into the Explorer, get the
+# b) with the long-lived token from (a) pasted into the Explorer, get the
 #    Page token — Page tokens derived this way do not expire
 GET /me/accounts
 ```
 
-Keep two things from this: the **`instagram_business_account.id`** from (a) and
-the **`access_token`** for the Carron Page from (c).
-
-If (a) returns no `instagram_business_account`, step 1 did not take — redo the
-Accounts Centre link and try again.
+Keep one thing from this: the **`access_token`** for the Carron Page from (b).
+That is the only secret in the whole setup.
 
 ### 4. Put them on the Worker
 
@@ -102,8 +99,8 @@ Cloudflare dashboard → **Workers & Pages** → `carron-advisory` → **Setting
 
 | Name | Type | Value |
 |---|---|---|
-| `META_PAGE_TOKEN` | Secret | the Page token from 3(c) |
-| `META_IG_USER_ID` | Text | the id from 3(a) |
+| `META_PAGE_TOKEN` | Secret | the Page token from 3(b) |
+| `META_IG_USER_ID` | Text | `17841410048614355` |
 | `META_FB_PAGE_ID` | Text | `61594832251843` |
 | `SOCIAL_LIVE` | Text | `false` for now — `true` when you're ready |
 | `META_API_VERSION` | Text | optional; e.g. `v23.0`. Set it if Meta deprecates that version |
