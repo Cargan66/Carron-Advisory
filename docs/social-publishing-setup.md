@@ -1,8 +1,7 @@
 # Automated Instagram + Facebook publishing — setup and running it
 
 Carron posts to Instagram (`@carronadvisory`) and mirrors each post to the
-Facebook Page (`Carron Business Advisory`, id `61594832251843`) from a content
-queue in this repo. Nothing third-party is involved: the site's own Cloudflare
+Facebook Page (`Carron Business Advisory`) from a content queue in this repo. Nothing third-party is involved: the site's own Cloudflare
 Worker calls Meta's Graph API on a cron trigger.
 
 ```
@@ -28,7 +27,8 @@ party holding a token to the brand accounts.
 | | |
 |---|---|
 | Business portfolio | `1455522220968718` (Carron Business Advisory) |
-| Facebook Page id | `61594832251843` |
+| Facebook Page id (Graph API) | `1455381374316136` |
+| Facebook Page id (browser URL) | `61594832251843` — **not** the API id; do not use it |
 | Instagram account id | `17841410048614355` (`@carronadvisory`) |
 | Meta app | `Carron Publisher`, App ID `2791575114547787` (created 12 Oct 2026) |
 
@@ -108,7 +108,7 @@ Cloudflare dashboard → **Workers & Pages** → `carron-advisory` → **Setting
 |---|---|---|
 | `META_PAGE_TOKEN` | Secret | the Page token from 3(b) |
 | `META_IG_USER_ID` | Text | `17841410048614355` |
-| `META_FB_PAGE_ID` | Text | `61594832251843` |
+| `META_FB_PAGE_ID` | Text | `1455381374316136` |
 | `SOCIAL_LIVE` | Text | `false` for now — `true` when you're ready |
 | `META_API_VERSION` | Text | optional; the code defaults to `v26.0` (current as at Oct 2026). Set it only when Meta retires that version |
 
