@@ -17,7 +17,7 @@
  *   META_IG_USER_ID   Instagram Business account id (not the @handle)
  *   META_FB_PAGE_ID   Facebook Page id
  *   META_API_VERSION  optional, e.g. "v26.0" — bump as Meta deprecates versions
- *   SOCIAL_LIVE       must be "true" before anything is actually published
+ *   SOCIAL_LIVE       must be "true" (or True/yes/1) before anything is published
  *   ADMIN_KEY         (secret) already used elsewhere; gates the admin routes
  *
  * Admin routes (all require ?key=<ADMIN_KEY>, all return JSON):
@@ -108,7 +108,7 @@ async function publishDue(env, { dry = false, only = null, force = false }) {
     batch = dueNow(posts, state, now).slice(0, 1); // one post per firing
   }
 
-  const live = String(env.SOCIAL_LIVE) === "true";
+  const live = isLive(env);
   const out = {
     ok: true, live, dry, now: new Date(now).toISOString(),
     published: [], failed: [], skipped: [],
@@ -256,7 +256,7 @@ async function checkCredentials(env) {
   const out = {
     ok: true,
     api_version: env.META_API_VERSION || DEFAULT_API_VERSION,
-    live: String(env.SOCIAL_LIVE) === "true",
+    live: isLive(env),
   };
   for (const name of ["META_PAGE_TOKEN", "META_IG_USER_ID", "META_FB_PAGE_ID"])
     if (!env[name]) { out.ok = false; out["missing_" + name] = true; }
@@ -330,7 +330,7 @@ async function status(env) {
   const now = Date.now();
   return {
     ok: true,
-    live: String(env.SOCIAL_LIVE) === "true",
+    live: isLive(env),
     now: new Date(now).toISOString(),
     counts: {
       queued: posts.length,
@@ -383,6 +383,12 @@ async function notify(env, result) {
 }
 
 /* ------------------------------------------------------------------ helpers */
+
+/** The publishing kill switch. Tolerant of True/TRUE/yes/1 — a capital letter
+    must not silently leave the system switched off. */
+function isLive(env) {
+  return ["true", "1", "yes", "on"].includes(String(env.SOCIAL_LIVE || "").trim().toLowerCase());
+}
 
 function absolute(path) {
   const s = String(path || "");

@@ -36,7 +36,7 @@
   "vars": {
     "META_FB_PAGE_ID": "1455381374316136",
     "META_IG_USER_ID": "17841410048614355",
-    "SOCIAL_LIVE": "false"
+    "SOCIAL_LIVE": "true"
   },
 
   // Cron triggers: fire the Instagram/Facebook publisher. The queue's own
