@@ -36,7 +36,13 @@
   "vars": {
     "META_FB_PAGE_ID": "1455381374316136",
     "META_IG_USER_ID": "17841410048614355",
-    "SOCIAL_LIVE": "true"
+    "SOCIAL_LIVE": "true",
+    // Failure/success alerts for the social publisher (and the paid-report copies).
+    // onboarding@resend.dev is Resend's shared sender: no DNS setup, but it can
+    // only deliver to the address the Resend account was opened with. Swap this
+    // for an address on a verified Carron domain when one exists.
+    "REPORTS_FROM": "Carron alerts <onboarding@resend.dev>",
+    "REPORTS_TO": "info@carron.co.za"
   },
 
   // Cron triggers: fire the Instagram/Facebook publisher. The queue's own
