@@ -39,6 +39,433 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "backup-supplier-comparison",
+    cover: "/images/backup-supplier-comparison.png",
+    ogImage: "/images/backup-supplier-comparison.png",
+    pdf: "/articles/Carron_backup_supplier_comparison.pdf",
+    title: "Your Backup Supplier Costs More. Is That the Right Comparison?",
+    category: "Risk",
+    excerpt:
+      "Compare the price premium with the business consequence of a supply gap. The alternative supplier is more expensive. Purchasing can see the extra cost immediately. What is harder to see is the contribution, delivery reliability and recovery cost at risk if the only current supplier cannot deliver a critical item.",
+    date: "2026-11-10",
+    readTime: "7 min read",
+    author: "Carel Gangel",
+    body: `The alternative supplier is more expensive. Purchasing can see the extra cost immediately. What is harder to see is the contribution, delivery reliability and recovery cost at risk if the only current supplier cannot deliver a critical item.
+
+A backup is not automatically worth paying for, and a second name in a spreadsheet is not proof of resilience. Test the dependency, verify whether the alternative can actually supply, and compare a realistic disruption case with the full cost of keeping the option available.
+
+This report uses an illustrative break-even comparison rather than an invented probability of disruption. The aim is a proportionate commercial decision: protect the inputs that can stop the business, without paying for unnecessary duplication everywhere.
+
+## 1. Rank suppliers by what stops, not only by spend
+
+A low-value part can halt an expensive machine. A single specialist service can prevent a customer handover. Meanwhile, a much larger spend on easily substituted materials may create less immediate dependency. Start with the business consequence of non-delivery.
+
+For each critical input, identify what work stops, how long available stock or another process buys, and which customer commitments are exposed. Check the time needed to source, approve and use an alternative, not just the transport time printed on a quote.
+
+Supplier diversification and stronger relationships are established approaches to supply resilience, but they are not guarantees. Two distributors may rely on the same manufacturer, route or scarce material. Ask where the dependency sits before treating the second supplier as independent.
+
+Keep the assessment proportionate. A small SME need not map every minor item to the same depth. Begin with the inputs that can materially interrupt contribution or delivery, and record the evidence supporting the priority.
+
+## 2. Compare contribution at risk with the annual premium
+
+Suppose an illustrative workshop uses 200 critical components a year. Its usual supplier charges R1,000 each. An approved alternative charges R1,100. If management routes 40 components a year through the alternative to keep the relationship active, the extra purchase cost is R4,000.
+
+Assume one otherwise-unrecoverable day of interrupted work would lose R12,000 of contribution and create R3,000 of additional recovery cost. That is R15,000 of exposure for that scenario. It is not R15,000 of certain savings from having a backup.
+
+In a simplified comparison, R4,000 divided by R15,000 is about 26.7%. That is the annual break-even likelihood for this one event only if the backup prevents the entire stated loss and has no further costs. The percentage is a threshold to challenge, not a forecast of how often disruption will occur.
+
+If the alternative prevents only half the loss, the benefit per event is R7,500 and the simplified threshold rises to about 53.3%. Qualification costs, extra stock, freight and ongoing administration would raise the required benefit further. Specify the period and assumptions consistently.
+
+| Illustrative item | Calculation | Amount |
+| --- | --- | --- |
+| Annual price premium | 40 x R100 | R4,000 |
+| One-day loss scenario | R12,000 + R3,000 | R15,000 |
+| Full-loss prevention threshold | R4,000 / R15,000 | 26.7% |
+| Half-loss prevention threshold | R4,000 / R7,500 | 53.3% |
+
+## 3. Do not mistake postponed work for lost contribution
+
+A stopped day does not always destroy a day's contribution. The work may move to a later day, another machine or a subcontractor. The relevant loss is what the business cannot recover, plus genuine additional costs of catching up.
+
+Conversely, a brief interruption can have consequences beyond the workshop if a customer misses an important delivery. Investigate those consequences rather than assuming every late order loses the customer. Use a range of credible outcomes and explain the evidence for each.
+
+Avoid counting the same loss twice. If a contribution estimate already includes the variable cost saved when production stops, do not subtract it again. If a recovery estimate includes extra freight, keep it out of the contribution figure unless the definitions make the distinction clear.
+
+Where probabilities are unknown, compare low, central and high exposure cases without inventing precision. Management can still decide what interruption it can carry and what preparation is sensible. The comparison informs a judgement; it does not manufacture certainty from a thin history.
+
+## 4. Qualify the backup before relying on it
+
+An attractive quotation does not prove compatibility, quality, capacity or response time. Confirm the specification, try an appropriate sample or controlled trial, and ask the technical owner to approve the result. Use qualified specialists for safety-critical, regulated or technically complex inputs.
+
+Check what the supplier can actually commit to when called. Is stock held locally? Can the promised quantity be dispatched? Does the lead time include manufacturing and approval? Is the same upstream source behind both options? Keep the answer and review it when circumstances change.
+
+A modest amount of regular business may help keep an alternative familiar with your requirements, but it does not create a legal guarantee of priority. Any reserved capacity, service promise or contractual obligation needs to be agreed and interpreted appropriately.
+
+Verify banking details through the business's normal independent controls when onboarding or changing a supplier. Supply urgency should not become a reason to bypass payment security, credit approval or product qualification.
+
+## 5. Compare more than two suppliers
+
+The choice is not always 'one cheap supplier or two expensive ones'. Options can include a small buffer of the critical item, a standardised specification, preventative maintenance, an alternative process or an agreed recovery arrangement with the existing supplier.
+
+Each option has costs and limits. Extra stock consumes cash and may become obsolete. A second process may need training or equipment. A reserved supply arrangement may carry a fee. Put the full cost beside the time and contribution it can protect.
+
+Do not buy a large amount of general stock simply because one small input is critical. Target the specific dependency. Compare the cash effect and the risk of unused inventory with the cost of the qualified alternative.
+
+Choose the least complicated option that adequately addresses the exposure. The right solution can be different for a routine consumable, a custom component and an irreplaceable technical service. Record what level of interruption remains after the decision.
+
+## 6. Give the continuity plan a trigger and an owner
+
+Decide when the alternative should be contacted. A trigger might be a missed confirmed dispatch, stock falling below the time needed to replenish it, or a verified supplier capacity problem. Set it from your lead time and commitments rather than an arbitrary universal rule.
+
+Name who checks the signal, who can authorise the alternative order and who tells the customer if delivery is affected. Keep current contact details, approved specifications and the latest trial evidence together. A plan that needs the owner's memory to work is a fragile plan.
+
+Owner questions: Which input could stop our contribution? How much time do we have? Is the backup independent and qualified? What loss can it actually prevent? What does the option cost each year? When was it last tested? What cash or technical risk does the solution add?
+
+Review after a disruption or a meaningful change in demand, specification or lead time. Learn whether the option reduced the loss and whether another control would have been cheaper. Do not judge resilience only by whether the supplier price was the lowest.
+
+## Closing perspective
+
+A higher supplier price can buy a useful option, or it can simply add cost. The financial test starts with a specific dependency and a credible consequence, then checks whether the alternative can reduce that consequence. Protect critical contribution deliberately. Paying more without qualification is not resilience, and choosing the lowest unit price without considering interruption is not a complete comparison.
+
+## Critical Supply Decision Record
+
+| Field | Evidence to record |
+| --- | --- |
+| Critical input | Item/service, dependency and technical owner |
+| Time available | Stock cover, confirmed lead time and customer commitment |
+| Loss scenario | Unrecoverable contribution and separate recovery cost |
+| Alternative readiness | Specification, trial, stock, capacity and upstream source |
+| Full cost | Price premium, qualification, freight, stock and administration |
+| Other options | Buffer, standardisation, process or recovery agreement |
+| Decision and trigger | Approval, contact, trigger, remaining exposure and review |
+
+## Advice notice
+
+General business and financial education only. Examples are illustrative, not benchmarks. This article does not provide HR, labour-law, legal or personalised tax advice. Obtain appropriate professional advice for contractual, tax, accounting, technical and facility-specific decisions.
+
+Want a second read on your numbers? [Run the free Financial Health Check](/health-check/), see [what a CFO adds](/services), or [book a call](/contact).`,
+  },
+  {
+    slug: "order-finished-invoice-waiting",
+    cover: "/images/order-finished-invoice-waiting.png",
+    ogImage: "/images/order-finished-invoice-waiting.png",
+    pdf: "/articles/Carron_order_finished_invoice_waiting.pdf",
+    title: "The Order Is Finished. Why Is the Invoice Still Waiting?",
+    category: "Cash Flow",
+    excerpt:
+      "Find the cash delay between delivery and a valid invoice. The workshop says the order is complete. The goods have gone, the job has been signed off or the service has been delivered. Yet finance cannot send the invoice because a purchase-order number, delivery record or customer acceptance is missing.",
+    date: "2026-11-03",
+    readTime: "7 min read",
+    author: "Carel Gangel",
+    body: `The workshop says the order is complete. The goods have gone, the job has been signed off or the service has been delivered. Yet finance cannot send the invoice because a purchase-order number, delivery record or customer acceptance is missing.
+
+This work can be invisible in an overdue-debtors review: there may be no invoice to age or chase. The business has already committed resources, but the cash process has not reached the point from which the customer's payment arrangements can operate.
+
+A completed-to-invoiced review identifies the gap. It is a management control, not an instruction to bill before the business is entitled to do so. Confirm the agreed billing event, collect the required evidence and assign an owner to each exception.
+
+## 1. Add a queue that the debtors report cannot show
+
+An aged-debtors report normally starts from recorded invoices. Work that has not yet been invoiced may sit in job sheets, delivery records, project files or work-in-progress reports instead. Reviewing only overdue invoices can therefore miss an earlier cash delay.
+
+Ask for a list of delivered goods and completed work that has not passed the agreed billing checkpoint. Record the completion date, expected billing event, value, evidence required, blocker and person responsible. Do not assume every completed job is immediately billable.
+
+Separate operationally complete, contractually billable, invoiced, accepted into the customer's process and paid. These states can occur on different dates. A customer portal rejection after invoice creation is a different problem from a missing delivery note before it.
+
+This is particularly useful when planning the next few weeks of cash. Software may help send and track invoices, but it cannot invent the purchase-order reference or acceptance evidence that the transaction requires. Resolve the handover rather than treating automation as a substitute for complete records.
+
+## 2. Measure the delay before blaming payment terms
+
+Consider an illustrative service order worth R180,000, excluding VAT. Delivery and the agreed billing conditions are complete on day 1, but the invoice is not submitted until day 13. Assume the customer then pays exactly thirty days after receipt of a valid invoice.
+
+The expected receipt moves from day 31 to day 43: a twelve-day difference caused by the billing delay under these assumptions. The customer's thirty-day period has not changed. The business has added twelve days before that period can begin.
+
+If an otherwise available facility charges 14% simple annual interest, funding R180,000 for twelve extra days would cost about R828 before fees. That calculation is illustrative. The real funded amount may be lower, higher or zero, depending on the cash already spent, deposits and the bank position.
+
+Do not multiply invoice value by a rate and call the result the business's actual loss without checking the cash exposure. The invoice value is a useful timing measure; the financing cost belongs to the cash gap actually funded. Customer terms, cut-off dates and acceptance requirements also need transaction-specific verification.
+
+| Illustrative checkpoint | Prompt handover | Delayed handover |
+| --- | --- | --- |
+| Billable conditions complete | Day 1 | Day 1 |
+| Valid invoice received | Day 1 | Day 13 |
+| Receipt, assumed 30 days later | Day 31 | Day 43 |
+| Additional delay | - | 12 days |
+
+## 3. Find the missing evidence at the source
+
+Typical blockers to investigate include an incorrect purchase-order number, unsigned proof of delivery, incomplete time records, a missing acceptance document, disputed extra work or an invoice sent to the wrong customer channel. These are examples, not a claim about every SME.
+
+For each blocker, ask when the missing information could first have been collected. A customer reference known when the order was accepted should not be discovered as missing after delivery. A signed handover belongs to the delivery process if the agreed billing condition requires it.
+
+Create a short billing-readiness check before accepting an order: who is billed, how the invoice must be submitted, what evidence is required, who confirms completion and who deals with an exception. Confirm the requirement with the customer rather than guessing from the last job.
+
+Keep disputed scope separate from administrative omissions. Sending an invoice faster does not resolve whether extra work was agreed or whether a milestone has been met. Obtain appropriate legal or accounting advice when entitlement, recognition or tax timing is uncertain.
+
+## 4. Give each exception an owner and a next action
+
+Finance cannot solve every delivery or scope issue alone. The person closest to the missing evidence should own obtaining it, while finance checks that the resulting invoice is complete and correctly submitted. Name the owner of the exception rather than writing 'with operations'.
+
+A useful exception record says: what is missing, who will obtain it, the next action date and what happens if it is not resolved. Record when the customer receives a valid invoice and, where relevant, when a portal or accounts-payable team accepts it.
+
+Escalate old exceptions on the basis of their value and cash consequence. A very large blocked invoice can matter more than many small items. A recurring low-value blocker can still signal a poor process that deserves redesign.
+
+Avoid arbitrary promises that every invoice will be issued within a fixed number of hours. Set a sensible internal target based on the billing conditions and workflow, then distinguish unavoidable customer approval from avoidable internal delay. A clear reason is more useful than a misleading green status.
+
+## 5. Put billable work into the cash forecast carefully
+
+Show the expected billing date and expected payment date separately. If the invoice is still waiting for an uncertain approval, make that uncertainty visible in the receipt forecast. Do not quietly assume it clears tomorrow because the forecast needs the cash.
+
+Build a downside case for the material exceptions. What happens if acceptance slips another week or the customer's next payment run is missed? Identify the obligation affected and the action available before the shortfall arrives.
+
+Reconcile the list with recorded invoices so the same receipt is not counted twice. If a job moves from unbilled work to invoiced debtors, transfer the forecast item rather than adding a second expected receipt. Keep deposits and partial invoices visible.
+
+This management schedule does not decide how revenue or work in progress belongs in the financial statements. Accounting recognition, VAT timing and contractual billing rights are separate questions for qualified advisers using the actual agreement and facts. Better visibility must not become premature or duplicate billing.
+
+## 6. Review the handover every week
+
+Use a short weekly review of the material completed-but-not-invoiced items, rejected invoices and missing approvals. Start with old or large exceptions. End with named actions and dates, not a general instruction to 'invoice faster'.
+
+Track time from the agreed billable event to valid invoice submission, the value still blocked and the recurring reasons. These are internal management measures, not universal performance benchmarks. Use them to find the process change that prevents the delay.
+
+Owner questions: Which completed orders are waiting? Are their billing conditions actually met? What evidence is missing? Who can obtain it? Is the cash forecast using a credible date? Does the same customer or process create the same exception repeatedly?
+
+Check whether the improvement lasts across the next few order cycles. If finance repeatedly rescues missing delivery evidence, the business has a collection habit rather than a reliable handover. Move the control to where the information is created.
+
+## Closing perspective
+
+The customer may be slow to pay. But first check whether the business has made it possible to pay. A completed job, a valid invoice and cash in the bank are different checkpoints. Making the gap visible helps management recover time before spending more effort on collections. The best improvement is a complete, accurate handover that happens without a last-minute rescue.
+
+## Completed-to-Invoiced Exception Register
+
+| Field | Record for each material exception |
+| --- | --- |
+| Job and customer | Order reference, customer and value on consistent VAT basis |
+| Completion and billing event | Operational date and verified billable condition |
+| Required evidence | PO, delivery, acceptance or agreed scope evidence |
+| Blocker and owner | Specific omission/dispute and named responsible person |
+| Action and due date | Next action, resolution date and escalation |
+| Submission and acceptance | Invoice reference, customer receipt and portal acceptance |
+| Cash forecast | Expected receipt, downside date and no duplicate counting |
+
+## Advice notice
+
+General business and financial education only. Examples are illustrative, not benchmarks. This article does not provide HR, labour-law, legal or personalised tax advice. Obtain appropriate professional advice for contractual, tax, accounting, technical and facility-specific decisions.
+
+Want a second read on your numbers? [Run the free Financial Health Check](/health-check/), see [what a CFO adds](/services), or [book a call](/contact).`,
+  },
+  {
+    slug: "faster-payment-not-cheaper",
+    cover: "/images/faster-payment-not-cheaper.png",
+    ogImage: "/images/faster-payment-not-cheaper.png",
+    pdf: "/articles/Carron_faster_payment_not_cheaper.pdf",
+    title: "A Faster Payment Is Not Always a Cheaper Payment",
+    category: "Cash Flow",
+    excerpt:
+      "What does bringing cash forward really cost?. A customer offers to pay sooner if you give up two per cent. When the bank balance is tight, the offer can look inexpensive. The useful comparison, however, is between the cash surrendered and the number of days of funding actually gained.",
+    date: "2026-10-27",
+    readTime: "7 min read",
+    author: "Carel Gangel",
+    body: `A customer offers to pay sooner if you give up two per cent. When the bank balance is tight, the offer can look inexpensive. The useful comparison, however, is between the cash surrendered and the number of days of funding actually gained.
+
+In the worked illustration, giving up R2,000 to receive R98,000 twenty days earlier has a simple annualised equivalent cost of about 37.2%. That is a comparison tool, not a quoted loan APR or a forecast. A one-off decision can still be worthwhile, but it deserves more thought than 'two per cent is small'.
+
+The same calculation works from the other side when a supplier offers you a discount for paying early. In both cases, test timing, available funding, transaction costs and the cash obligations that still have to be met.
+
+## 1. Identify the payment you are really comparing
+
+Start with two credible cash dates: when you expect to receive the undiscounted amount and when you will receive the discounted amount. The difference is the days brought forward. Do not use the printed credit period if the customer's actual payment pattern is different.
+
+For a new customer there may be little payment history. For an established one, use recent settled invoices and understand whether this invoice is complete, approved and undisputed. A promise of faster payment is not the same as cash received.
+
+Define whether the offer applies to one invoice, all future invoices or only amounts paid by a specified date. Record a partial payment separately. Confirm the commercial conditions before relying on the forecast, and refer contractual interpretation to an appropriate specialist.
+
+Keep the example simple, but keep the real records correct. This report's figures are illustrative and exclude VAT. An accountant or registered tax practitioner should confirm the actual VAT and accounting treatment of discounts or credit notes. Do not change tax records on the strength of this financial comparison alone.
+
+## 2. Put the discount on a days-of-funding basis
+
+Suppose an invoice of R100,000 would otherwise be paid on day 30. The customer will pay R98,000 on day 10 if you accept a 2% discount. You give up R2,000 and bring R98,000 forward by twenty days.
+
+For a simple annualised comparison, divide the R2,000 discount by the R98,000 received early, then multiply by 365 divided by twenty. The result is approximately 37.2% a year. This is a simple equivalent rate, with no compounding or allowance for fees, tax or credit risk.
+
+The rate is not a claim that this particular invoice will cost you 37.2% of its value. The actual discount is still R2,000. Annualising helps compare a short transaction with finance costs expressed per year; it does not turn the offer into a regulated loan or quoted APR.
+
+If the payment is only five days earlier, the same simple comparison is about 149.0%. If it is forty days earlier, it is about 18.6%. The concession stays the same while the time benefit changes substantially. Check actual days rather than celebrating the headline percentage.
+
+| Days gained | Cash surrendered | Simple annualised cost |
+| --- | --- | --- |
+| 5 days | R2,000 on R98,000 | 149.0% |
+| 20 days | R2,000 on R98,000 | 37.2% |
+| 40 days | R2,000 on R98,000 | 18.6% |
+
+## 3. Compare it with finance that is genuinely available
+
+Suppose, purely for illustration, that the business can fund R98,000 for twenty days at 14% simple annual interest. Interest would be about R752 before any additional fees. That is materially less than the R2,000 customer discount.
+
+The 14% assumption is not a South African market benchmark, prime rate or offer from a bank. Replace it with your actual facility terms, available headroom, day-count convention and incremental charges. Do not compare the discount with a low advertised rate on a facility you cannot draw.
+
+Public bank material describes overdrafts as short-term facilities with personalised terms. Access, fees and repayment conditions must be checked for the specific account. A headline policy rate is not the business's borrowing price.
+
+If no acceptable funding is available and the earlier receipt prevents a costly disruption, accepting a higher implied cost may be rational. Record what problem the receipt solves and whether that problem will return next month. A recurring expensive discount deserves a review of the underlying billing, collections or funding arrangement.
+
+## 4. Reverse the test for a supplier's discount
+
+The supplier offers the same terms: pay R98,000 on day 10 instead of R100,000 on day 30. Paying twenty days early earns a R2,000 discount. Compared with leaving that R98,000 available for twenty days, the simple annualised equivalent benefit is about 37.2%.
+
+That can look attractive against a lower incremental funding cost. But an attractive rate does not prove that the cash is available. Paying early could leave the business unable to meet a non-deferrable obligation or force it into a more expensive facility later.
+
+Run the payment through the dated cash forecast. Include funding availability, extra charges and the minimum headroom management requires. Confirm the invoice, delivery and discount conditions. Do not pay early simply because the bank balance is temporarily high.
+
+A purchase settlement discount also differs from a bulk-buy discount. Buying additional stock to obtain a lower unit price introduces demand, holding and obsolescence risks. Evaluate those separately rather than using the settlement calculation to justify an unwanted purchase.
+
+## 5. Avoid paying for cash you would have received anyway
+
+A blanket early-payment scheme can reward customers who already pay promptly. The business loses margin without gaining meaningful days. Before offering a standard concession, identify which receipts actually move and which customers simply take the discount on their normal timetable.
+
+Check the receipt against the agreed qualifying date. A customer who deducts the discount but pays late has not delivered the expected exchange. Resolve the difference using the agreed commercial process; this report does not determine a legal entitlement to recover it.
+
+Separate a payment-timing discount from a negotiated price reduction and from a credit note for a disputed item. Otherwise the financial records may hide the true price, the discount cost or the unresolved service issue.
+
+Do not assume earlier payment automatically removes bad-debt risk. An accepted promise can fail; a disputed or reversed transaction may need investigation. Use confirmed receipts and an accountant's advice where the nature of the payment affects recognition or treatment.
+
+## 6. Make the cash decision visible
+
+For each material offer, record the amount given up, cash received or paid, actual dates, alternative finance cost, fees and remaining headroom. Write down the operating benefit that makes the transaction worth considering.
+
+Review the result after the payment clears. How many days were actually gained? Did borrowing reduce? Did a supplier interruption disappear? Did the discount become an expectation on future invoices? These outcomes need evidence rather than a retrospective explanation that 'cash was useful'.
+
+Owner questions: What would the cash date be without the concession? What does each day gained cost? Is the alternative funding available? What obligation could early payment crowd out? Who checks that the customer met the condition? Is this a one-off exception or an expensive recurring habit?
+
+Keep commercial judgement in the decision. The calculation informs it; it does not replace it. If the transaction protects a critical delivery or prevents a larger measurable loss, include that effect, with realistic assumptions and no double counting.
+
+## Closing perspective
+
+Cash timing has a price. Sometimes that price is worth paying; sometimes the business is giving away margin for very little benefit. Compare the actual amount, actual days and genuinely available alternative. Then check whether the promised timing happened. A small discount can be expensive funding, and an attractive supplier discount can still be unaffordable today.
+
+## Payment Discount Decision Sheet
+
+| Decision field | Record before acceptance |
+| --- | --- |
+| Direction and amount | Customer receipt or supplier payment; original amount |
+| Discount and cash | Amount surrendered/saved and early cash amount |
+| Actual timing | Credible normal date, proposed date, days gained |
+| Equivalent rate | Discount / early cash x 365 / days; simple comparison |
+| Alternative | Available funding rate, headroom and incremental fees |
+| Cash obligations | Payments that remain due and minimum headroom |
+| Conditions and evidence | Qualifying date, approval, cleared payment and review |
+
+## Advice notice
+
+General business and financial education only. Examples are illustrative, not benchmarks. This article does not provide HR, labour-law, legal or personalised tax advice. Obtain appropriate professional advice for contractual, tax, accounting, technical and facility-specific decisions.
+
+Want a second read on your numbers? [Run the free Financial Health Check](/health-check/), see [what a CFO adds](/services), or [book a call](/contact).`,
+  },
+  {
+    slug: "discount-won-the-sale",
+    cover: "/images/discount-won-the-sale.png",
+    ogImage: "/images/discount-won-the-sale.png",
+    pdf: "/articles/Carron_discount_won_the_sale.pdf",
+    title: "The Discount Won the Sale. Did It Lose the Profit?",
+    category: "Profitability",
+    excerpt:
+      "A practical contribution test before you reduce a customer's price. The customer asks for five per cent off. The order is attractive, the workshop has some space and the sales team wants to close. Approving the discount feels like a small commercial concession. But the price is not the same thing as the money left to pay overheads.",
+    date: "2026-10-20",
+    readTime: "7 min read",
+    author: "Carel Gangel",
+    body: `The customer asks for five per cent off. The order is attractive, the workshop has some space and the sales team wants to close. Approving the discount feels like a small commercial concession. But the price is not the same thing as the money left to pay overheads.
+
+When the cost of supplying each unit stays the same, a price cut comes directly out of contribution. In the illustration in this report, a 5% price discount reduces contribution per unit by one-sixth. The business needs 20% more units simply to restore the original contribution, before extra capacity or finance costs.
+
+The useful question is not whether discounting is good or bad. It is what the business receives in exchange, whether the extra work is genuinely additional, and whether the promised improvement survives delivery and collection.
+
+## 1. Start with the money each order leaves behind
+
+Contribution is the sales value less the costs that change because you accept and fulfil the order. Depending on the business, those can include purchased goods, materials, subcontracting, commissions, packaging and delivery. Contribution then helps pay costs that remain across the business. It is not net profit.
+
+Do not assume the gross margin shown in the accounts is the right decision margin. A delivery charge, card fee or sales commission may sit elsewhere in the accounts but still increase when a sale happens. Conversely, a cost allocated to a unit for reporting purposes may not change with one extra order.
+
+Ask finance and operations to agree the relevant costs before the quote is approved. Use a consistent VAT basis and ask the accountant how recoverable and non-recoverable VAT should be treated in the real calculation. The worked example excludes VAT to keep the commercial comparison clear.
+
+This matters especially when input prices and sales volumes move differently. Stats SA's early-October economic overview describes uneven performance across industries. A headline about stronger sales elsewhere does not establish that your discounted order will be profitable. Use your own current cost and capacity evidence.
+
+## 2. A small price cut can need a large volume increase
+
+Consider an illustrative supplier selling 100 units at R1,000 each. The relevant variable cost is R700 per unit. Each unit contributes R300, so the order contributes R30,000 before fixed overheads. These are invented business assumptions, not an industry benchmark.
+
+At a 5% discount the price falls to R950. If variable cost remains R700, contribution falls to R250. Selling the same 100 units now contributes R25,000. A R5,000 reduction in revenue has removed R5,000 of contribution.
+
+Restoring R30,000 requires 120 units at R250 contribution each. That is 20% more units, not 5%. At a 10% discount, contribution falls to R200 and the business needs 150 units, or 50% more. At a 15% discount, it needs 200 units, or twice the original volume.
+
+The calculation is: original total contribution divided by contribution per unit after the discount. It assumes the same product mix and variable cost per unit, with no added fixed cost. If discounted contribution is zero or negative, more units cannot restore the old contribution under those assumptions.
+
+| Price discount | Contribution per unit | Units for R30,000 |
+| --- | --- | --- |
+| 0% | R300 | 100 |
+| 5% | R250 | 120 |
+| 10% | R200 | 150 |
+| 15% | R150 | 200 |
+
+## 3. Separate additional business from cheaper existing business
+
+The extra units only help if they would not otherwise have been sold on better terms. A promotion that discounts all existing orders to win a few new ones can damage contribution even when the sales report improves.
+
+Take the same illustration. Suppose the discount produces 110 units instead of 100. Revenue rises to R104,500, compared with R100,000 before. Yet contribution is only R27,500, compared with R30,000. Turnover is up while contribution is down R2,500.
+
+Ask what would happen without the concession. Would the customer buy anyway? Would a smaller order arrive at the normal price? Would the additional sale replace another job using the same limited machine hours? Forecast the alternative honestly rather than treating every discounted sale as newly won business.
+
+A one-off order using genuinely spare capacity can still be commercially sensible. Make its limits clear: which customer, which quantity, which period and which reason. Do not let an exception become the reference price for the next negotiation without reviewing the economics again.
+
+## 4. Count the operational and cash consequences
+
+The simple volume test is a starting point. It becomes misleading if extra volume requires overtime, a second delivery, equipment hire, more supervision or additional storage. Include those incremental costs rather than assuming that every extra unit earns the same contribution.
+
+Cash needs a separate test. In the 5% discount example, 120 units require R84,000 of variable inputs, compared with R70,000 for 100 units. That is R14,000 more input expenditure. How much becomes a cash gap depends on deposits, supplier terms, production timing and customer receipts.
+
+If the customer pays later while inputs are paid sooner, an order that preserves contribution may still require more funding. Put the actual dates into the cash forecast. Do not treat sales revenue as cash available on the day the order is accepted.
+
+Where capacity is scarce, compare contribution per limiting resource, such as machine hour or delivery slot. That does not mean excluding a strategically useful customer. It means recording the commercial reason for choosing lower immediate contribution, rather than hiding the choice inside the sales total.
+
+## 5. Negotiate something measurable in return
+
+A lower price should normally purchase a clear benefit: a confirmed quantity, fewer deliveries, a standard specification, a deposit, less rework or a simpler service requirement. Identify the benefit before assuming it offsets the discount.
+
+A promise of future volume is weaker evidence than a firm current order. A larger order is not necessarily cheaper to serve if it needs split deliveries or special handling. Earlier payment is only valuable to the extent that it genuinely changes the cash timing; price and settlement discounts should not be counted twice.
+
+Record the normal price, concession, relevant cost, expected volume, cash dates and operating condition. Name the person who can approve the exception and set a review point that fits the order cycle. The record can be short, but it must show the assumptions behind the decision.
+
+For a service business, apply the same discipline to scope. Reducing a fee while leaving unlimited revisions, urgent work and travel untouched is not the same deal as a narrower assignment. Obtain specialist advice where contractual wording or tax treatment needs interpretation.
+
+## 6. Test the result after the order is delivered
+
+Compare actual contribution with the expectation. Check realised price after rebates and credit notes, actual delivery and rework costs, extra capacity costs and the date cash reached the bank. A booked order is not yet a completed commercial result.
+
+Review whether the discount brought genuinely additional volume or simply lowered the price of the existing order book. Check whether other customers now expect the same terms. These are possible consequences to investigate, not automatic outcomes of every promotion.
+
+Owner questions: What is the contribution at the new price? How many extra units are required? Is that volume credible? What bottleneck or cash gap could it create? What benefit are we receiving in exchange? What result would cause us to stop or change the offer?
+
+Use a narrow trial where practical. A discount with a defined quantity, duration and review is easier to assess than a permanent price reduction based on enthusiasm about turnover. Keep the evidence that would justify renewing it.
+
+## Closing perspective
+
+A discount can be a sensible commercial investment. It can also buy work that makes the business busier without making it stronger. The difference lies in the contribution, the alternative use of capacity and the cash needed to deliver. Before approving a lower price, write down the result it must produce. After delivery, check whether it did.
+
+## Discount Approval Record
+
+| Decision field | Record before approval |
+| --- | --- |
+| Customer and offer | Customer, product/service, quantity and expiry |
+| Normal economics | Price, relevant variable cost and total contribution |
+| Discounted economics | New price, contribution and units needed to recover it |
+| Additionality | What would happen without the discount? |
+| Capacity and cash | Bottleneck, incremental costs and cash dates |
+| Return for concession | Confirmed benefit and evidence |
+| Approval and review | Owner, approval date, actual result and next decision |
+
+## Advice notice
+
+General business and financial education only. Examples are illustrative, not benchmarks. This article does not provide HR, labour-law, legal or personalised tax advice. Obtain appropriate professional advice for contractual, tax, accounting, technical and facility-specific decisions.
+
+Want a second read on your numbers? [Run the free Financial Health Check](/health-check/), see [what a CFO adds](/services), or [book a call](/contact).`,
+  },
+  {
     slug: "cost-cutting-without-damaging-the-business",
     cover: "/images/cost-cutting-without-damaging-the-business.webp",
     ogImage: "/images/cost-cutting-without-damaging-the-business.webp",
@@ -2477,9 +2904,34 @@ None of this requires someone in your office. With cloud accounting and a regula
 
 const toTime = (iso: string) => new Date(iso).getTime();
 
+/**
+ * Scheduled publication. An article whose `date` is still in the future is
+ * written and committed ahead of time but stays invisible: it is filtered out
+ * of every listing, its page is not generated, and it is kept out of the
+ * sitemap. On its date it simply appears.
+ *
+ * IMPORTANT: this is evaluated when the site is BUILT, not when a page is
+ * viewed — the site is a static export (next.config.mjs `output: "export"`), so
+ * nothing re-evaluates between deploys. A scheduled article therefore goes live
+ * at the first deploy on or after its date, which is what the weekly rebuild
+ * routine is for. Without that rebuild the article would simply never appear.
+ */
+export function isPublished(article: Article, now: number = Date.now()): boolean {
+  return toTime(article.date) <= now;
+}
+
+/** Articles written but still waiting for their publication date, soonest first. */
+export function getScheduledArticles(): Article[] {
+  return articles
+    .filter((a) => !isPublished(a))
+    .sort((a, b) => toTime(a.date) - toTime(b.date));
+}
+
 /** All articles, newest first. */
 export function getAllArticles(): Article[] {
-  return [...articles].sort((a, b) => toTime(b.date) - toTime(a.date));
+  return articles
+    .filter((a) => isPublished(a))
+    .sort((a, b) => toTime(b.date) - toTime(a.date));
 }
 
 /** The N most recent articles (defaults to 3 for the home teaser). */
@@ -2488,7 +2940,7 @@ export function getRecentArticles(count = 3): Article[] {
 }
 
 export function getArticle(slug: string): Article | undefined {
-  return articles.find((a) => a.slug === slug);
+  return getAllArticles().find((a) => a.slug === slug);
 }
 
 /** Turn a category label into a URL-safe slug, e.g. "Cash Flow" → "cash-flow". */
@@ -2503,7 +2955,7 @@ export function getCategories(): {
   count: number;
 }[] {
   const counts = new Map<ArticleCategory, number>();
-  for (const a of articles) counts.set(a.category, (counts.get(a.category) ?? 0) + 1);
+  for (const a of getAllArticles()) counts.set(a.category, (counts.get(a.category) ?? 0) + 1);
   return Array.from(counts.entries())
     .map(([category, count]) => ({ category, slug: categorySlug(category), count }))
     .sort((a, b) => a.category.localeCompare(b.category));
@@ -2516,7 +2968,7 @@ export function getArticlesByCategory(slug: string): Article[] {
 
 /** Resolve a category slug back to its display label. */
 export function categoryFromSlug(slug: string): ArticleCategory | undefined {
-  return articles.find((a) => categorySlug(a.category) === slug)?.category;
+  return getAllArticles().find((a) => categorySlug(a.category) === slug)?.category;
 }
 
 /** Up to `count` related articles — same category first, then newest others. */

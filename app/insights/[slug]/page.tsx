@@ -8,7 +8,7 @@ import { CTASection } from "@/components/CTASection";
 import { FadeIn } from "@/components/FadeIn";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import {
-  articles,
+  getAllArticles,
   getArticle,
   getRelatedArticles,
   formatArticleDate,
@@ -17,7 +17,8 @@ import {
 type Params = { params: { slug: string } };
 
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  // Scheduled articles get no page until their date — see isPublished().
+  return getAllArticles().map((a) => ({ slug: a.slug }));
 }
 
 export function generateMetadata({ params }: Params): Metadata {

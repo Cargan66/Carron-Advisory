@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
-import { articles, getCategories } from "@/lib/articles";
+import { getAllArticles, getCategories } from "@/lib/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -37,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  const articleRoutes = articles.map((a) => ({
+  const articleRoutes = getAllArticles().map((a) => ({
     url: `${siteConfig.url}/insights/${a.slug}`,
     lastModified: new Date(a.date),
     changeFrequency: "monthly" as const,
