@@ -129,9 +129,337 @@
       "shortUrl": "carron.co.za/health-check"
     },
     {
+      "id": "art-discount-won-the-sale",
+      "title": "The discount won the sale - did it lose the profit?",
+      "scheduled": "2026-10-20T05:30:00Z",
+      "approved": false,
+      "url": "/insights/discount-won-the-sale",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-discount-won-the-sale-1.jpg"
+      ],
+      "caption": "A customer asks for five per cent off. The order is attractive, there is room in the workshop, and the sales team wants to close.\n\nBut the price is not the same thing as the money left to pay overheads.\n\nIf the cost of supplying each unit does not change, a discount comes straight out of contribution. Take an illustration: R1,000 a unit, R700 of variable cost, R300 contribution. Drop the price 5% and contribution falls to R250 - so you need 20% more units simply to stand still. At 10% off you need 50% more. At 15% off, twice the volume.\n\nThat is the arithmetic. The judgement is separate: what does the business get in return, is the extra work genuinely additional, and does the gain survive delivery and collection?\n\nThis week's report sets out the test, including the operational and cash consequences most discount decisions leave out.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#Pricing",
+        "#Margin",
+        "#Profitability",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "car-discount-won-the-sale",
+      "title": "Carousel - six checks before you discount",
+      "scheduled": "2026-10-22T05:30:00Z",
+      "approved": false,
+      "url": "/insights/discount-won-the-sale",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/car-discount-won-the-sale-1.jpg",
+        "/social/art/car-discount-won-the-sale-2.jpg",
+        "/social/art/car-discount-won-the-sale-3.jpg",
+        "/social/art/car-discount-won-the-sale-4.jpg",
+        "/social/art/car-discount-won-the-sale-5.jpg",
+        "/social/art/car-discount-won-the-sale-6.jpg"
+      ],
+      "caption": "Six checks before you agree to a price reduction.\n\nStart with the money each order actually leaves behind - contribution, not the gross margin shown in the accounts. Work out the volume the discount really needs. Separate genuinely new business from existing business now sold cheaper, because a promotion that discounts everything to win a little can lift turnover while contribution falls.\n\nThen count what the simple test leaves out: overtime, a second delivery, extra storage, and the cash gap when inputs are paid before the customer pays. Negotiate something measurable in return - a confirmed quantity, a deposit, a simpler specification. And check afterwards whether the promised benefit actually arrived.\n\nSwipe through the six.",
+      "cta": "The full report, with the worked example, is on the Insights page.",
+      "hashtags": [
+        "#Pricing",
+        "#Margin",
+        "#Profitability",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "art-faster-payment-not-cheaper",
+      "title": "A faster payment is not always a cheaper payment",
+      "scheduled": "2026-10-27T05:30:00Z",
+      "approved": false,
+      "url": "/insights/faster-payment-not-cheaper",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-faster-payment-not-cheaper-1.jpg"
+      ],
+      "caption": "A customer offers to pay sooner if you give up two per cent. With the bank balance tight, that can look inexpensive.\n\nThe useful comparison is not 2% against nothing. It is the cash you surrender against the days of funding you actually gain.\n\nTwo per cent to be paid twenty days earlier is not a two per cent cost. Put on an annual basis it is far dearer than most facilities a business already has - and the honest question becomes whether you would borrow at that rate to bring the same cash forward.\n\nSometimes the answer is yes. A business with no facility, a hard commitment and no other route to the money may rationally pay it. But that should be a decision taken with the number in front of you, not a reflex when the balance looks thin.\n\nThis week's report puts the test on a days-of-funding basis, and reverses it for the discounts your suppliers offer you.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#CashFlow",
+        "#WorkingCapital",
+        "#Debtors",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "car-faster-payment-not-cheaper",
+      "title": "Carousel - what bringing cash forward really costs",
+      "scheduled": "2026-10-29T05:30:00Z",
+      "approved": false,
+      "url": "/insights/faster-payment-not-cheaper",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/car-faster-payment-not-cheaper-1.jpg",
+        "/social/art/car-faster-payment-not-cheaper-2.jpg",
+        "/social/art/car-faster-payment-not-cheaper-3.jpg",
+        "/social/art/car-faster-payment-not-cheaper-4.jpg",
+        "/social/art/car-faster-payment-not-cheaper-5.jpg",
+        "/social/art/car-faster-payment-not-cheaper-6.jpg"
+      ],
+      "caption": "What does it actually cost to be paid sooner?\n\nIdentify the payment you are really comparing, then put the discount on a days-of-funding basis rather than treating the percentage as the cost. Compare that with finance genuinely available to you - not a rate you cannot access.\n\nThen reverse the test for the discounts suppliers offer you, where the same arithmetic runs in your favour. Watch for the commonest mistake of all: paying a discount for cash that would have arrived on time anyway. And make the decision visible, so the business can see what it bought.\n\nSwipe through the six.",
+      "cta": "The full report, with the worked example, is on the Insights page.",
+      "hashtags": [
+        "#CashFlow",
+        "#WorkingCapital",
+        "#Debtors",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "art-order-finished-invoice-waiting",
+      "title": "The order is finished. Why is the invoice still waiting?",
+      "scheduled": "2026-11-03T05:30:00Z",
+      "approved": false,
+      "url": "/insights/order-finished-invoice-waiting",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-order-finished-invoice-waiting-1.jpg"
+      ],
+      "caption": "The workshop says the order is complete. The goods have gone, the job is signed off, the service is delivered.\n\nFinance still cannot invoice, because a purchase-order number, a delivery record or a customer acceptance is missing.\n\nThat gap appears nowhere in your debtors report. The clock on payment terms has not started, because the invoice does not exist yet. The work is done, the cost is spent, and the cash is waiting behind a piece of missing paperwork.\n\nBefore blaming customers for paying late, measure the delay between completion and a valid invoice. In many owner-managed businesses it is the larger of the two numbers, and the cheaper one to fix.\n\nThis week's report shows how to see that queue, find the missing evidence at source, and give each exception an owner.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#CashFlow",
+        "#Invoicing",
+        "#Debtors",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "car-order-finished-invoice-waiting",
+      "title": "Carousel - the queue your debtors report cannot show",
+      "scheduled": "2026-11-05T05:30:00Z",
+      "approved": false,
+      "url": "/insights/order-finished-invoice-waiting",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/car-order-finished-invoice-waiting-1.jpg",
+        "/social/art/car-order-finished-invoice-waiting-2.jpg",
+        "/social/art/car-order-finished-invoice-waiting-3.jpg",
+        "/social/art/car-order-finished-invoice-waiting-4.jpg",
+        "/social/art/car-order-finished-invoice-waiting-5.jpg",
+        "/social/art/car-order-finished-invoice-waiting-6.jpg"
+      ],
+      "caption": "Completed work that has not yet been invoiced is a cash queue your debtors report cannot show.\n\nAdd it as its own measure. Then measure the delay between completion and a valid invoice before blaming payment terms - that number usually surprises people. Find the missing evidence where it is created, not weeks later in finance.\n\nGive each exception an owner and a next action rather than a general instruction to chase. Treat billable-but-uninvoiced work carefully in the cash forecast, because it is not yet a receivable. And review the handover weekly, while it can still be fixed.\n\nSwipe through the six.",
+      "cta": "The full report, with the exception register, is on the Insights page.",
+      "hashtags": [
+        "#CashFlow",
+        "#Invoicing",
+        "#Debtors",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "art-backup-supplier-comparison",
+      "title": "Your backup supplier costs more. Is that the right comparison?",
+      "scheduled": "2026-11-10T05:30:00Z",
+      "approved": false,
+      "url": "/insights/backup-supplier-comparison",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-backup-supplier-comparison-1.jpg"
+      ],
+      "caption": "The alternative supplier is more expensive. Purchasing can see the extra cost immediately, on every quote.\n\nWhat is harder to see is what stops if the current supplier cannot deliver.\n\nThe premium is visible and certain. The exposure is invisible until the day it arrives - and then it is measured in contribution lost, deliveries missed, customers disappointed and the cost of recovering. Comparing the two as though only one has a number is how a business ends up single-sourced on the item that halts everything.\n\nRank suppliers by what stops, not by what you spend. A modest-value component that idles a production line deserves more attention than a large invoice for something easily replaced.\n\nThis week's report sets the annual premium against the contribution genuinely at risk.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#SupplyChain",
+        "#BusinessRisk",
+        "#Procurement",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "car-backup-supplier-comparison",
+      "title": "Carousel - ranking suppliers by what stops",
+      "scheduled": "2026-11-12T05:30:00Z",
+      "approved": false,
+      "url": "/insights/backup-supplier-comparison",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/car-backup-supplier-comparison-1.jpg",
+        "/social/art/car-backup-supplier-comparison-2.jpg",
+        "/social/art/car-backup-supplier-comparison-3.jpg",
+        "/social/art/car-backup-supplier-comparison-4.jpg",
+        "/social/art/car-backup-supplier-comparison-5.jpg",
+        "/social/art/car-backup-supplier-comparison-6.jpg"
+      ],
+      "caption": "Rank your suppliers by what stops, not only by what you spend.\n\nThen compare the contribution genuinely at risk with the annual premium of holding an alternative. Be honest about the difference between work that is lost and work that is merely postponed - they are not the same number.\n\nQualify the backup before you need it, because an untested alternative is a plan on paper. Compare more than two suppliers where you can. And give the continuity plan a trigger and an owner, so somebody acts without waiting for permission.\n\nSwipe through the six.",
+      "cta": "The full report, with the decision record, is on the Insights page.",
+      "hashtags": [
+        "#SupplyChain",
+        "#BusinessRisk",
+        "#Procurement",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
       "id": "ins-cost-cutting",
       "title": "Cost cutting without damaging the business",
-      "scheduled": "2026-10-21T05:30:00Z",
+      "scheduled": "2026-11-17T05:30:00Z",
       "approved": true,
       "url": "/insights/cost-cutting-without-damaging-the-business",
       "images": [
@@ -165,7 +493,7 @@
     {
       "id": "tool-health-check",
       "title": "Free Financial Health Check",
-      "scheduled": "2026-10-23T05:30:00Z",
+      "scheduled": "2026-11-19T05:30:00Z",
       "approved": true,
       "url": "/health-check/",
       "images": [
@@ -200,7 +528,7 @@
     {
       "id": "ins-stock-to-cash",
       "title": "You bought the stock",
-      "scheduled": "2026-10-28T05:30:00Z",
+      "scheduled": "2026-11-24T05:30:00Z",
       "approved": true,
       "url": "/insights/you-bought-the-stock",
       "images": [
@@ -234,7 +562,7 @@
     {
       "id": "ins-invoice-fraud",
       "title": "The invoice was real, the bank account was not",
-      "scheduled": "2026-10-30T05:30:00Z",
+      "scheduled": "2026-11-26T05:30:00Z",
       "approved": true,
       "url": "/insights/invoice-was-real-bank-account-wasnt",
       "images": [
@@ -268,7 +596,7 @@
     {
       "id": "car-13-week-forecast",
       "title": "Carousel — the 13-week cash flow forecast",
-      "scheduled": "2026-11-04T05:30:00Z",
+      "scheduled": "2026-12-01T05:30:00Z",
       "approved": true,
       "url": "/insights/the-13-week-cash-flow-forecast",
       "images": [
@@ -324,7 +652,7 @@
     {
       "id": "myth-growth-fixes-cash",
       "title": "Myth — growth fixes cash",
-      "scheduled": "2026-11-06T05:30:00Z",
+      "scheduled": "2026-12-03T05:30:00Z",
       "approved": true,
       "url": "/insights/can-your-business-afford-to-grow",
       "images": [
@@ -358,7 +686,7 @@
     {
       "id": "tool-90-day-test",
       "title": "Free 90-Day Test",
-      "scheduled": "2026-11-11T05:30:00Z",
+      "scheduled": "2026-12-08T05:30:00Z",
       "approved": true,
       "url": "/90-day-test/",
       "images": [
@@ -393,7 +721,7 @@
     {
       "id": "ins-sell-your-business",
       "title": "Could you actually sell your business?",
-      "scheduled": "2026-11-13T05:30:00Z",
+      "scheduled": "2026-12-10T05:30:00Z",
       "approved": true,
       "url": "/insights/could-you-actually-sell-your-business",
       "images": [
