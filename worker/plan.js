@@ -12,7 +12,7 @@
 // The 20 items, mirrored from the 90-Day Test (domain, survival flag), each with
 // a plain-English "why it matters" and the specific action to put in place.
 const ITEMS = [
-  { domain: "Decision rights & authority", survival: true, why: "Without clear approval limits, every non-routine decision funnels back to you — this is usually the single biggest source of owner-dependence.", action: "Write a one-page authority matrix: for each area, the limit each role can approve without you, what must be logged, when to escalate, and which matters are reserved (major debt, big contracts, senior hires)." },
+  { domain: "Decision rights & authority", survival: true, why: "Without clear approval limits, every non-routine decision funnels back to you — this is usually the single biggest source of owner-dependence.", action: "Write a one-page authority matrix: name one person — not a committee — who owns each area, the rand limit they can approve without you, and when they must escalate, written in plain language and not only as an amount (for example: 'you own all renewals; escalate only if a key customer wants pricing below our margin floor'). Record what must be logged and which matters stay reserved to you (major debt, big contracts, senior hires)." },
   { domain: "Decision rights & authority", survival: false, why: "If only you can step in when a call is needed, an ordinary holiday or a week off sick becomes a business risk.", action: "Name a deputy with written authority to act in your absence, and a backup for the deputy so a single absence doesn't recreate the bottleneck." },
   { domain: "Sales, quoting & pricing", survival: true, why: "When staff can't quote or discount within rules, deals stall while customers wait — and you get pulled into every negotiation.", action: "Document the price list and discount rules so staff quote and close without a 'let me ask the boss'." },
   { domain: "Sales, quoting & pricing", survival: false, why: "Ad-hoc quoting is slow and inconsistent, and warm leads go cold while they wait for you to get to them.", action: "Create pre-approved quote, contract and terms-and-conditions templates and assign lead follow-up to someone other than you." },
@@ -90,9 +90,9 @@ export function generatePlan(input) {
     {
       window: "Days 61–90", title: "Prove it, embed the rhythm, and test",
       goal: "Prove the delegated items in real conditions, stand up a weekly team-run scorecard so the business steers itself, and pressure-test the whole thing.",
-      howto: "The real test is leaving: take a few days fully off and watch what breaks. Whatever surfaces is the start of your next cycle.",
+      howto: "The real test is leaving — but prepare it: hand each area to a named stand-in with written guardrails first, then go properly out of contact. What held, what wobbled and what waited is the start of your next cycle.",
       items: p3.map(entry).concat([
-        { domain: "Continuity test", state: "", why: "The only real proof is your absence — this surfaces exactly what still depends on you, so you know what to tackle in the next cycle.", action: "Take three to five working days completely off. Log every decision or task that had to wait for you — that list becomes your next 90-day cycle." },
+        { domain: "Continuity test", state: "", why: "The only real proof is your absence — this surfaces exactly what still depends on you, so you know what to tackle in the next cycle. If the thought of being properly out of contact for three days is frightening, that feeling is itself the finding.", action: "Before you go, hand every area to a named stand-in with written guardrails. Then take at least three working days properly off — no calls, no messages, no checking in. On your return, write down three things: what held, what wobbled (it happened, but badly), and what simply waited for you. That list becomes your next 90-day cycle." },
       ]),
       empty: null,
     },
@@ -112,8 +112,9 @@ export function generatePlan(input) {
   });
   const areas = dOrder.map((dn) => {
     const lv = dMap[dn];
-    const avg = lv.reduce((a, b) => a + b, 0) / lv.length;
-    const level = Math.round(avg);
+    // Weakest item, not the average: an area with one item proven and one still
+    // waiting for the owner is not "delegated" — half of it stops when you do.
+    const level = Math.min(...lv);
     return { domain: dn, level, label: STATE_SHORT[level], proven: lv.filter((x) => x === 3).length, total: lv.length };
   });
 
