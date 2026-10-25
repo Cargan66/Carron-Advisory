@@ -478,6 +478,25 @@ async function fulfil(env, order) {
     }
   } catch (e) { /* non-critical */ }
 
+  // Best-effort: email the CUSTOMER their report + a link to view/download it (via Resend,
+  // if configured). No-op until RESEND_API_KEY is set, so safe to ship beforehand.
+  try {
+    if (env.RESEND_API_KEY && order.email) {
+      const from = env.REPORTS_FROM || "Carron reports <reports@carron.co.za>";
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from, to: order.email,
+          subject: "Your " + cfg.label + " from Carron",
+          html: "<p>Thank you — your <b>" + esc(cfg.label) + "</b> is ready.</p>"
+            + "<p>Your full report is below. You can also open it, and save it as a PDF, any time here:</p>"
+            + "<p><a href=\"" + report_url + "\">" + report_url + "</a></p><hr>" + html,
+        }),
+      });
+    }
+  } catch (e) { /* non-critical */ }
+
   // Record in the unified leads table too.
   try {
     await insertLeadRaw(env, {
