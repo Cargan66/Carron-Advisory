@@ -39,6 +39,134 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "would-your-cash-last-until-january",
+    cover: "/images/would-your-cash-last-until-january.png",
+    ogImage: "/images/would-your-cash-last-until-january.png",
+    pdf: "/articles/Carron_would_your_cash_last_until_january.pdf",
+    title: "Would Your Cash Last Until January?",
+    category: "Cash Flow",
+    excerpt:
+      "A cash plan for the weeks around a year-end shutdown. You can close in December with money in the bank and still struggle to reopen. Rent, payroll and supplier payments can arrive before the first customer receipts clear.",
+    date: "2026-11-24",
+    readTime: "7 min read",
+    author: "Carel Gangel",
+    body: `You can close in December with money in the bank and still struggle to reopen. Rent, payroll and supplier payments can arrive before the first customer receipts clear.
+
+The useful question is not whether the business expects to finish December in the black. It is how low usable cash may fall between the last reliable December receipt and the first normal collection cycle after reopening.
+
+This report gives you a way to put those dates in order, test a delayed receipt and decide who must act before the office closes.
+
+## 1. Define the cash question
+
+Start by choosing the date your forecast must reach. That is usually not the date the business reopens. It is the point when customer collections are expected to return to a normal pattern and the first ordinary receipts have cleared.
+
+A business can reopen before its cash cycle does. Staff may return, suppliers may need orders, and rent and finance payments may continue while customers are still processing invoices or waiting for their own payment run.
+
+The forecast should therefore cover the last expected customer receipts before the break, payments due during the shutdown, payroll and other scheduled obligations, the first supplier, stock or service costs needed to resume trading, and the first reliable receipts after reopening.
+
+Use cash the business can access. Reconcile the opening bank balance to the accounting records and remove amounts already committed or unavailable. Keep any overdraft or other facility separate from cash in the bank. Count a facility only when it is confirmed, drawable in time and available for the purpose you intend.
+
+## 2. Build the forecast around dates
+
+### Put receipts on the date they should clear
+
+An invoice’s due date is not the same as money in the bank. For each material receipt, ask whether the customer approved the invoice; whether there is a query, missing document or delivery sign-off; when the last payment run takes place; who can resolve an issue while your office is closed; and when funds will clear rather than merely be released.
+
+Record the best supported date. If a date is uncertain, mark it as uncertain and run a second version with the receipt later. Do not hide uncertainty inside an optimistic total.
+
+### Put every material payment on its expected date
+
+List the payments that continue while revenue slows: payroll, rent, loan instalments, supplier invoices, employer remittances and service costs. Add the purchases, stock and deposits needed to reopen. Check the dates in your own contracts, bank instructions and SARS records. The right dates depend on your business and its payment methods.
+
+Separate payments that are already committed from those management can still time or defer. Do not assume a payment can be moved just because the cash forecast is tight; check the agreement and obtain written confirmation where terms change.
+
+### Use weekly totals, then inspect tight days
+
+A weekly forecast is easier to maintain, but a weekly closing balance can hide a shortfall earlier in the week. Put large receipts and payments in date order whenever the balance comes close to the minimum the business needs.
+
+**Closing cash = opening usable cash + receipts expected to clear − payments expected to clear.**
+
+Carry each closing balance into the next period. The lowest dated balance is the point to manage. A month-end total is not enough if the business has to pay suppliers on Monday and collect from a customer on Friday.
+
+## 3. Test what happens when a receipt slips
+
+The following distributor example comes from the approved article. **All amounts and dates are illustrative, not benchmarks.**
+
+The distributor expects to finish December with R120,000 available. It has R70,000 due early in January for rent and suppliers, followed by R85,000 due for payroll-related remittances and deliveries. It expects customer receipts of R100,000 on 6 January and R90,000 on 15 January.
+
+| January event | Expected balance | R100,000 receipt late |
+|---|---:|---:|
+| Opening available cash | R120,000 | R120,000 |
+| 4 January — pay R70,000 | R50,000 | R50,000 |
+| 6 January — first receipt expected | R150,000 | R50,000 |
+| 7 January — pay R85,000 | R65,000 | –R35,000 |
+| 15 January — receive R90,000 and any delayed receipt | R155,000 | R155,000 |
+
+In the expected case, the balance after the 7 January payment is R65,000. If the R100,000 receipt moves to 15 January, the balance on 7 January is negative R35,000. Both cases finish at R155,000, but the delayed case has an unfunded gap when the payment falls due.
+
+If the distributor wants to keep R20,000 available for unexpected outflows, the delayed case needs R55,000 of additional cash or a change to the timing of payments. The R20,000 is an assumption in this example, not a recommended buffer for other businesses.
+
+This is why a forecast should test the date of the biggest uncertain receipt, not just reduce the total expected sales. A receipt that arrives after the cash low point may not prevent a missed payment.
+
+## 4. Choose an action that closes the actual gap
+
+When the forecast shows a low point below the business’s minimum, identify the cause before choosing a response.
+
+If a customer receipt is uncertain, assign someone to confirm the customer’s payment date, invoice approval and any unresolved issue before the customer closes. Record the next follow-up date and person responsible.
+
+If supplier payments come first, review which dates are contractual and which can be changed by agreement. Record any new timing in writing and update the forecast.
+
+If a purchase can wait, check whether it is essential to fulfil confirmed work or reopen safely. Delaying stock may protect cash but create a service or delivery problem. Compare the cash released with the cost and risk of waiting.
+
+If the business needs funding, check the facility amount, conditions, availability date, remaining headroom and repayment terms. A facility that has not been approved, is not drawable during the break or is already committed elsewhere does not close the forecast gap. Discuss funding decisions with the lender or a suitably qualified adviser.
+
+Set the minimum cash balance explicitly. There is no single buffer that fits every SME. Start with payments that cannot be moved before the next dependable receipt, then add a contingency that management can explain. Record the minimum and compare it with the lowest balance in both cases.
+
+**Cash gap to cover = minimum cash required − lowest forecast cash balance**, when the lowest balance is below the minimum. This is a planning signal, not automatic authority to borrow.
+
+## 5. Agree the plan before closing
+
+Before the last working day:
+
+1. Confirm the largest December and January receipts with customers.
+2. Resolve invoice approvals, delivery notes and disputes before payment runs close.
+3. Verify payroll, supplier, loan, rent, tax and bank dates against the records that apply to the business.
+4. Record any supplier date changes and update the forecast.
+5. Confirm banking access, payment approvals and backup signatories.
+6. Name who will check the balance and update the forecast during the break.
+7. Set a trigger date for action if an important receipt remains unconfirmed.
+8. Reforecast when a material date changes; do not wait for the next month-end pack.
+
+Management should be able to answer: What is the lowest balance and date? What has to happen before then? Who owns each action? When will the position be reviewed again?
+
+## Year-end cash planning sheet
+
+Fill this in from today through the first normal collection cycle after reopening. In a tight period, list each large receipt and payment by date.
+
+| Week or date | Opening cash | Receipts expected to clear | Payments due | Closing cash |
+|---|---:|---:|---:|---:|
+|  |  |  |  |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
+
+Closing cash = opening cash + receipts − payments. Carry it into the next row. Duplicate the forecast and move the largest uncertain receipt to a later date.
+
+| Decision | Record here |
+|---|---|
+| Lowest balance and date — expected case |  |
+| Lowest balance and date — delayed-receipt case |  |
+| Minimum cash required |  |
+| Gap below the minimum |  |
+| Action, owner and deadline |  |
+| Next review date and person responsible |  |
+
+A forecast cannot guarantee that every receipt will arrive on the date expected. It can show where the plan depends on one, and give management time to respond before the payment is due.
+
+This is a general management tool. Confirm the obligations and dates that apply to your business with your payroll, tax or accounting adviser.
+
+Want a second read on your numbers? [Run the free Financial Health Check](/health-check/), see [what a CFO adds](/services), or [book a call](/contact).`,
+  },
+  {
     slug: "backup-supplier-comparison",
     cover: "/images/backup-supplier-comparison.png",
     ogImage: "/images/backup-supplier-comparison.png",
