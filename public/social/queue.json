@@ -526,44 +526,10 @@
       "shortUrl": "carron.co.za/health-check"
     },
     {
-      "id": "ins-stock-to-cash",
-      "title": "You bought the stock",
-      "scheduled": "2026-11-24T05:30:00Z",
-      "approved": true,
-      "url": "/insights/you-bought-the-stock",
-      "images": [
-        "/social/art/ins-stock-to-cash-1.jpg"
-      ],
-      "slides": [
-        {
-          "eyebrow": "Cash flow",
-          "headline": "You bought the stock. Can you turn it back into cash?",
-          "body": "Stock that does not move is not inventory. It is cash you have already spent, sitting on a shelf, quietly costing you more every month.",
-          "bg": "retail-pricing.jpg"
-        }
-      ],
-      "caption": "Stock is the easiest asset in an SME to overvalue, because the balance sheet carries it at what you paid rather than what you can get.\n\nThree questions worth asking this month:\n\nWhich lines have not moved in 90 days? Those are the ones funding your overdraft.\n\nWhat would you actually accept today to clear them? That number — not cost — is the honest value.\n\nWhat did you learn about how you buy? Most stock problems are purchasing decisions that have not been revisited.\n\nClearing slow stock at a discount usually beats holding it at full price. The discount is visible. The holding cost is not.",
-      "cta": "The full piece is on the Insights page.",
-      "hashtags": [
-        "#Inventory",
-        "#CashFlow",
-        "#WorkingCapital",
-        "#SMESouthAfrica",
-        "#BusinessOwner",
-        "#SouthAfricanBusiness",
-        "#FractionalCFO",
-        "#BusinessAdvisory",
-        "#SmallBusinessSA",
-        "#Retail"
-      ],
-      "artwork": "supplied",
-      "shortUrl": "carron.co.za/insights"
-    },
-    {
       "id": "art-would-your-cash-last-until-january",
       "title": "Would your cash last until January?",
       "scheduled": "2026-11-24T05:30:00Z",
-      "approved": false,
+      "approved": true,
       "url": "/insights/would-your-cash-last-until-january",
       "shortUrl": "carron.co.za/insights",
       "artwork": "supplied",
@@ -591,38 +557,55 @@
       ]
     },
     {
-      "id": "ins-invoice-fraud",
-      "title": "The invoice was real, the bank account was not",
+      "id": "car-would-your-cash-last-until-january",
+      "title": "Carousel - would your cash last until January?",
       "scheduled": "2026-11-26T05:30:00Z",
       "approved": true,
-      "url": "/insights/invoice-was-real-bank-account-wasnt",
+      "url": "/insights/would-your-cash-last-until-january",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
       "images": [
-        "/social/art/ins-invoice-fraud-1.jpg"
+        "/social/art/car-would-your-cash-last-until-january-1.jpg",
+        "/social/art/car-would-your-cash-last-until-january-2.jpg",
+        "/social/art/car-would-your-cash-last-until-january-3.jpg",
+        "/social/art/car-would-your-cash-last-until-january-4.jpg",
+        "/social/art/car-would-your-cash-last-until-january-5.jpg",
+        "/social/art/car-would-your-cash-last-until-january-6.jpg"
       ],
-      "slides": [
-        {
-          "eyebrow": "Risk",
-          "headline": "The invoice was real. The bank account wasn’t.",
-          "body": "Payment redirection fraud does not break into your systems. It waits for a supplier to email new banking details, and for one person to be too busy to check.",
-          "bg": "insights-desk.jpg"
-        }
-      ],
-      "caption": "This is the fraud that is hitting South African SMEs hardest right now, and it needs no hacking at all.\n\nA genuine supplier invoice arrives. The amount is right, the reference is right, the logo is right. Only the banking details have changed — and the email asking for the change looks exactly like the ones before it.\n\nThe control that stops it costs nothing: no change of banking details is ever actioned from an email. You phone a number you already hold, not the number in the message, and you confirm with a person you have spoken to before.\n\nPut it in writing, tell the person who pays, and make it a rule that cannot be overridden by urgency.",
-      "cta": "The full piece is on the Insights page.",
+      "caption": "Six checks before the office closes for December.\n\nStart with the dates, not the balance: the last reliable receipt before the shutdown, and the first normal collection after reopening. A due date is not cash in the bank - check invoice approval, the customer's payment run and when funds actually clear.\n\nThen list what leaves anyway. Rent, payroll, debit orders and supplier terms do not pause because the office is shut. Test one delayed receipt: if the largest payment due in that window slips two weeks, does the plan still hold?\n\nDecide who can act while you are away, and what they are allowed to approve without you.\n\nSwipe through the six.",
+      "cta": "The full report, with the cash timeline, is on the Insights page.",
       "hashtags": [
-        "#FraudPrevention",
-        "#BusinessRisk",
+        "#CashFlow",
+        "#YearEnd",
+        "#WorkingCapital",
+        "#FractionalCFO",
         "#SMESouthAfrica",
         "#BusinessOwner",
         "#SouthAfricanBusiness",
-        "#InternalControls",
-        "#FractionalCFO",
         "#BusinessAdvisory",
         "#SmallBusinessSA",
-        "#CyberSecurity"
+        "#CFOServices"
       ],
-      "artwork": "supplied",
-      "shortUrl": "carron.co.za/insights"
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
     },
     {
       "id": "car-13-week-forecast",
@@ -779,6 +762,74 @@
         "#BusinessAdvisory",
         "#SmallBusinessSA",
         "#SuccessionPlanning"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
+    },
+    {
+      "id": "ins-stock-to-cash",
+      "title": "You bought the stock",
+      "scheduled": "2026-12-15T05:30:00Z",
+      "approved": true,
+      "url": "/insights/you-bought-the-stock",
+      "images": [
+        "/social/art/ins-stock-to-cash-1.jpg"
+      ],
+      "slides": [
+        {
+          "eyebrow": "Cash flow",
+          "headline": "You bought the stock. Can you turn it back into cash?",
+          "body": "Stock that does not move is not inventory. It is cash you have already spent, sitting on a shelf, quietly costing you more every month.",
+          "bg": "retail-pricing.jpg"
+        }
+      ],
+      "caption": "Stock is the easiest asset in an SME to overvalue, because the balance sheet carries it at what you paid rather than what you can get.\n\nThree questions worth asking this month:\n\nWhich lines have not moved in 90 days? Those are the ones funding your overdraft.\n\nWhat would you actually accept today to clear them? That number — not cost — is the honest value.\n\nWhat did you learn about how you buy? Most stock problems are purchasing decisions that have not been revisited.\n\nClearing slow stock at a discount usually beats holding it at full price. The discount is visible. The holding cost is not.",
+      "cta": "The full piece is on the Insights page.",
+      "hashtags": [
+        "#Inventory",
+        "#CashFlow",
+        "#WorkingCapital",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#Retail"
+      ],
+      "artwork": "supplied",
+      "shortUrl": "carron.co.za/insights"
+    },
+    {
+      "id": "ins-invoice-fraud",
+      "title": "The invoice was real, the bank account was not",
+      "scheduled": "2026-12-17T05:30:00Z",
+      "approved": true,
+      "url": "/insights/invoice-was-real-bank-account-wasnt",
+      "images": [
+        "/social/art/ins-invoice-fraud-1.jpg"
+      ],
+      "slides": [
+        {
+          "eyebrow": "Risk",
+          "headline": "The invoice was real. The bank account wasn’t.",
+          "body": "Payment redirection fraud does not break into your systems. It waits for a supplier to email new banking details, and for one person to be too busy to check.",
+          "bg": "insights-desk.jpg"
+        }
+      ],
+      "caption": "This is the fraud that is hitting South African SMEs hardest right now, and it needs no hacking at all.\n\nA genuine supplier invoice arrives. The amount is right, the reference is right, the logo is right. Only the banking details have changed — and the email asking for the change looks exactly like the ones before it.\n\nThe control that stops it costs nothing: no change of banking details is ever actioned from an email. You phone a number you already hold, not the number in the message, and you confirm with a person you have spoken to before.\n\nPut it in writing, tell the person who pays, and make it a rule that cannot be overridden by urgency.",
+      "cta": "The full piece is on the Insights page.",
+      "hashtags": [
+        "#FraudPrevention",
+        "#BusinessRisk",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#InternalControls",
+        "#FractionalCFO",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CyberSecurity"
       ],
       "artwork": "supplied",
       "shortUrl": "carron.co.za/insights"
