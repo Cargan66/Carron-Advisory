@@ -560,6 +560,37 @@
       "shortUrl": "carron.co.za/insights"
     },
     {
+      "id": "art-would-your-cash-last-until-january",
+      "title": "Would your cash last until January?",
+      "scheduled": "2026-11-24T05:30:00Z",
+      "approved": false,
+      "url": "/insights/would-your-cash-last-until-january",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-would-your-cash-last-until-january-1.jpg"
+      ],
+      "caption": "You can close in December with money in the bank and still struggle to reopen.\n\nRent, payroll and supplier payments arrive on their own schedule over the shutdown. Customer receipts do not. The gap between the last reliable December payment in and the first normal collection after reopening is where owner-managed businesses get caught.\n\nThe question is not whether you finish December in the black. It is how low usable cash falls in those weeks, and whether one delayed receipt is enough to make the difference.\n\nThis week's report sets out how to put those dates in order, test what happens if a big receipt slips, and decide who can act while the office is closed.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#CashFlow",
+        "#YearEnd",
+        "#WorkingCapital",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
       "id": "ins-invoice-fraud",
       "title": "The invoice was real, the bank account was not",
       "scheduled": "2026-11-26T05:30:00Z",
