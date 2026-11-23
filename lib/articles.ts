@@ -39,6 +39,276 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "january-forecast-can-you-deliver",
+    cover: "/images/january-forecast-can-you-deliver.png",
+    ogImage: "/images/january-forecast-can-you-deliver.png",
+    pdf: "/articles/Carron_january_forecast_can_you_deliver.pdf",
+    title: "January’s Sales Forecast Looks Good. Can You Deliver It?",
+    category: "Growth",
+    excerpt:
+      "Turn a promising sales number into an order, capacity and cash plan before promising delivery. A January forecast can look reassuring in December. But a forecast does not confirm that customers ordered, materials will arrive, production slots are free or the business can fund work before payment.",
+    date: "2026-12-15",
+    readTime: "7 min read",
+    author: "Carel Gangel",
+    body: `A January forecast can look reassuring in December. But a forecast does not confirm that customers ordered, materials will arrive, production slots are free or the business can fund work before payment. The gap between a forecast and executable delivery is where customer trust and cash can be lost.
+
+South African businesses operate on different December schedules. Use the planning window available to your business; do not assume every customer or supplier closes at the same time.
+
+## 1. Split the forecast by commitment
+
+Start with named customers and expected dates. Separate firm purchase orders from agreed but unconfirmed work, recurring demand based on history and sales hopes. Record evidence for each line. A verbal indication can be worth pursuing, but it is neither a confirmed order nor booked revenue.
+
+For each likely order, work backward from promised delivery: final specification, approved quote, materials, staff and machine capacity, quality checks, transport and customer acceptance. Put a latest decision date beside each dependency. A four-week supplier lead time cannot be repaired by making a decision three weeks before delivery.
+
+Give the statuses operational meaning. “Confirmed” means the customer has committed under the relevant process and the team has checked the details needed to start. “Conditional” means a material decision is still missing, such as signed specifications or a customer's approval. “Opportunity” means there is a plausible sale but no commitment. None of these labels alone decides revenue recognition; the point is to avoid using the same certainty and delivery promise for very different evidence.
+
+Sales should record the customer's requested date separately from the date operations can defend. If an important customer has only offered an estimate, ask when a firm quantity and specification will be available. Forecast uncertainty is normal. Concealing it inside a single total prevents the team from reserving capacity and cash sensibly.
+
+## 2. Find the constraint
+
+**Illustrative example — not a benchmark.** David Morgan expects 120 units in January at R5,000 each, or R600,000 potential sales. Marcus Reed, operations manager, can identify materials and capacity for only 80 units in the delivery window. Leila Hassan, finance manager, separates the forecast from the presently executable plan: 80 units represent R400,000 potential revenue, subject to firm orders and successful delivery. The other 40 represent R200,000 of opportunity needing a workable plan.
+
+| Planning question | Illustrative answer |
+|---|---:|
+| Forecast | 120 × R5,000 = R600,000 |
+| Units currently supported | 80 × R5,000 = R400,000 potential sales |
+| Units needing a plan | 40 × R5,000 = R200,000 opportunity |
+| Upfront cash for 80 units at R3,000 each | R240,000 |
+| Additional cash for 40 units | R120,000 |
+
+The 80 units are not guaranteed revenue, and the 40 need not be abandoned. Marcus must identify whether material, machine time, a specialist step or delivery slots constrain them and the earliest credible date for more. All figures are invented, exclude VAT and omit fixed overhead, returns and financing costs.
+
+### Find the real bottleneck
+
+Marcus should measure the capacity of the constrained step in the relevant delivery window, not the factory's broad monthly output. A machine may be free while the specialist finishing step is fully booked. Material may be on hand but still need inspection. A delivery vehicle might carry 80 units on time only if packaging is ready two days earlier. Write down the step, required quantity, available quantity, earliest release date and owner of the decision.
+
+If the remaining 40 units can be made by outsourcing, a second shift or an alternative material, test the cost, quality, approval and timing of that specific option. A feasible production workaround may reduce contribution or require the customer's acceptance. Do not turn a possible workaround into a promised date until each dependency is confirmed. Employment arrangements and legal obligations need specialist advice; the financial test cannot settle them.
+
+Where the same step serves several products, compare the contribution each order earns *per unit of constrained capacity*, together with commitments and relationship consequences. A high selling price can be a poor use of a scarce hour if its extra processing consumes most of the margin. Equally, a lower-contribution order may carry a contractual obligation that cannot simply be displaced. Escalate the trade-off to a named owner instead of leaving the production team to choose by who shouts loudest.
+
+## 3. Check contribution and funding
+
+An executable order also needs commercial sense. Calculate price less current variable costs of materials, outside processing, packing, delivery and any extra capacity. A rush or outsourced option may have different contribution. If a supplier requires cash upfront, put the payment on its actual date in the cash forecast. Put the customer receipt on a realistic date that reflects acceptance and terms.
+
+In the example, 80 units require R240,000 before collection. Another 40 require R120,000 *and* the missing capacity on the stated cost assumption. The R5,000 sale price does not fund today's payment. If extra capacity changes unit cost, redo contribution before promising the work. This is finance and operations planning, not employment or labour-law advice.
+
+Leila should show the cash requirement by week. Suppose material for the 80 units must be paid in late December, production occurs in January and the customer pays in February. The forecast may be profitable but the early cash need still arrives before the sale is collected. These dates are hypothetical; use actual supplier terms, tax treatment, deposits, customer acceptance and payment history. A customer's deposit can help only if it is agreed and actually received before the supplier payment is due.
+
+Some businesses have stock already paid for. That changes the immediate cash outflow but not the economic cost of consuming stock or the question of replenishment. Others can obtain credit from suppliers, which shifts the date rather than removes the obligation. Compare the funding peak with the facility available. If taking an order consumes all headroom, a smaller, staged delivery or different payment arrangement may be wiser than the apparently larger sale.
+
+## 4. Make promises from a shared readiness table
+
+Sales, operations and finance should review one row per meaningful order:
+
+| Order | Evidence and proposed date | Constraint and latest decision | Contribution and cash | Owner |
+|---|---|---|---|---|
+| Customer A | Purchase order; January date | Confirm material and slot by cut-off | Reprice using current quote; note deposit | Marcus and Leila |
+| Customer B | Verbal acceptance; date proposed | Written specification and capacity pending | Provisional estimate only | David |
+
+When demand exceeds capacity, choose consciously: which orders are confirmed, which earn enough after extra costs, which consume the constrained step, and which customers could accept another date? Record and communicate a credible commitment. Update the table as circumstances change.
+
+### Decide early enough to change the outcome
+
+For each line, set a latest decision date that leaves time to obtain materials and perform the work. If it passes without customer confirmation, release the reserved slot according to a clear rule and tell the relevant salesperson. If a supplier's quoted price expires first, renew the contribution calculation before accepting the order. This protects both the customer relationship and the economics of delivery.
+
+Have Marcus confirm physical capacity, Leila confirm contribution and peak cash, and David approve any exception to the agreed promise or margin threshold. The roles should meet around one dated table, not exchange different versions of a forecast. When the answer is “we can deliver later”, give the customer a defensible date and document acceptance rather than silently keeping the original date in the sales plan.
+
+After delivery, compare forecast with actual orders, units, rush costs, rework and collections. Identify whether the missed assumption was demand, a supplier lead time, the constrained step or customer payment. Carry that learning into the next forecast instead of treating the January exercise as a once-a-year ritual.
+
+## Questions management should ask
+
+1. Which forecast lines are firm orders, and what supports the rest?
+2. What is the first bottleneck for each delivery date?
+3. What contribution remains after rush, outsourced or delivery costs?
+4. When must cash leave and when can it realistically return?
+5. By what date must the customer receive a firm answer?
+
+## A practical January test
+
+Take the ten largest forecast lines. Mark each confirmed, conditional or opportunity. Add the constraint, latest decision date, current contribution, upfront cash and named owner. Total the sales value of orders genuinely executable in the proposed window. Keep the remainder visible as opportunities with a plan rather than quietly counting them as delivered sales.
+
+This article is general business and financial education. Verify contractual commitments and seek qualified advice on legal or employment matters.`,
+  },
+  {
+    slug: "interest-rate-same-borrowing-risk",
+    cover: "/images/interest-rate-same-borrowing-risk.png",
+    ogImage: "/images/interest-rate-same-borrowing-risk.png",
+    pdf: "/articles/Carron_interest_rate_same_borrowing_risk.pdf",
+    title: "The Interest Rate Stayed the Same. Has Your Borrowing Risk?",
+    category: "Funding",
+    excerpt:
+      "An unchanged policy rate does not freeze the balance borrowed, facility headroom or cash needed to service debt. The South African Reserve Bank kept its policy rate at 7.25% in November 2026. An owner with an overdraft might hear “no change” and set borrowing aside.",
+    date: "2026-12-08",
+    readTime: "6 min read",
+    author: "Carel Gangel",
+    body: `The South African Reserve Bank kept its policy rate at 7.25% in November 2026. An owner with an overdraft might hear “no change” and set borrowing aside. Yet the balance, bank pricing and fees, facility limit, payment dates and collections determine whether there is enough room to trade. The policy decision says nothing by itself about an individual business's contract.
+
+## 1. Put the commitments on one page
+
+List each overdraft, revolving facility, term loan and asset-finance agreement. Record the authorised limit, current draw, contractual rate basis and margin, fees, principal payments, security, renewal date and reporting conditions. Use the signed agreement and latest bank statement. Do not infer a firm's all-in borrowing rate from the repo rate.
+
+An overdraft may be below its limit today but exceed it at the month's peak. Stock, payroll, tax and supplier payments may come before debtors settle. A term loan needs principal as well as interest. A renewal may require updated accounts and forecasts even without a missed instalment.
+
+Keep facilities separate before adding them. A term-loan instalment cannot necessarily be paid from an overdraft without worsening that overdraft's peak. A vehicle-finance instalment falls on its contractual date even when customers pay late. Distinguish an approved limit from cash actually available under its conditions. Record security and guarantees so owners understand the commitments they signed, while leaving interpretation of their legal effect to advisers.
+
+Leila should reconcile the schedule to bank statements each month. A model built from last quarter's limit or rate margin can look precise while being stale. Identify temporary limits, expiry dates and draws requiring separate approval. If a facility is earmarked for a specific purpose, check its agreement instead of treating it as interchangeable cash.
+
+## 2. Calculate the peak, not the average
+
+**Illustrative example — not a benchmark.** Leila Hassan, finance manager, brings owner David Morgan a facility schedule. An assumed R2.5 million limit and R2.2 million expected peak draw leave R300,000 headroom. If a R400,000 customer receipt arrives after the peak rather than before it, the peak draw rises to R2.6 million, or R100,000 beyond the limit, unless another inflow, spending change or approved facility is available.
+
+| Peak test | Illustrative amount |
+|---|---:|
+| Authorised limit | R2,500,000 |
+| Expected peak draw | R2,200,000 |
+| Initial headroom | R300,000 |
+| Delayed receipt | R400,000 |
+| Revised peak draw | R2,600,000 |
+| Gap above limit | R100,000 |
+
+This is a timing scenario. It does not say the customer's debt is bad or that the bank will increase its limit. Check actual dates and whether more than one receipt might move together.
+
+### Test a range of collection dates
+
+An aged debtor balance is not a receipt schedule. Start with promised dates, recent payment behaviour, disputes and each customer's approval steps. For the largest receipts, show both an expected date and a plausible delayed date. If the forecast depends on one R400,000 payment to stay within the facility, make that dependence visible to David. Move a promised collection into the confirmed case only when the evidence supports it.
+
+Run another stress beside the single late receipt: two major customers pay a week later, or stock must be purchased earlier to secure delivery. Use plausible combinations with actual dates, rather than mechanically adding every worst case. Compare the peak with the authorised limit *and* a working buffer for forecast error. A forecast ending R10,000 below a R2.5 million ceiling is not comfortable merely because it is technically below the limit.
+
+Begin the 13-week cash view with the actual bank balance and drawn debt. Separate confirmed receipts from expectations. Date payroll, tax, supplier commitments, debt service and necessary stock purchases realistically. Each week replace the prior forecast with actual cash and explain material differences. That discipline makes a later lender discussion more credible.
+
+## 3. Separate interest from the full obligation
+
+At an *illustrative all-in annual rate* of 11%, a constant R2 million balance implies R220,000 interest over a year, or roughly R18,333 per month on a simple 12-month average. Actual interest varies with daily balances, day-count rules and the agreement. Fees and scheduled principal are additional.
+
+A further R400,000 drawn for 30 days at 11% would add about R3,616 interest on a 365-day basis (R400,000 × 11% × 30/365), before fees. A late receipt therefore affects both headroom and cost. Use the bank's records to budget actual payments, not this illustration.
+
+Ask whether realistic operating cash after essential outlays covers principal and interest on the dates due, including slower collections. Accounting profit is not the cash available that day. A single average coverage ratio can hide a seasonal peak or a large owner withdrawal.
+
+Consider a downside on costs too. If stock bought on credit becomes payable before the customer receipt, the overdraft may need to fund the full working-capital gap. If short-term borrowing carries slow stock for months, an unchanged rate does not solve the conversion problem. Review stock, debtor and creditor timing together, respecting agreed supplier terms. Simply delaying an essential supplier payment can damage the next month's deliveries.
+
+Interest paid keeps a loan current but does not reduce principal. A term-loan instalment may include principal; an overdraft may remain drawn unless operating cash releases it. Show both in the cash forecast. Stress owner distributions and capital purchases separately so their effect on headroom is visible before they are approved.
+
+## 4. Discuss a foreseeable gap with evidence
+
+Check renewal timing, information the lender requires and the actual rate, fee and covenant terms. A policy-rate announcement does not amend a particular agreement. If the stress test shows a gap, prepare a weekly cash forecast, aged debtors, stock plan, order pipeline and management accounts. An increased limit remains a request until confirmed in writing.
+
+Other choices may include collecting a valid debt sooner, changing a discretionary purchase date or staggering orders. Each has a commercial cost. Do not assume a customer or supplier will change terms without agreement.
+
+### Prepare a useful lender conversation
+
+“We may need more money” is hard to assess. A better explanation shows the date and size of the peak, the orders or stock behind it, debtor evidence, what management has changed and how the draw should unwind. State the requested limit and duration. Take current management accounts and a short bridge from profit to cash so the lender can see why a profitable business needs temporary funding.
+
+The lender may request information, propose different terms or security, or decline. Prepare for that possibility early. Responses might include deferring a discretionary purchase, changing a delivery sequence with customer agreement or choosing orders that use less cash. Compare the lost contribution and relationship effects with the cost of funding; none is painless. Name the decision owner and deadline.
+
+Monitor triggers rather than wait for an annual review: minimum headroom, an overdue major receipt, a missed forecast date or an approaching renewal. Each trigger should cause a named action. Review the forecast weekly through the pressure period and return to normal cadence only after actual cash catches up.
+
+## Questions management should ask
+
+1. What is the highest projected daily or weekly draw in the next 13 weeks?
+2. Which receipts are concentrated in a few customers, and what happens if they move?
+3. What are the actual margin, fees, capital dates and renewal conditions?
+4. How much cash remains for debt service in a slower collection case?
+5. Who owns the lender discussion and the evidence supporting it?
+
+## A facility check for this week
+
+Build a 13-week view of beginning debt, cash in, essential cash out, ending debt and unused facility. Run a delayed-debtor case. Mark the first week headroom breaches the business's chosen buffer or authorised limit, and act before it. Reconcile the forecast to bank records and the agreement whenever it changes.
+
+For the first review, Leila can take the next three months of customer invoices, expected orders and supplier commitments and mark every large amount as confirmed or estimated. David should challenge the five receipts on which the lowest-headroom week depends. If the same week's projected balance changes substantially when one date moves, it is a management decision now, even though the account remains within its limit today. The resulting plan is useful whether rates rise, fall or stay unchanged.
+
+This article provides general financial education. Check facility terms and covenants with the lender and a qualified adviser.`,
+  },
+  {
+    slug: "costs-increased-prices-same",
+    cover: "/images/costs-increased-prices-same.png",
+    ogImage: "/images/costs-increased-prices-same.png",
+    pdf: "/articles/Carron_costs_increased_prices_same.pdf",
+    title: "Your Costs Have Increased. Can Your Prices Stay the Same?",
+    category: "Profitability",
+    excerpt:
+      "A price review starts with contribution, customer behaviour and cash, not a headline inflation rate. A supplier sends a revised price list. Fuel, packaging or freight also costs more.",
+    date: "2026-12-01",
+    readTime: "7 min read",
+    author: "Carel Gangel",
+    body: `A supplier sends a revised price list. Fuel, packaging or freight also costs more. Adding the latest inflation percentage to every selling price may leave the products with the greatest cost pressure underpriced and put other sales at risk unnecessarily.
+
+Statistics South Africa reported annual consumer inflation of 5.2% in October 2026, up from 4.5% in September. Its September producer price index for final manufactured goods rose 6.2% over a year. These are national baskets. Neither tells you how much the inputs to *your* next order have changed.
+
+## 1. Find the contribution you are protecting
+
+For each significant product, customer group or service package, start with the selling price and costs that change when you make another sale. Materials, bought-in services, delivery and transaction fees may belong here. Use costs applicable to the next order, not only the average paid for old stock. Keep VAT treatment consistent on both sides.
+
+**Contribution per unit = selling price less variable cost per unit.** It helps pay fixed costs and, after those costs, profit. A positive contribution may still be too little to justify scarce capacity or the cash tied up in a job. Returns, rework and service obligations can change the answer. Do not arbitrarily allocate every overhead to units and mistake the result for a precise minimum price; separately ask whether total contribution covers fixed costs.
+
+## 2. Be clear about what “restore the margin” means
+
+**Illustrative example — not a benchmark.** David Morgan owns a South African manufacturing business. Leila Hassan, his finance manager, and Nomsa Dlamini, his sales manager, review a line sold for R1,000 excluding VAT. Its variable cost was R700, leaving R300 contribution, or 30% of sales. The next batch costs R760. At the old selling price, contribution is R240 and the percentage margin 24%. Nomsa brings recent customer quotations and asks which buyers could switch products, defer orders or negotiate a smaller package.
+
+| Decision | Calculation | Outcome |
+|---|---:|---:|
+| Keep the price | R1,000 − R760 | R240 contribution; 24% margin |
+| Restore R300 contribution | R760 + R300 | R1,060 price; 28.3% margin |
+| Restore 30% margin | R760 ÷ (1 − 0.30) | R1,085.71 price |
+
+Adding R60 restores the *rand* contribution, but not the *percentage* margin. A 6% rise happens to do that for this example; it is no catalogue-wide rule. These amounts exclude VAT and assume the cost and volume otherwise stay the same.
+
+Test volume as well. At the old price, 100 units at R240 contribute R24,000. At R1,060, 75 units at R300 contribute R22,500. This invented comparison omits fixed-cost changes and alternative uses of capacity, but shows why a higher unit contribution need not mean a better overall result.
+
+## 3. Choose the customer-facing change
+
+One line may warrant a price rise; another may need a revised minimum order, delivery charge, specification or service scope. A third may be kept at lower contribution for a reason such as a broader profitable relationship or otherwise idle capacity. Nomsa should distinguish what customers actually said from her team's estimate of likely volume, while Leila calculates the consequences of each case. David records the decision and review date. Check quotations, contracts and customer notice terms before changing agreed prices. Seek qualified legal advice if the terms are uncertain.
+
+For work delivered months after quotation, keep supplier quotes and expiry dates with the pricing calculation. Decide who can approve exceptions. Recheck when a large order changes materials, delivery or payment terms.
+
+### Look at the mix, not just one SKU
+
+Averages can conceal the problem. A product family may look healthy because one high-volume line subsidises another with expensive delivery or repeated rework. Rank products or customers by total contribution, then examine the lines where current costs, service effort or payment terms differ most from the original quote. A small price increase on a large, stable line can matter more than a dramatic increase on a rarely sold line; the reverse can be true when the rare line blocks valuable capacity.
+
+For services, identify the actual unit being sold. If a monthly fee includes site visits, helpdesk time and consumables, calculate the cost and workload of the package the customer is actually using. A lower-cost service tier may solve the customer's budget problem more honestly than keeping the same promise at a price that cannot support it. Do not remove an agreed element without checking the contract and explaining the change.
+
+### Estimate the volume you can afford to lose
+
+Where capacity and fixed costs are unchanged, divide the old total contribution by the proposed contribution per unit. In David's example, 100 units at R240 produce R24,000. At R300 per unit, 80 units produce the same total contribution. If a price increase from R1,000 to R1,060 would reduce volume below 80, the proposal needs another reason to proceed, such as releasing capacity for more profitable work. This is a break-even *volume for total contribution*, not a reliable forecast of customer behaviour.
+
+Now question the assumptions. Could competitors replace you? Will a buyer order fewer units or simply change the timing? Does the product bring other profitable purchases? If volumes drop, do any genuinely variable costs fall, or do you still carry the same stock and labour commitments? Test at least a base case, a modest loss of volume and a severe loss. Record the evidence behind each, instead of selecting a convenient percentage.
+
+## 4. Test the cash timing
+
+A price rise can improve reported margin while leaving a cash squeeze. If a supplier needs a deposit now and the customer pays 60 days after delivery, the higher eventual selling price does not fund today's deposit. Compare each option's contribution and the dates cash leaves and returns.
+
+Suppose David's supplier requires R76,000 for 100 units before manufacture, while the customer pays after delivery. A R60 price increase across those 100 units would produce R6,000 more receipts eventually, assuming all sell and pay. It does not create the R76,000 needed first. The example is deliberately simple; actual stock purchases, VAT, deposits and customer collections must be placed on a dated cash forecast. If demand falls, unsold goods may tie up even more cash than the margin calculation suggests.
+
+Before accepting a large order at a revised price, Leila can set out three dates: when the supplier must be paid, when delivery can occur and when the customer is expected to pay. A price review that ignores those dates may improve the income statement while worsening an overdraft peak. Payment terms, staged delivery or a deposit could alter the picture, but only if the other parties agree and the resulting contribution still works.
+
+### Roll out the decision and measure it
+
+Do not announce a single percentage before Nomsa has identified which quotes are open, which customers have fixed terms and which orders need individual negotiation. Give her sales team a short decision record: the affected product or package, effective date, permitted exceptions, owner of approval and the reason for the change. Ask them to record a lost-order reason rather than assume every refusal was caused by price. At the next review, Nomsa brings actual order and objection data; Leila checks realised contribution and the effect on collections.
+
+After a month or an appropriate order cycle, compare actual units, realised prices, discounts, new variable costs and total contribution against the cases used in the decision. Check debtor days and disputes too. A rise that looked successful on quotations can be eroded by informal discounts, extra service or slower payment. If the result differs, decide whether to revise price, scope, costs or the customer mix rather than quietly carry the old assumption forward.
+
+| Review item | Evidence | Decision to record |
+|---|---|---|
+| Current price and cost | Latest supplier quote, freight, fees and waste | Price or scope change |
+| Contribution | Rand and percentage, at realistic volume | Acceptable outcome |
+| Customer response | Alternatives, volume, terms and notice | Test or negotiation |
+| Cash | Supplier payment and customer collection | Funding or terms |
+| Ownership | Exception authority | Review date and trigger |
+
+## Questions management should ask
+
+1. Which next-order costs have changed, and which changes are assumptions?
+2. Are we restoring rand contribution, percentage margin or total contribution after volume effects?
+3. Which lines consume scarce capacity or cash before collection?
+4. What price, quality and delivery commitments already exist?
+5. Who will check actual sales and margin after the decision?
+
+## A decision for this week
+
+Choose three high-volume or high-cost lines. Recalculate their next-order costs and both contribution measures. Record a price, scope or deliberate no-change decision, the customer and cash assumptions behind it, and a review date. No national inflation percentage replaces that work.
+
+This article is general business and financial education. Contract and tax questions require advice suited to the particular business.`,
+  },
+  {
     slug: "would-your-cash-last-until-january",
     cover: "/images/would-your-cash-last-until-january.png",
     ogImage: "/images/would-your-cash-last-until-january.png",

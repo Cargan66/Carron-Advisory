@@ -608,9 +608,255 @@
       ]
     },
     {
+      "id": "art-costs-increased-prices-same",
+      "title": "Your costs have increased. Can your prices stay the same?",
+      "scheduled": "2026-12-01T05:30:00Z",
+      "approved": true,
+      "url": "/insights/costs-increased-prices-same",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-costs-increased-prices-same-1.jpg"
+      ],
+      "caption": "A supplier revises its price list. Fuel and freight cost more. Someone suggests adding the latest inflation number to every selling price.\n\nIt sounds tidy. It can leave the lines under the greatest pressure underpriced while putting other sales at risk for no reason.\n\nStats SA put October consumer inflation at 5.2% and September producer inflation for manufactured goods at 6.2%. Those are national baskets. Your supplier mix, waste, freight and customer terms decide what your next order actually costs.\n\nThe useful question is what the next sale must contribute - and what happens to total contribution if customers buy differently. Restoring the rand contribution and restoring the percentage margin are two different prices.\n\nThis week's report sets out how to work out both, test the volume you can afford to lose, and check whether the cash arrives in time to fund the order.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#Pricing",
+        "#Margins",
+        "#Profitability",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "car-costs-increased-prices-same",
+      "title": "Carousel - your costs have increased. Can your prices stay the same?",
+      "scheduled": "2026-12-03T05:30:00Z",
+      "approved": true,
+      "url": "/insights/costs-increased-prices-same",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/car-costs-increased-prices-same-1.jpg",
+        "/social/art/car-costs-increased-prices-same-2.jpg",
+        "/social/art/car-costs-increased-prices-same-3.jpg",
+        "/social/art/car-costs-increased-prices-same-4.jpg",
+        "/social/art/car-costs-increased-prices-same-5.jpg",
+        "/social/art/car-costs-increased-prices-same-6.jpg"
+      ],
+      "caption": "Six steps before you raise a price.\n\nStart with contribution, not inflation: selling price less the costs that change when you make one more sale, priced on the next order rather than old stock. Then be precise about what restoring the margin means - adding back the rand is not the same price as restoring the percentage.\n\nWork out the volume you can afford to lose, then question it. Could a buyer switch, delay, or simply order less? Do any costs actually fall if they do?\n\nCheck the cash dates. A higher price that is collected 60 days after a deposit you pay today does not fund that deposit.\n\nThen record the decision, who may approve exceptions, and when you will check what really happened.\n\nSwipe through the six.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#Pricing",
+        "#Margins",
+        "#Profitability",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "art-interest-rate-same-borrowing-risk",
+      "title": "The interest rate stayed the same. Has your borrowing risk?",
+      "scheduled": "2026-12-08T05:30:00Z",
+      "approved": true,
+      "url": "/insights/interest-rate-same-borrowing-risk",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-interest-rate-same-borrowing-risk-1.jpg"
+      ],
+      "caption": "The Reserve Bank kept its policy rate at 7.25% in November. If you run on an overdraft, no change can sound like good news.\n\nThe borrowing risk may have moved anyway - the amount drawn, the date a debtor pays, the cost of the facility, or when the limit is up for renewal.\n\nAn illustration: a R2.5m authorised limit, an expected peak draw of R2.2m, so R300,000 of headroom. Move one R400,000 receipt to after the peak and the draw hits R2.6m, R100,000 over the limit. The customer still pays in full. The problem is the date.\n\nA monthly average will not show that. You need the highest projected daily or weekly draw over the next 13 weeks, built from actual bank balances and dated payments.\n\nThis week's report sets out how to put the facilities on one page, find the peak, and raise a foreseeable gap with the bank while you still have options.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#Funding",
+        "#Overdraft",
+        "#CashFlow",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "car-interest-rate-same-borrowing-risk",
+      "title": "Carousel - the interest rate stayed the same. Has your borrowing risk?",
+      "scheduled": "2026-12-10T05:30:00Z",
+      "approved": true,
+      "url": "/insights/interest-rate-same-borrowing-risk",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/car-interest-rate-same-borrowing-risk-1.jpg",
+        "/social/art/car-interest-rate-same-borrowing-risk-2.jpg",
+        "/social/art/car-interest-rate-same-borrowing-risk-3.jpg",
+        "/social/art/car-interest-rate-same-borrowing-risk-4.jpg",
+        "/social/art/car-interest-rate-same-borrowing-risk-5.jpg",
+        "/social/art/car-interest-rate-same-borrowing-risk-6.jpg"
+      ],
+      "caption": "Six checks on borrowing, when the rate has not moved.\n\nPut every facility on one page: limit, current draw, rate basis and margin, fees, principal payments, security, renewal date and reporting conditions - from the signed agreement, not the repo rate.\n\nThen find the peak, not the average. An overdraft can sit comfortably inside its limit today and breach it at month end, because stock, payroll, tax and suppliers are paid before debtors settle.\n\nTest a range of collection dates. One receipt landing after the peak instead of before it can be the whole difference.\n\nSeparate interest from the full obligation - a term loan needs principal too.\n\nIf a gap is coming, take it to the lender early, with evidence.\n\nSwipe through the six.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#Funding",
+        "#Overdraft",
+        "#CashFlow",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "art-january-forecast-can-you-deliver",
+      "title": "January's sales forecast looks good. Can you deliver it?",
+      "scheduled": "2026-12-15T05:30:00Z",
+      "approved": true,
+      "url": "/insights/january-forecast-can-you-deliver",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/art-january-forecast-can-you-deliver-1.jpg"
+      ],
+      "caption": "A January sales forecast can look excellent in December.\n\nThe harder question is whether the orders behind it can actually be made, delivered and funded on the dates you are about to promise.\n\nAn illustration: 120 units at R5,000 is a R600,000 forecast. Operations can find material and capacity for 80 of them in the delivery window. That splits the number into R400,000 that is supported and R200,000 that still needs a plan.\n\nNeither figure is booked revenue. The 80 still need firm orders, completed work and successful delivery. The 40 need not be written off - but somebody has to name the real constraint first, whether that is material, a specialist process, machine time or inspection.\n\nThis week's report sets out how to split a forecast by commitment, find the constraint, check the funding, and make promises from a readiness table rather than a hope.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#SalesForecast",
+        "#Capacity",
+        "#Planning",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
+      "id": "car-january-forecast-can-you-deliver",
+      "title": "Carousel - january's sales forecast looks good. Can you deliver it?",
+      "scheduled": "2026-12-17T05:30:00Z",
+      "approved": true,
+      "url": "/insights/january-forecast-can-you-deliver",
+      "shortUrl": "carron.co.za/insights",
+      "artwork": "supplied",
+      "images": [
+        "/social/art/car-january-forecast-can-you-deliver-1.jpg",
+        "/social/art/car-january-forecast-can-you-deliver-2.jpg",
+        "/social/art/car-january-forecast-can-you-deliver-3.jpg",
+        "/social/art/car-january-forecast-can-you-deliver-4.jpg",
+        "/social/art/car-january-forecast-can-you-deliver-5.jpg",
+        "/social/art/car-january-forecast-can-you-deliver-6.jpg"
+      ],
+      "caption": "Six steps from a January forecast to a promise you can keep.\n\nSplit the forecast by commitment: firm purchase orders, agreed but unconfirmed work, recurring demand based on history, and sales hopes. Record the evidence for each line. A verbal indication is worth chasing; it is not booked revenue.\n\nThen find the constraint - material, a specialist process, machine time, inspection or people - and be sure it is the real bottleneck rather than the first one someone named.\n\nCheck contribution and funding on the supported units, not the whole forecast.\n\nMake the promises from one shared readiness table, early enough that the answer can still change.\n\nSwipe through the six.",
+      "cta": "The full report is on the Insights page.",
+      "hashtags": [
+        "#SalesForecast",
+        "#Capacity",
+        "#Planning",
+        "#FractionalCFO",
+        "#SMESouthAfrica",
+        "#BusinessOwner",
+        "#SouthAfricanBusiness",
+        "#BusinessAdvisory",
+        "#SmallBusinessSA",
+        "#CFOServices"
+      ],
+      "slides": [
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        },
+        {
+          "note": "finished artwork supplied with the article pack"
+        }
+      ]
+    },
+    {
       "id": "car-13-week-forecast",
       "title": "Carousel — the 13-week cash flow forecast",
-      "scheduled": "2026-12-01T05:30:00Z",
+      "scheduled": "2026-12-22T05:30:00Z",
       "approved": true,
       "url": "/insights/the-13-week-cash-flow-forecast",
       "images": [
@@ -666,7 +912,7 @@
     {
       "id": "myth-growth-fixes-cash",
       "title": "Myth — growth fixes cash",
-      "scheduled": "2026-12-03T05:30:00Z",
+      "scheduled": "2027-01-05T05:30:00Z",
       "approved": true,
       "url": "/insights/can-your-business-afford-to-grow",
       "images": [
@@ -700,7 +946,7 @@
     {
       "id": "tool-90-day-test",
       "title": "Free 90-Day Test",
-      "scheduled": "2026-12-08T05:30:00Z",
+      "scheduled": "2027-01-07T05:30:00Z",
       "approved": true,
       "url": "/90-day-test/",
       "images": [
@@ -735,7 +981,7 @@
     {
       "id": "ins-sell-your-business",
       "title": "Could you actually sell your business?",
-      "scheduled": "2026-12-10T05:30:00Z",
+      "scheduled": "2027-01-12T05:30:00Z",
       "approved": true,
       "url": "/insights/could-you-actually-sell-your-business",
       "images": [
@@ -769,7 +1015,7 @@
     {
       "id": "ins-stock-to-cash",
       "title": "You bought the stock",
-      "scheduled": "2026-12-15T05:30:00Z",
+      "scheduled": "2027-01-14T05:30:00Z",
       "approved": true,
       "url": "/insights/you-bought-the-stock",
       "images": [
@@ -803,7 +1049,7 @@
     {
       "id": "ins-invoice-fraud",
       "title": "The invoice was real, the bank account was not",
-      "scheduled": "2026-12-17T05:30:00Z",
+      "scheduled": "2027-01-19T05:30:00Z",
       "approved": true,
       "url": "/insights/invoice-was-real-bank-account-wasnt",
       "images": [
